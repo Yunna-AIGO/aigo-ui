@@ -1,0 +1,136 @@
+
+{
+"data": [{
+  "key": "0",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "准许立案",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx",
+  "disabled": true
+},{
+  "key": "1",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "2",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "注销",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "3",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "4",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "5",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "6",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "7",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "8",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "9",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "10",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "11",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+},{
+  "key": "12",
+  "reportNo": "0",
+  "policyNo": "1111111111",
+  "reportTime": "20170201",
+  "reportMan": "xxx",
+  "reportState": "待受理",
+  "hanleMan": "xxx",
+  "lastHanleTime": "20170202",
+  "lastHanleMan": "xxx"
+}],
+  "count": 5
+}

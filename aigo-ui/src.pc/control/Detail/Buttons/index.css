@@ -1,0 +1,25 @@
+.ct-detail-actions{
+    position: relative;
+    padding: 20px 0;
+}
+.ct-detail-actions button {
+    margin-right: 20px;
+}
+.ct-detail-actions button:first-child{
+    margin-left: 0;
+}
+
+.ct-detail-actions .mask{
+    height: 72px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 72px;
+    text-align: center;
+    text-indent: 20px;
+    font-size: 14px;
+    color: #CCCCCC;
+    background: #FFFFFF;
+    opacity: 0.8
+}

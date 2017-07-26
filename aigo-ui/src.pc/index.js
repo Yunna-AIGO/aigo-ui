@@ -90,7 +90,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route path="/" component={App}>
-                <IndexRedirect to="report-search"/>
+                <IndexRedirect to="/policy-search"/>
                 <Route path="home" component={Home}/>
                 <Route path="report-search" component={ReportSearch}/>
                 <Route path="policy-search" component={PolicySearch}/>

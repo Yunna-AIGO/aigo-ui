@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 
-import Detail from '../../control/Detail';
 import steps from './steps';
 import operations from './operations';
 import tabs from './tabs';
@@ -26,15 +25,6 @@ class Examine extends Component {
         //console.log(JSON.stringify(this.props.examineDetail.data.tabledata)+'!!');
         return (
             <div>
-                <Detail
-                    detailData={this.props.examineDetail}
-                    steps={steps}
-                    operations={operations}
-                    tabs={tabs}
-                    actions={this.props.examineActions}
-
-                >
-                </Detail>
 
             </div>
         );

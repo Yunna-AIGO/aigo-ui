@@ -53,9 +53,6 @@
     |---- layout 页面布局
     |---- control 业务公共组件
     |---- screen 页面入口
-        |------ Home home页面入口
-        |------ ReportList 列表页面入口
-        |------ ReportDetail 详情页面入口
         |------ index.js html中的js入口文件, 内涵页面路由
 |--src.m 无线业务代码(钉钉,h5)
     |--- detail.js 详情页面

@@ -1,39 +1,6 @@
 {
   "items": [
     {
-      "name": "理赔系统",
-      "icon": "home",
-      "children": [
-        {
-          "name": "赔案",
-          "icon": "user",
-          "children": [
-            {
-              "name": "赔案查询",
-              "icon": "user",
-              "url": "/report-search"
-            },
-            {
-              "name": "报案录入",
-              "icon": "user",
-              "url": "/report-enter"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "综合查询",
-      "icon": "home",
-      "children": [
-        {
-          "name": "保单查询",
-          "icon": "user",
-          "url": "/policy-search"
-        }
-      ]
-    },
-    {
       "name": "会计中心",
       "icon": "home",
       "children": [

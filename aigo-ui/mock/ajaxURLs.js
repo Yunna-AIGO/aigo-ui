@@ -40,18 +40,6 @@ let ajaxURLs = a=>[
 	['/api/v1/policies/getPolicySnapshotByUniqueKey', 'http://10.253.2.180'],
 	['/api/v1/policies/getPolicies', 'http://10.253.2.180'],
 
-    // ['/api/v1/acc/billcompare/result', root.queryBillCompareResult],
-	 // ["/api/v1/policies/getPolicySnapshotByUniqueKey",root.policyInfoData],
-	 // ["/api/v1/registers/AdjustmentAcceptance", root.registerInfo],
-	 // ["/api/v1/claims/adjustmentInfo", root.registerInfo],
-	 // ["/api/v1/claims/closeReport", root.registerInfo],
-	 // ["/api/v1/claims/refuseClaim", root.registerInfo],
-	 // ["/api/v1/surveies/addOrUpdateSurveyInfo", root.reportDetail],
-	 // ['/api/v1/tasks/registerInfo', root.registerInfo],
-	 // ['/api/v1/tasks/registerSaveInfo', root.registerInfo],
-	 // ['/api/v1/tasks/registerFinish', root.registerFinish],	
-	 // ['/api/v1/tasks/getTasks', root.reportList],
-	 // ["/api/v1/reports/initBaseDetailInfo", root.reportDetail],
 ]
 
 let root = require('./pageModel');

@@ -12,7 +12,7 @@ export default class Header extends Component {
   }
 
   componentDidMount(){
-    let allcookies = document.cookie;
+      let allcookies = document.cookie;
     //allcookies = "caToken=18446744071411467872; _ga=GA1.2.1263283024.1493135627; _gat=1";
 
     allcookies = allcookies.replace(/;/g,'","').replace(/=/g,'":"');

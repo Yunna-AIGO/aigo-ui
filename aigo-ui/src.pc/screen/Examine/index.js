@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 
 import Detail from '../../control/Detail';
-import BasicInfo from './BasicInfo';
 import steps from './steps';
 import operations from './operations';
 import tabs from './tabs';
@@ -35,7 +34,6 @@ class Examine extends Component {
                     actions={this.props.examineActions}
 
                 >
-                    <BasicInfo reportDetail={this.props.examineDetail}/>
                 </Detail>
 
             </div>

@@ -12,7 +12,7 @@ export default class Footer extends React.Component {
     return (
       <div className="ant-layout-footer">
         <p>
-          Copyright @ Cathay Insurance Co.,Ltd.
+          Copyright @ Yunna Co.,Ltd.
         </p>
       </div>
     )

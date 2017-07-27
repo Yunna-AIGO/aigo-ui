@@ -6,16 +6,6 @@ import configureStore from './store/configureStore';
 import {useRouterHistory} from 'react-router';
 
 import App from './layout/Default';
-import Home from './screen/Home';
-import ReportSearch from './screen/ReportSearch';
-import PolicySearch from './screen/PolicySearch';
-import PolicyInfo from './screen/PolicyInfo';
-import ReportDetail from './screen/ReportDetail'
-import ClaimRegistrationInfo from './screen/ReportDetail/operations/ClaimRegistrationInfo';
-import ResultPage from './screen/ResultPage';
-import ReportEnter from './screen/ReportEnter';
-import Pay from './screen/Pay';
-import Review from './screen/Pay/Review';
 import AccReconciliation from './screen/Acc';
 import AccDifference from './screen/Acc/Chayibiao';
 import AccSum from './screen/Acc/AccSum';
@@ -90,18 +80,8 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route path="/" component={App}>
-                <IndexRedirect to="/policy-search"/>
-                <Route path="home" component={Home}/>
-                <Route path="report-search" component={ReportSearch}/>
-                <Route path="policy-search" component={PolicySearch}/>
-                <Route path="policy-info/:policyInfo" component={PolicyInfo}/>
-                <Route path="report-detail/:record" component={ReportDetail}/>
-                <Route path="register-detail" component={ClaimRegistrationInfo}/>
-                <Route path="result-page/:message" component={ResultPage}/>
-                <Route path="report-enter" component={ReportEnter}/>
+                <IndexRedirect to="/acc-dailysum"/>
                 <Route path="examine" component={Examine}/>
-                <Route path="pay" component={Pay}/>
-                <Route path="review/:record" component={Review}/>
 
                 /** 会计系统路由开始 */
                 <Route path="acc-dailysum" component={AccSum}/>

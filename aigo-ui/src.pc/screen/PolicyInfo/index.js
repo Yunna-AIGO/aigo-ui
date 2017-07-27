@@ -87,39 +87,6 @@ class Policy extends Component {
     }
 
 
-    // _renderBack = () => {
-    //     return <Row>
-    //         <Col span={11}></Col>
-    //         <Col span={4}>
-    //             <Button type="primary" value="default" onClick={this.return.bind(this)} className="wrap-handle">返回</Button>
-    //         </Col>
-    //         <Col span={9}></Col>
-    //     </Row>
-    // }
-
-    // return() {
-    //     // let policyInfo=JSON.parse(this.props.params.policyInfo);
-    //     // let record = {};
-    //     // record.policyNo = policyInfo.policyNo;
-    //     // record.reportNo = policyInfo.reportNo;
-    //     // record.actionId = "ACTION_R20";
-    //     // window.history.go(-1);
-    //     //window.location.href = "#/report-detail/"+ JSON.stringify(record);
-
-
-    //     let params = this.props.params.policyInfo;
-    //     if (~params.indexOf("reportDetail")){
-    //         let policyInfo=JSON.parse(params);
-    //         let record = {};
-    //         record.policyNo = policyInfo.policyNo;
-    //         record.reportNo = policyInfo.reportNo;
-    //         record.actionId = "ACTION_R20";
-    //         window.history.go(-1);
-    //     }else{
-    //         window.history.go(-1);
-    //     }
-    // }
-
     render() {
         return (
             <div className="card-container">

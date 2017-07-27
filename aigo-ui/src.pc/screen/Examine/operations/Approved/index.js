@@ -27,9 +27,6 @@ class Approved extends Component {
     }
 
     showConfirm() {
-        //this.props.reportDetail.data.reportInfo.reportStatus = 4;
-        //console.log(this.props.detailData.status.currentStep);
-
         console.log(this.props.detailData.data.textarea);
 
         var _this = this;

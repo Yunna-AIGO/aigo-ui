@@ -1,0 +1,102 @@
+{
+  "POST:/api/getReportInfos.json": [
+    {
+      "approverNames": [
+        "张琴",
+        "刘昌肇",
+        "汪敏"
+      ],
+      "status": "applying",
+      "userName": "陈强",
+      "reportInfo": {
+        "id": 1,
+        "reportId": 1,
+        "reportCode": "rpt_underwrite_tradbiz_daily",
+        "reportName": "传统业务签单保费日报表",
+        "linkUrl": "https://das.cloud.alipay.com/shulaibao/preview.htm?pageId=3ec5eefe-2480-4aca-a06d-7e2b332b5ee1",
+        "isBranchCorporation": "N",
+        "gmtCreate": 1483426960000,
+        "gmtModified": 1483426960000
+      }
+    },
+    {
+      "approverNames": [
+        "张琴",
+        "刘昌肇",
+        "汪敏"
+      ],
+      "status": null,
+      "userName": "陈强",
+      "reportInfo": {
+        "id": 2,
+        "reportId": 2,
+        "reportCode": "rpt_underwrite_lossratio_monthly_branch",
+        "reportName": "传统业务全险种赔付率月报",
+        "linkUrl": "https://das.cloud.alipay.com/shulaibao/preview.htm?pageId=7d5578dc-4eed-4322-b698-a3230a78d445",
+        "isBranchCorporation": "N",
+        "gmtCreate": 1483426960000,
+        "gmtModified": 1483426960000
+      }
+    },
+    {
+      "approverNames": [
+        "张琴",
+        "刘昌肇",
+        "汪敏"
+      ],
+      "status": null,
+      "userName": "陈强",
+      "reportInfo": {
+        "id": 3,
+        "reportId": 3,
+        "reportCode": "rpt_underwrite_lossratio_weekly_branch",
+        "reportName": "传统业务全险种赔付率周报",
+        "linkUrl": "https://das.cloud.alipay.com/shulaibao/preview.htm?pageId=6ccb8ac1-e0e4-464e-822b-a465f2eda96c",
+        "isBranchCorporation": "N",
+        "gmtCreate": 1483426960000,
+        "gmtModified": 1483426960000
+      }
+    },
+    {
+      "approverNames": [
+        "张琴",
+        "刘昌肇",
+        "汪敏"
+      ],
+      "status": null,
+      "userName": "陈强",
+      "reportInfo": {
+        "id": 4,
+        "reportId": 4,
+        "reportCode": "rpt_actuary_costsharing_netsales",
+        "reportName": "费用分摊数据需求表(网销)",
+        "linkUrl": "https://das.cloud.alipay.com/shulaibao/preview.htm?pageId=69175139-5773-4ee1-8430-479f52011784",
+        "isBranchCorporation": "N",
+        "gmtCreate": 1483426960000,
+        "gmtModified": 1483426960000
+      }
+    },
+    {
+      "approverNames": [
+        "张琴",
+        "刘昌肇",
+        "汪敏"
+      ],
+      "status": null,
+      "userName": "陈强",
+      "reportInfo": {
+        "id": 5,
+        "reportId": 5,
+        "reportCode": "rpt_manpower_flow_daily",
+        "reportName": "营企人员流动性日报",
+        "linkUrl": "https://das.cloud.alipay.com/shulaibao/preview.htm?pageId=d73fd18f-c419-4549-9f08-8be689c0685d#a8bc3b54-5c71-41e8-a29a-f5366ddda639*=*{'time':{'t':{'from':{'mark':'-','d':1,'suffix':'D'},'to':{'mark':'-','d':1,'suffix':'D'}}}}",
+        "isBranchCorporation": "N",
+        "gmtCreate": 1483426960000,
+        "gmtModified": 1483426960000
+      }
+    }
+  ],
+  "/api/priviledgeApplying.json": {
+    "status": "applying"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "status": {
+    "currentStep": "",
+    "tips": "",
+    "currentTab": "",
+    "currentOperation": ""
+  },
+  "tabs": [],
+  "operations": [
+  ],
+  "data": {
+    "reportInfo": null,
+    "policyInfo": null,
+    "surveyTabInfo": null,
+    "registerTabInfo": null,
+    "lisuanTabInfo": null,
+    "danzhengTabInfo": null,
+    "logsTabInfo": null,
+    "ajustmentTabInfo": [
+      {
+        "a": "2017012500001",
+        "b": "房屋保险；房屋装修",
+        "c": "5,000.00",
+        "d": "审核通过",
+        "e": "已打款",
+        "key": "1",
+        "propertyItem": [
+          {
+            "a": "家庭财产险",
+            "b": "房屋保险",
+            "c": "230,000.00",
+            "d": "0",
+            "e": "0.00",
+            "f": "5,000.00",
+            "g": "5000.00",
+            "key": "1"
+          }
+        ],
+        "payItem": [
+          {
+            "a": "张三",
+            "b": "赔款支出",
+            "c": "银行转账",
+            "d": "中国建设银行上海分行浙江路支行",
+            "e": "张三",
+            "f": "31001513500050006926",
+            "g": "人民币",
+            "h": "500.00",
+            "i": "XXXXXX",
+            "key": "1"
+          },
+          {
+            "a": "XX公估公司",
+            "b": "公估费",
+            "c": "支付宝",
+            "d": "-",
+            "e": "XX公估公司",
+            "f": "XXXX@163.com",
+            "g": "人民币",
+            "h": "500.00",
+            "i": "XXXXXX",
+            "key": "2"
+          }
+        ]
+      }
+    ]
+  }
+}

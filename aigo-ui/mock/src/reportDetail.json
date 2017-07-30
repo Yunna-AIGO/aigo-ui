@@ -1,0 +1,65 @@
+{
+  "code": 200,
+  "message": "OK",
+  "data": {
+    "status": {
+      "currentStep": "step2",
+      "currentTab": "",
+      "currentOperation": ""
+    },
+    "tips": "您的保单未关联",
+    "tabs": ["survey","registerInfo"],
+    "operations": ["survey","cancel","reportAnnotation","documentUpload"],
+    "data": {
+      "reportInfo": {
+        "accidentPlace":"上海",
+        "accidentReason":"出险原",
+        "accidentTime":"2017-02-16 10:37:52",
+        "accidentType":"人伤",
+        "extendInfos":{
+          "reporterCertNo":"1234567890",
+          "procEmpNo":"0100007181",
+          "insured":"叶锐",
+          "lastOperationTime":"2017-03-01 13:13:46",
+          "status":"待受理",
+          "reporterCertType":"100",
+          "applicant":"叶锐",
+          "effectEndTime":"2018-03-01 13:13:46",
+          "lastHandler":"叶锐",
+          "policyNo":"S117NL9TB20001827215425",
+          "effectStartTime":"2017-03-01 13:13:46",
+          "claimNo":"C1548846153115454",
+          "handler":"叶锐"
+        },
+        "reportNo":"123456789",
+        "reportTime":"2017-02-16 10:36:36",
+        "reporter":"张三",
+        "reporterTel":"18321163267"
+      },
+      "policyInfo": {
+        "channelPolicyNo":"17021532705494410961",
+        "claimNo":"111111111",
+        "policyBaseInfo":"{\"policyNo\":\"S117NL9TB20001827215425\",\"antPolicyNo\":\"17021532705494410961\",\"status\":\"生效\",\"prodNo\":\"EBT\",\"policyType\":\"独立保单\",\"issueTime\":\"2017-02-09 15:56:23\",\"effectStartTime\":\"2017-02-09 15:56:23\",\"effectEndTime\":\"2018-02-09 00:00:00\",\"premium\":\"900.00\",\"totalLimitClaimAmount\":\"300,000.00\",\"surrenderTime\":\"2017-02-26 15:56:23\",\"surrenderFee\":\"2,000.00\"}",
+        "policyNo":"S117NL9TB20001827215425",
+        "prodNo":"5543",
+        "reportNo":"123456789"
+      },
+      "claimInfo":[{
+        "key": "0",
+        "insuranceType": "家庭财产责任险",
+        "duty": "房屋保险",
+        "amount": "230,00000000000",
+        "deductible": "0.00",
+        "deductibleRatio": "0",
+        "claimAmount": "立案金额"
+      }],
+      "surveyTabInfo": null,
+      "registerTabInfo": null,
+      "lisuanTabInfo": null,
+      "danzhengTabInfo": null,
+      "logsTabInfo": null
+    }
+  }
+}
+
+

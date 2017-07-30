@@ -1,0 +1,32 @@
+{
+  "presets": [
+    "es2015",
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "transform-decorators-legacy",
+    "add-module-exports",
+    [
+      "import",
+      [
+        {
+          "libraryName": "antd",
+          "style": "css"
+        },
+        {
+          "style": "css",
+          "libraryName": "antd-mobile"
+        }
+      ]
+    ]
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        "react-hmre"
+      ]
+    }
+  }
+}

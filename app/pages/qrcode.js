@@ -6,6 +6,7 @@ import {
   View,
   Button,
   Image,
+  TouchableHighlight,
 } from 'react-native';
 
 import Storage from '../tools/storage.js';
@@ -57,13 +58,14 @@ export default class QrCodeScreen extends React.Component {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
+      
         <QRCode
           value={this.state.qrcode}
           size={200}
           bgColor='black'
           fgColor='white'
-          />
-
+        />
+      
         <Button
           onPress={() => {
             this.setState((preState)=>{

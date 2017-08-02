@@ -11,6 +11,6 @@ Login : 登录
 
 
 ```
-yarn
+yarn install
 react-native run-ios --simulator "iPhone 6"
 ```

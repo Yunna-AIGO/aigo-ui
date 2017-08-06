@@ -20,7 +20,6 @@ import LoginScreen from './pages/login.js';
 
 const QrCodeStackNavigator = StackNavigator({
   QrCode: { screen: QrCodeScreen },
-  Login: { screen: LoginScreen },
 });
 
 const BooksStackNavigator = StackNavigator({
@@ -60,7 +59,7 @@ const MainTabNavigator = TabNavigator({
     }),
   },
   Books : {
-    screen:BooksStackNavigator,
+    screen: BooksStackNavigator,
     navigationOptions: ({ navigation }) => ({
         tabBarLabel: '书架',
         tabBarIcon: ({tintColor}) => (

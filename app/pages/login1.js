@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  AppRegistry,
   Text,
   TextInput,
   View,
@@ -48,10 +47,44 @@ export default class LoginScreen extends React.Component {
   render() {
     console.log('render');
     return (
-      <Modal>
-        <Text>登录</Text>
-      </Modal>
-      
+      <View>
+        
+        <View style={globalStyle.devbottom}>
+          <Text>this.props.display:{this.props.display}</Text>
+          <Text>this.state.phoneNo:{this.state.phoneNo}</Text>
+          <Text>this.state.captchaBtnReady:{''+this.state.captchaBtnReady}</Text>
+          <Text>this.state.captcha:{this.state.captcha}</Text>
+          <Text>this.state.loginBtnReady:{''+this.state.loginBtnReady}</Text>
+        </View>
+        
+        <View style={{position:'absolute',left:0,top:0,}}>
+          <Button title="❌" onPress={(preState)=>{
+              //this.setProps({display:'none'})
+              this.props.onDisplayChange(this.props.display);
+          }}></Button>
+        </View>
+        
+
+        <View>
+          <TextInput style={[globalStyle.input]} placeholder="请输入手机号" onChangeText={(text) => {
+            this.onChangePhoneNoText(text);
+          }} />
+          
+          <Button disabled={!this.state.captchaBtnReady} title="发送验证码" onPress={()=>{
+            this.sendCaptcha();
+          }}></Button>
+
+          <TextInput style={[globalStyle.input]} placeholder="请输入验证码" onChangeText={(text) => {
+            this.setState({loginBtnReady:(text.length>3)})
+            this.setState({captcha:text});
+          }} />
+          
+          <Button disabled={!this.state.loginBtnReady} title="登录" onPress={()=>{
+            this.doLogin();
+          }}></Button>
+        </View>
+
+      </View>
     );
   }
   componentDidMount(){

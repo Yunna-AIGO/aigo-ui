@@ -12,6 +12,7 @@ export default class UserHomeScreen extends React.Component {
   static navigationOptions = {
     title: '个人中心',
   };
+  
   render() {
     const { navigate } = this.props.navigation;
     return (

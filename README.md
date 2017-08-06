@@ -10,3 +10,7 @@ UserCenter : 用户中心
 Login : 登录
 
 
+```
+yarn install
+react-native run-ios --simulator "iPhone 6"
+```

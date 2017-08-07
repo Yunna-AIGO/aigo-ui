@@ -17,7 +17,13 @@ export default globalStyle = StyleSheet.create({
     alignItems:'center',
   },
   cell:{
-    flexDirection:'row',backgroundColor:'#fff',padding:12,alignItems:'center',borderColor:'#eee',borderWidth:1,marginTop:-1,
+    flexDirection:'row',
+    backgroundColor:'#fff',
+    padding:16,
+    alignItems:'center',
+    borderColor:'#ddd',
+    borderWidth:1,
+    marginTop:-1,
   },
   TextInput: {
     flex:1,

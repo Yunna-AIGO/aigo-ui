@@ -13,6 +13,7 @@ import {
   TouchableHighlight,
   StyleSheet,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 
 import { StackNavigator ,TabNavigator  } from 'react-navigation';
@@ -22,6 +23,7 @@ import QRCode from 'react-native-qrcode';
 
 import MyButton from './mods/myButton.js';
 
+import UserDetailScreen from './pages/userDetail.js';
 
 class QrCodeScreen extends React.Component {
   constructor(props) {
@@ -279,18 +281,37 @@ class UserCenterScreen extends React.Component {
     console.log('个人中心componentWillMount');
   }
 
+  componentDidMount(){
+    console.log('个人中心componentDidMount');
+  }
+
+  reload(){
+    console.log('reloding')
+    this.setState({userName:'于晓'})
+  }
   render() {
+    //console.log('11',this.props.navigation.state);
     return (
       <View>
         <View style={globalStyle.card}>
-          <View style={[globalStyle.avatar,{marginBottom:10,}]}></View>
+          <View style={[globalStyle.avatar,{marginBottom:10}]}>
+            <Image source={require('./images/diao.jpg')} style={{flex:1,width:'100%',borderRadius:20}}/>
+          </View>
           <Text>{this.state.userName||'未登录'}</Text>
         </View>
 
         <TouchableOpacity style={globalStyle.cell} 
           onPress={
             ()=>{
-              this.props.navigation.navigate('UserDetail')
+              this.props.navigation.navigate('UserDetail',{
+                //跳转的时候携带一个参数去下个页面
+                callback: (data)=>{
+                  //console.log(data); //回调入参
+                  if(data==='reload'){
+                    this.reload();
+                  }
+                }
+              })
             }
           }
         >
@@ -307,8 +328,8 @@ class UserCenterScreen extends React.Component {
           <Text style={{flex:1,fontSize:16,}}>历史记录</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[globalStyle.cell,{marginTop:20,}]}>
-          <Image source={require('./images/diao.jpg')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
-          <Text style={{flex:1,fontSize:16,}}>登出</Text>
+          <Image style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
+          <Text style={{flex:1,fontSize:16,color:'red'}}>退出账户</Text>
         </TouchableOpacity>
 
       </View>
@@ -374,27 +395,67 @@ class BookDetailScreen extends React.Component {
   }
 }
 
-class UserDetailScreen extends React.Component {
-  static navigationOptions = {
-    title: '用户详情页',
-  };
-  render() {
-    return (
-      <View>
-        <Text>用户详情页</Text>
-      </View>
-    );
-  }
-}
+
 
 class HistoryScreen extends React.Component {
   static navigationOptions = {
-    title: '历史页',
+    title: '历史记录',
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      historys : []
+    };
+  }
+
+
+  componentWillMount(){
+    console.log('历史componentWillMount');
+  }
+
+  componentDidMount(){
+    console.log('历史componentDidMount');
+    this.getHistory();
+  }
+
+  getHistory(){
+
+    var res = [
+      {
+        id : 1,
+        store : '黄浦中心书店',
+        price: 150.00,
+        orderTime:1501556942774,
+        payTime:1501556949999
+      },
+      {
+        id : 12,
+        store : '静安中心书店分店',
+        price: 600.00,
+        orderTime:1501556942774,
+        payTime:1501556949999
+      }
+
+    ]
+
+    this.setState({historys : res})
+  }
+
   render() {
     return (
       <View>
-        <Text>历史页</Text>
+        <FlatList
+          data={this.state.historys}
+          renderItem={
+            ({item}) => (
+              
+              <Text>{item.store}</Text>
+
+            )
+          }
+        />
+
       </View>
     );
   }
@@ -414,6 +475,8 @@ const GlobalPage = StackNavigator({
   History : {
     screen: HistoryScreen
   }
+},{
+  onTransitionEnd:(a)=>{ console.log(a); }
 });
 
 

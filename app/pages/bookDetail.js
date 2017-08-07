@@ -50,6 +50,19 @@ export default class BookDetailScreen extends React.Component {
             keyExtractor={this._extractKey}
           />
         </View>
+
+        <View style={styles.container}>
+          <Text style={styles.title}>友情链接：</Text>
+          <FlatList
+            data={params.abridged_cast}
+            renderItem={({item}) =>
+              <View style={styles.desc}>
+                <Text>{item.name} 饰 {item.characters[0]}</Text>
+              </View>
+            }
+            keyExtractor={this._extractKey}
+          />
+        </View>
       </ScrollView>
     );
   }

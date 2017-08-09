@@ -25,6 +25,9 @@ import MyButton from './mods/myButton.js';
 
 import UserDetailScreen from './pages/userDetail.js';
 
+
+var HistoryScreen = require('./pages/history.js');
+
 class QrCodeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -397,69 +400,113 @@ class BookDetailScreen extends React.Component {
 
 
 
-class HistoryScreen extends React.Component {
-  static navigationOptions = {
-    title: '历史记录',
-  };
+// class HistoryScreen extends React.Component {
+//   static navigationOptions = {
+//     title: '历史记录',
+//   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      historys : []
-    };
-  }
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       historys : []
+//     };
+//   }
 
 
-  componentWillMount(){
-    console.log('历史componentWillMount');
-  }
+//   componentWillMount(){
+//     console.log('历史componentWillMount');
+//   }
 
-  componentDidMount(){
-    console.log('历史componentDidMount');
-    this.getHistory();
-  }
+//   componentDidMount(){
+//     console.log('历史componentDidMount');
+//     this.getHistory();
+//   }
 
-  getHistory(){
+//   getHistory(){
 
-    var res = [
-      {
-        id : 1,
-        store : '黄浦中心书店',
-        price: 150.00,
-        orderTime:1501556942774,
-        payTime:1501556949999
-      },
-      {
-        id : 12,
-        store : '静安中心书店分店',
-        price: 600.00,
-        orderTime:1501556942774,
-        payTime:1501556949999
-      }
+//     var res = [
+//       {
+//         id : 1,
+//         store : '黄浦中心书店',
+//         price: 150.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 12,
+//         store : '静安中心书店分店',
+//         price: 600.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 1,
+//         store : '黄浦中心书店',
+//         price: 150.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 12,
+//         store : '静安中心书店分店',
+//         price: 600.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 1,
+//         store : '黄浦中心书店',
+//         price: 150.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 12,
+//         store : '静安中心书店分店',
+//         price: 600.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 1,
+//         store : '黄浦中心书店',
+//         price: 150.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 12,
+//         store : '静安中心书店分店',
+//         price: 600.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 1,
+//         store : '黄浦中心书店',
+//         price: 150.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
+//       {
+//         id : 12,
+//         store : '静安中心书店分店',
+//         price: 600.00,
+//         orderTime:1501556942774,
+//         payTime:1501556949999
+//       },
 
-    ]
+//     ]
 
-    this.setState({historys : res})
-  }
+//     this.setState({historys : res})
+//   }
 
-  render() {
-    return (
-      <View>
-        <FlatList
-          data={this.state.historys}
-          renderItem={
-            ({item}) => (
-              
-              <Text>{item.store}</Text>
-
-            )
-          }
-        />
-
-      </View>
-    );
-  }
-}
+//   render() {
+//     return (
+//         <History />
+//     );
+//   }
+// }
 
 
 const GlobalPage = StackNavigator({

@@ -11,7 +11,11 @@ import {
 //检查窗口宽高
 const { height, width } = Dimensions.get('window');
 
-export default class HistoryScreen extends Component {
+//单个height
+var ITEM_HEIGHT = 100;
+
+
+export default class History extends Component {
 
     constructor(props) {
         super(props);
@@ -19,32 +23,28 @@ export default class HistoryScreen extends Component {
             refreshing: false, //刷新时报错 
         };
     }
-    _renderItem = (obj) => {
-        //obj = {index:0,item:{id:1,name:'yuxiao',xxx:3}}
-        var item = obj.item||{};
+    _renderItem = (item) => {
+        let item1 = item;
+        var txt = '第' + item1.index + '个' + ' title=' + item1.item.title;
+        var bgColor = item1.index % 2 == 0 ? 'red' : 'blue';
         return (
             <TouchableOpacity onPress={() => {
-                console.log(obj)
+                console.log(txt)
             } }>
-                <View>
-                    <Text>{item.store}</Text>
-                    <Text>{item.price}</Text>
-                    <Text>{item.payTime}</Text>
-                    <Text>{item.orderTime}</Text>
-                </View>
+                <Text style={[{ flex: 1, height: ITEM_HEIGHT, backgroundColor: bgColor, width: width / 2 }, styles.txt]}>{txt}</Text>
             </TouchableOpacity>
         )
     }
 
     _header = () => {
-        return <Text style={{textAlign:'center',lineHeight:50,fontSize:12}}>下拉刷新</Text>;
+        return <Text style={[styles.txt, { backgroundColor: 'black' }]}>这是头部</Text>;
     }
 
     _footer = () => {
-        return <Text style={{textAlign:'center',lineHeight:50,fontSize:12}}>到底了</Text>;
+        return <Text style={[styles.txt, { backgroundColor: 'black' }]}>这是尾部</Text>;
     }
     _separator = () => {
-        return <View style={{ height: 1, backgroundColor: '#999' }}/>;
+        return <View style={{ height: 2, backgroundColor: 'yellow' }}/>;
     }
     _onRefresh() {
         console.log('正在刷新中.... ');
@@ -52,38 +52,28 @@ export default class HistoryScreen extends Component {
     render() {
         var data = [];
         for (var i = 0; i < 31; i++) {
-            data.push({ key: i, id: i, store : '我是一家商店', price: 120.00, orderTime:new Date().getTime(), payTime:new Date().getTime(), });
+            data.push({ key: i, title: i + '' });
         }
         return (
             <View style={{ flex: 1 }}>
-
-                <TouchableOpacity 
-                    style={{width:50,height:50,borderColor:'#555',borderWidth:1,backgroundColor:'gold',borderRadius:25,position:'absolute',right:10,bottom:10,zIndex:10}}
-                    onPress={() => {
-                        //this._flatList.scrollToEnd();
-                        //this._flatList.scrollToIndex({viewPosition:0,index:8});
-                        this._flatList.scrollToOffset({ animated: true, offset: 0 });
-                    }}
-                >
-
-                </TouchableOpacity>
+                <Button title='滚动到指定位置' onPress={() => {
+                    //this._flatList.scrollToEnd();
+                    //this._flatList.scrollToIndex({viewPosition:0,index:8});
+                    this._flatList.scrollToOffset({ animated: true, offset: 2000 });
+                } }/>
                 <View style={{ flex: 1 }}>
                     <FlatList
-                        ref={
-                            (flatList) => {
-                                this._flatList = flatList
-                            }
-                        }
+                        ref={(flatList) => this._flatList = flatList}
                         ListHeaderComponent={this._header}
                         ListFooterComponent={this._footer}
                         ItemSeparatorComponent={this._separator}
                         renderItem={this._renderItem}
 
-                        numColumns ={1}
-        
+                        numColumns ={2}
+                        columnWrapperStyle={{ borderWidth: 2, borderColor: 'black' }}
                         refreshing={this.state.refreshing}
                         getItemLayout={(data, index) => (
-                            { length: 10, offset: (10 + 2) * index, index }
+                            { length: ITEM_HEIGHT, offset: (ITEM_HEIGHT + 2) * index, index }
                         ) }
                         onRefresh={this._onRefresh}
                         onEndReachedThreshold={0.1}
@@ -112,4 +102,4 @@ const styles = StyleSheet.create({
 });
 
 
-module.exports = HistoryScreen;
+module.exports = History;

@@ -31,7 +31,11 @@ export default class UserDetailScreen extends React.Component {
   }
 
   componentWillMount(){
-    console.log('1123')
+    console.log('1')
+  }
+
+  componentDidMount(){
+    console.log('2')
   }
 
   doSave(){

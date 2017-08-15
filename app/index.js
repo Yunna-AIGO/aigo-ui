@@ -18,15 +18,18 @@ import {
 
 import { StackNavigator ,TabNavigator  } from 'react-navigation';
 import Storage from './tools/storage.js';
+
 import globalStyle from './styles/global.js';
+
 import QRCode from 'react-native-qrcode';
 
 import MyButton from './mods/myButton.js';
 
 import UserDetailScreen from './pages/userDetail.js';
 
+import HistoryScreen from './pages/history.js';
+import BooksScreen from './pages/books.js';
 
-var HistoryScreen = require('./pages/history.js');
 
 class QrCodeScreen extends React.Component {
   constructor(props) {
@@ -160,10 +163,11 @@ class QrCodeScreen extends React.Component {
             <Text>PhoneNumber:{this.state.phoneNo}</Text>
             <Text>PhoneNoReady:{''+this.state.phoneNoReady}</Text>
             <Text>captchaReady:{''+this.state.captchaReady}</Text>
+            <Text style={{color:'red',fontSize:20}}>123<Text style={{flex:1,color:'blue'}}>456</Text></Text>
           </View>
           <View style={{backgroundColor:'#fff',flex:1,padding:50}}>
 
-            <Text style={{fontSize:60,fontWeight:'bold',marginBottom:30,color:'#1ABC9C',marginTop:30,textAlign:'center',}}>Aigo</Text>
+            <Text style={{fontSize:60,fontWeight:'bold',marginBottom:20,color:'#1ABC9C',marginTop:40,textAlign:'center',}}>Aigo</Text>
             <View style={{flexDirection:'row'}}>
               <TextInput style={[globalStyle.TextInput]} placehoder="请输入手机号" 
               onChangeText={
@@ -239,32 +243,6 @@ class QrCodeScreen extends React.Component {
   }
 }
 
-class BooksScreen extends React.Component {
-  static navigationOptions= {
-    title: '书架'
-  }
-
-  componentWillMount(){
-    console.log('书架componentWillMount');
-  }
-
-  render() {
-    return (
-      <View>
-        <Text>书架</Text>
-        <Text>书架</Text>
-        <Text>书架</Text>
-        <Text>书架</Text>
-        <Button title='书籍详情' onPress={
-          ()=>{
-            //this.props.navigation.navigate('All')
-            this.props.navigation.navigate('BookDetail')
-          }
-        }></Button>
-      </View>
-    )
-  }
-}
 
 class UserCenterScreen extends React.Component {
   static navigationOptions= {
@@ -341,18 +319,6 @@ class UserCenterScreen extends React.Component {
 }
 
 const TabNavigatorMain = TabNavigator({
-  UserCenter: {
-    screen: UserCenterScreen,
-    navigationOptions: ({ navigation }) => ({
-      tabBarLabel: '我的',
-      tabBarIcon: ({tintColor}) => (
-        <Image
-            source={require('./images/account.png')}
-            style={[{width: 20},{height:20}]}
-        />
-      ),
-    }), 
-  },
   QrCode: {
     screen: QrCodeScreen,
     navigationOptions: ({ navigation }) => ({
@@ -377,8 +343,18 @@ const TabNavigatorMain = TabNavigator({
       ),
     }), 
   },
-  
-
+  UserCenter: {
+    screen: UserCenterScreen,
+    navigationOptions: ({ navigation }) => ({
+      tabBarLabel: '我的',
+      tabBarIcon: ({tintColor}) => (
+        <Image
+            source={require('./images/account.png')}
+            style={[{width: 20},{height:20}]}
+        />
+      ),
+    }), 
+  },
 },{
   tabBarPosition : 'bottom',
   lazy : true,
@@ -397,116 +373,6 @@ class BookDetailScreen extends React.Component {
     );
   }
 }
-
-
-
-// class HistoryScreen extends React.Component {
-//   static navigationOptions = {
-//     title: '历史记录',
-//   };
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       historys : []
-//     };
-//   }
-
-
-//   componentWillMount(){
-//     console.log('历史componentWillMount');
-//   }
-
-//   componentDidMount(){
-//     console.log('历史componentDidMount');
-//     this.getHistory();
-//   }
-
-//   getHistory(){
-
-//     var res = [
-//       {
-//         id : 1,
-//         store : '黄浦中心书店',
-//         price: 150.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 12,
-//         store : '静安中心书店分店',
-//         price: 600.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 1,
-//         store : '黄浦中心书店',
-//         price: 150.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 12,
-//         store : '静安中心书店分店',
-//         price: 600.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 1,
-//         store : '黄浦中心书店',
-//         price: 150.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 12,
-//         store : '静安中心书店分店',
-//         price: 600.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 1,
-//         store : '黄浦中心书店',
-//         price: 150.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 12,
-//         store : '静安中心书店分店',
-//         price: 600.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 1,
-//         store : '黄浦中心书店',
-//         price: 150.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-//       {
-//         id : 12,
-//         store : '静安中心书店分店',
-//         price: 600.00,
-//         orderTime:1501556942774,
-//         payTime:1501556949999
-//       },
-
-//     ]
-
-//     this.setState({historys : res})
-//   }
-
-//   render() {
-//     return (
-//         <History />
-//     );
-//   }
-// }
 
 
 const GlobalPage = StackNavigator({

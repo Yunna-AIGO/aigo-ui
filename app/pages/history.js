@@ -5,11 +5,14 @@ import {
     FlatList,
     Text,
     Button,
+    Image,
     Dimensions,
     TouchableOpacity
 } from 'react-native';
 //检查窗口宽高
 const { height, width } = Dimensions.get('window');
+
+import globalStyle from '../styles/global.js';
 
 export default class HistoryScreen extends Component {
 
@@ -22,29 +25,41 @@ export default class HistoryScreen extends Component {
     _renderItem = (obj) => {
         //obj = {index:0,item:{id:1,name:'yuxiao',xxx:3}}
         var item = obj.item||{};
+
+        var payTime = (new Date(item.payTime).getMonth()+1)+'-'+new Date(item.payTime).getDate();
+
+        var weekDay = new Date(item.payTime).getDay();
+
+        weekDay = ['日','一','二','三','四','五','六'][weekDay];
+
         return (
             <TouchableOpacity onPress={() => {
                 console.log(obj)
             } }>
-                <View>
-                    <Text>{item.store}</Text>
-                    <Text>{item.price}</Text>
-                    <Text>{item.payTime}</Text>
-                    <Text>{item.orderTime}</Text>
+                <View style={globalStyle.cell}>
+                    <View style={{width:50,marginRight:10,}}>
+                        <Text style={{textAlign:'center',marginBottom:5,}}>周{weekDay}</Text>
+                        <Text style={{textAlign:'center'}}>{payTime}</Text>
+                    </View>
+                    <Image source={require('../images/store.png')} style={{width:30,height:30,marginRight:20}} />
+                    <View>
+                        <Text style={{marginBottom:5,fontSize:14,}}>{item.store}</Text>
+                        <Text style={{fontWeight:'bold',}}>¥{item.price}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         )
     }
 
     _header = () => {
-        return <Text style={{textAlign:'center',lineHeight:50,fontSize:12}}>下拉刷新</Text>;
+        return <Text style={{textAlign:'center',lineHeight:40,fontSize:12}}>下拉刷新</Text>;
     }
 
     _footer = () => {
-        return <Text style={{textAlign:'center',lineHeight:50,fontSize:12}}>到底了</Text>;
+        return <Text style={{textAlign:'center',lineHeight:40,fontSize:12}}>到底了</Text>;
     }
     _separator = () => {
-        return <View style={{ height: 1, backgroundColor: '#999' }}/>;
+        return <View style={{ height: 0, backgroundColor: '#eee' }}/>;
     }
     _onRefresh() {
         console.log('正在刷新中.... ');
@@ -58,7 +73,7 @@ export default class HistoryScreen extends Component {
             <View style={{ flex: 1 }}>
 
                 <TouchableOpacity 
-                    style={{width:50,height:50,borderColor:'#555',borderWidth:1,backgroundColor:'gold',borderRadius:25,position:'absolute',right:10,bottom:10,zIndex:10}}
+                    style={{width:30,height:30,borderColor:'#555',borderWidth:0.5,backgroundColor:'gold',borderRadius:25,position:'absolute',right:10,bottom:10,zIndex:10}}
                     onPress={() => {
                         //this._flatList.scrollToEnd();
                         //this._flatList.scrollToIndex({viewPosition:0,index:8});
@@ -110,6 +125,3 @@ const styles = StyleSheet.create({
         fontSize: 30,
     }
 });
-
-
-module.exports = HistoryScreen;

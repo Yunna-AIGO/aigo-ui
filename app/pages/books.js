@@ -11,6 +11,14 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+import { Heading1, Heading2, Paragraph } from '../widget/Text.js';
+
+import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
+
+import { screen, system } from '../common';
+
+
+
 
 var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
 //var REQUEST_URL = 'http://localhost:8081';

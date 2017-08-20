@@ -8,12 +8,12 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
+
 //检查窗口宽高
 const { height, width } = Dimensions.get('window');
 
 //单个height
 var ITEM_HEIGHT = 100;
-
 
 export default class History extends Component {
 

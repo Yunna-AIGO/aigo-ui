@@ -1,13 +1,11 @@
 import React from 'react';
 
 import {
-  AppRegistry,
   Text,
   View,
   Button,
   Image,
   TouchableOpacity,
-  TouchableHighlight,
   TextInput,
   Modal,
 } from 'react-native';
@@ -19,6 +17,8 @@ import MyButton from '../mods/myButton.js';
 import Storage from '../tools/storage.js';
 
 import QRCode from 'react-native-qrcode';
+
+import theme from '../styles/theme.js';
 
 let that;
 export default class QrCodeScreen extends React.Component {
@@ -37,7 +37,11 @@ export default class QrCodeScreen extends React.Component {
     };
   }
   static navigationOptions = ({ navigation }) => ({
-        title : '二维码',
+        headerTitle: (
+            <TouchableOpacity>
+                <Text style={{color:'#fff',fontSize:16,}}>扫一扫</Text>
+            </TouchableOpacity>
+        ),
         headerRight: (
             <NavigationItem
                 icon={require('../images/scanning.png')}
@@ -49,13 +53,13 @@ export default class QrCodeScreen extends React.Component {
         headerLeft: (
             <NavigationItem
                 title='登录'
-                titleStyle={{ color: '#333' }}
+                titleStyle={{ color: '#fff' }}
                 onPress={() => {
                     that.showLogin();
                 }}
             />
         ),
-        headerStyle: { backgroundColor: '#fff' },
+        headerStyle: { backgroundColor: theme.orange,},
     })
 
   componentWillMount(){
@@ -212,11 +216,10 @@ export default class QrCodeScreen extends React.Component {
         <View style={{justifyContent:'center',alignItems:'center',marginTop:'30%'}}>
           
 
-          <TouchableHighlight 
+          <TouchableOpacity 
             onPress={()=>{
               this.getQrCode();
             }}
-            underlayColor='transparent'
           >
             <View>
               <QRCode
@@ -227,7 +230,7 @@ export default class QrCodeScreen extends React.Component {
               />
               <Text style={{textAlign:'center',marginTop:10}}>点击刷新二维码</Text>
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
           
           <Text style={{display:(this.state.qrcode?'flex':'none'),backgroundColor:'#2C3E50',width:200,marginTop:20,padding:5,fontSize:16,color:'#fff'}}>{this.state.qrcode}</Text>
 

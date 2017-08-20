@@ -62,16 +62,17 @@ class MyApp extends Component {
   }
 }
 
-/**/
 
 class SignInScreen extends Component {
   constructor(props) {
       super(props);
       this.state = {text: ''};
   }
+  
   static navigationOptions = {
     title: '登录', //titleBar标题
-  };
+  }
+
   render() {
     const { navigate } = this.props.navigation;
 

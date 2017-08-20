@@ -1,12 +1,4 @@
-/**
- * Copyright (c) 2017-present, Liu Jinyong
- * All rights reserved.
- *
- * https://github.com/huanxsd/MeiTuan  
- * @flow
- */
 
-//import liraries
 /*PureComponent是Component的升级版,自带diff render
 详见http://www.cnblogs.com/Unknw/p/6431375.html*/
 import React, { PureComponent } from 'react'

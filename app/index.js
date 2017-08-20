@@ -2,35 +2,19 @@ import React, { Component } from 'react';
 
 import { 
   AppRegistry,
-  View,
-  Text,
-  TextInput,
-  Image,
-  Button,
-  AsyncStorage,
-  ActivityIndicator,
-  Modal,
-  TouchableHighlight,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
 } from 'react-native';
 
 import { StackNavigator ,TabBarBottom, TabNavigator  } from 'react-navigation';
-
 import globalStyle from './styles/global.js';
-
-
-
-import UserDetailScreen from './pages/userDetail.js';
-import UserCenterScreen from './pages/userCenter.js';
-
-import HistoryScreen from './pages/history.js';
-import BooksScreen from './pages/books.js';
-import BookDetailScreen from './pages/bookDetail.js';
+import theme from './styles/theme.js';
 
 import QrCodeScreen from './pages/qrCode.js';
+import BooksScreen from './pages/books.js';
+import UserDetailScreen from './pages/userDetail.js';
+import UserCenterScreen from './pages/userCenter.js';
+import HistoryScreen from './pages/history.js';
 
+import BookDetailScreen from './pages/bookDetail.js';
 import TabBarItem from './mods/tabBarItem.js';
 
 
@@ -38,13 +22,13 @@ const TabNavigatorMain = TabNavigator({
   QrCode: {
     screen: QrCodeScreen,
     navigationOptions: ({ navigation }) => ({
-      tabBarLabel: '二维码',
+      tabBarLabel: '扫一扫',
       tabBarIcon: ({focused,tintColor}) => (
         <TabBarItem
             tintColor={tintColor}
             focused={focused}
-            normalImage={require('./images/QRCode.png')}
-            selectedImage={require('./images/QRCode.png')}
+            normalImage={require('./images/qrcode1.png')}
+            selectedImage={require('./images/qrcode2.png')}
         />
       ),
     }),
@@ -53,13 +37,13 @@ const TabNavigatorMain = TabNavigator({
   Books: {
     screen: BooksScreen,
     navigationOptions: ({ navigation }) => ({
-      tabBarLabel: '书架',
+      tabBarLabel: '订单',
       tabBarIcon: ({focused,tintColor}) => (
         <TabBarItem
             tintColor={tintColor}
             focused={focused}
-            normalImage={require('./images/book.png')}
-            selectedImage={require('./images/book.png')}
+            normalImage={require('./images/book1.png')}
+            selectedImage={require('./images/book2.png')}
         />
       ),
     }),
@@ -72,8 +56,8 @@ const TabNavigatorMain = TabNavigator({
         <TabBarItem
             tintColor={tintColor}
             focused={focused}
-            normalImage={require('./images/account.png')}
-            selectedImage={require('./images/account.png')}
+            normalImage={require('./images/account1.png')}
+            selectedImage={require('./images/account2.png')}
         />
       ),
     }),
@@ -83,7 +67,7 @@ const TabNavigatorMain = TabNavigator({
   tabBarPosition : 'bottom',
   lazy : true,
   tabBarOptions: {
-      activeTintColor: 'orange',
+      activeTintColor: theme.orange,
       inactiveTintColor: '#333',
       style: { backgroundColor: '#fff',},
   },
@@ -102,7 +86,7 @@ const GlobalPage = StackNavigator({
   },
   History : {
     screen: HistoryScreen
-  }
+  },
 },{
   onTransitionEnd:(navi)=>{}
 });

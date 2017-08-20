@@ -1,16 +1,8 @@
-/**
- * Copyright (c) 2017-present, Liu Jinyong
- * All rights reserved.
- *
- * https://github.com/huanxsd/MeiTuan  
- * @flow
- */
 
-//import liraries
 import React, { PureComponent } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 
-// create a component
+
 class NavigationItem extends PureComponent {
     render() {
         let icon = this.props.icon &&

@@ -9,6 +9,7 @@ import {
   ListView,
   StyleSheet,
   TouchableHighlight,
+  StatusBar,
 } from 'react-native';
 
 import { Heading1, Heading2, Paragraph } from '../widget/Text.js';
@@ -17,11 +18,8 @@ import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
 
 import { screen, system } from '../common';
 
+import HistoryScreen from './history.js';
 
-
-
-var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
-//var REQUEST_URL = 'http://localhost:8081';
 
 export default class BooksScreen extends Component {
   //类构造函数
@@ -29,14 +27,8 @@ export default class BooksScreen extends Component {
     super(props);
 
     this.state = {
-      dataSource: new ListView.DataSource({
-        //修改的时候
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
       loaded: false,
     };
-    //因为fetchData方法中油用的this
-    //this.fetchData = this.fetchData.bind(this); 
   }
 
   static navigationOptions = {
@@ -44,28 +36,14 @@ export default class BooksScreen extends Component {
   }
   
   componentDidMount() {
-    this.getBooks();
-  }
-
-  getBooks() {
-    fetch('http://localhost:8081/books')
-    .then((response) => {
-      console.log('getBooks');
-    })
+    //this.getBooks();
+    StatusBar.setBarStyle('dark-content')
   }
 
   render() {
     //每次修改state都会重新调用render
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderMovie}
-        style={styles.listView}
-      />
+      <HistoryScreen />
     );
   }
 
@@ -76,27 +54,6 @@ export default class BooksScreen extends Component {
           loading...
         </Text>
       </View>
-    );
-  }
-
-  renderMovie(movie) {
-    const { navigate } = this.props.navigation;
-    return (
-      <TouchableHighlight 
-        onPress={() => {
-            navigate('BookDetail',movie)
-      }}>
-        <View style={styles.container}>
-          <Image
-            source={{uri: movie.posters.thumbnail}}
-            style={styles.thumbnail}
-          />
-          <View style={styles.rightContainer}>
-            <Text style={styles.title}>{movie.title}</Text>
-            <Text style={styles.year}>{movie.year}</Text>
-          </View>
-        </View>
-      </TouchableHighlight>
     );
   }
 }

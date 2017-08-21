@@ -3,6 +3,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import theme from './theme.js';
+
 export default globalStyle = StyleSheet.create({
   avatar:{
     width:60,
@@ -34,8 +36,8 @@ export default globalStyle = StyleSheet.create({
     fontSize:16,
   },
   button:{
-    borderColor:'#16A085',
-    backgroundColor:'#1ABC9C',
+    borderColor:theme.red,
+    backgroundColor:theme.orange,
     borderWidth:1,
     fontSize:18,
     lineHeight:40,

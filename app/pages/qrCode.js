@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
+  StatusBar
 } from 'react-native';
 
 import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
@@ -59,11 +60,12 @@ export default class QrCodeScreen extends React.Component {
                 }}
             />
         ),
-        headerStyle: { backgroundColor: theme.orange,},
+        headerStyle: { backgroundColor: theme.orange,borderColor:'#fff',},
     })
 
   componentWillMount(){
     console.log('componentWillMount');
+    StatusBar.setBarStyle('light-content')
     this.detectLogin();
   }
 
@@ -165,16 +167,21 @@ export default class QrCodeScreen extends React.Component {
     var loginBtnReady = this.state.phoneNoReady && this.state.captchaReady;
 
     return (
-      <View>
+      <View  style={{backgroundColor:theme.orange,flex:1}}>
 
         <Modal
           animationType={"slide"}
           transparent={false}
           visible={this.state.loginVisible}
         >
-          <View style={{backgroundColor:'#fff',flex:1,padding:50}}>
+          <View style={{backgroundColor:'#fff',flex:1,padding:50,marginTop:'20%'}}>
 
-            <Text style={{fontSize:60,fontWeight:'bold',marginBottom:20,color:'#1ABC9C',marginTop:40,textAlign:'center',}}>Aigo</Text>
+            <Image 
+              source={require('../images/yunna.png')}
+              style={{width:'100%',height:50,marginBottom:20}}
+              resizeMode="stretch"
+            />
+            
             <View style={{flexDirection:'row'}}>
               <TextInput style={[globalStyle.TextInput]} placehoder="请输入手机号" 
               onChangeText={
@@ -184,7 +191,7 @@ export default class QrCodeScreen extends React.Component {
               }></TextInput>
             </View>
 
-            <Button title="发送验证码" disabled={!this.state.phoneNoReady} onPress={()=>{
+            <Button title="发送验证码" color="orange" disabled={!this.state.phoneNoReady} onPress={()=>{
               this.sendMessage();
             }}></Button>
 
@@ -213,27 +220,29 @@ export default class QrCodeScreen extends React.Component {
         </Modal>        
         
 
-        <View style={{justifyContent:'center',alignItems:'center',marginTop:'30%'}}>
-          
 
-          <TouchableOpacity 
+        <View style={{backgroundColor:'#fff',margin:20,borderRadius:3,overflow:'hidden'}}>
+          <View style={{backgroundColor:theme.lightgrey,}}>
+            <Text style={{fontSize:12,padding:10}}>出示进入</Text>
+          </View>
+          <View style={{padding:20,alignItems:'center',}}>
+            <TouchableOpacity 
             onPress={()=>{
               this.getQrCode();
             }}
           >
-            <View>
+            <View style={{alignItems:'center',}}>
               <QRCode
                 value={this.state.qrcode}
-                size={200}
+                size={160}
                 bgColor='black'
                 fgColor='white'
               />
               <Text style={{textAlign:'center',marginTop:10}}>点击刷新二维码</Text>
             </View>
           </TouchableOpacity>
-          
-          <Text style={{display:(this.state.qrcode?'flex':'none'),backgroundColor:'#2C3E50',width:200,marginTop:20,padding:5,fontSize:16,color:'#fff'}}>{this.state.qrcode}</Text>
-
+          <Text style={{textAlign:'center',display:(this.state.qrcode?'flex':'none'),backgroundColor:theme.lightgrey,width:200,marginTop:20,padding:5,fontSize:16,color:theme.orange}}>{this.state.qrcode}</Text>
+          </View>
         </View>
         
       </View>

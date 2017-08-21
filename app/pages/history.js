@@ -41,7 +41,7 @@ export default class HistoryScreen extends Component {
                         <Text style={{textAlign:'center',marginBottom:5,}}>周{weekDay}</Text>
                         <Text style={{textAlign:'center'}}>{payTime}</Text>
                     </View>
-                    <Image source={require('../images/store.png')} style={{width:30,height:30,marginRight:20}} />
+                    <Image source={require('../images/store.png')} style={{width:30,height:30,marginRight:20,}} />
                     <View>
                         <Text style={{marginBottom:5,fontSize:14,}}>{item.store}</Text>
                         <Text style={{fontWeight:'bold',}}>¥{item.price}</Text>

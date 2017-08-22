@@ -11,15 +11,19 @@ import {
   StatusBar
 } from 'react-native';
 
+import * as WeChat from 'react-native-wechat';
+
 import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
 
-import MyButton from '../mods/myButton.js';
+import MyButton from '../mods/myButton';
 
-import Storage from '../tools/storage.js';
+import Storage from '../tools/storage';
 
 import QRCode from 'react-native-qrcode';
 
-import theme from '../styles/theme.js';
+import theme from '../styles/theme';
+
+import * as constants from '../tools/constants';
 
 let that;
 export default class QrCodeScreen extends React.Component {
@@ -67,6 +71,13 @@ export default class QrCodeScreen extends React.Component {
     console.log('componentWillMount');
     StatusBar.setBarStyle('light-content')
     this.detectLogin();
+  }
+
+  componentDidMount(){
+    console.log('qrcode.componentDidMount');
+
+    // 必须初始化（有且只有）一次
+    WeChat.registerApp(constants.APPID);
   }
 
   detectLogin(){

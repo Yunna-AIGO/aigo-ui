@@ -95,5 +95,23 @@ export default globalStyle = StyleSheet.create({
     position : 'absolute',
     top: 0,
     left :0,
-  }
+  },
+  spaceBetween: {
+    justifyContent: 'space-between',
+  },
+  rowText: {
+    fontSize: 16,
+  },
+  rowTextRight: {
+    marginRight: 20,
+  },
+  rowButton: {
+    height:40, 
+    marginTop:20, 
+    marginLeft:25, 
+    marginRight:25, 
+    borderWidth:0, 
+    borderRadius:2, 
+    backgroundColor:'gold',
+  },
 });

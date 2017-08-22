@@ -4,19 +4,23 @@ import {
   AppRegistry,
 } from 'react-native';
 
-import { StackNavigator ,TabBarBottom, TabNavigator  } from 'react-navigation';
-import globalStyle from './styles/global.js';
-import theme from './styles/theme.js';
+import { StackNavigator, TabBarBottom, TabNavigator } from 'react-navigation';
+import globalStyle from './styles/global';
+import theme from './styles/theme';
+import TabBarItem from './mods/tabBarItem';
 
-import QrCodeScreen from './pages/qrCode.js';
-import BooksScreen from './pages/books.js';
-import UserDetailScreen from './pages/userDetail.js';
-import UserCenterScreen from './pages/userCenter.js';
-import HistoryScreen from './pages/history.js';
+import QrCodeScreen from './pages/qrCode';
+import TermOfServiceScreen from './pages/termOfService';
 
-import BookDetailScreen from './pages/bookDetail.js';
-import TabBarItem from './mods/tabBarItem.js';
+import OrdersScreen from './pages/orders';
+import OrderDetailScreen from './pages/orderDetail';
 
+import UserCenterScreen from './pages/userCenter';
+import UserDetailScreen from './pages/userDetail';
+import WalletScreen from './pages/wallet';
+import TopupScreen from './pages/topup';
+import TermOfServiceTopupScreen from './pages/termOfServiceTopup';
+import SettingScreen from './pages/setting';
 
 const TabNavigatorMain = TabNavigator({
   QrCode: {
@@ -34,8 +38,8 @@ const TabNavigatorMain = TabNavigator({
     }),
 
   },
-  Books: {
-    screen: BooksScreen,
+  Orders: {
+    screen: OrdersScreen,
     navigationOptions: ({ navigation }) => ({
       tabBarLabel: '订单',
       tabBarIcon: ({focused,tintColor}) => (
@@ -75,22 +79,17 @@ const TabNavigatorMain = TabNavigator({
 
 
 const GlobalPage = StackNavigator({
-  Home: { 
-    screen: TabNavigatorMain,
-  },
-  BookDetail: {
-    screen: BookDetailScreen
-  },
-  UserDetail : {
-    screen: UserDetailScreen
-  },
-  History : {
-    screen: HistoryScreen
-  },
+  Home: { screen: TabNavigatorMain },
+  TermOfService: {screen: TermOfServiceScreen},
+  OrderDetail: { screen: OrderDetailScreen },
+  UserDetail : { screen: UserDetailScreen },
+  Wallet: {screen: WalletScreen},
+  Topup: {screen: TopupScreen},
+  TermOfServiceTopup: {screen: TermOfServiceTopupScreen},
+  Setting: {screen: SettingScreen},
 },{
   onTransitionEnd:(navi)=>{}
 });
-
 
 
 AppRegistry.registerComponent('MyApp', () => GlobalPage);

@@ -11,7 +11,7 @@ import {
   FlatList,
 } from 'react-native';
 
-export default class BookDetailScreen extends React.Component {
+export default class OrderDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: `正在查看 ${navigation.state.params.id}`,
   });

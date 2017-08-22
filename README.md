@@ -1,13 +1,17 @@
 # Page
 
 QrCode : 二维码,
-Books : 书架,
-  BooksDetail: 图书详情
+Orders : 订单,
+  OrderDetail: 订单详情
 UserCenter : 用户中心
   UserDetail : 用户详情
-  History : 历史,
+  Wallet : 钱包
+  	Topup: 	充值
+  		TermOfServiceTopup: 充值条款
+  Setting: 设置
   Logout : 登出
 Login : 登录
+	TermOfService: 服务条款
 
 
 ```

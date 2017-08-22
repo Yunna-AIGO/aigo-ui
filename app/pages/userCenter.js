@@ -81,18 +81,30 @@ export default class UserCenterScreen extends React.Component {
             }
           }
         >
-          <Image source={require('../images/set.png')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
+          <Image source={require('../images/account.png')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
           <Text style={{flex:1,fontSize:16,}}>个人信息</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={globalStyle.cell} onPress={
           ()=>{
-            this.props.navigation.navigate('History')
+            this.props.navigation.navigate('Wallet')
           }
         }
         >
-          <Image source={require('../images/history.png')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
-          <Text style={{flex:1,fontSize:16,}}>历史记录</Text>
+          <Image source={require('../images/wallet.png')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
+          <Text style={{flex:1,fontSize:16,}}>我的钱包</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style={globalStyle.cell} onPress={
+          ()=>{
+            this.props.navigation.navigate('Setting')
+          }
+        }
+        >
+          <Image source={require('../images/set.png')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
+          <Text style={{flex:1,fontSize:16,}}>设置</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={[globalStyle.cell,{marginTop:20,}]}>
           <Image style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
           <Text style={{flex:1,fontSize:16,color:'red'}}>退出账户</Text>

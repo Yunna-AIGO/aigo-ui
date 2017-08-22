@@ -21,7 +21,7 @@ import { screen, system } from '../common';
 import HistoryScreen from './history.js';
 
 
-export default class BooksScreen extends Component {
+export default class OrdersScreen extends Component {
   //类构造函数
   constructor(props) {
     super(props);
@@ -32,11 +32,11 @@ export default class BooksScreen extends Component {
   }
 
   static navigationOptions = {
-    title: '我的书架',
+    title: '我的订单',
   }
   
   componentDidMount() {
-    //this.getBooks();
+    //this.getOrders();
     StatusBar.setBarStyle('dark-content')
   }
 

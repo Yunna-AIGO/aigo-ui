@@ -1,26 +1,33 @@
 import express, { Router } from 'express';
-import { index } from './controllers/bookControl';
 import { 
-	captcha,
-	login,
+	sendsms,
 	entry,
+	qrcode,
 } from './controllers/loginControl';
 import {
-	recharge
+	recharge,
+	pay,
 } from './controllers/tradeControl';
 import {
-	orders
+	orders,
+	orderInfo,
 } from './controllers/orderControl';
+import {
+	getAccountInfo,
+} from './controllers/accountControl';
 
 const router = Router();
 
-router.route('/books').get(index);
+router.route('/logon/sendsms/:mobile').get(sendsms);
+router.route('/logon/entry').post(entry);
+router.route('/logon/qrcode').post(qrcode);
 
-router.route('/captcha/:phoneNo').get(captcha);
-router.route('/login').post(login);
-router.route('/entry').get(entry);
+router.route('/trade/recharge').post(recharge);
+router.route('/trade/pay').post(pay);
 
-router.route('/recharge').post(recharge);
-router.route('/order/list/:userId').get(orders);
+router.route('/order/:userId/list').get(orders);
+router.route('/order/:orderId/info').get(orderInfo);
+
+router.route('/account/:userId/query').get(getAccountInfo);
 
 export default router;

@@ -15,11 +15,6 @@ app.use(bodyParser.urlencoded({
 app.use(morgan('combined'));
 app.use('/api/v1', router);
 
-// Handle / route
-// app.get('/', (req, res) =>
-//   res.send('Hello World!')
-// )
-
 const server = app.listen(9000, () => {
   const { address, port } = server.address();
   console.log(`Listening at http://${address}:${port}`);

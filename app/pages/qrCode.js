@@ -25,6 +25,10 @@ import theme from '../styles/theme';
 
 import * as constants from '../tools/constants';
 
+import format from 'string-format';
+
+import Toast from '../tools/toast';
+
 let that;
 export default class QrCodeScreen extends React.Component {
   constructor(props) {
@@ -38,7 +42,10 @@ export default class QrCodeScreen extends React.Component {
       captcha : '',
       captchaReady : false,
       loginBtnReady : false,
+
       userName : '123',
+      userId: '',
+      token: '',
     };
   }
   static navigationOptions = ({ navigation }) => ({
@@ -85,7 +92,7 @@ export default class QrCodeScreen extends React.Component {
     Storage.get('token').then((token)=>{
       if(!token){
         //debug
-        //this.showLogin();
+        this.showLogin();
       }else{
         this.getQrCode();
       }
@@ -116,57 +123,111 @@ export default class QrCodeScreen extends React.Component {
   }
 
   sendMessage(){
-    console.log('sendMessage');
-    fetch('http://localhost:8081/sendMessage')
-    .then((res)=>{
-      return res.text()
-      //return res.text()
-    }).then((res)=>{
-      console.log('text',res)
-      res = true;
-      if(res){
-        //debug
-        console.log('验证码发送成功');
+    this.sendMessageImpl().then(response => {
+      if(constants.SUCCESS === response.code){
+        Toast.show('短信已发送，请查收');
       }else{
-        //debug
-        console.log('验证码发送失败');
+        Toast.show('发送失败：'+response.message);
       }
-    })
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  async sendMessageImpl(){
+    let url = format(constants.sendsms, {mobile: this.state.phoneNo});
+    console.log('url: '+url);
+    let response = await fetch(url);
+    let resJson = await response.json();
+    return resJson;
   }
 
   checkCaptcha(text){
     this.setState({
-      captchaReady : (text.length>3 && text.length < 7)
+      captchaReady : (text.length == 6)
     })
   }
 
   getQrCode(){
-    console.log('getQrCode');
+    try{
+      console.log('qrCode.getQrCode');
+      let userId = this.state.userId;
+      let token = this.state.token;
 
-    fetch('http://localhost:8081/getQrCode').then(res=>{
-      res.qrcode = 'http://'+ Math.random().toFixed(5) + '.com';
-      this.setState({
-        qrcode : res.qrcode
+      if(!userId || !token){
+        return;
+      }
+
+      let request = {
+        userId: userId,
+        token: token,
+      };
+      let response = await fetch(constants.qrcode, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(request),
       });
-    })
+      let resJson = await response.json();
+      console.log(resJson);
+
+      if(resJson.code === constants.SUCCESS){
+        this.setState({qrcode: resJson.data.entryUrl});
+      }else{
+        Toast.show('获取二维码失败: '+resJson.message);
+      }
+    }catch(error){
+      console.error(error);
+    }
+  }
   }
 
   doLogin(){
-    console.log('doLogin');
-    fetch('http://localhost:8081/login').then(res=>{
-      return res.text()
-    }).then(res=>{
-      console.log('login rsp',res);
-      var token = new Date().getTime();
-      //debug
-      if(token){
-        this.saveToken(token);
+    this.loginImpl().then(response => {
+      console.log(response);
+      if(constants.SUCCESS === response.code){
+        Toast.show('注册/登录成功！');
+        let {userId, token} = response.data;
+        this.saveToken(userId, token);
+      }else{
+        Toast.show('注册/登录失败：'+response.message);
       }
-    })
+    }, error => {
+      console.log(error);
+    });
   }
 
-  saveToken(token){
-    console.log('saveToken',token);
+  async loginImpl(){
+    try{
+      console.log(constants.entry);
+      let request = {
+        mobile: this.state.phoneNo,
+        smsCode: this.state.captcha,
+      };
+      let response = await fetch(constants.entry, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(request),
+      });
+      let resJson = await response.json();
+      return resJson;
+    }catch(error){
+      console.error(error);
+    }
+  }
+
+  saveToken(userId, token){
+    this.setState({
+      userId: userId,
+      token: token,
+    })
+
+    Storage.save('userId', userId);
+    Storage.save('token', token);
+
     setTimeout(()=>{
       this.hideLogin();
       this.getQrCode();
@@ -252,7 +313,7 @@ export default class QrCodeScreen extends React.Component {
               <Text style={{textAlign:'center',marginTop:10}}>点击刷新二维码</Text>
             </View>
           </TouchableOpacity>
-          <Text style={{textAlign:'center',display:(this.state.qrcode?'flex':'none'),backgroundColor:theme.lightgrey,width:200,marginTop:20,padding:5,fontSize:16,color:theme.orange}}>{this.state.qrcode}</Text>
+          {/*<Text style={{textAlign:'center',display:(this.state.qrcode?'flex':'none'),backgroundColor:theme.lightgrey,width:200,marginTop:20,padding:5,fontSize:16,color:theme.orange}}>{this.state.qrcode}</Text>*/}
           </View>
         </View>
         

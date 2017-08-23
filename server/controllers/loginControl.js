@@ -36,7 +36,7 @@ export const qrcode = (req, res) => {
 		code: '0000',
 		message: 'success',
 		data: {
-			entry: 'http://www.yunna.me/api/entry/'+userId+'/'+token+'/'+random,
+			entryUrl: 'http://www.yunna.me/api/entry/'+userId+'/'+token+'/'+random,
 		}
 	};
 	res.json(result);

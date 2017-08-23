@@ -9,6 +9,8 @@
 7. 发送系统消息
 8. 用户可反馈错误
 9. 发送验证码：60s内disable，不可重复发
+10. Modal会遮挡Toast，之前是用transparent的View，登录页里如何处理？
+
 
 
 # Page

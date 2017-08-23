@@ -4,11 +4,11 @@ export const SUCCESS = '0000';
 // storages
 export const loginState = 'loginState';
 
-// mock by nodejs
-// const urlPrefix = 'http://localhost:9000/api/v1/';
-// local
-const urlPrefix = 'http://localhost:8080/cloudpick/rest/api/v1/';
-// wenhao
+// mock环境，启动nodejs
+const urlPrefix = 'http://localhost:9000/api/v1/';
+// 本地环境
+// const urlPrefix = 'http://localhost:8080/cloudpick/rest/api/v1/';
+// 真实的服务接口
 // const urlPrefix = 'http://10.10.10.146:8080/cloudpick/rest/api/v1/';
 
 export const sendsms = urlPrefix + 'logon/sendsms?mobile={mobile}';

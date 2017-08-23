@@ -144,11 +144,12 @@ export default class QrCodeScreen extends React.Component {
 
   checkCaptcha(text){
     this.setState({
+      captcha: text,
       captchaReady : (text.length == 6)
     })
   }
 
-  getQrCode(){
+  async getQrCode(){
     try{
       console.log('qrCode.getQrCode');
       let userId = this.state.userId;
@@ -180,7 +181,6 @@ export default class QrCodeScreen extends React.Component {
     }catch(error){
       console.error(error);
     }
-  }
   }
 
   doLogin(){

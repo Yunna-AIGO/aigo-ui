@@ -87,6 +87,9 @@ export default class OrdersScreen extends Component {
   _separator = () => {
     return <View style={{ height: 0, backgroundColor: '#eee' }}/>;
   }
+  _extractKey(item, index){
+    return item.orderId;
+  }
   // _onRefresh() {
   //   console.log('正在刷新中.... ');
   //   this.getOrders();
@@ -136,7 +139,8 @@ export default class OrdersScreen extends Component {
             onViewableItemsChanged={(info) => {
               //    alert("可见不可见触发");
             } }
-            data={this.state.orders}>
+            data={this.state.orders}
+            keyExtractor={this._extractKey}>
           </FlatList>
         </View>
       </View>
@@ -180,12 +184,7 @@ export default class OrdersScreen extends Component {
       console.log(resJson);
 
       if(constants.SUCCESS === resJson.code){
-        let orders  = resJson.data;
-        orders.map(obj => {
-          obj.key = obj.orderId;
-          return obj;
-        });
-        this.setState({orders: orders});
+        this.setState({orders: resJson.data});
         Toast.show('订单查询成功');
       }else{
         Toast.show('订单查询失败：'+resJson.message);

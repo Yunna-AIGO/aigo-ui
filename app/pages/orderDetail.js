@@ -10,54 +10,57 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
+import styles from '../styles/global';
+import theme from '../styles/theme';
+import * as constants from '../tools/constants';
+import format from 'string-format';
+import Toast from '../tools/toast';
 
 export default class OrderDetailScreen extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      order: this.props.navigation.state.params.order,
+    };
+  }
+
   static navigationOptions = ({ navigation }) => ({
-    title: `正在查看 ${navigation.state.params.id}`,
+    title: `订单详情`,
   });
 
   _extractKey(item, index){
-    return 'index'+index+item.name;
+    return item.goodsId;
   }
 
   render() {
-    // The screen's current route is passed in to `props.navigation.state`:
-    const { params } = this.props.navigation.state;
+    const order = this.state.order;
     return (
       <ScrollView>
-        <View style={styles.container}>
-          <Image
-            source={{uri: params.posters.profile}}
-            style={styles.thumbnail}
-          />
-          <View style={styles.rightContainer}>
-            <Text style={styles.desc}>标题：{params.title}</Text>
-            <Text style={styles.desc}>年份：{params.year}</Text>
-            <Text style={styles.desc}>分级：{params.mpaa_rating}</Text>
-            <Text style={styles.desc}>发布日期：{params.release_dates.theater}</Text>
-          </View>
+        <View style={styles.cell}>
+          <Text style={styles.rowText}>门店：{order.storeId}</Text>
+        </View>
+        <View style={styles.cell}>
+          <Text style={styles.rowText}>日期：{order.gmtCreate}</Text>
+        </View>
+        <View style={styles.cell}>
+          <Text style={styles.rowText}>金额：{order.orderAmt}</Text>
         </View>
 
-        <View style={styles.container}>
-          <Text style={styles.title}>演员阵容：</Text>
+        <View>
+          <Text style={{color:'dodgerblue', margin:10, fontSize:18}}>商品列表：</Text>
           <FlatList
-            data={params.abridged_cast}
+            data={order.goodsList}
             renderItem={({item}) =>
-              <View style={styles.desc}>
-                <Text>{item.name} 饰 {item.characters[0]}</Text>
-              </View>
-            }
-            keyExtractor={this._extractKey}
-          />
-        </View>
-
-        <View style={styles.container}>
-          <Text style={styles.title}>友情链接：</Text>
-          <FlatList
-            data={params.abridged_cast}
-            renderItem={({item}) =>
-              <View style={styles.desc}>
-                <Text>{item.name} 饰 {item.characters[0]}</Text>
+              <View style={styles.cell}>
+                <Image
+                  source={{uri: item.goodsPhotoUrl}}
+                  style={styles.thumbnail}
+                />
+                <View style={{flexDirection:'column', marginLeft:10}}>
+                  <Text style={styles.rowText}>{item.goodsName}</Text>
+                  <Text style={[styles.rowText, {marginTop:10}]}>数量: {item.goodsNum}{item.goodsUnit}   |   价格: {item.goodsPrice}元</Text>
+                </View>
               </View>
             }
             keyExtractor={this._extractKey}
@@ -66,9 +69,37 @@ export default class OrderDetailScreen extends React.Component {
       </ScrollView>
     );
   }
+
+  componentDidMount(){
+    console.log('orderDetail.componentDidMount');
+    this.getOrderInfo();
+  }
+
+  async getOrderInfo(){
+    try{
+      let request = {
+        orderId: this.state.order.orderId,
+      };
+      let url = format(constants.orderInfo, request);
+      console.log('url: '+url);
+      let response = await fetch(url);
+      let resJson = await response.json();
+      console.log(resJson);
+
+      if(constants.SUCCESS === resJson.code){
+        this.setState({order: resJson.data});
+        Toast.show('订单详情查询成功');
+      }else{
+        Toast.show('订单详情查询失败：'+resJson.message);
+      }
+    }catch(error){
+      console.error(error);
+    }
+  }
+
 }
 
-var styles = StyleSheet.create({
+var mystyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',

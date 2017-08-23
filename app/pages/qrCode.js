@@ -87,8 +87,21 @@ export default class QrCodeScreen extends React.Component {
     WeChat.registerApp(constants.APPID);
   }
 
-  detectLogin(){
+  async detectLogin(){
     console.log('login');
+    let userId = await Storage.get('userId');
+    let token = await Storage.get('token');
+
+    if(!userId || !token){
+      this.showLogin();
+    }else{
+      this.setState({
+        userId: userId,
+        token: token,
+      });
+      this.getQrCode(userId, token);
+    }
+
     Storage.get('token').then((token)=>{
       if(!token){
         //debug
@@ -149,11 +162,11 @@ export default class QrCodeScreen extends React.Component {
     })
   }
 
-  async getQrCode(){
+  async getQrCode(uid, tok){
     try{
       console.log('qrCode.getQrCode');
-      let userId = this.state.userId;
-      let token = this.state.token;
+      let userId = uid || this.state.userId;
+      let token = tok || this.state.token;
 
       if(!userId || !token){
         return;
@@ -255,8 +268,10 @@ export default class QrCodeScreen extends React.Component {
             />
             
             <View style={{flexDirection:'row'}}>
-              <TextInput style={[globalStyle.TextInput]} placehoder="请输入手机号" 
-              onChangeText={
+              <TextInput style={[globalStyle.TextInput]} 
+                autoFocus={true}
+                placehoder="请输入手机号" 
+                onChangeText={
                 (text)=>{
                   this.checkPhoneNo(text)
                 }

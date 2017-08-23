@@ -1,14 +1,14 @@
 import React from 'react';
 
 import {
-  AppRegistry,
   Text,
   View,
   Button,
   Image,
   TouchableOpacity,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  Alert,
 } from 'react-native';
 
 
@@ -18,21 +18,25 @@ import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
 
 import { screen, system } from '../common';
 
+import Toast from '../tools/toast';
+
+import Storage from '../tools/storage';
+
 
 export default class UserCenterScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-        title : '个人中心',
-        headerRight: (
-            <NavigationItem
-                title='消息'
-                titleStyle={{ color: '#333' }}
-                onPress={() => {
-                    
-                }}
-            />
-        ),
-        headerStyle: { backgroundColor: '#fff' },
-    })
+    title : '个人中心',
+    headerRight: (
+        <NavigationItem
+            title='消息'
+            titleStyle={{ color: '#333' }}
+            onPress={() => {
+                
+            }}
+        />
+    ),
+    headerStyle: { backgroundColor: '#fff' },
+  })
 
   constructor(props) {
     super(props);
@@ -42,26 +46,12 @@ export default class UserCenterScreen extends React.Component {
     };
   }
 
-
-  componentWillMount(){
-    console.log('个人中心componentWillMount');
-  }
-
-  componentDidMount(){
-    console.log('个人中心componentDidMount');
-  }
-
-  reload(){
-    console.log('reloding')
-    this.setState({userName:'于晓'})
-  }
   render() {
-    //console.log('11',this.props.navigation.state);
     return (
       <View>
         <View style={globalStyle.card}>
           <View style={[globalStyle.avatar,{marginBottom:10}]}>
-            <Image source={require('../images/diao.jpg')} style={{flex:1,width:'100%',borderRadius:20}}/>
+            <Image source={require('../images/fire.png')} style={{flex:1,width:'100%',borderRadius:20}}/>
           </View>
           <Text>{this.state.userName||'未登录'}</Text>
         </View>
@@ -105,14 +95,39 @@ export default class UserCenterScreen extends React.Component {
           <Text style={{flex:1,fontSize:16,}}>设置</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[globalStyle.cell,{marginTop:20,}]}>
-          <Image style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
+        <TouchableOpacity style={[globalStyle.cell,{marginTop:20,}]} onPress={()=>this.logout()}>
+          <Image source={require('../images/logout.png')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
           <Text style={{flex:1,fontSize:16,color:'red'}}>退出账户</Text>
         </TouchableOpacity>
 
       </View>
     )
   }
+
+  componentWillMount(){
+    console.log('个人中心componentWillMount');
+  }
+
+  componentDidMount(){
+    console.log('个人中心componentDidMount');
+  }
+
+  reload(){
+    console.log('reloding')
+    this.setState({userName:'于晓'})
+  }
+
+  logout(){
+    Alert.alert('提示', '确认退出登录？', [
+      {text:'取消', onPress:()=>console.log('cancel'), style:'cancel'},
+      {text:'确定', onPress:()=>{
+        // Storage.delete('userId');
+        Storage.delete('token');
+        Toast.show('已成功退出！');
+      }},
+    ]);
+  }
+
 }
 
 

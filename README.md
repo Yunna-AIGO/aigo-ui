@@ -12,6 +12,7 @@
 10. Modal会遮挡Toast，之前是用transparent的View，登录页里如何处理？
 11. 所有页面都要判断storage.get('userId+token')是否存在？存在则放入自己的state，不存在则跳转login?
 12. 订单列表的分页，每次到底pageNum+1，然后再查
+13. reload后二维码不刷新，请求似乎没返回，任意点击界面后，才返回结果并setState，why?
 
 
 # Page

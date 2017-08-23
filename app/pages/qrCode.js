@@ -48,31 +48,120 @@ export default class QrCodeScreen extends React.Component {
       token: '',
     };
   }
+
   static navigationOptions = ({ navigation }) => ({
-        headerTitle: (
-            <TouchableOpacity>
-                <Text style={{color:'#fff',fontSize:16,}}>扫一扫</Text>
-            </TouchableOpacity>
-        ),
-        headerRight: (
-            <NavigationItem
-                icon={require('../images/scanning.png')}
-                onPress={() => {
-                    alert(this)
-                }}
+    headerTitle: (
+        <TouchableOpacity>
+            <Text style={{color:'#fff',fontSize:16,}}>扫一扫</Text>
+        </TouchableOpacity>
+    ),
+    headerRight: (
+        <NavigationItem
+            icon={require('../images/scanning.png')}
+            onPress={() => {
+                alert(this)
+            }}
+        />
+    ),
+    headerLeft: (
+        <NavigationItem
+            title='登录'
+            titleStyle={{ color: '#fff' }}
+            onPress={() => {
+                that.showLogin();
+            }}
+        />
+    ),
+    headerStyle: { backgroundColor: theme.orange,borderColor:'#fff',},
+  })
+
+  render() {
+
+    var loginBtnReady = this.state.phoneNoReady && this.state.captchaReady;
+
+    return (
+      <View  style={{backgroundColor:theme.orange,flex:1}}>
+
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.loginVisible}
+        >
+          <View style={{backgroundColor:'#fff',flex:1,padding:50,marginTop:'20%'}}>
+
+            <Image 
+              source={require('../images/yunna.png')}
+              style={{width:'100%',height:50,marginBottom:20}}
+              resizeMode="stretch"
             />
-        ),
-        headerLeft: (
-            <NavigationItem
-                title='登录'
-                titleStyle={{ color: '#fff' }}
-                onPress={() => {
-                    that.showLogin();
+            
+            <View style={{flexDirection:'row'}}>
+              <TextInput style={[globalStyle.TextInput]} 
+                autoFocus={true}
+                placehoder="请输入手机号" 
+                onChangeText={
+                (text)=>{
+                  this.checkPhoneNo(text)
+                }
+              }></TextInput>
+            </View>
+
+            <Button title="发送验证码" color="orange" disabled={!this.state.phoneNoReady} onPress={()=>{
+              this.sendMessage();
+            }}></Button>
+
+            <View style={{flexDirection:'row'}}>
+              <TextInput style={[globalStyle.TextInput]} placehoder="请输入验证码" 
+              onChangeText={
+                (text)=>{
+                  this.checkCaptcha(text)
+                }
+              }>
+              </TextInput>
+            </View>
+
+            <View>
+              <MyButton
+                disabled={!loginBtnReady}
+                style={{marginTop:30}}
+                onPress={()=>{
+                  this.doLogin();
                 }}
-            />
-        ),
-        headerStyle: { backgroundColor: theme.orange,borderColor:'#fff',},
-    })
+              >登录</MyButton>
+            </View>
+
+          </View>
+
+        </Modal>        
+        
+
+        <View style={{backgroundColor:'#fff',margin:40,borderRadius:3,overflow:'hidden'}}>
+          <View style={{backgroundColor:theme.lightgrey,}}>
+            <Text style={{fontSize:12,padding:10}}>出示进入</Text>
+          </View>
+          <View style={{padding:20,alignItems:'center',}}>
+            <TouchableOpacity 
+            onPress={()=>{
+              this.getQrCode();
+            }}
+          >
+            <View style={{alignItems:'center',}}>
+              <QRCode
+                value={this.state.qrcode}
+                size={160}
+                bgColor='black'
+                fgColor='white'
+              />
+              <Text style={{textAlign:'center',marginTop:10}}>点击刷新二维码</Text>
+            </View>
+          </TouchableOpacity>
+          {/*<Text style={{textAlign:'center',display:(this.state.qrcode?'flex':'none'),backgroundColor:theme.lightgrey,width:200,marginTop:20,padding:5,fontSize:16,color:theme.orange}}>{this.state.qrcode}</Text>*/}
+          </View>
+        </View>
+        
+      </View>
+    )
+  }
 
   componentWillMount(){
     console.log('componentWillMount');
@@ -237,95 +326,6 @@ export default class QrCodeScreen extends React.Component {
       this.getQrCode();
     },1000)
   } 
-
-  render() {
-
-    var loginBtnReady = this.state.phoneNoReady && this.state.captchaReady;
-
-    return (
-      <View  style={{backgroundColor:theme.orange,flex:1}}>
-
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.loginVisible}
-        >
-          <View style={{backgroundColor:'#fff',flex:1,padding:50,marginTop:'20%'}}>
-
-            <Image 
-              source={require('../images/yunna.png')}
-              style={{width:'100%',height:50,marginBottom:20}}
-              resizeMode="stretch"
-            />
-            
-            <View style={{flexDirection:'row'}}>
-              <TextInput style={[globalStyle.TextInput]} 
-                autoFocus={true}
-                placehoder="请输入手机号" 
-                onChangeText={
-                (text)=>{
-                  this.checkPhoneNo(text)
-                }
-              }></TextInput>
-            </View>
-
-            <Button title="发送验证码" color="orange" disabled={!this.state.phoneNoReady} onPress={()=>{
-              this.sendMessage();
-            }}></Button>
-
-            <View style={{flexDirection:'row'}}>
-              <TextInput style={[globalStyle.TextInput]} placehoder="请输入验证码" 
-              onChangeText={
-                (text)=>{
-                  this.checkCaptcha(text)
-                }
-              }>
-              </TextInput>
-            </View>
-
-            <View>
-              <MyButton
-                disabled={!loginBtnReady}
-                style={{marginTop:30}}
-                onPress={()=>{
-                  this.doLogin();
-                }}
-              >登录</MyButton>
-            </View>
-
-          </View>
-
-        </Modal>        
-        
-
-
-        <View style={{backgroundColor:'#fff',margin:20,borderRadius:3,overflow:'hidden'}}>
-          <View style={{backgroundColor:theme.lightgrey,}}>
-            <Text style={{fontSize:12,padding:10}}>出示进入</Text>
-          </View>
-          <View style={{padding:20,alignItems:'center',}}>
-            <TouchableOpacity 
-            onPress={()=>{
-              this.getQrCode();
-            }}
-          >
-            <View style={{alignItems:'center',}}>
-              <QRCode
-                value={this.state.qrcode}
-                size={160}
-                bgColor='black'
-                fgColor='white'
-              />
-              <Text style={{textAlign:'center',marginTop:10}}>点击刷新二维码</Text>
-            </View>
-          </TouchableOpacity>
-          {/*<Text style={{textAlign:'center',display:(this.state.qrcode?'flex':'none'),backgroundColor:theme.lightgrey,width:200,marginTop:20,padding:5,fontSize:16,color:theme.orange}}>{this.state.qrcode}</Text>*/}
-          </View>
-        </View>
-        
-      </View>
-    )
-  }
 }
 
 

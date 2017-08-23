@@ -44,7 +44,7 @@ export default class OrderDetailScreen extends React.Component {
           <Text style={styles.rowText}>日期：{order.gmtCreate}</Text>
         </View>
         <View style={styles.cell}>
-          <Text style={styles.rowText}>金额：{order.orderAmt}</Text>
+          <Text style={styles.rowText}>金额：{order.orderAmt} 元</Text>
         </View>
 
         <View>
@@ -88,7 +88,7 @@ export default class OrderDetailScreen extends React.Component {
 
       if(constants.SUCCESS === resJson.code){
         this.setState({order: resJson.data});
-        Toast.show('订单详情查询成功');
+        // Toast.show('订单详情查询成功');
       }else{
         Toast.show('订单详情查询失败：'+resJson.message);
       }

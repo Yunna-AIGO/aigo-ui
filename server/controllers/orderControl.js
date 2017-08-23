@@ -35,7 +35,7 @@ export const orderInfo = (req, res, next) => {
 	let order = {
 		orderId: orderId,
 		userId: 'alex',
-		orderAmt: 124.23,
+		orderAmt: 4124.23,
 		unPaidAmt: 62.1,
 		payTime: '2017-08-23 18:44:09',
 		storeId: '1号店(中山南路分店)', 

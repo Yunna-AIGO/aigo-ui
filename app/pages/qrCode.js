@@ -25,6 +25,10 @@ import theme from '../styles/theme';
 
 import * as constants from '../tools/constants';
 
+import format from 'string-format';
+
+import Toast from '../tools/toast';
+
 let that;
 export default class QrCodeScreen extends React.Component {
   constructor(props) {
@@ -85,7 +89,7 @@ export default class QrCodeScreen extends React.Component {
     Storage.get('token').then((token)=>{
       if(!token){
         //debug
-        //this.showLogin();
+        this.showLogin();
       }else{
         this.getQrCode();
       }
@@ -116,27 +120,28 @@ export default class QrCodeScreen extends React.Component {
   }
 
   sendMessage(){
-    console.log('sendMessage');
-    fetch('http://localhost:8081/sendMessage')
-    .then((res)=>{
-      return res.text()
-      //return res.text()
-    }).then((res)=>{
-      console.log('text',res)
-      res = true;
-      if(res){
-        //debug
-        console.log('验证码发送成功');
+    this.sendMessageImpl().then(response => {
+      if(constants.SUCCESS === response.code){
+        Toast.show('短信已发送，请查收');
       }else{
-        //debug
-        console.log('验证码发送失败');
+        Toast.show('发送失败：'+response.message);
       }
-    })
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  async sendMessageImpl(){
+    let url = format(constants.sendsms, {mobile: this.state.phoneNo});
+    console.log('url: '+url);
+    let response = await fetch(url);
+    let resJson = await response.json();
+    return resJson;
   }
 
   checkCaptcha(text){
     this.setState({
-      captchaReady : (text.length>3 && text.length < 7)
+      captchaReady : (text.length == 6)
     })
   }
 

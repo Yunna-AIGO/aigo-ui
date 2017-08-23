@@ -6,18 +6,18 @@ export const orders = (req, res, next) => {
 	let pageSize = req.query.pageSize;
 	let orders = [];
 
-	for(let i=0;i<5;i++){
+	for(let i=0;i<20;i++){
 		orders.push({
-			orderId: '26662689'+userId, 
+			orderId: '26662689'+i, 
 			userId: userId,
-			orderAmt: 21.3*(i+1),
-			unPaidAmt: (i%2 == 0) ? 0 : 10.2,
+			orderAmt: ''+(21.3*(i+1)).toFixed(2),
+			unPaidAmt: ''+(i%2 == 0 ? 0 : 10.2),
 			orderType: (i%3 == 0) ? '01' : '00',
-			payTime: (i%2 == 0) ? Date.now() : null,
+			payTime: (i%2 == 0) ? '2017-08-23 18:44:09' : null,
 			status: (i%2 == 0) ? 'init' : 'success',
-			storeId: '12314'+i,
+			storeId: (i+1) + '号店(中山南路分店)',
 			storeName: (i+1) + '号店(中山南路分店)', 
-			gmtCreate:Date.now(), 
+			gmtCreate:'2017-08-23 17:01:23', 
 		});
 	}
 

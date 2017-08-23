@@ -99,17 +99,8 @@ export default class QrCodeScreen extends React.Component {
         userId: userId,
         token: token,
       });
-      this.getQrCode(userId, token);
+      this.getQrCode();
     }
-
-    Storage.get('token').then((token)=>{
-      if(!token){
-        //debug
-        this.showLogin();
-      }else{
-        this.getQrCode();
-      }
-    })
   }
 
   showLogin(){
@@ -162,11 +153,11 @@ export default class QrCodeScreen extends React.Component {
     })
   }
 
-  async getQrCode(uid, tok){
+  async getQrCode(){
     try{
       console.log('qrCode.getQrCode');
-      let userId = uid || this.state.userId;
-      let token = tok || this.state.token;
+      let userId = this.state.userId;
+      let token = this.state.token;
 
       if(!userId || !token){
         return;

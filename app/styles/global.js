@@ -114,4 +114,12 @@ export default globalStyle = StyleSheet.create({
     borderRadius:2, 
     backgroundColor:'gold',
   },
+  rowTitle: {
+    fontSize: 18,
+    color: 'blue',
+  },
+  thumbnail: {
+    width: 100,
+    height: 100,
+  },
 });

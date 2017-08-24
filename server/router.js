@@ -18,7 +18,7 @@ import {
 
 const router = Router();
 
-router.route('/logon/sendsms/:mobile').get(sendsms);
+router.route('/logon/sendsms').get(sendsms);
 router.route('/logon/entry').post(entry);
 router.route('/logon/qrcode').post(qrcode);
 

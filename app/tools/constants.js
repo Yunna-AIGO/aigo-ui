@@ -5,9 +5,9 @@ export const SUCCESS = '0000';
 export const loginState = 'loginState';
 
 // mock环境：cd server & yarn run start
-const urlPrefix = 'http://localhost:9000/api/v1/';
+// const urlPrefix = 'http://localhost:9000/api/v1/';
 // 真实的服务接口：本地环境
-// const urlPrefix = 'http://localhost:8080/cloudpick/rest/api/v1/';
+const urlPrefix = 'http://localhost:8080/cloudpick/rest/api/v1/';
 // 真实的服务接口：测试环境
 // const urlPrefix = 'http://10.10.10.146:8080/cloudpick/rest/api/v1/';
 
@@ -20,8 +20,8 @@ export const accountInfo = urlPrefix + 'account/{userId}/query'
 export const orders = urlPrefix + 'order/{userId}/list?pageNum={pageNum}&pageSize={pageSize}';
 export const orderInfo = urlPrefix + 'order/{orderId}/info';
 
-export const userInfo = urlPrefix + 'user/getById/{userId}';
-export const updateUserInfo = urlPrefix + 'user/info';
+export const userInfo = urlPrefix + 'user/getNormalUserById/{userId}';
+export const userModify = urlPrefix + 'user/modify?userId={userId}&mobile={mobile}&nickName={nickName}';
 
 export const recharge = urlPrefix + 'trade/recharge';
 export const pay = urlPrefix + 'trade/pay';

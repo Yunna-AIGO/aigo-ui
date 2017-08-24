@@ -15,6 +15,10 @@ import {
 import {
 	getAccountInfo,
 } from './controllers/accountControl';
+import {
+	userInfo,
+	userModify,
+} from './controllers/userControl';
 
 const router = Router();
 
@@ -29,5 +33,8 @@ router.route('/order/:userId/list').get(orders);
 router.route('/order/:orderId/info').get(orderInfo);
 
 router.route('/account/:userId/query').get(getAccountInfo);
+
+router.route('/user/getNormalUserById/:userId').get(userInfo);
+router.route('/user/modify').post(userModify);
 
 export default router;

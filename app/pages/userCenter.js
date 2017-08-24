@@ -11,7 +11,6 @@ import {
   Alert,
 } from 'react-native';
 
-
 import { Heading1, Heading2, Paragraph } from '../widget/Text.js';
 
 import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
@@ -22,6 +21,9 @@ import Toast from '../tools/toast';
 
 import Storage from '../tools/storage';
 
+import format from 'string-format';
+
+import * as constants from '../tools/constants';
 
 export default class UserCenterScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -41,10 +43,13 @@ export default class UserCenterScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 'test',
+      userId: '',
       token: '',
-      userName : 'yuxiao',
-      avatar : 'null',
+      userInfo: {
+        nickName: '',
+        mobile: '',
+        picUrl: '',
+      },
     };
   }
 
@@ -55,20 +60,21 @@ export default class UserCenterScreen extends React.Component {
           <View style={[globalStyle.avatar,{marginBottom:10}]}>
             <Image source={require('../images/fire.png')} style={{flex:1,width:'100%',borderRadius:20}}/>
           </View>
-          <Text>{this.state.userName||'未登录'}</Text>
+          <Text>{this.state.userInfo.nickName || this.state.userInfo.mobile || '未登录'}</Text>
         </View>
 
         <TouchableOpacity style={globalStyle.cell} 
           onPress={
             ()=>{
               this.props.navigation.navigate('UserDetail',{
+                userInfo: this.state.userInfo,
                 //跳转的时候携带一个参数去下个页面
                 callback: (data)=>{
                   //console.log(data); //回调入参
                   if(data==='reload'){
-                    this.reload();
+                    this.getUserInfo();
                   }
-                }
+                },
               })
             }
           }
@@ -131,12 +137,16 @@ export default class UserCenterScreen extends React.Component {
   }
 
   async getUserInfo(){
-    
-  }
-
-  reload(){
-    console.log('reloding')
-    this.setState({userName:'于晓'})
+    try{
+      let url = format(constants.userInfo, {userId: this.state.userId});
+      console.log('url: '+url);
+      let response = await fetch(url);
+      let resJson = await response.json();
+      console.log(resJson);
+      this.setState({userInfo: resJson.userInfo});
+    }catch(error){
+      console.error(error);
+    }
   }
 
   logout(){

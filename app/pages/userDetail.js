@@ -11,6 +11,14 @@ import {
 
 import Cell from '../mods/cell.js';
 
+import Toast from '../tools/toast';
+
+import Storage from '../tools/storage';
+
+import format from 'string-format';
+
+import * as constants from '../tools/constants';
+
 let that;
 export default class UserDetailScreen extends React.Component {
   constructor(props){
@@ -18,8 +26,7 @@ export default class UserDetailScreen extends React.Component {
     that = this;
     //组件私有属性
     this.state = {
-      name : '于晓',
-      nickName : '赞郁',
+      userInfo: this.props.navigation.state.params.userInfo,
     }
   }
 
@@ -30,49 +37,92 @@ export default class UserDetailScreen extends React.Component {
     }} />,
   }
 
-  componentWillMount(){
-    console.log('1')
-  }
-
-  componentDidMount(){
-    console.log('2')
-  }
-
-  doSave(){
-   fetch('http://localhost:8081/saveInfo').then(res=>{
-    //console.log(this.props.navigation)
-    const {navigate,goBack,state} = this.props.navigation;
-    // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
-    state.params.callback('reload');
-    goBack();
-   })
-  }
-
   render() {
     return (
       <View>
-        <Cell style={{marginTop:20,}}>
-          <Text style={{marginRight:16,fontSize:16,width:60,}}>姓名</Text>
+        <Cell>
+          <Text style={{marginRight:16,fontSize:16,width:60,}}>手机号</Text>
           <TextInput 
             style={{height:20,fontSize:16,color:'#999'}} 
-            value={this.state.name}
-            onChangeText={(text)=>{
-              this.setState({name:text});
-            }}>
+            value={this.state.userInfo.mobile}
+            onChangeText={(text)=>this.doSetState('mobile', text)}>
           </TextInput>
         </Cell>
         <Cell>
           <Text style={{marginRight:16,fontSize:16,width:60,}}>昵称</Text>
           <TextInput 
             style={{height:20,fontSize:16,color:'#999'}} 
-            value={this.state.nickName}
-            onChangeText={(text)=>{
-              this.setState({nickName:text});
-            }}>
+            value={this.state.userInfo.nickName}
+            onChangeText={(text)=>this.doSetState('nickName', text)}>
+          </TextInput>
+        </Cell>
+        <Cell style={{marginTop:20,}}>
+          <Text style={{marginRight:16,fontSize:16,width:60,}}>邮箱</Text>
+          <TextInput 
+            style={{height:20,fontSize:16,color:'#999'}} 
+            value={this.state.userInfo.email}
+            onChangeText={(text)=>this.doSetState('email', text)}>
+          </TextInput>
+        </Cell>
+        <Cell>
+          <Text style={{marginRight:16,fontSize:16,width:70,}}>真实姓名</Text>
+          <TextInput 
+            style={{height:20,fontSize:16,color:'#999'}} 
+            value={this.state.userInfo.realName}
+            onChangeText={(text)=>this.doSetState('realName', text)}>
+          </TextInput>
+        </Cell>
+        <Cell>
+          <Text style={{marginRight:16,fontSize:16,width:70,}}>证件类型</Text>
+          <TextInput 
+            style={{height:20,fontSize:16,color:'#999'}} 
+            value={this.state.userInfo.identityType}
+            onChangeText={(text)=>this.doSetState('identityType', text)}>
+          </TextInput>
+        </Cell>
+        <Cell>
+          <Text style={{marginRight:16,fontSize:16,width:70,}}>证件号</Text>
+          <TextInput 
+            style={{height:20,fontSize:16,color:'#999'}} 
+            value={this.state.userInfo.identityId}
+            onChangeText={(text)=>this.doSetState('identityId', text)}>
           </TextInput>
         </Cell>
       </View>
     );
+  }
+
+  async doSave(){
+    try{
+      let request = {
+        userId: this.state.userInfo.userId,
+        mobile: this.state.userInfo.mobile,
+        nickName: this.state.userInfo.nickName,
+      }
+      let url = format(constants.userModify, request);
+      console.log(url);
+      let response = await fetch(url, {method: 'POST'});
+      console.log(response);
+      let resJson = await response.json();
+      console.log(resJson);
+      if(constants.SUCCESS === resJson.code){
+        Toast.show('保存成功');
+        const {navigate,goBack,state} = this.props.navigation;
+        // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
+        state.params.callback('reload');
+        goBack();
+      }else{
+        Toast.show('保存失败：'+resJson.message);
+      }
+    }catch(error){
+      console.error(error);
+    }
+  }
+
+  doSetState(propName, value){
+    let user = this.state.userInfo;
+    user[propName] = value;
+    this.setState({userInfo:user});
   }
 }
 

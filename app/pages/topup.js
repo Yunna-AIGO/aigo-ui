@@ -15,7 +15,7 @@ import RadioForm, {
 import {
 	RadioButtons
 } from 'react-native-radio-buttons';
-import Alipay from 'react-native-yunpeng-alipay';
+import Alipay from '../tools/alipay';
 import * as WeChat from 'react-native-wechat';
 import * as constants from '../tools/constants';
 import styles from '../styles/global';
@@ -25,21 +25,19 @@ export default class TopupScreen extends React.Component {
 		super(props);
 
 		this.state = {
-			userId: '20170802121212000U000001',
-			userName: '邬文尧',
-			token: '',
+			userId: this.props.navigation.state.params.userId,
 			enumMoney: [
 				{label:'充500元', value:"500"},
 				{label:'充100元', value:"100"},
 				{label:'充50元', value:"50"},
-				// {label:'充10元', value:"10"},
-				{label:'充0.01元', value:"0.01"},
+				{label:'充10元', value:"10"},
+				// {label:'充0.01元', value:"0.01"},
 			],
 			enumPayTypes: [
 				{label:'支付宝支付', value:'alipay'},
 				{label:'微 信 支 付 ', value:'wechat_pay'},
 			],
-			money: "20.36",
+			money: "10",
 			payType: 'alipay',
 			payTypeIndex: 0,
 		};
@@ -104,7 +102,7 @@ export default class TopupScreen extends React.Component {
 					立即充值
 				</Button>
 
-				<Text style={{fontSize:12, marginLeft:30}}>
+				<Text style={{fontSize:12, marginLeft:30, marginRight:30}}>
 					点击立即充值，即表示您已阅读并同意
 					<Text onPress={() => this.props.navigation.navigate('TermOfServiceTopup')}
 						style={styles.textLink}>
@@ -140,7 +138,10 @@ export default class TopupScreen extends React.Component {
 		const styleSelected = selected ? {backgroundColor:'gold'} : {};
 		return (
 			<TouchableOpacity key={index} onPress={onSelect}>
-				<Text style={[style, styleSelected]}>{option.label}</Text>
+				{/* add another View to fix error: Attempted to transition from state `RESPONDER_INACTIVE_PRESS_IN` to `RESPONDER_ACTIVE_LONG_PRESS_IN` */}
+				<View>
+					<Text style={[style, styleSelected]}>{option.label}</Text>
+				</View>
 			</TouchableOpacity>
 		)
 	}
@@ -197,7 +198,7 @@ export default class TopupScreen extends React.Component {
 		console.log('alipay');
 		//let orderInfo = 'charset=utf-8&biz_content=%7B%22out_trade_no%22%3A%22170821000P00000035%22%2C%22total_amount%22%3A%2220.36%22%2C%22subject%22%3A%22%E4%B8%8A%E6%B5%B7%E4%BA%91%E6%8B%BF%E6%99%BA%E8%83%BD%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%22%2C%22body%22%3A%22%E4%BA%91%E6%8B%BF%E8%B4%A6%E6%88%B7%E5%85%85%E5%80%BC%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%7D&method=alipay.trade.app.pay&format=JSON&sign=ff%2F7u4E6XmNyGi6DAfgrz%2BQc%2BQaqdnYqTgTO35LKDmiWd9kLuJNJEk6dlKw3NsxIPOETQARr5qITbVZ3w4f1FFDlzDWzA6BT1TG8fFhNu1uo%2BkuzSTqx9l0HV96yH9yR3r3m9OQvrUnvY%2B7PD%2BvnC11kRtEMr3NpycLmjbt68t0i%2FGiw4yQFA3rVqycPEyHal2iEzZ8U8KNWdu4jcI9esZmSfX472gKpLA8ss7%2B08tdOVDSpOV3K3B%2Bl5JhCvK5b4Tl6XfaQzMscZVxCeAoLZDFWcFCVM64XiyAHbbGzGDS2ZbsDOTNhIUZDpqRuDSGAawUZTVailHfQx16yrW98KQ%3D%3D&notify_url=http%3A%2F%2F10.10.10.141%3A8080%2Frest%2Fapi%2Fv1%2Ftrade%2Falipay_notify&app_id=2016080700190975&version=1.0&sign_type=RSA2&timestamp=2017-08-21+11%3A15%3A13';
 		console.log(orderInfo);
-		Alipay.payV2(orderInfo).then((data) => {
+		Alipay.pay(orderInfo).then((data) => {
 			console.log(data);
 			if (data && data.resultStatus) {
 				switch (data.resultStatus) {

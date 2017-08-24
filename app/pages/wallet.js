@@ -6,22 +6,20 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import Button from 'apsl-react-native-button';
-import Toast from 'react-native-root-toast';
-import {
-	SUCCESS, 
-	loginState,
-} from '../tools/constants';
 import styles from '../styles/global';
+import Toast from '../tools/toast';
+import Storage from '../tools/storage';
+import format from 'string-format';
+import * as constants from '../tools/constants';
 
 export default class WalletScreen extends React.Component {
 	constructor(props){
 		super(props);
 
 		this.state = {
-			userId: 'AlexanderYao',
-			userName: '邬文尧',
-			token: '',
-			balance: 200,
+			userId: this.props.navigation.state.params.userId,
+			accountInfo: {},
+
 			redPackage: 1,
 			coupon: 4,
 		};
@@ -32,7 +30,7 @@ export default class WalletScreen extends React.Component {
 			<View>
 				<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>余额</Text>
-					<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.balance} 元</Text>
+					<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.accountInfo.availableAmount} 元</Text>
 				</View>
 
 				<View style={[styles.cell, styles.spaceBetween]}>
@@ -62,5 +60,23 @@ export default class WalletScreen extends React.Component {
 
 	componentDidMount(){
 		console.log('wallet.componentDidMount');
+		this.getAccountInfo();
+	}
+
+	async getAccountInfo(){
+		try{
+      let url = format(constants.accountInfo, {userId: this.state.userId});
+      console.log('url: '+url);
+      let response = await fetch(url);
+      let resJson = await response.json();
+      console.log(resJson);
+      if(constants.SUCCESS == resJson.code){
+      	this.setState({accountInfo: resJson.data});
+      }else{
+      	Toast.show('获取账户失败：'+resJson.message);
+      }
+    }catch(error){
+      console.error(error);
+    }
 	}
 }

@@ -13,7 +13,7 @@ import {
 	orderInfo,
 } from './controllers/orderControl';
 import {
-	getAccountInfo,
+	accountInfo,
 } from './controllers/accountControl';
 import {
 	userInfo,
@@ -32,7 +32,7 @@ router.route('/trade/pay').post(pay);
 router.route('/order/:userId/list').get(orders);
 router.route('/order/:orderId/info').get(orderInfo);
 
-router.route('/account/:userId/query').get(getAccountInfo);
+router.route('/account/:userId/query').get(accountInfo);
 
 router.route('/user/getNormalUserById/:userId').get(userInfo);
 router.route('/user/modify').post(userModify);

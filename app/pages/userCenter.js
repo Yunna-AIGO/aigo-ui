@@ -85,7 +85,7 @@ export default class UserCenterScreen extends React.Component {
 
         <TouchableOpacity style={globalStyle.cell} onPress={
           ()=>{
-            this.props.navigation.navigate('Wallet')
+            this.props.navigation.navigate('Wallet', {userId: this.state.userId})
           }
         }
         >

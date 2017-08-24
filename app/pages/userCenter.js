@@ -41,6 +41,8 @@ export default class UserCenterScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: 'test',
+      token: '',
       userName : 'yuxiao',
       avatar : 'null',
     };
@@ -110,6 +112,26 @@ export default class UserCenterScreen extends React.Component {
 
   componentDidMount(){
     console.log('个人中心componentDidMount');
+    this.detectLogin();
+  }
+
+  async detectLogin(){
+    let userId = await Storage.get('userId');
+    let token = await Storage.get('token');
+
+    if(!userId || !token){
+      // this.showLogin();
+    }else{
+      this.setState({
+        userId: userId,
+        token: token,
+      });
+      this.getUserInfo();
+    }
+  }
+
+  async getUserInfo(){
+    
   }
 
   reload(){

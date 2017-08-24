@@ -50,29 +50,29 @@ export default class QrCodeScreen extends React.Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: (
-        <TouchableOpacity>
-            <Text style={{color:'#fff',fontSize:16,}}>扫一扫</Text>
-        </TouchableOpacity>
-    ),
-    headerRight: (
-        <NavigationItem
-            icon={require('../images/scanning.png')}
-            onPress={() => {
-                alert(this)
-            }}
-        />
-    ),
-    headerLeft: (
-        <NavigationItem
-            title='登录'
-            titleStyle={{ color: '#fff' }}
-            onPress={() => {
-                that.showLogin();
-            }}
-        />
-    ),
-    headerStyle: { backgroundColor: theme.orange,borderColor:'#fff',},
+        headerTitle: (
+            <TouchableOpacity>
+                <Text style={{color:'#fff',fontSize:16,}}>扫一扫</Text>
+            </TouchableOpacity>
+        ),
+        headerRight: (
+            <NavigationItem
+                icon={require('../images/scanning.png')}
+                onPress={() => {
+                    alert(this)
+                }}
+            />
+        ),
+        headerLeft: (
+            <NavigationItem
+                title='登录'
+                titleStyle={{ color: '#fff' }}
+                onPress={() => {
+                    that.showLogin();
+                }}
+            />
+        ),
+        headerStyle: { backgroundColor: theme.orange,borderColor:'#fff',},
   })
 
   render() {

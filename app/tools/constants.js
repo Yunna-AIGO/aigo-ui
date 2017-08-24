@@ -17,7 +17,9 @@ export const qrcode = urlPrefix + 'logon/qrcode';
 
 export const accountInfo = urlPrefix + 'account/{userId}/query'
 
+
 export const orders = urlPrefix + 'order/{userId}/list?pageNum={pageNum}&pageSize={pageSize}';
+
 export const orderInfo = urlPrefix + 'order/{orderId}/info';
 
 export const userInfo = urlPrefix + 'user/getNormalUserById/{userId}';

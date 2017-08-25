@@ -3,8 +3,8 @@ package com.myapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.myapp.alipay.AlipayPackage;
 import com.theweflex.react.WeChatPackage;
-import com.yunpeng.alipay.AlipayPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;

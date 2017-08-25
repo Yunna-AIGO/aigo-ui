@@ -9,7 +9,7 @@ export const loginState = 'loginState';
 // 真实的服务接口：本地环境
 //const urlPrefix = 'http://localhost:8080/cloudpick/rest/api/v1/';
 // 真实的服务接口：测试环境
-// const urlPrefix = 'http://10.10.10.146:8080/cloudpick/rest/api/v1/';
+// const urlPrefix = 'http://10.10.10.119:8080/cloudpick/rest/api/v1/';
 
 export const sendsms = urlPrefix + 'logon/sendsms?mobile={mobile}';
 export const entry = urlPrefix + 'logon/entry';

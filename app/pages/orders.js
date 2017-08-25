@@ -42,8 +42,8 @@ export default class OrdersScreen extends Component {
       userId: '',
       orders: [],
 
-      pageNum: 1,
-      pageSize: 10,
+      pageNum: 0,
+      pageSize: 100,
     };
   }
 
@@ -70,7 +70,7 @@ export default class OrdersScreen extends Component {
           </View>
           <Image source={require('../images/store.png')} style={{width:30,height:30,marginRight:20,}} />
           <View>
-            <Text style={{marginBottom:5,fontSize:14,}}>{obj.storeId}</Text>
+            <Text style={{marginBottom:5,fontSize:14,}}>云店{obj.storeId}</Text>
             <Text style={{fontWeight:'bold',}}>¥{obj.orderAmt}</Text>
           </View>
         </View>

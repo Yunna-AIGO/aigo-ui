@@ -44,7 +44,7 @@ export default class WalletScreen extends React.Component {
 				</View>
 
 				<Button style={styles.rowButton} 
-					onPress={() => this.props.navigation.navigate('Topup')}>
+					onPress={() => this.props.navigation.navigate('Topup', {userId:this.state.userId})}>
 					充  值
 				</Button>
 			</View>

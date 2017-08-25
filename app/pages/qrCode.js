@@ -76,8 +76,8 @@ export default class QrCodeScreen extends React.Component {
   })
 
   render() {
-    return (
-      <View  style={{backgroundColor:theme.orange,flex:1}}>        
+  
+      <View  style={{backgroundColor:theme.orange,flex:1}}>
 
         <View style={{backgroundColor:'#fff',margin:40,borderRadius:3,overflow:'hidden'}}>
           <View style={{backgroundColor:theme.lightgrey,}}>
@@ -268,7 +268,7 @@ export default class QrCodeScreen extends React.Component {
     setTimeout(()=>{
       this.hideLogin();
       this.getQrCode();
-    },1000)
+    },1000);
   } 
 }
 

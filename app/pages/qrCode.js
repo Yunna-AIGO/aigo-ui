@@ -76,64 +76,8 @@ export default class QrCodeScreen extends React.Component {
   })
 
   render() {
-
-    var loginBtnReady = this.state.phoneNoReady && this.state.captchaReady;
-
     return (
-      <View  style={{backgroundColor:theme.orange,flex:1}}>
-
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.loginVisible}
-        >
-          <View style={{backgroundColor:'#fff',flex:1,padding:50,marginTop:'20%'}}>
-
-            <Image 
-              source={require('../images/yunna.png')}
-              style={{width:'100%',height:50,marginBottom:20}}
-              resizeMode="stretch"
-            />
-            
-            <View style={{flexDirection:'row'}}>
-              <TextInput style={[globalStyle.TextInput]} 
-                autoFocus={true}
-                placehoder="请输入手机号" 
-                onChangeText={
-                (text)=>{
-                  this.checkPhoneNo(text)
-                }
-              }></TextInput>
-            </View>
-
-            <Button title="发送验证码" color="orange" disabled={!this.state.phoneNoReady} onPress={()=>{
-              this.sendMessage();
-            }}></Button>
-
-            <View style={{flexDirection:'row'}}>
-              <TextInput style={[globalStyle.TextInput]} placehoder="请输入验证码" 
-              onChangeText={
-                (text)=>{
-                  this.checkCaptcha(text)
-                }
-              }>
-              </TextInput>
-            </View>
-
-            <View>
-              <MyButton
-                disabled={!loginBtnReady}
-                style={{marginTop:30}}
-                onPress={()=>{
-                  this.doLogin();
-                }}
-              >登录</MyButton>
-            </View>
-
-          </View>
-
-        </Modal>        
-        
+      <View  style={{backgroundColor:theme.orange,flex:1}}>        
 
         <View style={{backgroundColor:'#fff',margin:40,borderRadius:3,overflow:'hidden'}}>
           <View style={{backgroundColor:theme.lightgrey,}}>
@@ -166,7 +110,7 @@ export default class QrCodeScreen extends React.Component {
   componentWillMount(){
     console.log('componentWillMount');
     StatusBar.setBarStyle('light-content')
-    this.detectLogin();
+    //this.detectLogin();
   }
 
   componentDidMount(){

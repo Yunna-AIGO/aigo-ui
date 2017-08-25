@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { 
   AppRegistry,
+  View,
 } from 'react-native';
 
 import { StackNavigator, TabBarBottom, TabNavigator } from 'react-navigation';
@@ -21,6 +22,8 @@ import WalletScreen from './pages/wallet';
 import TopupScreen from './pages/topup';
 import TermOfServiceTopupScreen from './pages/termOfServiceTopup';
 import SettingScreen from './pages/setting';
+
+import LoginScreen from './pages/login.js';
 
 const TabNavigatorMain = TabNavigator({
   QrCode: {
@@ -77,7 +80,6 @@ const TabNavigatorMain = TabNavigator({
   },
 });
 
-
 const GlobalPage = StackNavigator({
   Home: { screen: TabNavigatorMain },
   TermOfService: {screen: TermOfServiceScreen},
@@ -91,7 +93,44 @@ const GlobalPage = StackNavigator({
   onTransitionEnd:(navi)=>{}
 });
 
+var that = null;
+export default class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    that = this;
+    this.state = {
+      loginVisible: false,
+    };
+  }
+  componentWillMount(){
+    console.log('componentWillMount');
+    //StatusBar.setBarStyle('light-content')
+    this.detectLogin();
+  }
 
-AppRegistry.registerComponent('MyApp', () => GlobalPage);
+  detectLogin(){
+    this.setState({
+      loginVisible : true
+    })
+  }
+  render(){
+    return (
+      <View style={{flex:1}}>
+        <LoginScreen 
+        hideLoginHandle={()=>{
+          this.setState({
+            loginVisible : false
+          })
+        }}
+        loginVisible={this.state.loginVisible}
+         />
+        <GlobalPage />
+      </View>
+    )
+  }
+}
+
+
+AppRegistry.registerComponent('MyApp', () => MyApp);
 
 

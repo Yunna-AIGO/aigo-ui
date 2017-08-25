@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import router from './router';
 
-mongoose.connect('mongodb://localhost:27017/BookRent');
+//mongoose.connect('mongodb://localhost:27017/BookRent');
 
 // Initialize http server
 const app = express();

@@ -5,9 +5,9 @@ export const SUCCESS = '0000';
 export const loginState = 'loginState';
 
 // mock环境：cd server & yarn run start
-// const urlPrefix = 'http://localhost:9000/api/v1/';
+ const urlPrefix = 'http://localhost:9000/api/v1/';
 // 真实的服务接口：本地环境
-const urlPrefix = 'http://localhost:8080/cloudpick/rest/api/v1/';
+//const urlPrefix = 'http://localhost:8080/cloudpick/rest/api/v1/';
 // 真实的服务接口：测试环境
 // const urlPrefix = 'http://10.10.10.146:8080/cloudpick/rest/api/v1/';
 

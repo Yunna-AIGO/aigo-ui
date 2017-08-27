@@ -20,7 +20,7 @@ export const accountInfo = urlPrefix + 'account/{userId}/query'
 export const orders = urlPrefix + 'order/{userId}/list?pageNum={pageNum}&pageSize={pageSize}';
 export const orderInfo = urlPrefix + 'order/{orderId}/info';
 
-export const userInfo = urlPrefix + 'user/getNormalUserById/{userId}';
+export const userInfo = urlPrefix + 'user/{userId}/getNormalUser';
 export const userModify = urlPrefix + 'user/modify?userId={userId}&mobile={mobile}&nickName={nickName}';
 
 export const recharge = urlPrefix + 'trade/recharge';

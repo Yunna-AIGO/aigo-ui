@@ -34,7 +34,7 @@ router.route('/order/:orderId/info').get(orderInfo);
 
 router.route('/account/:userId/query').get(accountInfo);
 
-router.route('/user/getNormalUserById/:userId').get(userInfo);
+router.route('/user/:userId/getNormalUser').get(userInfo);
 router.route('/user/modify').post(userModify);
 
 export default router;

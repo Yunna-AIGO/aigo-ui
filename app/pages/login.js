@@ -29,11 +29,10 @@ import format from 'string-format';
 
 import Toast from '../tools/toast';
 
-let that;
 export default class loginScreen extends React.Component {
   constructor(props) {
     super(props);
-    that = this;
+
     this.state = {
       qrcode : '',
       phoneNo : '',

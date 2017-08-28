@@ -54,7 +54,7 @@ export default class OrderDetailScreen extends React.Component {
             renderItem={({item}) =>
               <View style={styles.cell}>
                 <Image
-                  source={{uri: item.goodsPhotoUrl}}
+                  source={{uri: 'https://gd3.alicdn.com/imgextra/i3/38455724/TB2MitTXbT8F1Jjy0FgXXX3fpXa_!!38455724.jpg'}}
                   style={styles.thumbnail}
                 />
                 <View style={{flexDirection:'column', marginLeft:10}}>

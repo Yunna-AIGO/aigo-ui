@@ -11,8 +11,6 @@ import {
   StatusBar
 } from 'react-native';
 
-import * as WeChat from 'react-native-wechat';
-
 import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
 
 import MyButton from '../mods/myButton';
@@ -63,20 +61,20 @@ export default class QrCodeScreen extends React.Component {
                 }}
             />
         ),
-        headerLeft: (
-            <NavigationItem
-                title='登录'
-                titleStyle={{ color: '#fff' }}
-                onPress={() => {
-                    that.showLogin();
-                }}
-            />
-        ),
+        // headerLeft: (
+        //     <NavigationItem
+        //         title='登录'
+        //         titleStyle={{ color: '#fff' }}
+        //         onPress={() => {
+        //             that.showLogin();
+        //         }}
+        //     />
+        // ),
         headerStyle: { backgroundColor: theme.orange,borderColor:'#fff',},
   })
 
   render() {
-  
+    return (
       <View  style={{backgroundColor:theme.orange,flex:1}}>
 
         <View style={{backgroundColor:'#fff',margin:40,borderRadius:3,overflow:'hidden'}}>
@@ -108,82 +106,12 @@ export default class QrCodeScreen extends React.Component {
   }
 
   componentWillMount(){
-    console.log('componentWillMount');
-    StatusBar.setBarStyle('light-content')
-    //this.detectLogin();
+    console.log('qrcode.componentWillMount');
+    StatusBar.setBarStyle('light-content');
   }
 
   componentDidMount(){
     console.log('qrcode.componentDidMount');
-
-    // 必须初始化（有且只有）一次
-    WeChat.registerApp(constants.APPID);
-  }
-
-  async detectLogin(){
-    console.log('login');
-    let userId = await Storage.get('userId');
-    let token = await Storage.get('token');
-
-    if(!userId || !token){
-      this.showLogin();
-    }else{
-      this.setState({
-        userId: userId,
-        token: token,
-      });
-      this.getQrCode();
-    }
-  }
-
-  showLogin(){
-    console.log('show login');
-    this.setState({
-      loginVisible : !this.state.loginVisible
-    })
-  }
-
-  hideLogin(){
-    console.log('hide login');
-    this.setState({
-      loginVisible : !this.state.loginVisible
-    })
-  }
-
-  checkPhoneNo(text){
-    console.log(text);
-    // console.log((/^1[0-9]{10}$/.test(text)));
-    this.setState({
-      phoneNo : text,
-      phoneNoReady : (/^1[0-9]{10}$/.test(text))
-    })
-  }
-
-  sendMessage(){
-    this.sendMessageImpl().then(response => {
-      if(constants.SUCCESS === response.code){
-        Toast.show('短信已发送，请查收');
-      }else{
-        Toast.show('发送失败：'+response.message);
-      }
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  async sendMessageImpl(){
-    let url = format(constants.sendsms, {mobile: this.state.phoneNo});
-    console.log('url: '+url);
-    let response = await fetch(url);
-    let resJson = await response.json();
-    return resJson;
-  }
-
-  checkCaptcha(text){
-    this.setState({
-      captcha: text,
-      captchaReady : (text.length == 6)
-    })
   }
 
   async getQrCode(){
@@ -193,13 +121,25 @@ export default class QrCodeScreen extends React.Component {
       let token = this.state.token;
 
       if(!userId || !token){
-        return;
+        userId = await Storage.get('userId');
+        token = await Storage.get('token');
+
+        if(!userId || !token) {
+          console.log('getQrCode: can not get userId or token');
+          return;
+        }
+
+        this.setState({
+          userId: userId,
+          token: token,
+        });
       }
 
       let request = {
         userId: userId,
         token: token,
       };
+      console.log(constants.qrcode);
       let response = await fetch(constants.qrcode, {
         headers: {
           'Content-Type': 'application/json'
@@ -220,56 +160,106 @@ export default class QrCodeScreen extends React.Component {
     }
   }
 
-  doLogin(){
-    this.loginImpl().then(response => {
-      console.log(response);
-      if(constants.SUCCESS === response.code){
-        Toast.show('注册/登录成功！');
-        let {userId, token} = response.data;
-        this.saveToken(userId, token);
-      }else{
-        Toast.show('注册/登录失败：'+response.message);
-      }
-    }, error => {
-      console.log(error);
-    });
-  }
+  // showLogin(){
+  //   console.log('show login');
+  //   this.setState({
+  //     loginVisible : !this.state.loginVisible
+  //   })
+  // }
 
-  async loginImpl(){
-    try{
-      console.log(constants.entry);
-      let request = {
-        mobile: this.state.phoneNo,
-        smsCode: this.state.captcha,
-      };
-      let response = await fetch(constants.entry, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(request),
-      });
-      let resJson = await response.json();
-      return resJson;
-    }catch(error){
-      console.error(error);
-    }
-  }
+  // hideLogin(){
+  //   console.log('hide login');
+  //   this.setState({
+  //     loginVisible : !this.state.loginVisible
+  //   })
+  // }
 
-  saveToken(userId, token){
-    this.setState({
-      userId: userId,
-      token: token,
-    })
+  // checkPhoneNo(text){
+  //   console.log(text);
+  //   // console.log((/^1[0-9]{10}$/.test(text)));
+  //   this.setState({
+  //     phoneNo : text,
+  //     phoneNoReady : (/^1[0-9]{10}$/.test(text))
+  //   })
+  // }
 
-    Storage.save('userId', userId);
-    Storage.save('token', token);
+  // sendMessage(){
+  //   this.sendMessageImpl().then(response => {
+  //     if(constants.SUCCESS === response.code){
+  //       Toast.show('短信已发送，请查收');
+  //     }else{
+  //       Toast.show('发送失败：'+response.message);
+  //     }
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
 
-    setTimeout(()=>{
-      this.hideLogin();
-      this.getQrCode();
-    },1000);
-  } 
+  // async sendMessageImpl(){
+  //   let url = format(constants.sendsms, {mobile: this.state.phoneNo});
+  //   console.log('url: '+url);
+  //   let response = await fetch(url);
+  //   let resJson = await response.json();
+  //   return resJson;
+  // }
+
+  // checkCaptcha(text){
+  //   this.setState({
+  //     captcha: text,
+  //     captchaReady : (text.length == 6)
+  //   })
+  // }
+
+  // doLogin(){
+  //   this.loginImpl().then(response => {
+  //     console.log(response);
+  //     if(constants.SUCCESS === response.code){
+  //       Toast.show('注册/登录成功！');
+  //       let {userId, token} = response.data;
+  //       this.saveToken(userId, token);
+  //     }else{
+  //       Toast.show('注册/登录失败：'+response.message);
+  //     }
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
+
+  // async loginImpl(){
+  //   try{
+  //     console.log(constants.entry);
+  //     let request = {
+  //       mobile: this.state.phoneNo,
+  //       smsCode: this.state.captcha,
+  //     };
+  //     let response = await fetch(constants.entry, {
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       method: 'POST',
+  //       body: JSON.stringify(request),
+  //     });
+  //     let resJson = await response.json();
+  //     return resJson;
+  //   }catch(error){
+  //     console.error(error);
+  //   }
+  // }
+
+  // saveToken(userId, token){
+  //   this.setState({
+  //     userId: userId,
+  //     token: token,
+  //   })
+
+  //   Storage.save('userId', userId);
+  //   Storage.save('token', token);
+
+  //   setTimeout(()=>{
+  //     // this.hideLogin();
+  //     this.getQrCode();
+  //   },1000);
+  // } 
 }
 
 

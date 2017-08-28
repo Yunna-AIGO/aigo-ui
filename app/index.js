@@ -9,6 +9,9 @@ import { StackNavigator, TabBarBottom, TabNavigator } from 'react-navigation';
 import globalStyle from './styles/global';
 import theme from './styles/theme';
 import TabBarItem from './mods/tabBarItem';
+import Storage from './tools/storage';
+import * as WeChat from 'react-native-wechat';
+import * as constants from './tools/constants';
 
 import QrCodeScreen from './pages/qrCode';
 import TermOfServiceScreen from './pages/termOfService';
@@ -104,15 +107,26 @@ export default class MyApp extends React.Component {
   }
   componentWillMount(){
     console.log('componentWillMount');
+
+    // 必须初始化（有且只有）一次
+    WeChat.registerApp(constants.APPID);
+
     //StatusBar.setBarStyle('light-content')
     this.detectLogin();
   }
 
-  detectLogin(){
-    this.setState({
-      loginVisible : true
-    })
+  async detectLogin(){
+    console.log('detectLogin');
+    let userId = await Storage.get('userId');
+    let token = await Storage.get('token');
+
+    if(!userId || !token){
+      this.setState({
+        loginVisible : true
+      });
+    }
   }
+
   render(){
     return (
       <View style={{flex:1}}>

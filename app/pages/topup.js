@@ -7,11 +7,6 @@ import {
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Toast from '../tools/toast';
-import RadioForm, {
-	RadioButton,
-	RadioButtonInput,
-	RadioButtonLabel,
-} from 'react-native-simple-radio-button';
 import {
 	RadioButtons
 } from 'react-native-radio-buttons';
@@ -34,12 +29,11 @@ export default class TopupScreen extends React.Component {
 				// {label:'充0.01元', value:"0.01"},
 			],
 			enumPayTypes: [
-				{label:'支付宝支付', value:'alipay'},
-				{label:'微 信 支 付 ', value:'wechat_pay'},
+				{label:'支付宝支付', value:'alipay', logo:require('../images/alipay.png')},
+				{label:'微信支付 ', value:'wechat_pay', logo:require('../images/wechat.png')},
 			],
 			money: "10",
 			payType: 'alipay',
-			payTypeIndex: 0,
 		};
 	}
 
@@ -63,46 +57,21 @@ export default class TopupScreen extends React.Component {
 					<Text style={styles.rowText}>请选择支付方式</Text>
 				</View>
 
-				<RadioForm initial={'alipay'}
-					animation={false}
-					
-				>
-					{this.state.enumPayTypes.map((obj, i) => {
-						let that = this;
-						let isSelected = this.state.payTypeIndex == i;
-						let onPress = (value, index) => {
-							this.setState({
-								payType: value,
-								payTypeIndex: index,
-							})
-						};
-						return (
-							<RadioButton key={i} style={{margin:10}}>
-								<RadioButtonLabel
-									obj={obj}
-									index={i}
-									onPress={onPress}
-									labelStyle={{fontSize:16}}
-								/>
-								<RadioButtonInput
-									obj={obj}
-									index={i}
-									isSelected={this.state.payTypeIndex === i}
-									onPress={onPress}
-									buttonSize={10}
-									buttonStyle={{marginLeft:200}}
-								/>
-							</RadioButton>
-						)
-					})}
-				</RadioForm>
+				<RadioButtons options={this.state.enumPayTypes}
+					onSelection={(option) => this.setState({payType: option.value})}
+					selectedOption={this.state.payType}
+					renderOption={this.renderPayOption}
+					renderContainer={this.renderPayContainer}
+					extractText={(option) => option.label}
+					testOptionEqual={(selectedValue, option) => selectedValue === option.value}
+				/>
 
-				<Button style={styles.rowButton} 
+				<Button style={[styles.rowButton, {marginTop:0}]} 
 					onPress={() => this.topupNow()}>
 					立即充值
 				</Button>
 
-				<Text style={{fontSize:12, marginLeft:30, marginRight:30}}>
+				<Text style={{fontSize:12, marginLeft:30, marginRight:30, marginBottom:10}}>
 					点击立即充值，即表示您已阅读并同意
 					<Text onPress={() => this.props.navigation.navigate('TermOfServiceTopup')}
 						style={styles.textLink}>
@@ -132,8 +101,8 @@ export default class TopupScreen extends React.Component {
 			margin: 10,
 			fontSize: 20,
 			textAlign: 'center',
-			borderColor: 'gray',
-			borderRadius: 4,
+			borderColor: 'lightgray',
+			borderRadius: 5,
 		};
 		const styleSelected = selected ? {backgroundColor:'gold'} : {};
 		return (
@@ -154,8 +123,43 @@ export default class TopupScreen extends React.Component {
 		}}>{optionNodes}</View>
 	}
 
+	renderPayOption(option, selected, onSelect, index){
+		const styleSelected = selected ? {backgroundColor:'gold'} : {};
+		return (
+			<TouchableOpacity key={index} onPress={onSelect}>
+				{/* add another View to fix error: Attempted to transition from state `RESPONDER_INACTIVE_PRESS_IN` to `RESPONDER_ACTIVE_LONG_PRESS_IN` */}
+				<View style={{flexDirection:'row', margin:10, justifyContent:'space-between'}}>
+					<View style={{flexDirection:'row', marginLeft:10}}>
+						<Image source={option.logo} style={styles.icon} /> 
+						<View style={{justifyContent:'center'}}>
+							<Text style={[styles.rowText, {marginLeft:10, fontSize:16}]}>{option.label}</Text>
+						</View>
+					</View>
+
+					<View style={{justifyContent:'center', marginRight:10}}>
+						{ selected &&
+							<Image source={require('../images/checked.png')} style={styles.iconSmall} />
+						}
+						{ !selected &&
+							<Image source={require('../images/unchecked.png')} style={styles.iconSmall} />
+						}
+					</View>
+				</View>
+			</TouchableOpacity>
+		)
+	}
+
+	renderPayContainer(optionNodes){
+		return <View style={{
+			flexDirection:'column', 
+			margin:10,
+			// justifyContent:'center',
+		}}>{optionNodes}</View>
+	}
+
 	async topupNow(){
 		console.log('topup.topupNow');
+		console.log(this.state.payType);
 		try{
 			let request = { 
 				userId : this.state.userId,

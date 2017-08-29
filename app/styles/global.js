@@ -122,4 +122,12 @@ export default globalStyle = StyleSheet.create({
     width: 100,
     height: 100,
   },
+  icon:{
+    width:25,
+    height:25,
+  },
+  iconSmall:{
+    width:20,
+    height:20,
+  },
 });

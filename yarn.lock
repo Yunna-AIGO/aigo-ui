@@ -3329,10 +3329,6 @@ react-native-scrollable-tab-view@^0.6.7:
   dependencies:
     react-timer-mixin "^0.13.3"
 
-react-native-simple-radio-button@^2.6.0:
-  version "2.6.1"
-  resolved "http://registry.npm.taobao.org/react-native-simple-radio-button/download/react-native-simple-radio-button-2.6.1.tgz#6277812044ea87645ae52a8f8c3f7eb0d9385228"
-
 react-native-storage@^0.2.2:
   version "0.2.2"
   resolved "http://registry.npm.taobao.org/react-native-storage/download/react-native-storage-0.2.2.tgz#4449197f122b2da0650e3704e1f050260ed58d9f"

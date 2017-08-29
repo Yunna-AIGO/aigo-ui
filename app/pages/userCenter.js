@@ -54,13 +54,19 @@ export default class UserCenterScreen extends React.Component {
   }
 
   render() {
+    let name = '';
+    if(this.state.userInfo != null){
+      name = this.state.userInfo.nickName || this.state.userInfo.mobile || '未登录';
+    }else{
+      name = '未登录';
+    }
     return (
       <View>
         <View style={globalStyle.card}>
           <View style={[globalStyle.avatar,{marginBottom:10}]}>
             <Image source={require('../images/fire.png')} style={{flex:1,width:'100%',borderRadius:20}}/>
           </View>
-          <Text>{this.state.userInfo.nickName || this.state.userInfo.mobile || '未登录'}</Text>
+          <Text>{name}</Text>
         </View>
 
         <TouchableOpacity style={globalStyle.cell} 

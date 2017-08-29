@@ -53,10 +53,14 @@ export default class OrderDetailScreen extends React.Component {
             data={order.goodsList}
             renderItem={({item}) =>
               <View style={styles.cell}>
-                <Image
-                  source={{uri: 'https://gd3.alicdn.com/imgextra/i3/38455724/TB2MitTXbT8F1Jjy0FgXXX3fpXa_!!38455724.jpg'}}
-                  style={styles.thumbnail}
-                />
+                {
+                  item.goodsPhotoUrl &&
+                  <Image source={{uri:item.goodsPhotoUrl}} style={styles.thumbnail}/>
+                }
+                {
+                  !item.goodsPhotoUrl &&
+                  <Image source={{uri:'https://gd3.alicdn.com/imgextra/i3/38455724/TB2MitTXbT8F1Jjy0FgXXX3fpXa_!!38455724.jpg'}} style={styles.thumbnail} />
+                }
                 <View style={{flexDirection:'column', marginLeft:10}}>
                   <Text style={styles.rowText}>{item.goodsName}</Text>
                   <Text style={[styles.rowText, {marginTop:10}]}>数量: {item.goodsNum}{item.goodsUnit}   |   价格: {item.goodsPrice}元</Text>

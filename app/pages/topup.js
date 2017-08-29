@@ -103,6 +103,7 @@ export default class TopupScreen extends React.Component {
 			textAlign: 'center',
 			borderColor: 'lightgray',
 			borderRadius: 5,
+			overflow:'hidden',
 		};
 		const styleSelected = selected ? {backgroundColor:'gold'} : {};
 		return (

@@ -23,7 +23,8 @@
 20. ~~用户中心：用户详情页~~
 21. 支付是否成功：根据transId按1、2、4、8秒查询后台异步结果，而不是根据支付宝的同步结果做判断
 22. 没有网络连接时，能优雅降级显示
-23. 关闭js remoting debug时，Date()对象的表现行为不一致//模拟器+设备上用的是safari的js engine，remoting debug用的是chrome的V8引擎
+23. ~~关闭js remoting debug时，Date()对象的表现行为不一致//模拟器+设备上用的是safari的js engine，remoting debug用的是chrome的V8引擎~~
+24. storage支持过期失效，默认3个月，支持在选项里做配置
 
 
 # Page

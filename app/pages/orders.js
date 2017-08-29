@@ -31,6 +31,8 @@ import format from 'string-format';
 
 import Toast from '../tools/toast';
 
+import moment from 'moment';
+
 
 export default class OrdersScreen extends Component {
   //类构造函数
@@ -54,9 +56,9 @@ export default class OrdersScreen extends Component {
   _renderItem = (row) => {
     let obj = row.item;
     let {navigate} = this.props.navigation;
-    let date = new Date(obj.gmtCreate);
-    let dateDesc = (date.getMonth()+1)+'-'+date.getDate();
-    let weekDay = ['日','一','二','三','四','五','六'][date.getDay()];
+    let date = moment(obj.gmtCreate);
+    let dateDesc = date.format('M-D');
+    let weekDay = ['日','一','二','三','四','五','六'][date.day()];
 
     return (
       <TouchableOpacity onPress={() => {
@@ -90,15 +92,8 @@ export default class OrdersScreen extends Component {
   _extractKey(item, index){
     return item.orderId;
   }
-  // _onRefresh() {
-  //   console.log('正在刷新中.... ');
-  //   this.getOrders();
-  // }
+  
   render() {
-    // var data = [];
-    // for (var i = 0; i < 31; i++) {
-    //   data.push({ key: i, id: i, store : '我是一家商店', price: 120.00, orderTime:new Date().getTime(), gmtCreate:new Date().getTime(), });
-    // }
     return (
       <View style={{ flex: 1 }}>
 

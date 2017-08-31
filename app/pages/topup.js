@@ -12,8 +12,10 @@ import {
 } from 'react-native-radio-buttons';
 import Alipay from '../tools/alipay';
 import * as WeChat from 'react-native-wechat';
-import TransStatus, * as constants from '../tools/constants';
+import * as constants from '../tools/constants';
+import {TransStatus} from '../tools/enums';
 import styles from '../styles/global';
+import format from 'string-format';
 
 export default class TopupScreen extends React.Component {
 	constructor(props){
@@ -218,7 +220,7 @@ export default class TopupScreen extends React.Component {
 
 		let delay = Math.pow(2, this.count++);
 		console.log('topup.checkTrans delay = '+delay);
-		let timer = setTimeout(()=>{
+		let timer = setTimeout(() => {
 			this.checkTrans(transId).then(transStatus => {
 				let pendingList = [TransStatus.INIT, TransStatus.PENDING_PAYMENT, TransStatus.PROCESSING];
 				let successList = [TransStatus.SUCCEEDED];
@@ -233,6 +235,7 @@ export default class TopupScreen extends React.Component {
 					console.error('不存在的交易状态：'+transStatus);
 				}
 			}, error => {
+				console.log(error);
 				this.delayCheckTrans(transId);
 			});
 		}, delay * 1000)
@@ -240,6 +243,7 @@ export default class TopupScreen extends React.Component {
 	}
 
 	async checkTrans(transId){
+		console.log('topup.checkTrans');
     let url = format(constants.queryTrans, {transId: transId});
     console.log('url: '+url);
     let response = await fetch(url);
@@ -248,7 +252,7 @@ export default class TopupScreen extends React.Component {
     if(resJson && resJson.code == constants.SUCCESS){
     	let {transStatus} = resJson.data;
     	return transStatus;
-    }else{
+    }else{ 
     	return TransStatus.FAILED;
     }
 	}
@@ -260,6 +264,7 @@ export default class TopupScreen extends React.Component {
 		Alipay.pay(orderInfo).then((data) => {
 			console.log(data);
 			Toast.show('正在后台查询交易状态');
+			this.count = 0;
 			this.delayCheckTrans(transId);
 			// if (data && data.resultStatus) {
 			// 	switch (data.resultStatus) {

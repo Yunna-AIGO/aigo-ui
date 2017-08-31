@@ -25,6 +25,11 @@
 22. 没有网络连接时，能优雅降级显示
 23. ~~关闭js remoting debug时，Date()对象的表现行为不一致//模拟器+设备上用的是safari的js engine，remoting debug用的是chrome的V8引擎~~
 24. storage支持过期失效，默认3个月，支持在选项里做配置
+25. 未支付的订单，显示『去支付』，点击后显示弹框，选择支付宝或微信，点击『立即支付』，唤起支付宝或微信完成支付
+26. 订单页区分 充值 vs. 购物单，充值单显示『充值成功、取消、失败』，购物单显示『已支付、去支付』
+27. react-native-wechat目前的buildToolsVersion="23.0.1",版本过低，需手工改为25.0.0，或后续移植到项目中来
+28. 目前只有1个配置urlPrefix，如果有多个，考虑引入react-native-config，切换不同的环境：mock, dev, test, prod
+29. ~~android的release版要先卸载debug版，再执行`yarn release`，ios的release版只需在xcode里scheme->run->build configuration里改成release再连真机run即可~~
 
 
 # Page

@@ -65,20 +65,22 @@
 # okio
 
 -keep class sun.misc.Unsafe { *; }
+-keep class okio.** { *; }
 -dontwarn java.nio.file.*
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
 
 # alipay
--libraryjars libs/alipaySdk-20170725.jar
 -keep class com.alipay.android.app.IAlixPay{*;}
 -keep class com.alipay.android.app.IAlixPay$Stub{*;}
 -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
 -keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
 -keep class com.alipay.sdk.app.PayTask{ public *;}
 -keep class com.alipay.sdk.app.AuthTask{ public *;}
+-dontwarn com.alipay.**
 
 # wechat
 -keep class com.tencent.mm.sdk.** {
    *;
 }
+-dontwarn com.tencent.**

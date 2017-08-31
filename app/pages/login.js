@@ -145,6 +145,9 @@ export default class loginScreen extends React.Component {
           animationType={"slide"}
           transparent={false}
           visible={this.props.loginVisible}
+          onRequestClose={()=>{
+            console.log('login.Modal.onRequestClose');
+          }}
         >
           <View style={{backgroundColor:'#fff',flex:1,padding:50,marginTop:'20%'}}>
 

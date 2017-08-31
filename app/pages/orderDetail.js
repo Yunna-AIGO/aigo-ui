@@ -15,6 +15,7 @@ import theme from '../styles/theme';
 import * as constants from '../tools/constants';
 import format from 'string-format';
 import Toast from '../tools/toast';
+import {OrderStatus} from '../tools/enums';
 
 export default class OrderDetailScreen extends React.Component {
   constructor(props){
@@ -45,6 +46,9 @@ export default class OrderDetailScreen extends React.Component {
         </View>
         <View style={styles.cell}>
           <Text style={styles.rowText}>金额：{order.orderAmt} 元</Text>
+        </View>
+        <View style={styles.cell}>
+          <Text style={styles.rowText}>状态：{OrderStatus[order.status]}</Text>
         </View>
 
         <View>

@@ -4,7 +4,6 @@ import {
   AppRegistry,
   Text,
   View,
-  Button,
   Image,
   ListView,
   StyleSheet,
@@ -19,11 +18,11 @@ import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
 
 import { screen, system } from '../common';
 
-// import HistoryScreen from './history.js';
-
 import Storage from '../tools/storage';
 
-import globalStyle from '../styles/global.js';
+import styles from '../styles/global.js';
+
+import theme from '../styles/theme';
 
 import * as constants from '../tools/constants';
 
@@ -32,6 +31,14 @@ import format from 'string-format';
 import Toast from '../tools/toast';
 
 import moment from 'moment';
+
+import {OrderStatus, OrderType} from '../tools/enums';
+
+import Button from 'apsl-react-native-button';
+
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
+
+import _ from 'underscore';
 
 
 export default class OrdersScreen extends Component {
@@ -43,6 +50,7 @@ export default class OrdersScreen extends Component {
       refreshing: false, //刷新时报错 
       userId: '',
       orders: [],
+      topups: [],
 
       pageNum: 0,
       pageSize: 100,
@@ -60,21 +68,32 @@ export default class OrdersScreen extends Component {
     let dateDesc = date.format('M-D');
     let weekDay = ['日','一','二','三','四','五','六'][date.day()];
 
+    let pendingList = ['init', 'timeout'];
+    let show = pendingList.indexOf(obj.status) >= 0;
+
     return (
       <TouchableOpacity onPress={() => {
         console.log(obj);
         navigate('OrderDetail', {order:obj});
       }}>
-        <View style={globalStyle.cell}>
-          <View style={{width:50,marginRight:10,}}>
-            <Text style={{textAlign:'center',marginBottom:5,}}>周{weekDay}</Text>
-            <Text style={{textAlign:'center'}}>{dateDesc}</Text>
+        <View style={[styles.cell, styles.spaceBetween]}>
+          <View style={{flexDirection:'row'}}>
+            <View style={{width:50,marginRight:10,}}>
+              <Text style={{textAlign:'center',marginBottom:5,}}>周{weekDay}</Text>
+              <Text style={{textAlign:'center'}}>{dateDesc}</Text>
+            </View>
+            <Image source={require('../images/store.png')} style={{width:30,height:30,marginRight:20,}} />
+            <View>
+              <Text style={{marginBottom:5,fontSize:14,}}>云店{obj.storeId}</Text>
+              <Text style={{fontWeight:'bold',}}>¥{obj.orderAmt}</Text>
+            </View>
           </View>
-          <Image source={require('../images/store.png')} style={{width:30,height:30,marginRight:20,}} />
-          <View>
-            <Text style={{marginBottom:5,fontSize:14,}}>云店{obj.storeId}</Text>
-            <Text style={{fontWeight:'bold',}}>¥{obj.orderAmt}</Text>
-          </View>
+          { show && obj.orderType === OrderType.CONSUME &&
+            <Button style={{width:70, height:25, borderRadius:10, backgroundColor:theme.yellow, borderColor:theme.lightgrey}} 
+              onPress={() => this.pay(obj.orderId)}>
+              <Text style={{fontSize:14}}>去支付</Text>
+            </Button>
+          }
         </View>
       </TouchableOpacity>
     )
@@ -96,48 +115,95 @@ export default class OrdersScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        
 
-        <TouchableOpacity activeOpacity={1}
-          style={{width:30,height:30,borderColor:'#555',borderWidth:0.5,borderRadius:25,position:'absolute',right:10,bottom:10,zIndex:10,backgroundColor:'white'}}
-          onPress={() => {
-            //this._flatList.scrollToEnd();
-            //this._flatList.scrollToIndex({viewPosition:0,index:8});
-            this._flatList.scrollToOffset({ animated: true, offset: 0 });
-          }}
+        <ScrollableTabView style={{height:100}}
+          scrollWithoutAnimation={true}
         >
-          <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
-        </TouchableOpacity>
-        <View style={{ flex: 1 }}>
-          <FlatList
-            ref={
-              (flatList) => {
-                this._flatList = flatList
+          <View tabLabel='订单' style={{ flex: 1 }}>
+            {/* 回到顶部 */}
+            <TouchableOpacity activeOpacity={1}
+              style={{width:30,height:30,borderColor:'#555',borderWidth:0.5,borderRadius:25,position:'absolute',right:10,bottom:10,zIndex:10,backgroundColor:'white'}}
+              onPress={() => {
+                //this._flatList.scrollToEnd();
+                //this._flatList.scrollToIndex({viewPosition:0,index:8});
+                this._flatList.scrollToOffset({ animated: true, offset: 0 });
+              }}
+            >
+              <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
+            </TouchableOpacity>
+
+            <FlatList
+              ref={
+                (flatList) => {
+                  this._flatList = flatList
+                }
               }
-            }
-            ListHeaderComponent={this._header}
-            ListFooterComponent={this._footer}
-            ItemSeparatorComponent={this._separator}
-            renderItem={this._renderItem}
+              // ListHeaderComponent={this._header}
+              // ListFooterComponent={this._footer}
+              ItemSeparatorComponent={this._separator}
+              renderItem={this._renderItem}
+              numColumns ={1}
+              refreshing={this.state.refreshing}
+              getItemLayout={(data, index) => (
+                { length: 10, offset: (10 + 2) * index, index }
+              )}
+              onRefresh={() => this.getOrders()}
+              onEndReachedThreshold={0.1}
+              onEndReached={(info) => {
+                console.log("滑动到底部了");
+              } }
 
-            numColumns ={1}
-    
-            refreshing={this.state.refreshing}
-            getItemLayout={(data, index) => (
-              { length: 10, offset: (10 + 2) * index, index }
-            )}
-            onRefresh={() => this.getOrders()}
-            onEndReachedThreshold={0.1}
-            onEndReached={(info) => {
-              console.log("滑动到底部了");
-            } }
+              onViewableItemsChanged={(info) => {
+                //    alert("可见不可见触发");
+              } }
+              data={this.state.orders}
+              keyExtractor={this._extractKey}>
+            </FlatList>
+          </View>
+          <View tabLabel='充值'>
+            {/* 回到顶部 */}
+            <TouchableOpacity activeOpacity={1}
+              style={{width:30,height:30,borderColor:'#555',borderWidth:0.5,borderRadius:25,position:'absolute',right:10,bottom:10,zIndex:10,backgroundColor:'white'}}
+              onPress={() => {
+                //this._flatList.scrollToEnd();
+                //this._flatList.scrollToIndex({viewPosition:0,index:8});
+                this._flatList1.scrollToOffset({ animated: true, offset: 0 });
+              }}
+            >
+              <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
+            </TouchableOpacity>
 
-            onViewableItemsChanged={(info) => {
-              //    alert("可见不可见触发");
-            } }
-            data={this.state.orders}
-            keyExtractor={this._extractKey}>
-          </FlatList>
-        </View>
+            <FlatList
+              ref={
+                (flatList) => {
+                  this._flatList1 = flatList
+                }
+              }
+              // ListHeaderComponent={this._header}
+              // ListFooterComponent={this._footer}
+              ItemSeparatorComponent={this._separator}
+              renderItem={this._renderItem}
+              numColumns ={1}
+              refreshing={this.state.refreshing}
+              getItemLayout={(data, index) => (
+                { length: 10, offset: (10 + 2) * index, index }
+              )}
+              onRefresh={() => this.getOrders()}
+              onEndReachedThreshold={0.1}
+              onEndReached={(info) => {
+                console.log("滑动到底部了");
+              } }
+
+              onViewableItemsChanged={(info) => {
+                //    alert("可见不可见触发");
+              } }
+              data={this.state.topups}
+              keyExtractor={this._extractKey}>
+            </FlatList>
+          </View>
+        </ScrollableTabView>
+
       </View>
     );
   }
@@ -179,7 +245,9 @@ export default class OrdersScreen extends Component {
       console.log(resJson);
 
       if(constants.SUCCESS === resJson.code){
-        this.setState({orders: resJson.data});
+        let allOrders = resJson.data;
+        this.setState({orders: _.where(allOrders, {orderType: OrderType.CONSUME})});
+        this.setState({topups: _.where(allOrders, {orderType: OrderType.RECHARGE})});
         Toast.show('订单查询成功');
       }else{
         Toast.show('订单查询失败：'+resJson.message);
@@ -190,43 +258,8 @@ export default class OrdersScreen extends Component {
     this.setState({refreshing: false});
   }
 
+  pay(orderId){
+    console.log('orders.pay: '+orderId);
+  }
+
 }
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    paddingBottom:10,
-    paddingLeft:20,
-    paddingRight:20,
-    alignItems:'flex-start',
-  },
-  rightContainer: {
-    flex: 1,
-
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'left',
-  },
-  year: {
-    textAlign: 'left',
-  },
-  thumbnail: {
-    width: 80,
-    height: 110,
-    backgroundColor:'grey',
-    marginRight:10,
-  },
-  listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
-    borderColor:'red',
-    borderWidth:1,
-    paddingBottom:50,
-  },
-});

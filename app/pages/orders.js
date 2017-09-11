@@ -119,6 +119,8 @@ export default class OrdersScreen extends Component {
 
         <ScrollableTabView style={{height:100}}
           scrollWithoutAnimation={true}
+          tabBarActiveTextColor={theme.orange}
+          tabBarUnderlineStyle={{backgroundColor:theme.orange}}
         >
           <View tabLabel='订单' style={{ flex: 1 }}>
             {/* 回到顶部 */}

@@ -19,6 +19,9 @@ import {
 	userInfo,
 	userModify,
 } from './controllers/userControl';
+import {
+	save
+} from './controllers/videoControl';
 
 const router = Router();
 
@@ -36,5 +39,7 @@ router.route('/account/:userId/query').get(accountInfo);
 
 router.route('/user/:userId/getNormalUser').get(userInfo);
 router.route('/user/modify').post(userModify);
+
+router.route('/video/save').post(save);
 
 export default router;

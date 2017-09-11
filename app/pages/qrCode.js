@@ -34,7 +34,7 @@ export default class QrCodeScreen extends React.Component {
     that = this;
     this.state = {
       qrcode : '',
-      loginVisible: false,
+      // loginVisible: false,
       phoneNo : '',
       phoneNoReady : false,
       captcha : '',

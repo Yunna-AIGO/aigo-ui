@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  StatusBar
+  StatusBar,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import * as WeChat from 'react-native-wechat';
@@ -149,7 +150,8 @@ export default class loginScreen extends React.Component {
             console.log('login.Modal.onRequestClose');
           }}
         >
-          <View style={{backgroundColor:'#fff',flex:1,padding:50,marginTop:'20%'}}>
+          <KeyboardAvoidingView behavior="padding"
+            style={{backgroundColor:'#fff',flex:1,padding:50,marginTop:'20%'}}>
 
             <Image 
               source={require('../images/yunna.png')}
@@ -196,7 +198,10 @@ export default class loginScreen extends React.Component {
                 }}
               >登录</MyButton>
             </View>
-          </View>
+
+            <View style={{ height: 60 }} />
+
+          </KeyboardAvoidingView>
         </Modal>        
     )
   }

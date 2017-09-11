@@ -6,7 +6,8 @@ import {
   View,
   Button,
   Image,
-  TextInput
+  TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import Cell from '../mods/cell.js';
@@ -39,7 +40,7 @@ export default class UserDetailScreen extends React.Component {
 
   render() {
     return (
-      <View>
+      <KeyboardAvoidingView behavior="padding">
         <Cell>
           <Text style={{marginRight:16,fontSize:16,width:60,}}>手机号</Text>
           <TextInput 
@@ -88,7 +89,7 @@ export default class UserDetailScreen extends React.Component {
             onChangeText={(text)=>this.doSetState('identityId', text)}>
           </TextInput>
         </Cell>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 

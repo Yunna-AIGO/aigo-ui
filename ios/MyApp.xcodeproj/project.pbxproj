@@ -46,6 +46,7 @@
 		5E2810821F4F14F0000731D9 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5E28107F1F4F14F0000731D9 /* AlipaySDK.bundle */; };
 		5E2810841F4F152B000731D9 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2810801F4F14F0000731D9 /* AlipaySDK.framework */; };
 		5E2810851F4F1823000731D9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E28105F1F4EF302000731D9 /* UIKit.framework */; };
+		5E6058971F69625300E1F5FF /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 5E6058961F69625300E1F5FF /* main.jsbundle */; };
 		5E80C87A1F4BDC2E002E2E1F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C8791F4BDC2E002E2E1F /* CoreMotion.framework */; };
 		5E80C87C1F4BDC36002E2E1F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C87B1F4BDC36002E2E1F /* CoreTelephony.framework */; };
 		5E80C87E1F4BDC41002E2E1F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C87D1F4BDC41002E2E1F /* libc++.tbd */; };
@@ -295,7 +296,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -329,6 +329,7 @@
 		5E28107E1F4F14F0000731D9 /* AlipayModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlipayModule.m; path = MyApp/Alipay/AlipayModule.m; sourceTree = "<group>"; };
 		5E28107F1F4F14F0000731D9 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = MyApp/Alipay/AlipaySDK.bundle; sourceTree = "<group>"; };
 		5E2810801F4F14F0000731D9 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = MyApp/Alipay/AlipaySDK.framework; sourceTree = "<group>"; };
+		5E6058961F69625300E1F5FF /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = MyApp/main.jsbundle; sourceTree = "<group>"; };
 		5E80C8791F4BDC2E002E2E1F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		5E80C87B1F4BDC36002E2E1F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		5E80C87D1F4BDC41002E2E1F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -499,7 +500,7 @@
 				5E28107D1F4F14F0000731D9 /* AlipayModule.h */,
 				5E28107E1F4F14F0000731D9 /* AlipayModule.m */,
 				5E28107F1F4F14F0000731D9 /* AlipaySDK.bundle */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				5E6058961F69625300E1F5FF /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -717,8 +718,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = QXT3JY2339;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = Z69Q2FEZS9;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1037,6 +1038,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				5E2810821F4F14F0000731D9 /* AlipaySDK.bundle in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				5E6058971F69625300E1F5FF /* main.jsbundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1224,10 +1226,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: dwy4670@icloud.com (3FP3JD88NM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Z69Q2FEZS9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/MyApp/**",
@@ -1238,15 +1240,17 @@
 					"$(SRCROOT)/MyApp/**",
 				);
 				INFOPLIST_FILE = MyApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cloudpick.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudpick.myapp;
 				PRODUCT_NAME = MyApp;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ae155f8e-6782-4446-a412-3b443dd93c0c";
+				PROVISIONING_PROFILE_SPECIFIER = "cloudpick app profile";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1256,9 +1260,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: dwy4670@icloud.com (3FP3JD88NM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Z69Q2FEZS9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/MyApp/**",
@@ -1269,15 +1273,17 @@
 					"$(SRCROOT)/MyApp/**",
 				);
 				INFOPLIST_FILE = MyApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cloudpick.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudpick.myapp;
 				PRODUCT_NAME = MyApp;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ae155f8e-6782-4446-a412-3b443dd93c0c";
+				PROVISIONING_PROFILE_SPECIFIER = "cloudpick app profile";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

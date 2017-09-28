@@ -20,7 +20,8 @@ import {
 	userModify,
 } from './controllers/userControl';
 import {
-	save
+	save,
+	saveProfile
 } from './controllers/videoControl';
 
 const router = Router();
@@ -41,5 +42,6 @@ router.route('/user/:userId/getNormalUser').get(userInfo);
 router.route('/user/modify').post(userModify);
 
 router.route('/video/save').post(save);
+router.route('/customers/profile/save').post(saveProfile);
 
 export default router;

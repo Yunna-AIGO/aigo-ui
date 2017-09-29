@@ -17,6 +17,7 @@ export default globalStyle = StyleSheet.create({
     margin:16,
     padding:20,
     alignItems:'center',
+    borderRadius:4,
   },
   cell:{
     flexDirection:'row',
@@ -111,8 +112,8 @@ export default globalStyle = StyleSheet.create({
     marginLeft:25, 
     marginRight:25, 
     borderWidth:0, 
-    borderRadius:2, 
-    backgroundColor:'gold',
+    borderRadius:4, 
+    backgroundColor:'orange',
   },
   rowTitle: {
     fontSize: 18,

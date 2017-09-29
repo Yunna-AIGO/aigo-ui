@@ -3,7 +3,6 @@ import React from 'react';
 import {
   Text,
   View,
-  Button,
   Image,
   TouchableOpacity,
   TextInput,
@@ -16,11 +15,15 @@ import * as WeChat from 'react-native-wechat';
 
 import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
 
-import MyButton from '../mods/myButton';
+// import MyButton from '../mods/myButton';
 
 import Storage from '../tools/storage';
 
 import QRCode from 'react-native-qrcode';
+
+import Button from 'apsl-react-native-button';
+
+import styles from '../styles/global';
 
 import theme from '../styles/theme';
 
@@ -40,13 +43,63 @@ export default class loginScreen extends React.Component {
       phoneNoReady : false,
       captcha : '',
       captchaReady : false,
-      loginBtnReady : false,
 
       userName : '123',
       userId: '',
       token: '',
-
     };
+  }
+
+  static navigationOptions = {
+    title: '登录',
+    headerLeft: null,
+  };
+
+  render() {
+    var loginBtnReady = this.state.phoneNoReady && this.state.captchaReady;
+
+    return (
+      <View>
+        <View style={{backgroundColor:'#fff',paddingLeft:15,paddingRight:15,marginTop:15,flexDirection:'row',alignItems:'center',}}>
+          <Text style={{color:'#999',fontSize:16,textAlign:'right',marginRight:15,width:50,}}>+86</Text>
+          <TextInput autoFocus={true}
+            style={{height: 50,flex:1,fontSize:16,}}
+            onChangeText={(text) => this.checkPhoneNo(text)}
+            placeholder="请输入手机号"
+          />
+
+          <TouchableOpacity
+            style={{borderWidth:0.5,backgroundColor:'#eee',borderColor:'#ccc',borderRadius:3,marginLeft:15,padding:5,}}
+            onPress={()=>this.sendMessage()}>
+            <Text style={{fontSize:12,color:'#999'}}>获取验证码</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{height:0.5,}}></View>
+        <View style={{backgroundColor:'#fff',paddingLeft:15,paddingRight:15,flexDirection:'row',alignItems:'center',}}>
+          <Text style={{color:'#999',fontSize:16,textAlign:'right',marginRight:15,width:50,}}>验证码</Text>
+          <TextInput
+              style={{height: 50,flex:1,fontSize:16,}}
+              onChangeText={(text) => this.checkCaptcha(text)}
+              placeholder="验证码"
+            />
+        </View>
+
+        <Text style={{marginTop:15,marginBottom:20,color:'#999',fontSize:11,textAlign:'center'}}>
+          已阅读并同意
+          <Text onPress={() => this.showTermOfService()}
+            style={styles.textLink}>
+            《服务条款》
+          </Text>
+        </Text>
+
+        <Button style={[styles.rowButton, {marginTop:0}]} 
+          isDisabled={!loginBtnReady}
+          onPress={() => this.doLogin()}>
+          <Text style={{color:'white', fontSize:18}}>登录</Text>
+        </Button>
+      </View>     
+    )
   }
 
   //输入
@@ -81,6 +134,7 @@ export default class loginScreen extends React.Component {
 
   //检测短消息
   checkCaptcha(text){
+    console.log(text);
     this.setState({
       captcha: text,
       captchaReady : (text.length == 6)
@@ -90,6 +144,7 @@ export default class loginScreen extends React.Component {
   //登录
   doLogin(){
     this.loginImpl().then(response => {
+      // this.props.navigation.goBack();
       console.log(response);
       if(constants.SUCCESS === response.code){
         Toast.show('注册/登录成功！');
@@ -134,77 +189,15 @@ export default class loginScreen extends React.Component {
     Storage.save('token', token);
 
     setTimeout(()=>{
-      this.props.hideLoginHandle();
+      const {navigate,goBack,state} = this.props.navigation;
+      // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
+      state.params.callback('reload');
+      goBack();
     },1000)
-  } 
-
-  render() {
-    var loginBtnReady = this.state.phoneNoReady && this.state.captchaReady;
-
-    return (
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.props.loginVisible}
-          onRequestClose={()=>{
-            console.log('login.Modal.onRequestClose');
-          }}
-        >
-          <KeyboardAvoidingView behavior="padding"
-            style={{backgroundColor:'#fff',flex:1,padding:50,marginTop:'20%'}}>
-
-            <Image 
-              source={require('../images/yunna.png')}
-              style={{width:'100%',height:50,marginBottom:20}}
-              resizeMode="stretch"
-            />
-            
-            <View style={{flexDirection:'row'}}>
-              <TextInput style={[globalStyle.TextInput]} 
-                autoFocus={true}
-                placehoder="请输入手机号" 
-                onChangeText={
-                (text)=>{
-                  this.checkPhoneNo(text);
-                }
-              }></TextInput>
-            </View>
-
-            <Button 
-              title="发送验证码" 
-              color="orange" 
-              disabled={!this.state.phoneNoReady} 
-              onPress={()=>{
-                this.sendMessage();
-              }}
-            ></Button>
-
-            <View style={{flexDirection:'row'}}>
-              <TextInput style={[globalStyle.TextInput]} placehoder="请输入验证码" 
-              onChangeText={
-                (text)=>{
-                  this.checkCaptcha(text)
-                }
-              }>
-              </TextInput>
-            </View>
-
-            <View>
-              <MyButton
-                disabled={!loginBtnReady}
-                style={{marginTop:30}}
-                onPress={()=>{
-                  this.doLogin();
-                }}
-              >登录</MyButton>
-            </View>
-
-            <View style={{ height: 60 }} />
-
-          </KeyboardAvoidingView>
-        </Modal>        
-    )
   }
+
+  showTermOfService(){
+    this.props.navigation.navigate('TermOfService');
+  }
+
 }
-
-

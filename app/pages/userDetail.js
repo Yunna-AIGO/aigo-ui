@@ -4,7 +4,6 @@ import {
   AppRegistry,
   Text,
   View,
-  Button,
   Image,
   TextInput,
   KeyboardAvoidingView,
@@ -20,6 +19,8 @@ import format from 'string-format';
 
 import * as constants from '../tools/constants';
 
+import Button from '../widget/Button';
+
 let that;
 export default class UserDetailScreen extends React.Component {
   constructor(props){
@@ -33,7 +34,7 @@ export default class UserDetailScreen extends React.Component {
 
   static navigationOptions = {
     title: '个人信息',
-    headerRight: <Button title="保存" onPress={()=>{
+    headerRight: <Button title="编辑" onPress={()=>{
       that.doSave();   
     }} />,
   }
@@ -66,7 +67,7 @@ export default class UserDetailScreen extends React.Component {
           </TextInput>
         </Cell>
         <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:70,}}>真实姓名</Text>
+          <Text style={{marginRight:16,fontSize:16,width:70,}}>姓名</Text>
           <TextInput 
             style={{height:20,fontSize:16,color:'#999'}} 
             value={this.state.userInfo.realName}
@@ -89,6 +90,16 @@ export default class UserDetailScreen extends React.Component {
             onChangeText={(text)=>this.doSetState('identityId', text)}>
           </TextInput>
         </Cell>
+
+        <View style={{marginTop:15,}}>
+          <Button
+            onPress={()=>{
+              const {navigate,goBack,state} = this.props.navigation;
+              // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
+              state.params.callback('reload');
+              goBack();
+            }} >确定</Button>
+        </View>
       </KeyboardAvoidingView>
     );
   }

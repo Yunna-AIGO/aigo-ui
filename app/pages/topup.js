@@ -28,11 +28,13 @@ export default class TopupScreen extends React.Component {
 		this.state = {
 			userId: this.props.navigation.state.params.userId,
 			enumMoney: [
-				{label:'充500元', value:"500"},
-				{label:'充100元', value:"100"},
-				{label:'充50元', value:"50"},
-				{label:'充10元', value:"10"},
 				// {label:'充0.01元', value:"0.01"},
+				{label:'充10元', value:"10"},
+				{label:'充50元', value:"50"},
+				{label:'充100元', value:"100"},
+				{label:'充200元', value:"200"},
+				{label:'充300元', value:"300"},
+				{label:'充500元', value:"500"},
 			],
 			enumPayTypes: [
 				{label:'支付宝支付', value:'alipay', logo:require('../images/alipay.png')},
@@ -45,10 +47,10 @@ export default class TopupScreen extends React.Component {
 
 	render(){
 		return (
-			<View style={{backgroundColor:'#fff'}}>
-				<View style={styles.cell}>
+			<View>
+				{/*<View style={styles.cell}>
 					<Text style={styles.rowText}>充值金额</Text>
-				</View>
+				</View>*/}
 
 				<RadioButtons options={this.state.enumMoney}
 					onSelection={(option) => this.setState({money: option.value})}
@@ -59,9 +61,9 @@ export default class TopupScreen extends React.Component {
 					testOptionEqual={(selectedValue, option) => selectedValue === option.value}
 				/>
 
-				<View style={styles.cell}>
+				{/*<View style={styles.cell}>
 					<Text style={styles.rowText}>请选择支付方式</Text>
-				</View>
+				</View>*/}
 
 				<RadioButtons options={this.state.enumPayTypes}
 					onSelection={(option) => this.setState({payType: option.value})}
@@ -116,8 +118,9 @@ export default class TopupScreen extends React.Component {
 			borderColor: 'lightgray',
 			borderRadius: 5,
 			overflow:'hidden',
+			backgroundColor: '#fff',
 		};
-		const styleSelected = selected ? {backgroundColor:'gold'} : {};
+		const styleSelected = selected ? {backgroundColor:'orange', color:'#fff'} : {};
 		return (
 			<TouchableOpacity key={index} onPress={onSelect}>
 				{/* add another View to fix error: Attempted to transition from state `RESPONDER_INACTIVE_PRESS_IN` to `RESPONDER_ACTIVE_LONG_PRESS_IN` */}

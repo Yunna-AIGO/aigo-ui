@@ -37,7 +37,7 @@ export default class UserCenterScreen extends React.Component {
             }}
         />
     ),
-    headerStyle: { backgroundColor: '#fff' },
+    // headerStyle: { backgroundColor: '#fff' },
   })
 
   constructor(props) {

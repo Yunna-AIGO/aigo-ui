@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  StatusBar
+  StatusBar,
+  ScrollView,
+  StyleSheet,
 } from 'react-native';
 
 import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
@@ -33,6 +35,8 @@ export default class QrCodeScreen extends React.Component {
     super(props);
     that = this;
     this.state = {
+      currentPage: 0,
+
       qrcode : '',
       // loginVisible: false,
       phoneNo : '',
@@ -48,19 +52,20 @@ export default class QrCodeScreen extends React.Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-        headerTitle: (
-            <TouchableOpacity>
-                <Text style={{color:'#fff',fontSize:16,}}>扫一扫</Text>
-            </TouchableOpacity>
-        ),
-        headerRight: (
-            <NavigationItem
-                icon={require('../images/scanning.png')}
-                onPress={() => {
-                    alert(this)
-                }}
-            />
-        ),
+        title: '扫一扫',
+        // headerTitle: (
+        //     <TouchableOpacity>
+        //         <Text style={{color:'#fff',fontSize:16}}>扫一扫</Text>
+        //     </TouchableOpacity>
+        // ),
+        // headerRight: (
+        //     <NavigationItem
+        //         icon={require('../images/scanning.png')}
+        //         onPress={() => {
+        //             alert(this)
+        //         }}
+        //     />
+        // ),
         // headerLeft: (
         //     <NavigationItem
         //         title='登录'
@@ -70,37 +75,80 @@ export default class QrCodeScreen extends React.Component {
         //         }}
         //     />
         // ),
-        headerStyle: { backgroundColor: theme.orange,borderColor:'#fff',},
+        // headerStyle: { backgroundColor: theme.orange, borderColor:'#fff',},
   })
+
+  onScroll(e: any) {
+    //scroll的唯一目的竟然是获取更改currentPage
+    let x = e.nativeEvent.contentOffset.x
+    let currentPage = Math.round(x / 375)
+
+    console.log('onScroll  ' + e.nativeEvent.contentOffset.x + '  page ' + currentPage + '  current ' + this.state.currentPage)
+    if (this.state.currentPage != currentPage) {
+      this.setState({
+        currentPage: currentPage
+      })
+    }
+  }
 
   render() {
     return (
-      <View  style={{backgroundColor:theme.orange,flex:1}}>
-
-        <View style={{backgroundColor:'#fff',margin:40,borderRadius:3,overflow:'hidden'}}>
-          <View style={{backgroundColor:theme.lightgrey,}}>
-            <Text style={{fontSize:12,padding:10}}>出示进入</Text>
-          </View>
-          <View style={{padding:20,alignItems:'center',}}>
-            <TouchableOpacity 
-            onPress={()=>{
-              this.getQrCode();
-            }}
-          >
-            <View style={{alignItems:'center',}}>
-              <QRCode
-                value={this.state.qrcode}
-                size={160}
-                bgColor='black'
-                fgColor='white'
-              />
-              <Text style={{textAlign:'center',marginTop:10}}>点击刷新二维码</Text>
+      <View style={{flex:1}}>
+        <View style={{height:200, position:'relative'}}>
+          <ScrollView horizontal
+            contentContainerStyle={styles.contentContainer}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            onScroll={(e)=>this.onScroll(e)}>
+            <View style={styles.menuContainer}>
+              <View style={styles.itemsView}>
+                <Image 
+                style={{width:'100%',maxHeight:200}}
+                source={require('../images/slider_1.jpeg')} />
+              </View>
+              <View style={styles.itemsView}>
+                <Image
+                  style={{width:'100%',maxHeight:200}}
+                  source={require('../images/slider_2.jpeg')} />
+              </View>
+               <View style={styles.itemsView}>
+                <Image 
+                  style={{width:'100%',maxHeight:200}}
+                  source={require('../images/slider_3.jpeg')} />
+              </View>
             </View>
-          </TouchableOpacity>
-          {/*<Text style={{textAlign:'center',display:(this.state.qrcode?'flex':'none'),backgroundColor:theme.lightgrey,width:200,marginTop:20,padding:5,fontSize:16,color:theme.orange}}>{this.state.qrcode}</Text>*/}
+          </ScrollView>
+
+          <View style={{position:'absolute',bottom:0,left:0,right:0,flexDirection:'row',justifyContent:'center', alignItems:'center',}}>
+            <View style={{width:10,height:10,margin:5,borderRadius:5,backgroundColor:this.state.currentPage==0?'gold':'#fff'}}></View>
+            <View style={{width:10,height:10,margin:5,borderRadius:5,backgroundColor:this.state.currentPage==1?'gold':'#fff'}}></View>
+            <View style={{width:10,height:10,margin:5,borderRadius:5,backgroundColor:this.state.currentPage==2?'gold':'#fff'}}></View>
           </View>
         </View>
-        
+
+        <View style={{flex:1, backgroundColor:'#fff'}}>
+          <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+            <View style={{width:160, height:160, transform:[{rotate:'45deg'}]}}>
+              <TouchableOpacity 
+                onPress={()=>{
+                  this.getQrCode();
+                }} >
+                  <QRCode
+                    value={this.state.qrcode}
+                    size={160}
+                    bgColor='#333'
+                    fgColor='#fff'
+                  />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View>
+            <Text style={{textAlign:'center',fontWeight:'bold',marginBottom:5,color:'#999'}}>欢迎光临</Text>
+            <Text style={{textAlign:'center',color:'#999',fontSize:12,}}>请扫二维码进店</Text>
+          </View>
+
+        </View>
       </View>
     )
   }
@@ -112,6 +160,25 @@ export default class QrCodeScreen extends React.Component {
 
   componentDidMount(){
     console.log('qrcode.componentDidMount');
+    this.detectLogin();
+  }
+
+  async detectLogin(){
+    console.log('detectLogin');
+    let userId = await Storage.get('userId');
+    let token = await Storage.get('token');
+
+    if(!userId || !token){
+      this.props.navigation.navigate('Login',{
+        //跳转的时候携带一个参数去下个页面
+        callback: (data)=>{
+          //console.log(data); //回调入参
+          if(data==='reload'){
+            this.getQrCode();
+          }
+        },
+      });
+    }
   }
 
   async getQrCode(){
@@ -160,106 +227,23 @@ export default class QrCodeScreen extends React.Component {
     }
   }
 
-  // showLogin(){
-  //   console.log('show login');
-  //   this.setState({
-  //     loginVisible : !this.state.loginVisible
-  //   })
-  // }
-
-  // hideLogin(){
-  //   console.log('hide login');
-  //   this.setState({
-  //     loginVisible : !this.state.loginVisible
-  //   })
-  // }
-
-  // checkPhoneNo(text){
-  //   console.log(text);
-  //   // console.log((/^1[0-9]{10}$/.test(text)));
-  //   this.setState({
-  //     phoneNo : text,
-  //     phoneNoReady : (/^1[0-9]{10}$/.test(text))
-  //   })
-  // }
-
-  // sendMessage(){
-  //   this.sendMessageImpl().then(response => {
-  //     if(constants.SUCCESS === response.code){
-  //       Toast.show('短信已发送，请查收');
-  //     }else{
-  //       Toast.show('发送失败：'+response.message);
-  //     }
-  //   }, error => {
-  //     console.log(error);
-  //   });
-  // }
-
-  // async sendMessageImpl(){
-  //   let url = format(constants.sendsms, {mobile: this.state.phoneNo});
-  //   console.log('url: '+url);
-  //   let response = await fetch(url);
-  //   let resJson = await response.json();
-  //   return resJson;
-  // }
-
-  // checkCaptcha(text){
-  //   this.setState({
-  //     captcha: text,
-  //     captchaReady : (text.length == 6)
-  //   })
-  // }
-
-  // doLogin(){
-  //   this.loginImpl().then(response => {
-  //     console.log(response);
-  //     if(constants.SUCCESS === response.code){
-  //       Toast.show('注册/登录成功！');
-  //       let {userId, token} = response.data;
-  //       this.saveToken(userId, token);
-  //     }else{
-  //       Toast.show('注册/登录失败：'+response.message);
-  //     }
-  //   }, error => {
-  //     console.log(error);
-  //   });
-  // }
-
-  // async loginImpl(){
-  //   try{
-  //     console.log(constants.entry);
-  //     let request = {
-  //       mobile: this.state.phoneNo,
-  //       smsCode: this.state.captcha,
-  //     };
-  //     let response = await fetch(constants.entry, {
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       method: 'POST',
-  //       body: JSON.stringify(request),
-  //     });
-  //     let resJson = await response.json();
-  //     return resJson;
-  //   }catch(error){
-  //     console.error(error);
-  //   }
-  // }
-
-  // saveToken(userId, token){
-  //   this.setState({
-  //     userId: userId,
-  //     token: token,
-  //   })
-
-  //   Storage.save('userId', userId);
-  //   Storage.save('token', token);
-
-  //   setTimeout(()=>{
-  //     // this.hideLogin();
-  //     this.getQrCode();
-  //   },1000);
-  // } 
 }
 
-
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+  },
+  contentContainer: {
+  },
+  menuContainer: {
+    flexDirection: 'row',
+  },
+  itemsView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: 375,
+  },
+  pageControl: {
+    margin: 10,
+  }
+});

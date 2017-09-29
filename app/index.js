@@ -37,8 +37,8 @@ const TabNavigatorMain = TabNavigator({
         <TabBarItem
             tintColor={tintColor}
             focused={focused}
-            normalImage={require('./images/qrcode1.png')}
-            selectedImage={require('./images/qrcode2.png')}
+            normalImage={require('./images/icon_qrcode.png')}
+            selectedImage={require('./images/icon_qrcode_active.png')}
         />
       ),
     }),
@@ -52,8 +52,8 @@ const TabNavigatorMain = TabNavigator({
         <TabBarItem
             tintColor={tintColor}
             focused={focused}
-            normalImage={require('./images/book1.png')}
-            selectedImage={require('./images/book2.png')}
+            normalImage={require('./images/icon_order.png')}
+            selectedImage={require('./images/icon_order_active.png')}
         />
       ),
     }),
@@ -66,8 +66,8 @@ const TabNavigatorMain = TabNavigator({
         <TabBarItem
             tintColor={tintColor}
             focused={focused}
-            normalImage={require('./images/account1.png')}
-            selectedImage={require('./images/account2.png')}
+            normalImage={require('./images/icon_mine.png')}
+            selectedImage={require('./images/icon_mine_active.png')}
         />
       ),
     }),
@@ -75,6 +75,8 @@ const TabNavigatorMain = TabNavigator({
 },{
   tabBarComponent: TabBarBottom,
   tabBarPosition : 'bottom',
+  swipeEnabled: true,
+  animationEnabled: true,
   lazy : true,
   tabBarOptions: {
       activeTintColor: theme.orange,
@@ -85,6 +87,7 @@ const TabNavigatorMain = TabNavigator({
 
 const GlobalPage = StackNavigator({
   Home: { screen: TabNavigatorMain },
+  Login: {screen: LoginScreen},
   TermOfService: {screen: TermOfServiceScreen},
   OrderDetail: { screen: OrderDetailScreen },
   UserDetail : { screen: UserDetailScreen },
@@ -93,58 +96,40 @@ const GlobalPage = StackNavigator({
   TermOfServiceTopup: {screen: TermOfServiceTopupScreen},
   Setting: {screen: SettingScreen},
 },{
-  onTransitionEnd:(navi)=>{}
+  onTransitionEnd:(navi)=>{
+    console.log('onTransitionEnd');
+  },
+  navigationOptions: {
+    //使用统一的header背景色,注意,header包含statusBar和body,本质上是个View
+    //headerStyle: { backgroundColor: color.theme,},
+    headerBackTitle: null, //只显示回退图标,不显示上个router的标题
+    headerTintColor: '#666', //正常模式下标题颜色(bd部分),注意,会包含回退按钮>的颜色
+    showIcon: true,
+  },
 });
 
-var that = null;
 export default class MyApp extends React.Component {
   constructor(props) {
     super(props);
-    that = this;
-    this.state = {
-      loginVisible: false,
-    };
+    /*
+    *StatusBar信号和电池状态栏,只能设置该栏中字颜色属性
+    *light-content代表白字,dark代表黑字
+    */
+    //StatusBar.setBarStyle('light-content')
   }
-  componentWillMount(){
-    console.log('componentWillMount');
+
+  componentDidMount(){
+    console.log('componentDidMount');
 
     // 必须初始化（有且只有）一次
     WeChat.registerApp(constants.APPID);
-
-    //StatusBar.setBarStyle('light-content')
-    this.detectLogin();
-  }
-
-  async detectLogin(){
-    console.log('detectLogin');
-    let userId = await Storage.get('userId');
-    let token = await Storage.get('token');
-
-    if(!userId || !token){
-      this.setState({
-        loginVisible : true
-      });
-    }
   }
 
   render(){
     return (
-      <View style={{flex:1}}>
-        <LoginScreen 
-        hideLoginHandle={()=>{
-          this.setState({
-            loginVisible : false
-          })
-        }}
-        loginVisible={this.state.loginVisible}
-         />
-        <GlobalPage />
-      </View>
+      <GlobalPage />
     )
   }
 }
 
-
 AppRegistry.registerComponent('MyApp', () => MyApp);
-
-

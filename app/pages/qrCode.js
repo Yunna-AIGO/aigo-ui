@@ -145,7 +145,7 @@ export default class QrCodeScreen extends React.Component {
 
           <View>
             <Text style={{textAlign:'center',fontWeight:'bold',marginBottom:5,color:'#999'}}>欢迎光临</Text>
-            <Text style={{textAlign:'center',color:'#999',fontSize:12,}}>请扫二维码进店</Text>
+            <Text style={{textAlign:'center',color:'#999',fontSize:12,marginBottom:10,}}>请扫二维码进店</Text>
           </View>
 
         </View>
@@ -178,6 +178,8 @@ export default class QrCodeScreen extends React.Component {
           }
         },
       });
+    }else{
+      this.getQrCode();
     }
   }
 

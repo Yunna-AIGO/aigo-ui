@@ -47,10 +47,10 @@ export default class TopupScreen extends React.Component {
 
 	render(){
 		return (
-			<View>
-				{/*<View style={styles.cell}>
+			<View style={{backgroundColor:'white'}}>
+				<View style={styles.cell}>
 					<Text style={styles.rowText}>充值金额</Text>
-				</View>*/}
+				</View>
 
 				<RadioButtons options={this.state.enumMoney}
 					onSelection={(option) => this.setState({money: option.value})}
@@ -61,9 +61,9 @@ export default class TopupScreen extends React.Component {
 					testOptionEqual={(selectedValue, option) => selectedValue === option.value}
 				/>
 
-				{/*<View style={styles.cell}>
+				<View style={styles.cell}>
 					<Text style={styles.rowText}>请选择支付方式</Text>
-				</View>*/}
+				</View>
 
 				<RadioButtons options={this.state.enumPayTypes}
 					onSelection={(option) => this.setState({payType: option.value})}
@@ -76,7 +76,7 @@ export default class TopupScreen extends React.Component {
 
 				<Button style={[styles.rowButton, {marginTop:0}]} 
 					onPress={() => this.topupNow()}>
-					立即充值
+					<Text style={{color:'white',fontSize:16}}>立即充值</Text>
 				</Button>
 
 				<Text style={{fontSize:12, marginLeft:30, marginRight:30, marginBottom:10}}>
@@ -113,12 +113,11 @@ export default class TopupScreen extends React.Component {
 			borderWidth: 1,
 			padding: 10,
 			margin: 10,
-			fontSize: 20,
+			fontSize: 18,
 			textAlign: 'center',
 			borderColor: 'lightgray',
 			borderRadius: 5,
 			overflow:'hidden',
-			backgroundColor: '#fff',
 		};
 		const styleSelected = selected ? {backgroundColor:'orange', color:'#fff'} : {};
 		return (
@@ -140,7 +139,6 @@ export default class TopupScreen extends React.Component {
 	}
 
 	renderPayOption(option, selected, onSelect, index){
-		const styleSelected = selected ? {backgroundColor:'gold'} : {};
 		return (
 			<TouchableOpacity key={index} onPress={onSelect}>
 				{/* add another View to fix error: Attempted to transition from state `RESPONDER_INACTIVE_PRESS_IN` to `RESPONDER_ACTIVE_LONG_PRESS_IN` */}
@@ -169,7 +167,6 @@ export default class TopupScreen extends React.Component {
 		return <View style={{
 			flexDirection:'column', 
 			margin:10,
-			// justifyContent:'center',
 		}}>{optionNodes}</View>
 	}
 

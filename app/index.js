@@ -53,7 +53,7 @@ const TabNavigatorMain = TabNavigator({
             tintColor={tintColor}
             focused={focused}
             normalImage={require('./images/icon_order.png')}
-            selectedImage={require('./images/icon_order_active.png')}
+            selectedImage={require('./images/icon_order.png')}
         />
       ),
     }),

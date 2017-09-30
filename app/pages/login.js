@@ -144,7 +144,6 @@ export default class loginScreen extends React.Component {
   //登录
   doLogin(){
     this.loginImpl().then(response => {
-      // this.props.navigation.goBack();
       console.log(response);
       if(constants.SUCCESS === response.code){
         Toast.show('注册/登录成功！');

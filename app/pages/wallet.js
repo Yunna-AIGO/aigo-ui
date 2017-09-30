@@ -20,8 +20,8 @@ export default class WalletScreen extends React.Component {
 			userId: this.props.navigation.state.params.userId,
 			accountInfo: {},
 
-			redPackage: 1,
-			coupon: 4,
+			redPackage: 0,
+			coupon: 0,
 		};
 	}
 

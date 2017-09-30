@@ -19,7 +19,11 @@ import format from 'string-format';
 
 import * as constants from '../tools/constants';
 
-import Button from '../widget/Button';
+// import Button from '../widget/Button';
+
+import Button from 'apsl-react-native-button';
+
+import styles from '../styles/global';
 
 let that;
 export default class UserDetailScreen extends React.Component {
@@ -34,16 +38,16 @@ export default class UserDetailScreen extends React.Component {
 
   static navigationOptions = {
     title: '个人信息',
-    headerRight: <Button title="编辑" onPress={()=>{
-      that.doSave();   
-    }} />,
+    // headerRight: <Button title="编辑" onPress={()=>{
+    //   that.doSave();   
+    // }} />,
   }
 
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
         <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:60,}}>手机号</Text>
+          <Text style={{marginRight:16,fontSize:16,width:70,}}>手机号</Text>
           <TextInput 
             style={{height:20,fontSize:16,color:'#999'}} 
             value={this.state.userInfo.mobile}
@@ -51,15 +55,15 @@ export default class UserDetailScreen extends React.Component {
           </TextInput>
         </Cell>
         <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:60,}}>昵称</Text>
+          <Text style={{marginRight:16,fontSize:16,width:70,}}>昵称</Text>
           <TextInput 
             style={{height:20,fontSize:16,color:'#999'}} 
             value={this.state.userInfo.nickName}
             onChangeText={(text)=>this.doSetState('nickName', text)}>
           </TextInput>
         </Cell>
-        <Cell style={{marginTop:20,}}>
-          <Text style={{marginRight:16,fontSize:16,width:60,}}>邮箱</Text>
+        <Cell>
+          <Text style={{marginRight:16,fontSize:16,width:70,}}>邮箱</Text>
           <TextInput 
             style={{height:20,fontSize:16,color:'#999'}} 
             value={this.state.userInfo.email}
@@ -91,15 +95,15 @@ export default class UserDetailScreen extends React.Component {
           </TextInput>
         </Cell>
 
-        <View style={{marginTop:15,}}>
-          <Button
-            onPress={()=>{
-              const {navigate,goBack,state} = this.props.navigation;
-              // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
-              state.params.callback('reload');
-              goBack();
-            }} >确定</Button>
-        </View>
+        <Button style={[styles.rowButton, {marginTop:15}]} 
+          onPress={() => {
+            const {navigate,goBack,state} = this.props.navigation;
+            // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
+            state.params.callback('reload');
+            goBack();
+          }}>
+          <Text style={{color:'white',fontSize:16}}>确定</Text>
+        </Button>
       </KeyboardAvoidingView>
     );
   }

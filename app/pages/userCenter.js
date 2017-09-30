@@ -28,15 +28,15 @@ import * as constants from '../tools/constants';
 export default class UserCenterScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title : '个人中心',
-    headerRight: (
-        <NavigationItem
-            title='消息'
-            titleStyle={{ color: '#333' }}
-            onPress={() => {
+    // headerRight: (
+    //     <NavigationItem
+    //         title='消息'
+    //         titleStyle={{ color: '#333' }}
+    //         onPress={() => {
                 
-            }}
-        />
-    ),
+    //         }}
+    //     />
+    // ),
     // headerStyle: { backgroundColor: '#fff' },
   })
 
@@ -85,7 +85,8 @@ export default class UserCenterScreen extends React.Component {
             }
           }
         >
-          <Image source={require('../images/account.png')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
+          <Image source={require('../images/star.png')} 
+            style={{width:20,height:20,marginRight:20,flex:0,tintColor:'tomato'}}></Image>
           <Text style={{flex:1,fontSize:16,}}>个人信息</Text>
         </TouchableOpacity>
 
@@ -101,11 +102,23 @@ export default class UserCenterScreen extends React.Component {
 
         <TouchableOpacity style={globalStyle.cell} onPress={
           ()=>{
+            this.props.navigation.navigate('Message')
+          }
+        }
+        >
+          <Image source={require('../images/message.png')} 
+            style={{width:20,height:20,marginRight:20,flex:0,tintColor:'dodgerblue'}}></Image>
+          <Text style={{flex:1,fontSize:16,}}>消息中心</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={globalStyle.cell} onPress={
+          ()=>{
             this.props.navigation.navigate('Setting')
           }
         }
         >
-          <Image source={require('../images/set.png')} style={{width:20,height:20,marginRight:20,flex:0,}}></Image>
+          <Image source={require('../images/set.png')} 
+            style={{width:20,height:20,marginRight:20,flex:0,tintColor:'#999'}}></Image>
           <Text style={{flex:1,fontSize:16,}}>设置</Text>
         </TouchableOpacity>
 

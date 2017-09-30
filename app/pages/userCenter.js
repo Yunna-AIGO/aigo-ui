@@ -175,6 +175,15 @@ export default class UserCenterScreen extends React.Component {
         // Storage.delete('userId');
         Storage.delete('token');
         Toast.show('已成功退出！');
+        this.props.navigation.navigate('Login',{
+          //跳转的时候携带一个参数去下个页面
+          callback: (data)=>{
+            //console.log(data); //回调入参
+            if(data==='reload'){
+              this.getQrCode();
+            }
+          },
+        });
       }},
     ]);
   }

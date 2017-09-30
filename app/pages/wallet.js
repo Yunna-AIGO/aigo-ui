@@ -30,7 +30,7 @@ export default class WalletScreen extends React.Component {
 			<View>
 				<View style={{backgroundColor:'orange',padding:15,}}>
 					<Text style={{color:'#eee',marginBottom:5,marginTop:15,}}>账户余额</Text>
-					<Text style={{fontSize:36,color:'#fff',marginBottom:15,}}>{this.state.accountInfo.availableAmount}</Text>
+					<Text style={{fontSize:36,color:'#fff',marginBottom:15,}}>{this.state.accountInfo.availableAmount || '0.00'}</Text>
 				</View>
 
 				<TouchableOpacity

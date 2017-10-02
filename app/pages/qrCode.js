@@ -49,6 +49,8 @@ export default class QrCodeScreen extends React.Component {
       userId: '',
       token: '',
     };
+
+    this.timer = null;
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -163,6 +165,11 @@ export default class QrCodeScreen extends React.Component {
     this.detectLogin();
   }
 
+  componentWillUnmount(){
+    console.log('qrcode.componentWillUnmount');
+    this.timer && clearInterval(this.timer);
+  }
+
   async detectLogin(){
     console.log('detectLogin');
     let userId = await Storage.get('userId');
@@ -180,6 +187,7 @@ export default class QrCodeScreen extends React.Component {
       });
     }else{
       this.getQrCode();
+      this.timer = setInterval(()=>this.getQrCode(), 60 * 1000);
     }
   }
 

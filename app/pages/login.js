@@ -191,7 +191,9 @@ export default class loginScreen extends React.Component {
       const {navigate,goBack,state} = this.props.navigation;
       // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
       state.params.callback('reload');
-      goBack();
+      // 登录成功后，总是回到二维码页面
+      // goBack();
+      navigate('QrCode');
     },1000)
   }
 

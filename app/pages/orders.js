@@ -89,9 +89,9 @@ export default class OrdersScreen extends Component {
             </View>
           </View>
           { show && obj.orderType === OrderType.CONSUME &&
-            <Button style={{width:70, height:25, borderRadius:10, backgroundColor:theme.yellow, borderColor:theme.lightgrey}} 
+            <Button style={{width:70, height:25, borderRadius:10, backgroundColor:'orange', borderColor:theme.lightgrey}} 
               onPress={() => this.pay(obj.orderId)}>
-              <Text style={{fontSize:14}}>去支付</Text>
+              <Text style={{fontSize:14, color:'white'}}>去支付</Text>
             </Button>
           }
         </View>

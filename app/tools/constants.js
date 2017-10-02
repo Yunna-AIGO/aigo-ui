@@ -5,11 +5,11 @@ export const SUCCESS = '0000';
 export const loginState = 'loginState';
 
 // mock环境：cd server & yarn run start
-// const urlPrefix = 'http://localhost:9000/api/v1/';
+const urlPrefix = 'http://localhost:9000/api/v1/';
 // 真实的服务接口：本地环境，接沙箱版的appid
 // const urlPrefix = 'http://10.10.10.131:8080/cloudpick/rest/api/v1/';
 // 真实的服务接口：测试环境，接真实的支付appid
-const urlPrefix = 'http://10.10.10.130:8080/cloudpick/rest/api/v1/';
+// const urlPrefix = 'http://10.10.10.130:8080/cloudpick/rest/api/v1/';
 
 export const sendsms = urlPrefix + 'logon/sendsms?mobile={mobile}';
 export const entry = urlPrefix + 'logon/entry';

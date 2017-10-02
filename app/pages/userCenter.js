@@ -87,7 +87,7 @@ export default class UserCenterScreen extends React.Component {
         >
           <Image source={require('../images/star.png')} 
             style={{width:20,height:20,marginRight:20,flex:0,tintColor:'tomato'}}></Image>
-          <Text style={{flex:1,fontSize:16,}}>个人信息</Text>
+          <Text style={{flex:1,fontSize:16}}>个人信息</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={globalStyle.cell} onPress={

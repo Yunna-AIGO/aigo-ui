@@ -29,6 +29,7 @@
 27. react-native-wechat目前的buildToolsVersion="23.0.1",版本过低，需手工改为25.0.0，或后续移植到项目中来
 28. 目前只有1个配置urlPrefix，如果有多个，考虑引入react-native-config，切换不同的环境：mock, dev, test, prod
 29. ~~android的release版要先卸载debug版，再执行`yarn release`，ios的release版只需在xcode里scheme->run->build configuration里改成release再连真机run即可~~
+30. 手机号、身份证号等敏感信息，中间若干位要打掩码
 
 
 # Page

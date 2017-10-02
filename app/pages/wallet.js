@@ -11,6 +11,7 @@ import Toast from '../tools/toast';
 import Storage from '../tools/storage';
 import format from 'string-format';
 import * as constants from '../tools/constants';
+import globalStyle from '../styles/global';
 
 export default class WalletScreen extends React.Component {
 	constructor(props){
@@ -37,7 +38,7 @@ export default class WalletScreen extends React.Component {
 					onPress={()=>{
 						this.props.navigation.navigate('Topup', {userId:this.state.userId});
 					}}
-					style={{flexDirection:'row',alignItems:'center',height:50,backgroundColor:'#fff',paddingLeft:15,paddingRight:15,borderColor:'#ddd',borderTopWidth:0.5,borderBottomWidth:0.5,}}>
+					style={globalStyle.cell}>
 						<Image  
 							source={require('../images/topup.png')}
 							style={{width:24,height:24,marginRight:15,}}>
@@ -45,7 +46,7 @@ export default class WalletScreen extends React.Component {
 						<Text style={{flex:1}}>充值</Text>
 				</TouchableOpacity>
 				<TouchableOpacity 
-					style={{flexDirection:'row',marginBottom:15,alignItems:'center',height:50,backgroundColor:'#fff',paddingLeft:15,paddingRight:15,borderColor:'#ddd',borderTopWidth:0.5,borderBottomWidth:0.5,}}>
+					style={[globalStyle.cell, {marginBottom:15}]}>
 						<Image  
 							source={require('../images/wallet.png')}
 							style={{width:24,height:24,marginRight:15,}}>
@@ -54,7 +55,7 @@ export default class WalletScreen extends React.Component {
 				</TouchableOpacity>
 
 				<TouchableOpacity 
-					style={{flexDirection:'row',alignItems:'center',height:50,backgroundColor:'#fff',paddingLeft:15,paddingRight:15,borderColor:'#ddd',borderTopWidth:0.5,borderBottomWidth:0.5,}}>
+					style={globalStyle.cell}>
 						<Image  
 							source={require('../images/redpackage.png')}
 							style={{width:24,height:24,marginRight:15,}}>
@@ -63,7 +64,7 @@ export default class WalletScreen extends React.Component {
 						<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.redPackage} 个</Text>
 				</TouchableOpacity>
 				<TouchableOpacity 
-					style={{flexDirection:'row',alignItems:'center',height:50,backgroundColor:'#fff',paddingLeft:15,paddingRight:15,borderColor:'#ddd',borderTopWidth:0.5,borderBottomWidth:0.5,}}>
+					style={globalStyle.cell}>
 						<Image  
 							source={require('../images/coupon.png')}
 							style={{width:24,height:24,marginRight:15,}}>

@@ -36,7 +36,16 @@ export default class WalletScreen extends React.Component {
 
 				<TouchableOpacity
 					onPress={()=>{
-						this.props.navigation.navigate('Topup', {userId:this.state.userId});
+						this.props.navigation.navigate('Topup', {
+							userId:this.state.userId,
+							//跳转的时候携带一个参数去下个页面
+			        callback: (data)=>{
+			          //console.log(data); //回调入参
+			          if(data==='reload'){
+			            this.getAccountInfo();
+			          }
+			        },
+						});
 					}}
 					style={globalStyle.cell}>
 						<Image  
@@ -106,6 +115,10 @@ export default class WalletScreen extends React.Component {
 	componentDidMount(){
 		console.log('wallet.componentDidMount');
 		this.getAccountInfo();
+	}
+
+	componentWillUnmount(){
+		console.log('wallet.componentWillUnmount');
 	}
 
 	async getAccountInfo(){

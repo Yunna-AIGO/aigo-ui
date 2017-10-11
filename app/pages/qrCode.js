@@ -189,13 +189,13 @@ export default class QrCodeScreen extends React.Component {
       });
     }else{
       this.getQrCode();
-      this.timer = setInterval(()=>this.getQrCode(), 60 * 1000);
+      this.timer = setInterval(()=>this.getQrCode(), 5 * 1000);
     }
   }
 
   async getQrCode(){
     try{
-      console.log('qrCode.getQrCode');
+      Toast.show('qrCode.getQrCode');
       let userId = this.state.userId;
       let token = this.state.token;
 

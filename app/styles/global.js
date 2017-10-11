@@ -27,6 +27,7 @@ export default globalStyle = StyleSheet.create({
     borderColor:'#ddd',
     borderWidth:1,
     marginTop:-1,
+    height:50,
     // borderWidth:StyleSheet.hairlineWidth,
   },
   TextInput: {
@@ -103,7 +104,7 @@ export default globalStyle = StyleSheet.create({
   },
   rowText: {
     fontSize: 16,
-    color:'#999',
+    // color:'#999',
   },
   rowTextRight: {
     marginRight: 20,

@@ -30,7 +30,7 @@ export default class SettingScreen extends React.Component {
 			allowSendMsg: true,
 			allowAutoPay: true,
 			allowGesture: true,
-			showPicker: true,
+			showPicker: false,
 			version: '1.0.0.alpha',
 		};
 
@@ -42,28 +42,28 @@ export default class SettingScreen extends React.Component {
 	render(){
 		return (
 			<View style={{flex:1}}>
-				<View style={[styles.cell, styles.spaceBetween, {height:50}]}>
+				<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>允许推送消息</Text>
 					<Switch value={this.state.allowSendMsg}
 						onValueChange={(value) => this.setState({allowSendMsg: value})} 
 						style={styles.rowTextRight}/>
 				</View>
 
-				<View style={[styles.cell, styles.spaceBetween, {height:50}]}>
+				<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>开启小额免密(200元)</Text>
 					<Switch value={this.state.allowAutoPay}
 						onValueChange={(value) => this.setState({allowAutoPay: value})} 
 						style={styles.rowTextRight}/>
 				</View>
 
-				<View style={[styles.cell, styles.spaceBetween, {height:50}]}>
+				<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>开启手势</Text>
 					<Switch value={this.state.allowGesture}
 						onValueChange={(value) => this.setState({allowGesture: value})} 
 						style={styles.rowTextRight}/>
 				</View>
 
-				<View style={[styles.cell, styles.spaceBetween, {height:50}]}>
+				<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>免登录</Text>
 					<View style={styles.rowTextRight}>
 						<TouchableOpacity
@@ -76,12 +76,12 @@ export default class SettingScreen extends React.Component {
 					</View>
 				</View>
 
-				<View style={[styles.cell, styles.spaceBetween, {height:50}]}>
+				<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>版本号</Text>
 					<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.version}</Text>
 				</View>
 
-				<View style={{position:'absolute',bottom:0,left:0,right:0,display:this.state.showPicker?'flex':'none'}}>
+				<View style={{position:'absolute',bottom:0,left:0,right:0,opacity:this.state.showPicker?1:0}}>
 					<View style={{paddingLeft:15,paddingRight:15,height:40,alignItems:'center',backgroundColor:'#fff',flexDirection:'row'}}>
 						<TouchableOpacity
 							onPress={()=>{

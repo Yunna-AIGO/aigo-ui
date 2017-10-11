@@ -115,7 +115,7 @@ export default class MyApp extends React.Component {
   }
 
   componentDidMount(){
-    console.log('componentDidMount');
+    console.log('index.componentDidMount');
 
     // 必须初始化（有且只有）一次
     WeChat.registerApp(constants.APPID);

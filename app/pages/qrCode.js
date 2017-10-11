@@ -11,6 +11,7 @@ import {
   StatusBar,
   ScrollView,
   StyleSheet,
+  AppState,
 } from 'react-native';
 
 import { color, NavigationItem, SearchBar, SpacingView } from '../widget'
@@ -164,12 +165,14 @@ export default class QrCodeScreen extends React.Component {
 
   componentDidMount(){
     console.log('qrcode.componentDidMount');
+    // AppState.addEventListener('change', this.handleAppState);
     this.detectLogin();
   }
 
   componentWillUnmount(){
     console.log('qrcode.componentWillUnmount');
-    this.timer && clearInterval(this.timer);
+    // AppState.removeEventListener('change', this.handleAppState);
+    this.disableTimer();
   }
 
   async detectLogin(){
@@ -189,13 +192,13 @@ export default class QrCodeScreen extends React.Component {
       });
     }else{
       this.getQrCode();
-      this.timer = setInterval(()=>this.getQrCode(), 5 * 1000);
+      this.enableTimer();
     }
   }
 
   async getQrCode(){
     try{
-      Toast.show('qrCode.getQrCode');
+      console.log('qrCode.getQrCode');
       let userId = this.state.userId;
       let token = this.state.token;
 
@@ -237,6 +240,27 @@ export default class QrCodeScreen extends React.Component {
     }catch(error){
       console.error(error);
     }
+  }
+
+  //app置于后台时，不会触发timer，所以不需要判断AppState
+  handleAppState = (nextState) => {
+    if(AppState.currentState === 'active'){
+      this.enableTimer();
+    }else{
+      this.disableTimer();
+    }
+  }
+
+  enableTimer(){
+    console.log('qrcode.enableTimer');
+    if(!this.timer){
+      this.timer = setInterval(()=>this.getQrCode(), 60 * 1000);
+    }
+  }
+
+  disableTimer(){
+    console.log('qrcode.disableTimer');
+    this.timer && clearInterval(this.timer);
   }
 
 }

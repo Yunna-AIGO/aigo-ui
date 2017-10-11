@@ -4,7 +4,7 @@
 1. ~~订单详情页~~
 2. ~~所有页面接nodejs服务，不在app里mock~~
 3. ~~个人中心：用彩色icon，添加app icon~~
-3. 登录后|打开app|每分钟，自动刷新二维码
+3. ~~登录后|打开app|每分钟，自动刷新二维码~~
 4. ~~退出时跳转登录页~~
 5. 样式：ios各版本、ios和android保持一致
 6. ~~样式：ios plus版本borderWidth<1导致layout问题~~

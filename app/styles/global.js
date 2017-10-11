@@ -103,6 +103,7 @@ export default globalStyle = StyleSheet.create({
   },
   rowText: {
     fontSize: 16,
+    color:'#999',
   },
   rowTextRight: {
     marginRight: 20,

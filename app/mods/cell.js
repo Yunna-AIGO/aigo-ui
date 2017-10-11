@@ -32,7 +32,9 @@ export default class Cell extends React.Component {
   }
   //组件对外共享属性
   static defaultProps = {}
-  componentWillMount(){}
+  componentWillMount(){
+
+  }
 
   render() {
     return (
@@ -50,6 +52,6 @@ export default class Cell extends React.Component {
     )
   }
   componentDidMount(){
-    console.log('componentDidMount');
+    
   }
 }

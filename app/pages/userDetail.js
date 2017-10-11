@@ -45,55 +45,55 @@ export default class UserDetailScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding">
-        <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:70,}}>手机号</Text>
+      <View>
+        <View style={[styles.cell, {height:60}]}>
+          <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>手机号</Text>
           <TextInput 
-            style={{height:20,fontSize:16,color:'#999'}} 
+            style={{height: 50,flex:1,fontSize:16,}} 
             value={this.state.userInfo.mobile}
             onChangeText={(text)=>this.doSetState('mobile', text)}>
           </TextInput>
-        </Cell>
-        <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:70,}}>昵称</Text>
+        </View>
+        <View style={[styles.cell, {height:60}]}>
+          <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>昵称</Text>
           <TextInput 
-            style={{height:20,fontSize:16,color:'#999'}} 
+            style={{height: 50,flex:1,fontSize:16}} 
             value={this.state.userInfo.nickName}
             onChangeText={(text)=>this.doSetState('nickName', text)}>
           </TextInput>
-        </Cell>
-        <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:70,}}>邮箱</Text>
+        </View>
+        <View style={[styles.cell, {height:60}]}>
+          <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>邮箱</Text>
           <TextInput 
-            style={{height:20,fontSize:16,color:'#999'}} 
+            style={{height: 50,flex:1,fontSize:16}} 
             value={this.state.userInfo.email}
             onChangeText={(text)=>this.doSetState('email', text)}>
           </TextInput>
-        </Cell>
-        <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:70,}}>姓名</Text>
+        </View>
+        <View style={[styles.cell, {height:60}]}>
+          <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>姓名</Text>
           <TextInput 
-            style={{height:20,fontSize:16,color:'#999'}} 
+            style={{height: 50,flex:1,fontSize:16}} 
             value={this.state.userInfo.realName}
             onChangeText={(text)=>this.doSetState('realName', text)}>
           </TextInput>
-        </Cell>
-        <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:70,}}>证件类型</Text>
+        </View>
+        <View style={[styles.cell, {height:60}]}>
+          <Text style={{marginRight:16,fontSize:16,width:75,color:'#999'}}>证件类型</Text>
           <TextInput 
-            style={{height:20,fontSize:16,color:'#999'}} 
+            style={{height: 50,flex:1,fontSize:16}} 
             value={this.state.userInfo.identityType}
             onChangeText={(text)=>this.doSetState('identityType', text)}>
           </TextInput>
-        </Cell>
-        <Cell>
-          <Text style={{marginRight:16,fontSize:16,width:70,}}>证件号</Text>
+        </View>
+        <View style={[styles.cell, {height:60}]}>
+          <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>证件号</Text>
           <TextInput 
-            style={{height:20,fontSize:16,color:'#999'}} 
+            style={{height: 50,flex:1,fontSize:16}} 
             value={this.state.userInfo.identityId}
             onChangeText={(text)=>this.doSetState('identityId', text)}>
           </TextInput>
-        </Cell>
+        </View>
 
         <Button style={[styles.rowButton, {marginTop:15}]} 
           onPress={() => {
@@ -104,7 +104,7 @@ export default class UserDetailScreen extends React.Component {
           }}>
           <Text style={{color:'white',fontSize:16}}>确定</Text>
         </Button>
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 

@@ -60,24 +60,24 @@ export default class loginScreen extends React.Component {
 
     return (
       <View>
-        <View style={{backgroundColor:'#fff',paddingLeft:15,paddingRight:15,marginTop:15,flexDirection:'row',alignItems:'center',}}>
-          <Text style={{color:'#999',fontSize:16,textAlign:'right',marginRight:15,width:50,}}>+86</Text>
+        <View style={[styles.cell, {height:60}]}>
+          <Text style={{color:'#999',fontSize:16,textAlign:'right',marginRight:15,width:60,}}>+86</Text>
           <TextInput autoFocus={true}
             style={{height: 50,flex:1,fontSize:16,}}
             onChangeText={(text) => this.checkPhoneNo(text)}
             placeholder="请输入手机号"
           />
 
-          <TouchableOpacity
-            style={{borderWidth:0.5,backgroundColor:'#eee',borderColor:'#ccc',borderRadius:3,marginLeft:15,padding:5,}}
-            onPress={()=>this.sendMessage()}>
-            <Text style={{fontSize:12,color:'#999'}}>获取验证码</Text>
-          </TouchableOpacity>
+          <Button style={{height:30,borderWidth:0.5,backgroundColor:'#eee',borderColor:'#ccc',borderRadius:3,marginLeft:15,padding:5,}} 
+            isDisabled={!this.state.phoneNoReady}
+            onPress={() => this.sendMessage()}>
+            <Text style={{fontSize:12}}>获取验证码</Text>
+          </Button>
         </View>
 
         <View style={{height:0.5,}}></View>
-        <View style={{backgroundColor:'#fff',paddingLeft:15,paddingRight:15,flexDirection:'row',alignItems:'center',}}>
-          <Text style={{color:'#999',fontSize:16,textAlign:'right',marginRight:15,width:50,}}>验证码</Text>
+        <View style={[styles.cell, {height:60}]}>
+          <Text style={{color:'#999',fontSize:16,textAlign:'right',marginRight:15,width:60,}}>验证码</Text>
           <TextInput
               style={{height: 50,flex:1,fontSize:16,}}
               onChangeText={(text) => this.checkCaptcha(text)}
@@ -85,19 +85,19 @@ export default class loginScreen extends React.Component {
             />
         </View>
 
-        <Text style={{marginTop:15,marginBottom:20,color:'#999',fontSize:11,textAlign:'center'}}>
-          已阅读并同意
+        <Button style={[styles.rowButton, {marginTop:15}]} 
+          isDisabled={!loginBtnReady}
+          onPress={() => this.doLogin()}>
+          <Text style={{color:'white', fontSize:18}}>登录</Text>
+        </Button>
+
+        <Text style={{marginTop:0,marginBottom:20,color:'#999',fontSize:11,textAlign:'center'}}>
+          点击登录，表示您已阅读并同意
           <Text onPress={() => this.showTermOfService()}
             style={styles.textLink}>
             《服务条款》
           </Text>
         </Text>
-
-        <Button style={[styles.rowButton, {marginTop:0}]} 
-          isDisabled={!loginBtnReady}
-          onPress={() => this.doLogin()}>
-          <Text style={{color:'white', fontSize:18}}>登录</Text>
-        </Button>
       </View>     
     )
   }

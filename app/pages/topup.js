@@ -79,8 +79,8 @@ export default class TopupScreen extends React.Component {
 					<Text style={{color:'white',fontSize:16}}>立即充值</Text>
 				</Button>
 
-				<Text style={{fontSize:12, marginLeft:30, marginRight:30, marginBottom:10}}>
-					点击立即充值，即表示您已阅读并同意
+				<Text style={{fontSize:12, marginLeft:30, marginRight:30, marginBottom:10, color:'#999'}}>
+					点击立即充值，表示您已阅读并同意
 					<Text onPress={() => this.props.navigation.navigate('TermOfServiceTopup')}
 						style={styles.textLink}>
 						《充值活动协议》

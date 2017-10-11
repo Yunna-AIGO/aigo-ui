@@ -8,7 +8,6 @@ import {
   ListView,
   StyleSheet,
   TouchableOpacity,
-  StatusBar,
   FlatList,
 } from 'react-native';
 
@@ -212,7 +211,6 @@ export default class OrdersScreen extends Component {
   
   componentDidMount() {
     console.log('orders.componentDidMount');
-    StatusBar.setBarStyle('dark-content');
     this.detectLogin();
   }
 

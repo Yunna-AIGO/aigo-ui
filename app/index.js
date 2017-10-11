@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { 
   AppRegistry,
   View,
+  StatusBar,
 } from 'react-native';
 
 import { StackNavigator, TabBarBottom, TabNavigator } from 'react-navigation';
@@ -111,11 +112,6 @@ const GlobalPage = StackNavigator({
 export default class MyApp extends React.Component {
   constructor(props) {
     super(props);
-    /*
-    *StatusBar信号和电池状态栏,只能设置该栏中字颜色属性
-    *light-content代表白字,dark代表黑字
-    */
-    //StatusBar.setBarStyle('light-content')
   }
 
   componentDidMount(){
@@ -127,7 +123,13 @@ export default class MyApp extends React.Component {
 
   render(){
     return (
-      <GlobalPage />
+      <View style={{flex:1}}>
+        <StatusBar hidden={false} 
+          barStyle={'light-content'}
+          translucent={false}
+          networkActivityIndicatorVisible={false}/>
+        <GlobalPage />
+      </View>
     )
   }
 }

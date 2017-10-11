@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  StatusBar,
   KeyboardAvoidingView,
 } from 'react-native';
 

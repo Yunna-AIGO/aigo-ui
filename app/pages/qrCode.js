@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  StatusBar,
   ScrollView,
   StyleSheet,
   AppState,
@@ -160,7 +159,6 @@ export default class QrCodeScreen extends React.Component {
 
   componentWillMount(){
     console.log('qrcode.componentWillMount');
-    StatusBar.setBarStyle('light-content');
   }
 
   componentDidMount(){

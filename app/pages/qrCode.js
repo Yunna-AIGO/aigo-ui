@@ -29,6 +29,8 @@ import format from 'string-format';
 
 import Toast from '../tools/toast';
 
+import {Size} from '../tools/util';
+
 let that;
 export default class QrCodeScreen extends React.Component {
   constructor(props) {
@@ -83,7 +85,7 @@ export default class QrCodeScreen extends React.Component {
   onScroll(e: any) {
     //scroll的唯一目的竟然是获取更改currentPage
     let x = e.nativeEvent.contentOffset.x
-    let currentPage = Math.round(x / 375)
+    let currentPage = Math.round(x / Size.ScreenWidth());
 
     console.log('onScroll  ' + e.nativeEvent.contentOffset.x + '  page ' + currentPage + '  current ' + this.state.currentPage)
     if (this.state.currentPage != currentPage) {
@@ -251,7 +253,7 @@ const styles = StyleSheet.create({
   itemsView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: 375,
+    width: Size.ScreenWidth(),
   },
   pageControl: {
     margin: 10,

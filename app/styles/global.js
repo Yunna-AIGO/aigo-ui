@@ -27,7 +27,7 @@ export default globalStyle = StyleSheet.create({
     borderColor:'#ddd',
     borderWidth:1,
     marginTop:-1,
-    height:60,
+    // height:60, // 统一的style会影响其他页面，怎么合理规划？
     // borderWidth:StyleSheet.hairlineWidth,
   },
   TextInput: {

@@ -27,7 +27,7 @@ public class AlipayModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void pay(final String payInfo,
                     final Promise promise) {
-        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+        // EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         Runnable payRunnable = new Runnable() {
             @Override
             public void run() {

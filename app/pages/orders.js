@@ -101,7 +101,7 @@ export default class OrdersScreen extends Component {
             </View>
             <Image source={require('../images/store.png')} style={{width:30,height:30,marginRight:20,}} />
             <View>
-              <Text style={{marginBottom:5,fontSize:14,}}>云店{obj.storeId}</Text>
+              <Text style={{marginBottom:5,fontSize:14,}}>{obj.orderDesc}</Text>
               <Text style={{fontWeight:'bold',}}>¥{obj.orderAmt}</Text>
             </View>
           </View>
@@ -141,7 +141,7 @@ export default class OrdersScreen extends Component {
           <View tabLabel='订单' style={{flex:1}}>
             {/* 回到顶部 */}
             <TouchableOpacity activeOpacity={1}
-              style={{width:30,height:30,borderColor:'#fff',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
+              style={{width:30,height:30,borderColor:'black',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
               onPress={() => {
                 //this._flatList.scrollToEnd();
                 //this._flatList.scrollToIndex({viewPosition:0,index:8});
@@ -182,7 +182,7 @@ export default class OrdersScreen extends Component {
           <View tabLabel='充值' style={{flex:1}}>
             {/* 回到顶部 */}
             <TouchableOpacity activeOpacity={1}
-              style={{width:30,height:30,borderColor:'#fff',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
+              style={{width:30,height:30,borderColor:'black',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
               onPress={() => {
                 //this._flatList.scrollToEnd();
                 //this._flatList.scrollToIndex({viewPosition:0,index:8});

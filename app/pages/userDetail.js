@@ -49,7 +49,7 @@ export default class UserDetailScreen extends React.Component {
         <View style={styles.cell}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>手机号</Text>
           <TextInput 
-            style={{height: 50,flex:1,fontSize:16,}} 
+            style={{flex:1}} 
             value={this.state.userInfo.mobile}
             onChangeText={(text)=>this.doSetState('mobile', text)}>
           </TextInput>
@@ -57,7 +57,7 @@ export default class UserDetailScreen extends React.Component {
         <View style={styles.cell}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>昵称</Text>
           <TextInput 
-            style={{height: 50,flex:1,fontSize:16}} 
+            style={{flex:1}} 
             value={this.state.userInfo.nickName}
             onChangeText={(text)=>this.doSetState('nickName', text)}>
           </TextInput>
@@ -65,7 +65,7 @@ export default class UserDetailScreen extends React.Component {
         <View style={styles.cell}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>邮箱</Text>
           <TextInput 
-            style={{height: 50,flex:1,fontSize:16}} 
+            style={{flex:1}} 
             value={this.state.userInfo.email}
             onChangeText={(text)=>this.doSetState('email', text)}>
           </TextInput>
@@ -73,7 +73,7 @@ export default class UserDetailScreen extends React.Component {
         <View style={styles.cell}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>姓名</Text>
           <TextInput 
-            style={{height: 50,flex:1,fontSize:16}} 
+            style={{flex:1}} 
             value={this.state.userInfo.realName}
             onChangeText={(text)=>this.doSetState('realName', text)}>
           </TextInput>
@@ -81,7 +81,7 @@ export default class UserDetailScreen extends React.Component {
         <View style={styles.cell}>
           <Text style={{marginRight:16,fontSize:16,width:75,color:'#999'}}>证件类型</Text>
           <TextInput 
-            style={{height: 50,flex:1,fontSize:16}} 
+            style={{flex:1}} 
             value={this.state.userInfo.identityType}
             onChangeText={(text)=>this.doSetState('identityType', text)}>
           </TextInput>
@@ -89,7 +89,7 @@ export default class UserDetailScreen extends React.Component {
         <View style={styles.cell}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>证件号</Text>
           <TextInput 
-            style={{height: 50,flex:1,fontSize:16}} 
+            style={{flex:1}} 
             value={this.state.userInfo.identityId}
             onChangeText={(text)=>this.doSetState('identityId', text)}>
           </TextInput>

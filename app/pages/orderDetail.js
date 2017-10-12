@@ -39,7 +39,7 @@ export default class OrderDetailScreen extends React.Component {
     return (
       <ScrollView>
         <View style={styles.cell}>
-          <Text style={styles.rowText}>门店：{order.storeId}</Text>
+          <Text style={styles.rowText}>门店：{order.orderDesc}</Text>
         </View>
         <View style={styles.cell}>
           <Text style={styles.rowText}>日期：{order.gmtCreate}</Text>

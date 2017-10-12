@@ -16,7 +16,7 @@ export const OrderType = {
 };
 
 export const OrderStatus = {
-	init: '初始化',
+	init: '待支付',
 	in_payment: '支付中',
 	success: '订单支付成功',
 	timeout: '订单过期',

@@ -223,7 +223,7 @@ export default class OrdersScreen extends Component {
         </ScrollableTabView>
 
         {/* 弹出框：选择支付方式 */}
-        <Modal animationType={'fade'} transparent={true}
+        <Modal animationType={'none'} transparent={true}
           visible={this.state.showPayType}
           onRequestClose={() => this.payNow()} >
           <View style={{flex:1, justifyContent:'flex-end', alignItems:'center', backgroundColor:'#80808090'}}>
@@ -233,12 +233,12 @@ export default class OrdersScreen extends Component {
                 onPress={()=>this.setState({showPayType:false})} />
             </View>
 
-            <View style={{width:'100%', height:350, backgroundColor:'white', padding:20}}>
+            <View style={{width:'100%', height:300, backgroundColor:'white', padding:20}}>
               <Text style={{fontSize:14, textAlign:'center'}}>需支付
-                <Text style={{fontSize:50, color:'orange'}}>  {this.state.currentOrder.unPaidAmt}  </Text>
+                <Text style={{fontSize:36, color:'orange'}}> {this.state.currentOrder.unPaidAmt} </Text>
               元</Text>
               
-              <View style={{borderColor:'#ddd', borderWidth:1, marginTop:20}} />
+              <View style={{borderColor:'#ddd', borderWidth:1, marginTop:10}} />
 
               <RadioButtons options={this.state.enumPayTypes}
                 onSelection={(option) => this.setState({payType: option.value})}

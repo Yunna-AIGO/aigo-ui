@@ -46,50 +46,50 @@ export default class UserDetailScreen extends React.Component {
   render() {
     return (
       <View>
-        <View style={styles.cell}>
+        <View style={[styles.cell, {height:60}]}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>手机号</Text>
-          <TextInput 
-            style={{flex:1}} 
+          <TextInput underlineColorAndroid="transparent"
+            style={{height:50,flex:1,fontSize:16,}} 
             value={this.state.userInfo.mobile}
             onChangeText={(text)=>this.doSetState('mobile', text)}>
           </TextInput>
         </View>
-        <View style={styles.cell}>
+        <View style={[styles.cell, {height:60}]}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>昵称</Text>
-          <TextInput 
-            style={{flex:1}} 
+          <TextInput underlineColorAndroid="transparent"
+            style={{height:50,flex:1,fontSize:16,}} 
             value={this.state.userInfo.nickName}
             onChangeText={(text)=>this.doSetState('nickName', text)}>
           </TextInput>
         </View>
-        <View style={styles.cell}>
+        <View style={[styles.cell, {height:60}]}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>邮箱</Text>
-          <TextInput 
-            style={{flex:1}} 
+          <TextInput underlineColorAndroid="transparent"
+            style={{height:50,flex:1,fontSize:16,}} 
             value={this.state.userInfo.email}
             onChangeText={(text)=>this.doSetState('email', text)}>
           </TextInput>
         </View>
-        <View style={styles.cell}>
+        <View style={[styles.cell, {height:60}]}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>姓名</Text>
-          <TextInput 
-            style={{flex:1}} 
+          <TextInput underlineColorAndroid="transparent"
+            style={{height:50,flex:1,fontSize:16,}} 
             value={this.state.userInfo.realName}
             onChangeText={(text)=>this.doSetState('realName', text)}>
           </TextInput>
         </View>
-        <View style={styles.cell}>
+        <View style={[styles.cell, {height:60}]}>
           <Text style={{marginRight:16,fontSize:16,width:75,color:'#999'}}>证件类型</Text>
-          <TextInput 
-            style={{flex:1}} 
+          <TextInput underlineColorAndroid="transparent"
+            style={{height:50,flex:1,fontSize:16,}} 
             value={this.state.userInfo.identityType}
             onChangeText={(text)=>this.doSetState('identityType', text)}>
           </TextInput>
         </View>
-        <View style={styles.cell}>
+        <View style={[styles.cell, {height:60}]}>
           <Text style={{marginRight:16,fontSize:16,width:70,color:'#999'}}>证件号</Text>
-          <TextInput 
-            style={{flex:1}} 
+          <TextInput underlineColorAndroid="transparent"
+            style={{height:50,flex:1,fontSize:16,}} 
             value={this.state.userInfo.identityId}
             onChangeText={(text)=>this.doSetState('identityId', text)}>
           </TextInput>

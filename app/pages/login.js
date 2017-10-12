@@ -62,6 +62,7 @@ export default class loginScreen extends React.Component {
         <View style={[styles.cell, {height:60}]}>
           <Text style={{color:'#999',fontSize:16,textAlign:'right',marginRight:15,width:60,}}>+86</Text>
           <TextInput autoFocus={true}
+            underlineColorAndroid="transparent"
             style={{height: 50,flex:1,fontSize:16,}}
             onChangeText={(text) => this.checkPhoneNo(text)}
             placeholder="请输入手机号"
@@ -77,7 +78,7 @@ export default class loginScreen extends React.Component {
         <View style={{height:0.5,}}></View>
         <View style={[styles.cell, {height:60}]}>
           <Text style={{color:'#999',fontSize:16,textAlign:'right',marginRight:15,width:60,}}>验证码</Text>
-          <TextInput
+          <TextInput underlineColorAndroid="transparent"
               style={{height: 50,flex:1,fontSize:16,}}
               onChangeText={(text) => this.checkCaptcha(text)}
               placeholder="验证码"

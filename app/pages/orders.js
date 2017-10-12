@@ -373,7 +373,9 @@ export default class OrdersScreen extends Component {
 
   payNow(){
     console.log('orders.payNow');
-    this.payment = new Payment();
+    if(!this.payment){
+      this.payment = new Payment();
+    }
     this.payment.pay(this.state.userId, this.state.currentOrder.orderId, this.state.payType);
     this.setState({showPayType: false});
   }

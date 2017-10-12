@@ -169,7 +169,9 @@ export default class TopupScreen extends React.Component {
 
 	async topupNow(){
 		console.log('topup.topupNow');
-		this.payment = new Payment();
+		if(!this.payment){
+			this.payment = new Payment();
+		}
 		this.payment.recharge(this.state.userId, this.state.money, this.state.payType);
 	}
 

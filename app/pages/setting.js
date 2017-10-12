@@ -12,6 +12,7 @@ import Toast from 'react-native-root-toast';
 import {
 	SUCCESS, 
 	loginState,
+	VERSION,
 } from '../tools/constants';
 import styles from '../styles/global';
 import _ from 'underscore';
@@ -31,7 +32,7 @@ export default class SettingScreen extends React.Component {
 			allowAutoPay: true,
 			allowGesture: true,
 			showPicker: false,
-			version: '1.0.0.alpha',
+			version: VERSION,
 		};
 
 		this.state.needNotLogin = 'threeMonth';

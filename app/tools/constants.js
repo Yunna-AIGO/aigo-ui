@@ -1,5 +1,6 @@
 export const APPID = 'TestWechat';
 export const SUCCESS = '0000';
+export const VERSION = '1.0.1';
 
 // storages
 export const loginState = 'loginState';

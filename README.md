@@ -8,12 +8,12 @@
 4. ~~退出时跳转登录页~~
 5. 样式：ios各版本、ios和android保持一致
 6. ~~样式：ios plus版本borderWidth<1导致layout问题~~
-6. 同理，充值后怎么触发『我的钱包』余额更新？
-7. 未支付的订单，显示『去支付』，点击后显示弹框，选择支付宝或微信，点击『立即支付』，唤起支付宝或微信完成支付
+6. ~~同理，充值后怎么触发『我的钱包』余额更新？~~
+7. ~~未支付的订单，显示『去支付』，点击后显示弹框，选择支付宝或微信，点击『立即支付』，唤起支付宝或微信完成支付~~
 7. 发送系统消息，app通知
 8. 用户可反馈错误
 9. 发送验证码：60s内disable，不可重复发
-10. Modal会遮挡Toast，之前是用transparent的View，登录页里如何处理？//考虑用react-native-root-modal
+10. ~~Modal会遮挡Toast，之前是用transparent的View，登录页里如何处理？//登录页不用Modal，改回StackNav，因为回调刷新二维码的问题解决了~~
 11. 启动闪屏
 12. 订单列表的分页，每次到底pageNum+1，然后再查
 14. ~~order页不显示下拉刷新，只有下拉时才显示~~
@@ -30,6 +30,7 @@
 28. 目前只有1个配置urlPrefix，如果有多个，考虑引入react-native-config，切换不同的环境：mock, dev, test, prod
 29. ~~android的release版要先卸载debug版，再执行`yarn release`，ios的release版只需在xcode里scheme->run->build configuration里改成release再连真机run即可~~
 30. 手机号、身份证号等敏感信息，中间若干位要打掩码
+31. 订单为空时，显示'随便拿点啥吧'+ 一张图片
 
 
 # Page

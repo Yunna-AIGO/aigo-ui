@@ -52,7 +52,7 @@ export default class WalletScreen extends React.Component {
 							source={require('../images/topup.png')}
 							style={{width:24,height:24,marginRight:15,}}>
 						</Image>
-						<Text style={{flex:1}}>充值</Text>
+						<Text style={{flex:1, fontSize:16}}>充值</Text>
 				</TouchableOpacity>
 				<TouchableOpacity 
 					style={[globalStyle.cell, {marginBottom:15}]}>
@@ -60,7 +60,7 @@ export default class WalletScreen extends React.Component {
 							source={require('../images/wallet.png')}
 							style={{width:24,height:24,marginRight:15,}}>
 						</Image>
-						<Text style={{flex:1}}>提现</Text>
+						<Text style={{flex:1, fontSize:16}}>提现</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity 
@@ -69,7 +69,7 @@ export default class WalletScreen extends React.Component {
 							source={require('../images/redpackage.png')}
 							style={{width:24,height:24,marginRight:15,}}>
 						</Image>
-						<Text style={{flex:1}}>红包</Text>
+						<Text style={{flex:1, fontSize:16}}>红包</Text>
 						<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.redPackage} 个</Text>
 				</TouchableOpacity>
 				<TouchableOpacity 
@@ -78,7 +78,7 @@ export default class WalletScreen extends React.Component {
 							source={require('../images/coupon.png')}
 							style={{width:24,height:24,marginRight:15,}}>
 						</Image>
-						<Text style={{flex:1}}>优惠券</Text>
+						<Text style={{flex:1, fontSize:16}}>优惠券</Text>
 						<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.coupon} 张</Text>
 				</TouchableOpacity>
 

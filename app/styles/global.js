@@ -27,7 +27,7 @@ export default globalStyle = StyleSheet.create({
     borderColor:'#ddd',
     borderWidth:1,
     marginTop:-1,
-    height:50,
+    height:60,
     // borderWidth:StyleSheet.hairlineWidth,
   },
   TextInput: {
@@ -134,4 +134,7 @@ export default globalStyle = StyleSheet.create({
     width:20,
     height:20,
   },
+  textLink:{
+    color:theme.orange,
+  }
 });

@@ -101,7 +101,7 @@ export default class SettingScreen extends React.Component {
 
 					<Picker
             //Picker样式 dialog弹窗样式默认 dropdown显示在下边
-            mode={'dropdown'}
+            mode={'dialog'}
             //显示选择内容
             selectedValue={this.state.needNotLoginTmp}
             //选择内容时调用此方法

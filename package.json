@@ -7,7 +7,7 @@
 		"ios": "react-native run-ios --simulator 'iPhone 6'",
 		"android": "react-native run-android",
 		"release:android": "cd android && ./gradlew assembleRelease",
-		"release:ios": "react-native bundle --entry-file ./index.ios.js --platform ios --dev false --bundle-output ios/MyApp/main.jsbundle --assets-dest ./ios",
+		"bundle:ios": "react-native bundle --entry-file ./index.ios.js --platform ios --dev false --bundle-output ios/MyApp/main.jsbundle --assets-dest ./ios",
 		"test": "jest"
 	},
 	"dependencies": {

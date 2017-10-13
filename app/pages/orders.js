@@ -141,18 +141,6 @@ export default class OrdersScreen extends Component {
           tabBarUnderlineStyle={{backgroundColor:theme.orange}}
         >
           <View tabLabel='订单' style={{flex:1}}>
-            {/* 回到顶部 */}
-            <TouchableOpacity activeOpacity={1}
-              style={{width:30,height:30,borderColor:'black',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
-              onPress={() => {
-                //this._flatList.scrollToEnd();
-                //this._flatList.scrollToIndex({viewPosition:0,index:8});
-                this._flatList.scrollToOffset({ animated: true, offset: 0 });
-              }}
-            >
-              <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
-            </TouchableOpacity>
-
             { this.state.orders.length === 0 && 
               <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                 <Image source={require('../images/cart.png')} style={{width:60, height:60, marginBottom:20, tintColor:'orange'}}/>
@@ -161,6 +149,19 @@ export default class OrdersScreen extends Component {
             }
 
             { this.state.orders.length > 0 &&
+              <View>
+              {/* 回到顶部 */}
+              <TouchableOpacity activeOpacity={1}
+                style={{width:30,height:30,borderColor:'black',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
+                onPress={() => {
+                  //this._flatList.scrollToEnd();
+                  //this._flatList.scrollToIndex({viewPosition:0,index:8});
+                  this._flatList.scrollToOffset({ animated: true, offset: 0 });
+                }}
+              >
+                <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
+              </TouchableOpacity>
+
               <FlatList
                 ref={
                   (flatList) => {
@@ -188,21 +189,10 @@ export default class OrdersScreen extends Component {
                 data={this.state.orders}
                 keyExtractor={this._extractKey}>
               </FlatList>
+              </View>
             }
           </View>
           <View tabLabel='充值记录' style={{flex:1}}>
-            {/* 回到顶部 */}
-            <TouchableOpacity activeOpacity={1}
-              style={{width:30,height:30,borderColor:'black',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
-              onPress={() => {
-                //this._flatList.scrollToEnd();
-                //this._flatList.scrollToIndex({viewPosition:0,index:8});
-                this._flatList1.scrollToOffset({ animated: true, offset: 0 });
-              }}
-            >
-              <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
-            </TouchableOpacity>
-
             { this.state.orders.length === 0 && 
               <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                 <Image source={require('../images/topup.png')} style={{width:60, height:60, marginBottom:20, tintColor:'orange'}}/>
@@ -211,6 +201,19 @@ export default class OrdersScreen extends Component {
             }
 
             { this.state.orders.length > 0 &&
+              <View>
+              {/* 回到顶部 */}
+              <TouchableOpacity activeOpacity={1}
+                style={{width:30,height:30,borderColor:'black',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
+                onPress={() => {
+                  //this._flatList.scrollToEnd();
+                  //this._flatList.scrollToIndex({viewPosition:0,index:8});
+                  this._flatList1.scrollToOffset({ animated: true, offset: 0 });
+                }}
+              >
+                <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
+              </TouchableOpacity>
+
               <FlatList
                 ref={
                   (flatList) => {
@@ -238,6 +241,7 @@ export default class OrdersScreen extends Component {
                 data={this.state.topups}
                 keyExtractor={this._extractKey}>
               </FlatList>
+              </View>
             }
           </View>
         </ScrollableTabView>

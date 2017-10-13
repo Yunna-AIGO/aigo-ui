@@ -91,7 +91,9 @@ export default class OrdersScreen extends Component {
     return (
       <TouchableOpacity onPress={() => {
         console.log(obj);
-        navigate('OrderDetail', {order:obj});
+        if(obj.orderType === OrderType.CONSUME){
+          navigate('OrderDetail', {order:obj});
+        }
       }}>
         <View style={[styles.cell, styles.spaceBetween]}>
           <View style={{flexDirection:'row'}}>
@@ -151,35 +153,44 @@ export default class OrdersScreen extends Component {
               <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
             </TouchableOpacity>
 
-            <FlatList
-              ref={
-                (flatList) => {
-                  this._flatList = flatList
-                }
-              }
-              // ListHeaderComponent={this._header}
-              // ListFooterComponent={this._footer}
-              ItemSeparatorComponent={this._separator}
-              renderItem={this._renderItem}
-              numColumns ={1}
-              refreshing={this.state.refreshing}
-              getItemLayout={(data, index) => (
-                { length: 10, offset: (10 + 2) * index, index }
-              )}
-              onRefresh={() => this.getOrders()}
-              onEndReachedThreshold={0.1}
-              onEndReached={(info) => {
-                console.log("滑动到底部了");
-              } }
+            { this.state.orders.length === 0 && 
+              <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                <Image source={require('../images/cart.png')} style={{width:60, height:60, marginBottom:20, tintColor:'orange'}}/>
+                <Text style={{color:'#666', fontSize:16}}>随便拿点啥吧~</Text>
+              </View>
+            }
 
-              onViewableItemsChanged={(info) => {
-                //    alert("可见不可见触发");
-              } }
-              data={this.state.orders}
-              keyExtractor={this._extractKey}>
-            </FlatList>
+            { this.state.orders.length > 0 &&
+              <FlatList
+                ref={
+                  (flatList) => {
+                    this._flatList = flatList
+                  }
+                }
+                // ListHeaderComponent={this._header}
+                // ListFooterComponent={this._footer}
+                ItemSeparatorComponent={this._separator}
+                renderItem={this._renderItem}
+                numColumns ={1}
+                refreshing={this.state.refreshing}
+                getItemLayout={(data, index) => (
+                  { length: 10, offset: (10 + 2) * index, index }
+                )}
+                onRefresh={() => this.getOrders()}
+                onEndReachedThreshold={0.1}
+                onEndReached={(info) => {
+                  console.log("滑动到底部了");
+                } }
+
+                onViewableItemsChanged={(info) => {
+                  //    alert("可见不可见触发");
+                } }
+                data={this.state.orders}
+                keyExtractor={this._extractKey}>
+              </FlatList>
+            }
           </View>
-          <View tabLabel='充值' style={{flex:1}}>
+          <View tabLabel='充值记录' style={{flex:1}}>
             {/* 回到顶部 */}
             <TouchableOpacity activeOpacity={1}
               style={{width:30,height:30,borderColor:'black',borderWidth:0.5,borderRadius:25,position:'absolute',right:20,bottom:20,zIndex:10,backgroundColor:'white'}}
@@ -192,33 +203,42 @@ export default class OrdersScreen extends Component {
               <Image source={require('../images/less.png')} style={{width:30, height:30}}/>
             </TouchableOpacity>
 
-            <FlatList
-              ref={
-                (flatList) => {
-                  this._flatList1 = flatList
-                }
-              }
-              // ListHeaderComponent={this._header}
-              // ListFooterComponent={this._footer}
-              ItemSeparatorComponent={this._separator}
-              renderItem={this._renderItem}
-              numColumns ={1}
-              refreshing={this.state.refreshing}
-              getItemLayout={(data, index) => (
-                { length: 10, offset: (10 + 2) * index, index }
-              )}
-              onRefresh={() => this.getOrders()}
-              onEndReachedThreshold={0.1}
-              onEndReached={(info) => {
-                console.log("滑动到底部了");
-              } }
+            { this.state.orders.length === 0 && 
+              <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                <Image source={require('../images/topup.png')} style={{width:60, height:60, marginBottom:20, tintColor:'orange'}}/>
+                <Text style={{color:'#666', fontSize:16}}>请去充值哦~</Text>
+              </View>
+            }
 
-              onViewableItemsChanged={(info) => {
-                //    alert("可见不可见触发");
-              } }
-              data={this.state.topups}
-              keyExtractor={this._extractKey}>
-            </FlatList>
+            { this.state.orders.length > 0 &&
+              <FlatList
+                ref={
+                  (flatList) => {
+                    this._flatList1 = flatList
+                  }
+                }
+                // ListHeaderComponent={this._header}
+                // ListFooterComponent={this._footer}
+                ItemSeparatorComponent={this._separator}
+                renderItem={this._renderItem}
+                numColumns ={1}
+                refreshing={this.state.refreshing}
+                getItemLayout={(data, index) => (
+                  { length: 10, offset: (10 + 2) * index, index }
+                )}
+                onRefresh={() => this.getOrders()}
+                onEndReachedThreshold={0.1}
+                onEndReached={(info) => {
+                  console.log("滑动到底部了");
+                } }
+
+                onViewableItemsChanged={(info) => {
+                  //    alert("可见不可见触发");
+                } }
+                data={this.state.topups}
+                keyExtractor={this._extractKey}>
+              </FlatList>
+            }
           </View>
         </ScrollableTabView>
 

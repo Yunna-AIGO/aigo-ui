@@ -76,13 +76,13 @@ const TabNavigatorMain = TabNavigator({
 },{
   tabBarComponent: TabBarBottom,
   tabBarPosition : 'bottom',
-  swipeEnabled: true,
+  swipeEnabled: false,
   animationEnabled: true,
   lazy : true,
   tabBarOptions: {
-      activeTintColor: theme.orange,
-      inactiveTintColor: '#333',
-      style: { backgroundColor: '#fff',},
+    activeTintColor: theme.orange,
+    inactiveTintColor: '#333',
+    style: { backgroundColor: '#fff',},
   },
 });
 

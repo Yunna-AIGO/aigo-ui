@@ -170,9 +170,24 @@ export default class TopupScreen extends React.Component {
 	async topupNow(){
 		console.log('topup.topupNow');
 		if(!this.payment){
-			this.payment = new Payment();
+			this.payment = new Payment(()=>this.doSuccess(), ()=>this.doFail());
 		}
 		this.payment.recharge(this.state.userId, this.state.money, this.state.payType);
 	}
+
+  doSuccess(){
+  	console.log('topup.doSuccess');
+    setTimeout(()=>{
+      const {navigate,goBack,state} = this.props.navigation;
+      // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
+      state.params.callback('reload');
+      // 充值成功后，回到上个页面
+      goBack();
+    },1000);
+  }
+
+  doFail(){
+  	console.log('topup.doFail');
+  }
 
 }

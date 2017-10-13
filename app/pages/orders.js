@@ -351,7 +351,7 @@ export default class OrdersScreen extends Component {
         // });
         this.setState({orders: _.where(allOrders, {orderType: OrderType.CONSUME})});
         this.setState({topups: _.where(allOrders, {orderType: OrderType.RECHARGE})});
-        Toast.show('订单查询成功');
+        // Toast.show('订单查询成功');
       }else{
         Toast.show('订单查询失败：'+resJson.message);
       }
@@ -374,9 +374,19 @@ export default class OrdersScreen extends Component {
   payNow(){
     console.log('orders.payNow');
     if(!this.payment){
-      this.payment = new Payment();
+      this.payment = new Payment(()=>this.doSuccess(), ()=>this.doFail());
     }
     this.payment.pay(this.state.userId, this.state.currentOrder.orderId, this.state.payType);
+  }
+
+  doSuccess(){
+    console.log('orders.doSuccess');
+    this.setState({showPayType: false});
+    this.getOrders();
+  }
+
+  doFail(){
+    console.log('orders.doFail');
     this.setState({showPayType: false});
   }
 

@@ -124,10 +124,10 @@ export default class MyApp extends React.Component {
   render(){
     return (
       <View style={{flex:1}}>
-        <StatusBar hidden={false} 
-          barStyle={'light-content'}
+        {/*<StatusBar hidden={false} 
+          barStyle={'default'}
           translucent={false}
-          networkActivityIndicatorVisible={false}/>
+          networkActivityIndicatorVisible={false}/>*/}
         <GlobalPage />
       </View>
     )

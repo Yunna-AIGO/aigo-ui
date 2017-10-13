@@ -11,6 +11,11 @@ export default class Payment {
 	count = 0;
 	MAX_COUNT = 4;
 
+	constructor(doSuccess, doFail){
+		this.doSuccess = doSuccess;
+		this.doFail = doFail;
+	}
+
 	clear(){
 		for(let i in this.timers){
 			clearTimeout(this.timers[i]);
@@ -37,6 +42,7 @@ export default class Payment {
 			console.log(resJson);
 
 			if(resJson.code !== constants.SUCCESS){
+				this.doFail();
 				Toast.show('获取订单号失败，支付取消');
 				return;
 			}else{
@@ -77,10 +83,11 @@ export default class Payment {
 			console.log(resJson);
 
 			if(resJson.code !== constants.SUCCESS){
+				this.doFail();
 				Toast.show('获取订单号失败，支付取消');
 				return;
 			}else{
-				let {orderId, orderInfo, transId, message} = resJson.data;
+				let {orderId, orderInfo, transId} = resJson.data;
 				switch(payType){
 					case 'alipay':
 						this.alipay(orderInfo, transId);
@@ -89,7 +96,8 @@ export default class Payment {
 						this.wxpay();
 						break;
 					case 'cp_pay':
-						Toast.show(message);
+						this.doSuccess();
+						Toast.show(resJson.message);
 						break;
 					default:
 						console.error('unknown payType');
@@ -141,6 +149,7 @@ export default class Payment {
 			// }
 		}, (err) => {
 			console.log(err);
+			this.doFail();
 			Toast.show('支付失败，请重新支付');
 		});
 	}
@@ -196,15 +205,10 @@ export default class Payment {
 				let successList = [TransStatus.SUCCEEDED];
 				let failedList = [TransStatus.FAILED, TransStatus.TIMEOUT, TransStatus.PAY_CANCEL, TransStatus.CLOSED];
 				if(successList.indexOf(transStatus) >= 0){
+					this.doSuccess();
 					Toast.show('交易成功');
-					setTimeout(()=>{
-			      const {navigate,goBack,state} = this.props.navigation;
-			      // 在第二个页面,在goBack之前,将上个页面的方法取到,并回传参数,这样回传的参数会重走render方法
-			      state.params.callback('reload');
-			      // 充值成功后，回到上个页面
-			      goBack();
-			    },1000);
 				}else if(failedList.indexOf(transStatus) >= 0){
+					this.doFail();
 					Toast.show('交易失败');
 				}else if(pendingList.indexOf(transStatus) >= 0){
 					this.delayCheckTrans(transId);

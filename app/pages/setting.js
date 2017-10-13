@@ -79,7 +79,7 @@ export default class SettingScreen extends React.Component {
 
 				<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>版本号</Text>
-					<Text style={[{fontSize: 18}, styles.rowTextRight]}>{this.state.version} </Text>
+					<Text style={[{fontSize: 16}, styles.rowTextRight]}>{this.state.version} </Text>
 				</View>
 
 				<View style={{position:'absolute',bottom:0,left:0,right:0,opacity:this.state.showPicker?1:0}}>

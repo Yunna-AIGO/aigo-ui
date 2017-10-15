@@ -54,7 +54,7 @@ export default class WalletScreen extends React.Component {
 						</Image>
 						<Text style={{flex:1, fontSize:16}}>充值</Text>
 				</TouchableOpacity>
-				<TouchableOpacity 
+				{/*<TouchableOpacity 
 					style={[globalStyle.cell, {marginBottom:15}]}>
 						<Image  
 							source={require('../images/wallet.png')}
@@ -80,27 +80,7 @@ export default class WalletScreen extends React.Component {
 						</Image>
 						<Text style={{flex:1, fontSize:16}}>优惠券</Text>
 						<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.coupon} 张</Text>
-				</TouchableOpacity>
-
-				{/*<View style={[styles.cell, styles.spaceBetween]}>
-					<Text style={styles.rowText}>余额</Text>
-					<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.accountInfo.availableAmount} 元</Text>
-				</View>
-
-				<View style={[styles.cell, styles.spaceBetween]}>
-					<Text style={styles.rowText}>红包</Text>
-					<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.redPackage} 个</Text>
-				</View>
-
-				<View style={[styles.cell, styles.spaceBetween]}>
-					<Text style={styles.rowText}>优惠券</Text>
-					<Text style={[styles.rowText, styles.rowTextRight]}>{this.state.coupon} 张</Text>
-				</View>
-
-				<Button style={styles.rowButton} 
-					onPress={() => this.props.navigation.navigate('Topup', {userId:this.state.userId})}>
-					充  值
-				</Button>*/}
+				</TouchableOpacity>*/}
 			</View>
 		);
 	}

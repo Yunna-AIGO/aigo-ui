@@ -69,7 +69,7 @@ export default class UserCenterScreen extends React.Component {
           <Text>{name}</Text>
         </View>
 
-        <TouchableOpacity style={globalStyle.cell} 
+        {/*<TouchableOpacity style={globalStyle.cell} 
           onPress={
             ()=>{
               this.props.navigation.navigate('UserDetail',{
@@ -88,7 +88,7 @@ export default class UserCenterScreen extends React.Component {
           <Image source={require('../images/star.png')} 
             style={{width:20,height:20,marginRight:20,flex:0,tintColor:'tomato'}}></Image>
           <Text style={{flex:1,fontSize:16}}>个人信息</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
 
         <TouchableOpacity style={globalStyle.cell} onPress={
           ()=>{
@@ -100,7 +100,7 @@ export default class UserCenterScreen extends React.Component {
           <Text style={{flex:1,fontSize:16,}}>我的钱包</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={globalStyle.cell} onPress={
+        {/*<TouchableOpacity style={globalStyle.cell} onPress={
           ()=>{
             this.props.navigation.navigate('Message')
           }
@@ -109,7 +109,7 @@ export default class UserCenterScreen extends React.Component {
           <Image source={require('../images/message.png')} 
             style={{width:20,height:20,marginRight:20,flex:0,tintColor:'dodgerblue'}}></Image>
           <Text style={{flex:1,fontSize:16,}}>消息中心</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
 
         <TouchableOpacity style={globalStyle.cell} onPress={
           ()=>{

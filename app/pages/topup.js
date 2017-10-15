@@ -36,7 +36,7 @@ export default class TopupScreen extends React.Component {
 			],
 			enumPayTypes: [
 				{label:'支付宝支付', value:'alipay', logo:require('../images/alipay.png')},
-				{label:'微信支付 ', value:'wechat_pay', logo:require('../images/wechat.png')},
+				// {label:'微信支付 ', value:'wechat_pay', logo:require('../images/wechat.png')},
 			],
 			money: "10",
 			payType: 'alipay',

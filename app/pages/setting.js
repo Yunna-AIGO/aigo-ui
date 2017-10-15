@@ -43,7 +43,7 @@ export default class SettingScreen extends React.Component {
 	render(){
 		return (
 			<View style={{flex:1}}>
-				<View style={[styles.cell, styles.spaceBetween]}>
+				{/*<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>允许推送消息</Text>
 					<Switch value={this.state.allowSendMsg}
 						onValueChange={(value) => this.setState({allowSendMsg: value})} 
@@ -75,7 +75,7 @@ export default class SettingScreen extends React.Component {
 							<Text style={{fontSize:16}}>{this.state.needNotLoginDesc}</Text>
 						</TouchableOpacity>
 					</View>
-				</View>
+				</View>*/}
 
 				<View style={[styles.cell, styles.spaceBetween]}>
 					<Text style={styles.rowText}>版本号</Text>

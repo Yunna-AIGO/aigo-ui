@@ -193,14 +193,14 @@ export default class OrdersScreen extends Component {
             }
           </View>
           <View tabLabel='充值记录' style={{flex:1}}>
-            { this.state.orders.length === 0 && 
+            { this.state.topups.length === 0 && 
               <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                 <Image source={require('../images/topup.png')} style={{width:60, height:60, marginBottom:20, tintColor:'orange'}}/>
                 <Text style={{color:'#666', fontSize:16}}>请去充值哦~</Text>
               </View>
             }
 
-            { this.state.orders.length > 0 &&
+            { this.state.topups.length > 0 &&
               <View>
               {/* 回到顶部 */}
               <TouchableOpacity activeOpacity={1}

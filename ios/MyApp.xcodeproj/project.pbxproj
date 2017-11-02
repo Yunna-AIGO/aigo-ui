@@ -1241,6 +1241,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: dwy4670@icloud.com (3FP3JD88NM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Z69Q2FEZS9;
@@ -1263,7 +1264,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cloudpick.myapp;
 				PRODUCT_NAME = MyApp;
-				PROVISIONING_PROFILE = "ae155f8e-6782-4446-a412-3b443dd93c0c";
+				PROVISIONING_PROFILE = "25507d4e-2ec8-4784-b6f3-0ee4a35a5d4d";
 				PROVISIONING_PROFILE_SPECIFIER = "cloudpick app profile";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1275,6 +1276,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: dwy4670@icloud.com (3FP3JD88NM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z69Q2FEZS9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1296,7 +1298,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cloudpick.myapp;
 				PRODUCT_NAME = MyApp;
-				PROVISIONING_PROFILE = "ae155f8e-6782-4446-a412-3b443dd93c0c";
+				PROVISIONING_PROFILE = "25507d4e-2ec8-4784-b6f3-0ee4a35a5d4d";
 				PROVISIONING_PROFILE_SPECIFIER = "cloudpick app profile";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

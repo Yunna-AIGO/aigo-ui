@@ -36,6 +36,7 @@ export default class loginScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    this.timer = null;
     this.state = {
       qrcode : '',
       phoneNo : '',
@@ -46,6 +47,10 @@ export default class loginScreen extends React.Component {
       userName : '123',
       userId: '',
       token: '',
+
+      desc: '获取验证码',
+      timeout: 60,
+      sendEnable: true,
     };
   }
 
@@ -69,9 +74,9 @@ export default class loginScreen extends React.Component {
           />
 
           <Button style={{height:30,borderWidth:0.5,backgroundColor:'#eee',borderColor:'#ccc',borderRadius:3,marginLeft:15,padding:5,}} 
-            isDisabled={!this.state.phoneNoReady}
+            isDisabled={!this.state.sendEnable || !this.state.phoneNoReady }
             onPress={() => this.sendMessage()}>
-            <Text style={{fontSize:12}}>获取验证码</Text>
+            <Text style={{fontSize:12}}>{this.state.desc}</Text>
           </Button>
         </View>
 
@@ -102,6 +107,11 @@ export default class loginScreen extends React.Component {
     )
   }
 
+  componentWillUnmount(){
+    console.log('login.componentWillUnmount');
+    this.timer && clearInterval(this.timer);
+  }
+
   //输入
   checkPhoneNo(text){
     console.log(text);
@@ -117,6 +127,25 @@ export default class loginScreen extends React.Component {
     this.sendMessageImpl().then(response => {
       if(constants.SUCCESS === response.code){
         Toast.show('短信已发送，请查收');
+        this.timer = setInterval(()=>{
+          console.log('login.interval, sendEnable = '+this.state.sendEnable);
+          let timeout = this.state.timeout;
+          if(timeout < 0){
+            this.setState({
+              desc: '重新获取',
+              timeout: 60,
+              sendEnable: true,
+            });
+            clearInterval(this.timer);
+            return;
+          }
+
+          this.setState({
+            desc: timeout + 's后重发',
+            sendEnable: false,
+            timeout: timeout - 1,
+          });
+        }, 1000);
       }else{
         Toast.show('发送失败：'+response.message);
       }

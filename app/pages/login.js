@@ -128,7 +128,7 @@ export default class loginScreen extends React.Component {
       if(constants.SUCCESS === response.code){
         Toast.show('短信已发送，请查收');
         this.timer = setInterval(()=>{
-          console.log('login.interval, sendEnable = '+this.state.sendEnable);
+          // console.log('login.interval, sendEnable = '+this.state.sendEnable);
           let timeout = this.state.timeout;
           if(timeout < 0){
             this.setState({

@@ -1264,7 +1264,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cloudpick.myapp;
 				PRODUCT_NAME = MyApp;
-				PROVISIONING_PROFILE = "25507d4e-2ec8-4784-b6f3-0ee4a35a5d4d";
+				PROVISIONING_PROFILE = "eee43135-8c88-4d32-9726-f62b1a69acb3";
 				PROVISIONING_PROFILE_SPECIFIER = "cloudpick app profile";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

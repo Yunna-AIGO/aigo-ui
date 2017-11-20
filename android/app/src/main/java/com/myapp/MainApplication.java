@@ -1,9 +1,9 @@
-package com.myapp;
+package com.cloudpick.myapp;
 
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.myapp.alipay.AlipayPackage;
+import com.cloudpick.myapp.alipay.AlipayPackage;
 import com.theweflex.react.WeChatPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

@@ -44,6 +44,7 @@
 29. ~~android的release版要先卸载debug版，再执行`yarn release`，ios的release版只需在xcode里scheme->run->build configuration里改成release再连真机run即可~~
 30. 手机号、身份证号等敏感信息，中间若干位要打掩码
 31. ~~登录成功后，不应该显示回退按钮~~
+32. orders页下拉一小段距离就刷新
 
 
 # Page

@@ -1,4 +1,4 @@
-package com.myapp.alipay;
+package com.cloudpick.myapp.alipay;
 
 import android.util.Log;
 

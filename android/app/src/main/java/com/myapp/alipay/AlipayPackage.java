@@ -1,4 +1,4 @@
-package com.myapp.alipay;
+package com.cloudpick.myapp.alipay;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

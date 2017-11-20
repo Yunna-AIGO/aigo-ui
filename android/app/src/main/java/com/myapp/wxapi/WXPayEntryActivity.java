@@ -1,4 +1,4 @@
-package com.myapp.wxapi;
+package com.cloudpick.myapp.wxapi;
 
 import android.app.Activity;
 import android.os.Bundle;

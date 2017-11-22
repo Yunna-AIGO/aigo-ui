@@ -1,3 +1,4 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">73e40447-dfb0-4386-8aed-c6020218a778</string>
     <string name="app_name">云拿</string>
 </resources>

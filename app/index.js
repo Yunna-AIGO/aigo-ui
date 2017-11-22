@@ -5,7 +5,7 @@ import {
   View,
   StatusBar,
 } from 'react-native';
-
+import codePush from 'react-native-code-push';
 import { StackNavigator, TabBarBottom, TabNavigator } from 'react-navigation';
 import globalStyle from './styles/global';
 import theme from './styles/theme';
@@ -116,7 +116,7 @@ export default class MyApp extends React.Component {
 
   componentDidMount(){
     console.log('index.componentDidMount');
-
+    codePush.sync();
     // 必须初始化（有且只有）一次
     WeChat.registerApp(constants.APPID);
   }

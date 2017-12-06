@@ -11,6 +11,8 @@ export const loginState = 'loginState';
 // const urlPrefix = 'http://10.10.10.131:8080/cloudpick/rest/api/v1/';
 // 真实的服务接口：测试环境，接真实的支付appid
 const urlPrefix = 'http://10.10.10.130:8080/cloudpick/rest/api/v1/';
+// 云接口
+// const urlPrefix = 'http://47.100.13.231/cloudpick/rest/api/v1/';
 
 export const sendsms = urlPrefix + 'logon/sendsms?mobile={mobile}';
 export const entry = urlPrefix + 'logon/entry';

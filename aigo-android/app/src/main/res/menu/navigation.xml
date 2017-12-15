@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_qrcode"
+        android:icon="@drawable/icon_qrcode_active"
+        android:title="@string/nav_title_qrcode" />
+
+    <item
+        android:id="@+id/navigation_order"
+        android:icon="@drawable/icon_order"
+        android:title="@string/nav_title_order" />
+
+    <item
+        android:id="@+id/navigation_user_center"
+        android:icon="@drawable/icon_mine"
+        android:title="@string/nav_title_user_center" />
+
+</menu>

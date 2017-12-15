@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="expiredin">
+        <item>1周</item>
+        <item>1个月</item>
+        <item>3个月</item>
+        <item>6个月</item>
+        <item>9个月</item>
+        <item>1年</item>
+    </string-array>
+</resources>

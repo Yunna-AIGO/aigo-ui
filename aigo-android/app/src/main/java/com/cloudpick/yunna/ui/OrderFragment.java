@@ -1,14 +1,12 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 /**
  * Created by maxwell on 17-12-7.

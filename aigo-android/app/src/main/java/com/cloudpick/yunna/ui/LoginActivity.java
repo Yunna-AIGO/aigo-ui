@@ -1,4 +1,4 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.cloudpick.aigo.model.User;
-import com.cloudpick.aigo.utils.Constants;
-import com.cloudpick.aigo.utils.Resp;
-import com.cloudpick.aigo.utils.enums.ThirdType;
+import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.Resp;
+import com.cloudpick.yunna.utils.enums.ThirdType;
 import com.google.gson.Gson;
 
 import java.io.IOException;

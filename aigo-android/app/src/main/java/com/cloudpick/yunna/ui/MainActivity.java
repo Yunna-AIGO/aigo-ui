@@ -1,24 +1,17 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.cloudpick.aigo.utils.Tools;
-
-import java.lang.reflect.Method;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {

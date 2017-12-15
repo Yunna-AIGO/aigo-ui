@@ -1,4 +1,4 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,11 +10,10 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.cloudpick.aigo.model.Goods;
+import com.cloudpick.yunna.model.Goods;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

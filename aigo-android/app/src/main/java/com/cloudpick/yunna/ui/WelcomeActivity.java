@@ -1,10 +1,10 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.cloudpick.aigo.model.User;
+import com.cloudpick.yunna.model.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 

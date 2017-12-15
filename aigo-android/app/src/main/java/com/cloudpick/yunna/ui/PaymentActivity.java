@@ -1,14 +1,11 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,13 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cloudpick.aigo.model.User;
-import com.cloudpick.aigo.utils.Constants;
-import com.cloudpick.aigo.utils.Resp;
-import com.cloudpick.aigo.utils.Tools;
-import com.cloudpick.aigo.utils.enums.AgreementStatus;
-import com.cloudpick.aigo.utils.enums.TerminalChannel;
-import com.cloudpick.aigo.utils.enums.ThirdType;
+import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.Resp;
+import com.cloudpick.yunna.utils.Tools;
+import com.cloudpick.yunna.utils.enums.AgreementStatus;
+import com.cloudpick.yunna.utils.enums.TerminalChannel;
+import com.cloudpick.yunna.utils.enums.ThirdType;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -39,10 +36,10 @@ import okhttp3.Response;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private static final String SAVED_STATE = "com.cloudpick.aigo.aigo_ui.savedState";
+    private static final String SAVED_STATE = "com.cloudpick.com.cloudpick.yunna.aigo_ui.savedState";
 
-    private static final String SHOW_TOOLBAR_MENU = "com.cloudpick.aigo.aigo_ui.showToolbarMenu";
-    private static final String NAV_TO_MAIN_ACTIVITY = "com.cloudpick.aigo.aigo_ui.navToMainActivity";
+    private static final String SHOW_TOOLBAR_MENU = "com.cloudpick.com.cloudpick.yunna.aigo_ui.showToolbarMenu";
+    private static final String NAV_TO_MAIN_ACTIVITY = "com.cloudpick.com.cloudpick.yunna.aigo_ui.navToMainActivity";
 
     private boolean showToolbarMenu = false;
     private boolean navToMainActivity = false;

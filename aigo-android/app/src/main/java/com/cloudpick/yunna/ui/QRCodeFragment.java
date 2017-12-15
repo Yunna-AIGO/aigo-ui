@@ -1,4 +1,4 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,9 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
-import com.cloudpick.aigo.model.User;
-import com.cloudpick.aigo.utils.Constants;
-import com.cloudpick.aigo.utils.Resp;
+import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.Resp;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;

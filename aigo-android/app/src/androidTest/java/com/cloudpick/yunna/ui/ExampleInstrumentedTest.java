@@ -1,4 +1,4 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.cloudpick.aigo.aigo_ui", appContext.getPackageName());
+        assertEquals("com.cloudpick.com.cloudpick.yunna.aigo_ui", appContext.getPackageName());
     }
 }

@@ -1,25 +1,23 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import com.cloudpick.aigo.model.Order;
-import com.cloudpick.aigo.model.User;
-import com.cloudpick.aigo.utils.Constants;
-import com.cloudpick.aigo.utils.Resp;
+import com.cloudpick.yunna.model.Order;
+import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.Resp;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

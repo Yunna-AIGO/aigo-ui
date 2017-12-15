@@ -1,4 +1,4 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageView;
 
-import com.cloudpick.aigo.model.Order;
+import com.cloudpick.yunna.model.Order;
 
 import java.util.ArrayList;
 

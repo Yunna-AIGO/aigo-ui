@@ -1,4 +1,4 @@
-package com.cloudpick.aigo.aigo_ui;
+package com.cloudpick.yunna.aigo_ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,16 +13,14 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cloudpick.aigo.model.Goods;
-import com.cloudpick.aigo.model.Order;
-import com.cloudpick.aigo.utils.Constants;
-import com.cloudpick.aigo.utils.Resp;
+import com.cloudpick.yunna.model.Order;
+import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.Resp;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,7 +31,7 @@ import okhttp3.Response;
 public class OrderDetailActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "OrderDetailActivity";
-    private static final String ORDER_ID = "com.cloudpick.aigo.aigo_ui.orderId";
+    private static final String ORDER_ID = "com.cloudpick.com.cloudpick.yunna.aigo_ui.orderId";
 
     private Order orderInfo = null;
     @Override

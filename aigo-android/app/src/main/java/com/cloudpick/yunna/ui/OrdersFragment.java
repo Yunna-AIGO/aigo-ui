@@ -43,6 +43,7 @@ public class OrdersFragment extends Fragment {
     private OrderListViewAdapter adapter = null;
 
     private SmartRefreshLayout pullToRefreshLayout;
+    private SmartRefreshLayout emptyLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,15 +60,20 @@ public class OrdersFragment extends Fragment {
 
     private void initComponent(View v){
         orderListView = (ListView)v.findViewById(R.id.lv_order);
+        emptyLayout = (SmartRefreshLayout)v.findViewById(R.id.layout_empty);
+        emptyLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshOrders();
+                refreshlayout.finishRefresh(1000, operationResult);
+            }
+        });
         pullToRefreshLayout = (SmartRefreshLayout)v.findViewById(R.id.layout_items);
         pullToRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshOrders();
                 refreshlayout.finishRefresh(1000, operationResult);
-//                if(operationResult && !isPageEnd){
-//                    refreshlayout.setEnableLoadmore(true);
-//                }
             }
         });
         pullToRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
@@ -75,9 +81,6 @@ public class OrdersFragment extends Fragment {
             public void onLoadmore(RefreshLayout refreshlayout) {
                 loadMoreOrders();
                 refreshlayout.finishLoadmore(800, operationResult);
-//                if(operationResult && isPageEnd){
-//                    refreshlayout.setEnableLoadmore(false);
-//                }
             }
         });
         pullToRefreshLayout.setEnableLoadmoreWhenContentNotFull(true);

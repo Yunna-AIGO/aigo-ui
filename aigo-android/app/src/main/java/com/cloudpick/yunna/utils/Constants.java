@@ -10,11 +10,12 @@ public class Constants {
     // local test
     //private static final String urlPrefix = "http://192.168.2.120:9000/api/v1/";
     //test
-    //private static final String urlPrefix = "http://10.10.10.130:8080/cloudpick/rest/api/v1/";
+    private static final String urlPrefix = "http://10.10.10.130:8080/cloudpick/rest/api/v1/";
     //云
-    private static final String urlPrefix = "http://47.100.13.231/cloudpick/rest/api/v1/";
+    //private static final String urlPrefix = "http://47.100.13.231/cloudpick/rest/api/v1/";
 
-    public static final boolean OPT_SHOW_SKIP_IN_PAYMENT_ACTIVITY = false;
+    //签约代扣界面是否显示“跳过”按钮
+    public static final boolean OPT_SHOW_SKIP_IN_PAYMENT_ACTIVITY = true;
 
 
 

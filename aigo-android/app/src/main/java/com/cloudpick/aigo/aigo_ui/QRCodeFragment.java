@@ -27,6 +27,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.EncodeHintType;
 
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -133,7 +134,7 @@ public class QRCodeFragment extends Fragment {
                         msg = resp.getMessage();
                     }
                     int size = qrcodeImageView.getHeight();
-                    qrcodeImage = generateQRCodeImage(entryUrl, 200, 200, 45 );
+                    qrcodeImage = generateQRCodeImage(entryUrl, 160, 160, 45 );
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

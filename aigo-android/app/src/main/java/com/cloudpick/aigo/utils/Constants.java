@@ -22,7 +22,7 @@ public class Constants {
     public static final String VERSION = "1.0.0.alpha";
     public static final String PREFERENCE_FILE_KEY = "com.cloudpick.aigo";
     public static final Integer REFRESH_QRCODE_INTERVAL = 1000 * 60;
-    public static final Integer ORDER_PAGE_SIZE = 7;
+    public static final Integer ORDER_PAGE_SIZE = 10;
     public static final String TERM_OF_SERVICE_URL = "http://www.cloudpick.me/TermOfService.html";
     public static final String PACKAGE_NAME_ALIPAY = "com.eg.android.AlipayGphone";
     public static final String APP_SCHEME = "yunna";

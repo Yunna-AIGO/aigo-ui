@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_sendCaptcha.setEnabled(validMobile && !captchaSended);
         btn_login.setEnabled(validMobile && validCaptcha);
+        btn_login.setAlpha(validMobile && validCaptcha? 1.0f:0.5f);
     }
 
     private boolean isValidMobile(String mobile){

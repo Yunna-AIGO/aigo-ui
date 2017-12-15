@@ -90,10 +90,12 @@ public class MainActivity extends FragmentActivity {
                 break;
             case R.id.navigation_order:
                 if(orderFragment == null){
-                    orderFragment = new OrderFragment();
+                    //orderFragment = new OrderFragment();
+                    //目前仅显示订单
+                    orderFragment = new OrdersFragment();
                 }
                 newFragment = orderFragment;
-                toolbar.setTitle(R.string.title_order);
+                toolbar.setTitle(R.string.tab_order_title);
                 navigation.getMenu().findItem(id).setIcon(R.drawable.icon_order);
                 break;
             case R.id.navigation_user_center:

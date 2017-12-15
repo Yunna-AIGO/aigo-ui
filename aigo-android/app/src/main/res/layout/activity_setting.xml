@@ -19,27 +19,61 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <RelativeLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingRight="30dp"
-                android:theme="@style/cell">
-                <TextView
-                    android:layout_width="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="16sp"
-                    android:text="@string/tv_version_title"/>
-                <TextView
-                    android:id="@+id/tv_version"
-                    android:layout_width="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="30dp"
+                    android:theme="@style/cell">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="16sp"
+                        android:text="@string/tv_auto_login_title"/>
+                    <Spinner
+                        android:id="@+id/sp_token_expiredIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:layout_alignParentRight="true"
+                        android:entries="@array/expiredin"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorGrey">
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_alignParentRight="true"
-                    android:text="0.0.0"/>
-            </RelativeLayout>
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="30dp"
+                    android:theme="@style/cell">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="16sp"
+                        android:text="@string/tv_version_title"/>
+                    <TextView
+                        android:id="@+id/tv_version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:layout_alignParentRight="true"
+                        android:text="0.0.0"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+
 
             <View android:layout_width="match_parent"
                 android:layout_height="5dp"

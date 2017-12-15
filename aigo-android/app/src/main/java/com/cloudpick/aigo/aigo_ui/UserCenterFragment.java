@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.cloudpick.aigo.model.User;
 import com.cloudpick.aigo.utils.Constants;
-import com.cloudpick.aigo.utils.Resp;
 import com.cloudpick.aigo.utils.RespUser;
 import com.cloudpick.aigo.utils.Tools;
 import com.google.gson.Gson;
@@ -24,7 +23,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.IOException;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -100,7 +98,6 @@ public class UserCenterFragment extends Fragment {
 
     private void loadUserInfo(){
         String url = String.format(Constants.URL_USER_INFO, User.getUser().getUserId());
-        Log.d("lllll", url);
         Request request = new Request.Builder().url(url).build();
         Call call = new OkHttpClient().newCall(request);
         call.enqueue(new Callback() {
@@ -112,7 +109,6 @@ public class UserCenterFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                Log.d("llll", json);
                 RespUser r = new Gson().fromJson(json, RespUser.class);
                 if(r.getCode().equals(Constants.RESP_SUCCESS)){
                     User.getUser().setUserInfo(

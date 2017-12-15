@@ -81,6 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:ems="10"
+                        android:inputType="number"
                         android:maxLength="6"
                         android:textSize="16sp"
                         android:hint="@string/et_captcha_placeholder"/>

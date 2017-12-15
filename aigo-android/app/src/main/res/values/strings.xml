@@ -43,12 +43,13 @@
     <string name="tv_payment_title">支付方式</string>
     <string name="tv_set_title">设置</string>
     <string name="tv_logout_title">退出账户</string>
-    <string name="tv_version_title">版本号</string>
+    <string name="message_not_logged_in">未登录</string>
     <string name="message_signout">确认退出登录？</string>
 
     <!--setting-->
     <string name="title_setting">设置</string>
-    <string name="message_not_logged_in">未登录</string>
+    <string name="tv_version_title">版本号</string>
+    <string name="tv_auto_login_title">免登录</string>
 
     <!--payment-->
     <string name="title_payment">免密支付方式</string>

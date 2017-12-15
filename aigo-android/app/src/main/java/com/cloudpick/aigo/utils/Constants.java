@@ -20,7 +20,7 @@ public class Constants {
 
     //app
     public static final String VERSION = "1.0.0.alpha";
-    public static final String PREFERENCE_FILE_KEY = "com.cloudpick.aigo";
+    public static final String APP_NAMESPACE = "com.cloudpick.aigo";
     public static final Integer REFRESH_QRCODE_INTERVAL = 1000 * 60;
     public static final Integer ORDER_PAGE_SIZE = 10;
     public static final String TERM_OF_SERVICE_URL = "http://www.cloudpick.me/TermOfService.html";
@@ -34,6 +34,7 @@ public class Constants {
 
 
     //Keys
+    public static final String KEY_TOKEN_EXPIREDIN = "expiredIn";
     public static final String KEY_USER_ID = "userId";
     public static final String KEY_TOKEN = "token";
     public static final String KEY_ENTRY_URL = "entryUrl";

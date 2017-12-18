@@ -21,7 +21,7 @@ public class Constants {
 
     //app
     public static final String VERSION = "1.0.0.alpha";
-    public static final String APP_NAMESPACE = "com.cloudpick.com.cloudpick.yunna";
+    public static final String APP_NAMESPACE = "com.cloudpick.yunna";
     public static final Integer REFRESH_QRCODE_INTERVAL = 1000 * 60;
     public static final Integer ORDER_PAGE_SIZE = 10;
     public static final String TERM_OF_SERVICE_URL = "http://www.cloudpick.me/TermOfService.html";

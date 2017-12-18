@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
     private void initComponents(){
         Toolbar toolbar = (Toolbar)findViewById(R.id.tb_login);
         setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(R.drawable.back);
 
         btn_sendCaptcha = (Button)findViewById(R.id.btn_get_captcha);
         btn_login = (Button)findViewById(R.id.btn_login);

@@ -1,9 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release_config {
+            keyAlias 'aigo-ui'
+            keyPassword 'aigo-ui'
+            storeFile file('/home/maxwell/Documents/projects/android/apk keystore/aigo-ui.keystore')
+            storePassword 'aigo-ui'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.cloudpick.com.cloudpick.yunna.ui"
+        applicationId "com.cloudpick.yunna"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
@@ -15,6 +23,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release_config
         }
     }
 }

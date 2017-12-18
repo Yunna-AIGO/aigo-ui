@@ -1,6 +1,7 @@
 <resources>
     <!--scan page-->
-    <string name="app_name">云拿</string>
+    <!--<string name="app_name">云拿</string>-->
+    <string name="app_name">云拿-测试</string>
     <string name="title_qrcode">扫一扫</string>
     <string name="title_order">我的订单</string>
     <string name="title_user_center">个人中心</string>

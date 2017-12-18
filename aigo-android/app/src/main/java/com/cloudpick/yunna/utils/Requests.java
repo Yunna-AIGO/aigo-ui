@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,6 +27,13 @@ public class Requests {
 
     }
 
+    /**
+     * get
+     * @param url
+     * @param <T> 数据类型
+     * @return
+     * @throws IOException
+     */
     public static <T> T get(String url) throws IOException{
         Request request = new Request.Builder().url(url).build();
         Response response = new OkHttpClient().newCall(request).execute();
@@ -32,6 +41,14 @@ public class Requests {
         return new Gson().fromJson(response.body().string(), objectType);
     }
 
+    /**
+     * post
+     * @param url
+     * @param data
+     * @param <T> 数据类型
+     * @return
+     * @throws IOException
+     */
     public static <T> T post(String url, Map<?, ?> data) throws IOException{
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
         Request request = new Request.Builder().url(url).post(body).build();
@@ -42,23 +59,61 @@ public class Requests {
 
 
     /**
+     * get 异步
      * @param url
-     * @param <T>
+     * @param <T> 数据类型
      * @return
      * @throws IOException
      */
-    public static <T> T getAsync(String url) throws IOException{
+    public static <T> void getAsync(String url, final Failure failure, final Ok ok) throws IOException{
         Request request = new Request.Builder().url(url).build();
-        Response response = new OkHttpClient().newCall(request).execute();
-        Type objectType = new TypeToken<T>(){}.getType();
-        return new Gson().fromJson(response.body().string(), objectType);
+        Call call = new OkHttpClient().newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                failure.onFailure(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Type objectType = new TypeToken<T>(){}.getType();
+                ok.onOk(new Gson().fromJson(response.body().string(), objectType));
+            }
+        });
     }
 
-    public static <T> T postAsync(String url, Map<?, ?> data) throws IOException{
+    /**
+     * post 异步
+     * @param url
+     * @param data
+     * @param <T> 数据类型
+     * @return
+     * @throws IOException
+     */
+    public static <T> void postAsync(String url, Map<?, ?> data, final Failure failure, final Ok ok) throws IOException{
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
         Request request = new Request.Builder().url(url).post(body).build();
-        Response response = new OkHttpClient().newCall(request).execute();
-        Type objectType = new TypeToken<T>(){}.getType();
-        return new Gson().fromJson(response.body().string(), objectType);
+        Call call = new OkHttpClient().newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                failure.onFailure(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Type objectType = new TypeToken<T>(){}.getType();
+                ok.onOk(new Gson().fromJson(response.body().string(), objectType));
+            }
+        });
     }
+
+    public interface Failure{
+        void onFailure(Exception ex);
+    }
+
+    public interface Ok<T>{
+        void onOk(T data);
+    }
+
 }

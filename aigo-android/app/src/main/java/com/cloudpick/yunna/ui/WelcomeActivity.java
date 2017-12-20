@@ -25,27 +25,16 @@ public class WelcomeActivity extends Activity {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus)
         {
-            new Thread(new Runnable(){
-                @Override
-                public void run(){
+            new Thread(()->{
+                runOnUiThread(()->{
                     if(!User.getUser().checkUser()){
-                        runOnUiThread(new Runnable(){
-                            @Override
-                            public void run(){
-                                startActivity(LoginActivity.newIntent(WelcomeActivity.this));
-                                WelcomeActivity.this.finish();
-                            }
-                        });
+                        startActivity(LoginActivity.newIntent(WelcomeActivity.this));
+                        WelcomeActivity.this.finish();
                     }else{
-                        runOnUiThread(new Runnable(){
-                            @Override
-                            public void run(){
-                                startActivity(MainActivity.newIntent(WelcomeActivity.this));
-                                WelcomeActivity.this.finish();
-                            }
-                        });
+                        startActivity(MainActivity.newIntent(WelcomeActivity.this));
+                        WelcomeActivity.this.finish();
                     }
-                }
+                });
             }).start();
         }
 

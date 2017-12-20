@@ -10,42 +10,49 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.cloudpick.yunna.controller.SettingController;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.utils.Constants;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SettingActivity extends AppCompatActivity {
+
+    private SettingController controller = null;
+
+    @BindView(R.id.tb_setting)
+    Toolbar toolbar;
+    @BindView(R.id.tv_version)
+    TextView tv_version;
+    @BindView(R.id.sp_token_expiredIn)
+    Spinner sp_token_expiredIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
+        controller = new SettingController(SettingActivity.this);
+        ButterKnife.bind(this);
         initComponent();
     }
 
     private void initComponent(){
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tb_setting);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SettingActivity.this.finish();
-            }
+        toolbar.setNavigationOnClickListener((v)->{
+            SettingActivity.this.finish();
         });
-
-        ((TextView)findViewById(R.id.tv_version)).setText(Constants.VERSION);
-        Spinner spinner = findViewById(R.id.sp_token_expiredIn);
-        spinner.setSelection(User.getUser().getTokenExpiredInSelection(), true);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        tv_version.setText(Constants.VERSION);
+        sp_token_expiredIn.setSelection(controller.getTokenExpiredIn(), true);
+        sp_token_expiredIn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String[] expiredInArray = getResources().getStringArray(R.array.expiredin);
-                User.getUser().setTokenExpiredIn(expiredInArray[pos]);
+                controller.setTokenExpiredIn(expiredInArray[pos]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                System.out.println("123");
             }
         });
     }

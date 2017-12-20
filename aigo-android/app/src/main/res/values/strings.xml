@@ -8,6 +8,11 @@
     <string name="nav_title_qrcode">扫一扫</string>
     <string name="nav_title_order">订单</string>
     <string name="nav_title_user_center">我的</string>
+
+
+
+    <!--qrcode page-->
+    <string name="tv_refresh_qrcode_title">点击刷新二维码</string>
     <string name="welcome">欢迎光临</string>
     <string name="scan_qrcode_message">请扫二维码进店</string>
 
@@ -61,6 +66,8 @@
     <string name="message_alipay_sign_failure">支付宝代扣签约失败</string>
     <string name="message_alipay_unsign_success">支付宝代扣解约成功</string>
     <string name="message_alipay_unsign_failure">支付宝代扣解约失败</string>
+    <string name="message_alipay_unsign_alert">确定关闭支付宝免密支付？</string>
+    <string name="message_alipay_not_installed">未安装支付宝，请安装支付宝后再签约免密支付</string>
 
 
     <!--connom-->
@@ -68,4 +75,5 @@
     <string name="title_ok">确定</string>
     <string name="title_cancel">取消</string>
     <string name="skip">跳过</string>
+    <string name="network_error">网络异常</string>
 </resources>

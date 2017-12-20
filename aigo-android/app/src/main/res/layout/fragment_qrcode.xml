@@ -18,15 +18,18 @@
         android:id="@+id/ll_qrcode"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_weight="1.8"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <ImageView
             android:id="@+id/img_qr_code"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:rotation="45"
+            android:scaleType="fitStart"
+            android:visibility="invisible"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,20 +37,24 @@
         android:orientation="vertical"
         android:layout_weight="3">
         <TextView
+            android:id="@+id/tv_msg1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textStyle="bold"
+            android:textColor="@color/colorBlack"
             android:layout_marginTop="5dp"
             android:text="@string/welcome">
         </TextView>
         <TextView
+            android:id="@+id/tv_msg2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="16sp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:textColor="@color/colorBlack"
             android:text="@string/scan_qrcode_message">
         </TextView>
     </LinearLayout>

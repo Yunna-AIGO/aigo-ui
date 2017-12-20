@@ -10,26 +10,29 @@ import android.webkit.WebViewClient;
 
 import com.cloudpick.yunna.utils.Constants;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class TermOfServiceActivity extends AppCompatActivity {
+
+    @BindView(R.id.tb_term_of_service)
+    Toolbar toolbar;
+    @BindView(R.id.wv_term_of_service)
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_of_service);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tb_term_of_service);
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TermOfServiceActivity.this.finish();
-            }
+        toolbar.setNavigationOnClickListener((v)->{
+            TermOfServiceActivity.this.finish();
         });
-
-        WebView webView = (WebView)findViewById(R.id.wv_term_of_service);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-
         webView.loadUrl(Constants.TERM_OF_SERVICE_URL);
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         webView.setWebViewClient(new WebViewClient(){

@@ -1,9 +1,13 @@
-package com.cloudpick.yunna.ui;
+package com.cloudpick.yunna.ui.adapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.cloudpick.yunna.ui.OrderFragment;
+import com.cloudpick.yunna.ui.OrdersFragment;
+import com.cloudpick.yunna.ui.TopupRecordsFragment;
 
 /**
  * Created by maxwell on 17-12-8.

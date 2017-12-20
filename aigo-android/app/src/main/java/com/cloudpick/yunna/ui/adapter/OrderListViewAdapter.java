@@ -1,4 +1,4 @@
-package com.cloudpick.yunna.ui;
+package com.cloudpick.yunna.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 import com.cloudpick.yunna.model.Order;
+import com.cloudpick.yunna.ui.R;
 
 import java.util.ArrayList;
 

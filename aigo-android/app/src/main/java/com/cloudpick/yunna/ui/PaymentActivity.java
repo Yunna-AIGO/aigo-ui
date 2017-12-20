@@ -1,5 +1,6 @@
 package com.cloudpick.yunna.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,45 +8,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.controller.PaymentController;
 import com.cloudpick.yunna.utils.Constants;
-import com.cloudpick.yunna.utils.Resp;
-import com.cloudpick.yunna.utils.Tools;
-import com.cloudpick.yunna.utils.enums.AgreementStatus;
-import com.cloudpick.yunna.utils.enums.TerminalChannel;
 import com.cloudpick.yunna.utils.enums.ThirdType;
-import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private static final String SAVED_STATE = "com.cloudpick.com.cloudpick.yunna.ui.savedState";
+    private static final String SHOW_TOOLBAR_MENU = "com.cloudpick.yunna.ui.showToolbarMenu";
+    private static final String NAV_TO_MAIN_ACTIVITY = "com.cloudpick.yunna.ui.navToMainActivity";
 
-    private static final String SHOW_TOOLBAR_MENU = "com.cloudpick.com.cloudpick.yunna.ui.showToolbarMenu";
-    private static final String NAV_TO_MAIN_ACTIVITY = "com.cloudpick.com.cloudpick.yunna.ui.navToMainActivity";
+    private PaymentController controller = null;
 
     private boolean showToolbarMenu = false;
     private boolean navToMainActivity = false;
     private Map<ThirdType, Boolean> signStatus = new HashMap<>();
-    private String msg = "";
     private boolean isBusy = false;
+
+    @BindView(R.id.tv_payment_alipay_option)
+    TextView tv_payment_alipy_option;
+    @BindView(R.id.img_payment_alipay_option)
+    ImageView img_payment_alipay_option;
+    @BindView(R.id.tb_payment)
+    Toolbar toolbar;
+    @BindView(R.id.rl_payment_alipay)
+    RelativeLayout rl_payment_alipay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +50,8 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
         showToolbarMenu = getIntent().getBooleanExtra(SHOW_TOOLBAR_MENU, false);
         navToMainActivity = getIntent().getBooleanExtra(NAV_TO_MAIN_ACTIVITY, false);
+        controller = new PaymentController(PaymentActivity.this);
+        ButterKnife.bind(this);
         initComponent();
     }
 
@@ -72,39 +71,28 @@ public class PaymentActivity extends AppCompatActivity {
         if(scheme != null && scheme.equals(Constants.APP_SCHEME) && navToMainActivity){
             navToMainActivity();
         }else{
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    boolean isSigned = isSigned(ThirdType.ALIPAY);
-                    signStatus.put(ThirdType.ALIPAY, isSigned);
-                    updateAlipaySignStatusUI(isSigned);
-                }
+            new Thread(()->{
+                boolean isBindingPayment = PaymentController.isBindingPayment(ThirdType.ALIPAY);
+                signStatus.put(ThirdType.ALIPAY, isBindingPayment);
+                updateAlipaySignStatusUI(isBindingPayment);
             }).start();
         }
     }
 
-
     private void initComponent(){
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tb_payment);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PaymentActivity.this.finish();
-            }
+        toolbar.setNavigationOnClickListener((v)->{
+            PaymentActivity.this.finish();
         });
         if(showToolbarMenu){
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.action_edit:
-                            navToMainActivity();
-                            break;
-                    }
-                    return true;
+            toolbar.setOnMenuItemClickListener((item)->{
+                switch (item.getItemId()) {
+                    case R.id.action_edit:
+                        navToMainActivity();
+                        break;
                 }
+                return true;
             });
         }
         checkPaymentSignStatus();
@@ -112,121 +100,65 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void checkPaymentSignStatus(){
         //检查完成后再绑定点击事件
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                signStatus.put(ThirdType.ALIPAY, isSigned(ThirdType.ALIPAY));
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateAlipaySignStatusUI(signStatus.get(ThirdType.ALIPAY));
-                        RelativeLayout alipayLayout = (RelativeLayout)findViewById(R.id.rl_payment_alipay);
-                        ((RelativeLayout)findViewById(R.id.rl_payment_alipay))
-                                .setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(final View view) {
-                                        if(isBusy){
-                                            return;
-                                        }
-                                        isBusy = true;
-                                        new Thread(new Runnable() {
+        new Thread(()->{
+            signStatus.put(ThirdType.ALIPAY, PaymentController.isBindingPayment(ThirdType.ALIPAY));
+            runOnUiThread(()->{
+                updateAlipaySignStatusUI(signStatus.get(ThirdType.ALIPAY));
+                rl_payment_alipay.setOnClickListener((v)->{
+                    if(isBusy){
+                        return;
+                    }
+                    isBusy = true;
+                    if(signStatus.get(ThirdType.ALIPAY)){
+                        //先提醒用户，再解约
+                        new AlertDialog.Builder(PaymentActivity.this)
+                                .setTitle(R.string.message_alert)
+                                .setMessage(R.string.message_alipay_unsign_alert)
+                                .setNegativeButton(R.string.title_cancel, (d, i)->{
+                                    isBusy = false;
+                                })
+                                .setPositiveButton(R.string.title_ok, (d, i)->{
+                                    new Thread(()->{
+                                        controller.unBindAlipay(new PaymentController.unBindAlipayAction() {
                                             @Override
-                                            public void run() {
-                                                toggleAlipaySignStatus(view);
+                                            public void failure(String msg) {
+                                                showMessage(msg);
                                             }
-                                        }).start();
-                                    }
-                                });
+                                            @Override
+                                            public void ok(String msg) {
+                                                showMessage(msg);
+                                                updateAlipaySignStatusUI(false);
+                                                signStatus.put(ThirdType.ALIPAY, false);
+                                            }
+                                        });
+                                        isBusy = false;
+                                    }).start();
+                                }).show();
+                    }else{
+                        new Thread(()->{
+                            controller.bindAlipay(new PaymentController.bindAlipayAction() {
+                                @Override
+                                public void failure(String msg) {
+                                    showMessage(msg);
+                                }
+                                @Override
+                                public void ok(Uri uri) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                    startActivity(intent);
+                                }
+                            });
+                            isBusy = false;
+                        }).start();
                     }
                 });
-            }
+            });
         }).start();
     }
 
-    private void toggleAlipaySignStatus(View view){
-        if(signStatus.get(ThirdType.ALIPAY)){
-            Map<String, String> data = new HashMap<>();
-            data.put("userId", User.getUser().getUserId());
-            data.put("thirdType", ThirdType.ALIPAY.getValue());
-            RequestBody body = RequestBody.create(
-                    MediaType.parse("application/json; charset=utf-8"),
-                    new Gson().toJson(data));
-            Request request = new Request.Builder()
-                    .url(Constants.URL_DUT_UNSIGN)
-                    .post(body)
-                    .build();
-            try{
-                Response response = new OkHttpClient().newCall(request).execute();
-                Resp<Map<String, String>> resp = new Gson().fromJson(response.body().string(), Resp.class);
-                if(resp.getCode().equals(Constants.RESP_SUCCESS)){
-                    msg = getResources().getString(R.string.message_alipay_unsign_success);
-                    updateAlipaySignStatusUI(false);
-                    signStatus.put(ThirdType.ALIPAY, false);
-                }else{
-                    msg = getResources().getString(R.string.message_alipay_unsign_failure);
-                    if(!resp.getMessage().equals("")){
-                        msg += ":" + resp.getMessage();
-                    }
-                }
-            }catch(IOException ex){
-                System.out.println(ex.getMessage());
-                msg = getResources().getString(R.string.message_alipay_unsign_failure);
-            }
-        }else{
-            if(!Tools.isAppInstalled(PaymentActivity.this, Constants.PACKAGE_NAME_ALIPAY)){
-                msg = getResources().getString(R.string.message_alipay_sign_failure);
-            }else{
-                Map<String, String> data = new HashMap<>();
-                data.put("userId", User.getUser().getUserId());
-                data.put("terminalChannel", TerminalChannel.ALIPAYAPP.getValue());
-                data.put("thirdType", ThirdType.ALIPAY.getValue());
-                RequestBody body = RequestBody.create(
-                        MediaType.parse("application/json; charset=utf-8"),
-                        new Gson().toJson(data));
-                Request request = new Request.Builder()
-                        .url(Constants.URL_DUT_SIGN)
-                        .post(body)
-                        .build();
-                try{
-                    Response response = new OkHttpClient().newCall(request).execute();
-                    Resp<Map<String, String>> resp = new Gson().fromJson(response.body().string(), Resp.class);
-                    if(resp.getCode().equals(Constants.RESP_SUCCESS)){
-                        String signRequestInfo = resp.getData().get(Constants.KEY_SIGN_REQUEST_INFO);
-                        signRequestInfo = URLEncoder.encode(signRequestInfo, "utf-8");
-                        Uri uri = Uri.parse(Constants.ALIPAY_URL_PREFIX + signRequestInfo);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                        return;
-                    }else{
-                        msg = getResources().getString(R.string.message_alipay_sign_failure);
-                        if(!resp.getMessage().equals("")){
-                            msg += ":" + resp.getMessage();
-                        }
-                    }
-                }catch(IOException ex){
-                    System.out.println(ex.getMessage());
-                    msg = getResources().getString(R.string.message_alipay_unsign_failure);
-                }
-            }
-        }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(PaymentActivity.this, msg, Toast.LENGTH_LONG).show();
-            }
-        });
-        isBusy = false;
-    }
-
-    private void updateAlipaySignStatusUI(final boolean signed){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ((TextView)findViewById(R.id.tv_payment_alipay_option))
-                        .setText(signed? R.string.payment_alipay_unsign:R.string.payment_alipay_sign);
-                ((ImageView)findViewById(R.id.img_payment_alipay_option))
-                        .setImageResource(signed? R.drawable.close:R.drawable.add);
-            }
+    private void updateAlipaySignStatusUI(final boolean isBind){
+        runOnUiThread(()->{
+            tv_payment_alipy_option.setText(isBind? R.string.payment_alipay_unsign:R.string.payment_alipay_sign);
+            img_payment_alipay_option.setImageResource(isBind? R.drawable.close:R.drawable.add);
         });
     }
 
@@ -234,6 +166,10 @@ public class PaymentActivity extends AppCompatActivity {
         Intent intent = MainActivity.newIntent(PaymentActivity.this);
         startActivity(intent);
         PaymentActivity.this.finish();
+    }
+
+    private void showMessage(String msg){
+        Toast.makeText(PaymentActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -244,17 +180,4 @@ public class PaymentActivity extends AppCompatActivity {
         return intent;
     }
 
-    public static boolean isSigned(ThirdType thirdType){
-        String url = String.format(Constants.URL_DUT_QUERY, User.getUser().getUserId(), thirdType.getValue());
-        Request request = new Request.Builder().url(url).build();
-        try{
-            Response response = new OkHttpClient().newCall(request).execute();
-            Resp<Map<String,Object>> resp = new Gson().fromJson(response.body().string(), Resp.class);
-            return resp.getCode().equals(Constants.RESP_SUCCESS) &&
-                    (boolean)resp.getData().get(Constants.KEY_SIGNED) &&
-                    resp.getData().get(Constants.KEY_AGREEMENT_STATUS).toString().equals(AgreementStatus.NORMAL.getValue());
-        }catch(IOException ex){
-            return false;
-        }
-    }
 }

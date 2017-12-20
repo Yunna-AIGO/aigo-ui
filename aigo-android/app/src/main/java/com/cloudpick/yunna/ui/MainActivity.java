@@ -3,23 +3,26 @@ package com.cloudpick.yunna.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends FragmentActivity {
 
     private int currentNavigationItemId = -1;
 
-    private BottomNavigationView navigation;
-    private Toolbar toolbar;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+    @BindView(R.id.tb_main)
+    Toolbar toolbar;
 
     private Fragment qrcodeFragment = null;
     private Fragment orderFragment = null;
@@ -29,22 +32,12 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         initComponent();
     }
 
     private void initComponent(){
-        toolbar = (Toolbar)findViewById(R.id.tb_main);
-        toolbar.setTitle(R.string.title_qrcode);
-
-        navigation = (BottomNavigationView)findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        switchFragment(R.id.navigation_qrcode);
-    }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        navigation.setOnNavigationItemSelectedListener((item)->{
             switch (item.getItemId()) {
                 case R.id.navigation_qrcode:
                     switchFragment(R.id.navigation_qrcode);
@@ -57,8 +50,9 @@ public class MainActivity extends FragmentActivity {
                     return true;
             }
             return false;
-        }
-    };
+        });
+        switchFragment(R.id.navigation_qrcode);
+    }
 
     private void switchFragment(int id){
         if(id == currentNavigationItemId){

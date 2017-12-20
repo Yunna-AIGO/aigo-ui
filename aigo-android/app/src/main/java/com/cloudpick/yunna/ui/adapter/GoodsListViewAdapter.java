@@ -1,4 +1,4 @@
-package com.cloudpick.yunna.ui;
+package com.cloudpick.yunna.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.model.Goods;
+import com.cloudpick.yunna.ui.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

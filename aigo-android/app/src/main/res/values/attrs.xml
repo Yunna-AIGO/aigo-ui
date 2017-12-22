@@ -9,4 +9,30 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+
+    <!--side-->
+    <attr name="side">
+
+    </attr>
+
+    <!--圆间距-->
+    <attr name="radius" format="dimension" />
+    <!--半径-->
+    <attr name="gap" format="dimension" />
+    <!--圆背景色-->
+    <attr name="circle_color" format="color" />
+
+
+    <declare-styleable name="CouponView">
+        <attr name="radius" />
+        <attr name="gap" />
+        <attr name="circle_color" />
+        <attr name="circle_side">
+            <flag name = "top" value="1" />
+            <flag name = "right" value="2" />
+            <flag name = "bottom" value="4" />
+            <flag name = "left" value="8" />
+        </attr>
+    </declare-styleable>
+
 </resources>

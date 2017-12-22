@@ -2,6 +2,7 @@ package com.cloudpick.yunna.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     TextView tv_date;
     @BindView(R.id.tv_orderAmount)
     TextView tv_orderAmount;
+    @BindView(R.id.tv_orderOrgnAmount)
+    TextView tv_orderOrgnAmount;
     @BindView(R.id.tv_orderStatus)
     TextView tv_orderStatus;
     @BindView(R.id.lv_goods)
@@ -63,19 +66,24 @@ public class OrderDetailActivity extends AppCompatActivity {
                         setOrderInfo(order);
                     }
                 });
+        tv_orderOrgnAmount.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     private void setOrderInfo(Order orderInfo){
         if(orderInfo == null){
-            tv_storeName.setText("门店：");
-            tv_date.setText("日期：");
-            tv_orderAmount.setText("金额：");
-            tv_orderStatus.setText("状态：");
+            tv_storeName.setText("");
+            tv_date.setText("");
+            tv_orderOrgnAmount.setText("");
+            tv_orderAmount.setText("");
+            tv_orderStatus.setText("");
         }else{
-            tv_storeName.setText("门店：" + orderInfo.getOrderDesc());
-            tv_date.setText("日期：" + orderInfo.getPayTime());
-            tv_orderAmount.setText("金额：" + orderInfo.getOrderAmount());
-            tv_orderStatus.setText("状态：" + orderInfo.getFormattedStatus());
+            tv_storeName.setText(orderInfo.getOrderDesc());
+            tv_date.setText(orderInfo.getPayTime());
+            tv_orderStatus.setText(orderInfo.getFormattedStatus());
+            tv_orderAmount.setText(orderInfo.getDiscountPrice(false));
+            if(orderInfo.hasDiscount()){
+                tv_orderOrgnAmount.setText(orderInfo.getOrderAmount(false));
+            }
 
             GoodsListViewAdapter adapter = new GoodsListViewAdapter(
                     R.layout.goods_item, this,orderInfo.getGoodsList());

@@ -49,5 +49,7 @@ public class Constants {
     public static final String URL_DUT_QUERY = urlPrefix + "dut/query?userId=%s&thirdType=%s";
     public static final String URL_DUT_SIGN = urlPrefix + "dut/sign";
     public static final String URL_DUT_UNSIGN = urlPrefix + "dut/unsign";
+    public static final String URL_COUPON = urlPrefix + "coupon/%s/list";
+
 
 }

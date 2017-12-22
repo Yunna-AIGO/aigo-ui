@@ -17,6 +17,7 @@ public class Order{
     private String gmtCreate;
     private ArrayList<Goods> goodsList;
     private Double orderAmt;
+    private String couponAmt;
     private String orderDesc;
     private String orderId;
     private String orderType;
@@ -30,96 +31,52 @@ public class Order{
         return ext;
     }
 
-    public void setExt(String ext) {
-        this.ext = ext;
-    }
-
     public String getGmtCreate() {
         return gmtCreate;
-    }
-
-    public void setGmtCreate(String gmtCreate) {
-        this.gmtCreate = gmtCreate;
     }
 
     public ArrayList<Goods> getGoodsList() {
         return goodsList;
     }
 
-    public void setGoodsList(ArrayList<Goods> goodsList) {
-        this.goodsList = goodsList;
-    }
-
     public Double getOrderAmt() {
         return orderAmt;
     }
 
-    public void setOrderAmt(Double orderAmt) {
-        this.orderAmt = orderAmt;
+    public String getCouponAmt() {
+        return couponAmt;
     }
 
     public String getOrderDesc() {
         return orderDesc;
     }
 
-    public void setOrderDesc(String orderDesc) {
-        this.orderDesc = orderDesc;
-    }
-
     public String getOrderId() {
         return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
     }
 
     public String getOrderType() {
         return orderType;
     }
 
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
-    }
-
     public String getPayTime() {
         return payTime;
-    }
-
-    public void setPayTime(String payTime) {
-        this.payTime = payTime;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getStoreId() {
         return storeId;
-    }
-
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
     }
 
     public Double getUnPaidAmt() {
         return unPaidAmt;
     }
 
-    public void setUnPaidAmt(Double unPaidAmt) {
-        this.unPaidAmt = unPaidAmt;
-    }
-
     public String getUserId() {
         return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public Order(){
@@ -144,14 +101,40 @@ public class Order{
         }
     }
 
-    public String getOrderAmount(){
-        return "¥" + orderAmt;
+    public String getOrderAmount(boolean includeCurrencyTag){
+        String ret = String.format("%.2f", orderAmt);
+        if(includeCurrencyTag){
+            ret = "¥" + ret;
+        }
+        return ret;
+    }
+
+    public String getDiscountPrice(boolean includeCurrencyTag){
+        Double discountAmt = orderAmt - getCouponAmount();
+        String ret = String.format("%.2f", discountAmt);
+        if(includeCurrencyTag){
+            ret = "¥" + ret;
+        }
+        return ret;
+    }
+
+    public boolean hasDiscount(){
+        return getCouponAmount() > 0;
     }
 
     public String getFormattedStatus(){
         return "订单支付成功";
     }
 
+    private Double getCouponAmount(){
+        Double couponAmount = 0d;
+        try{
+            couponAmount = Double.parseDouble(getCouponAmt());
+        }catch(Exception e){
+            couponAmount = 0d;
+        }
+        return couponAmount;
+    }
 
 
 }

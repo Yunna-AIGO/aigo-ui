@@ -30,61 +30,121 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_storeName"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:text="门店：阿尔法店"
-                        android:textSize="16sp"
-                        android:theme="@style/cell"/>
+                        android:orientation="horizontal"
+                        android:theme="@style/cell">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="12dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/tv_store_title"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:id="@+id/tv_storeName"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="阿尔法店"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/colorGrey"/>
-                    <TextView
-                        android:id="@+id/tv_date"
+                        android:theme="@style/dividing_line"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:text="日期：2017-12-07 14:22:22"
-                        android:textSize="16sp"
-                        android:theme="@style/cell"/>
+                        android:orientation="horizontal"
+                        android:theme="@style/cell">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="12dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/tv_order_date_title"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="2017-12-07 14:22:22"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/colorGrey"/>
-                    <TextView
-                        android:id="@+id/tv_orderAmount"
+                        android:theme="@style/dividing_line"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:text="金额：¥31.53"
-                        android:textSize="16sp"
-                        android:theme="@style/cell"/>
+                        android:orientation="horizontal"
+                        android:theme="@style/cell">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="12dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/tv_order_amount_title"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:id="@+id/tv_orderAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:paddingBottom="12sp"
+                            android:textStyle="bold"
+                            android:text="100"
+                            android:textSize="20sp"/>
+                        <TextView
+                            android:id="@+id/tv_orderOrgnAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:paddingBottom="12sp"
+                            android:paddingLeft="10dp"
+                            android:text="33.12"
+                            android:textSize="13sp"/>
+
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/colorGrey"/>
-                    <TextView
-                        android:id="@+id/tv_orderStatus"
+                        android:theme="@style/dividing_line"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:text="状态：订单支付成功"
-                        android:textSize="16sp"
-                        android:theme="@style/cell"/>
+                        android:orientation="horizontal"
+                        android:theme="@style/cell">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="12dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/tv_order_status_title"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:id="@+id/tv_orderStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="订单支付成功"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/colorGrey"/>
+                        android:theme="@style/dividing_line"/>
                     <TextView
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:textSize="18sp"
                         android:layout_margin="10dp"
                         android:textColor="@color/colorDodgerBlue"
-                        android:text="商品列表"/>
+                        android:text="@string/tv_goods_list_title"/>
                     <ListView
                         android:id="@+id/lv_goods"
                         android:layout_width="match_parent"

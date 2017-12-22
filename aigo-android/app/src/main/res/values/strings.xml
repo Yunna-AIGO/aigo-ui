@@ -10,7 +10,6 @@
     <string name="nav_title_user_center">我的</string>
 
 
-
     <!--qrcode page-->
     <string name="tv_refresh_qrcode_title">点击刷新二维码</string>
     <string name="welcome">欢迎光临</string>
@@ -44,9 +43,15 @@
 
     <!--order detail-->
     <string name="title_order_detail">订单详情</string>
+    <string name="tv_store_title">门店：</string>
+    <string name="tv_order_date_title">日期：</string>
+    <string name="tv_order_amount_title">金额：</string>
+    <string name="tv_order_status_title">状态：</string>
+    <string name="tv_goods_list_title">商品列表</string>
 
     <!--user center-->
     <string name="tv_payment_title">支付方式</string>
+    <string name="tv_coupon_title">优惠券</string>
     <string name="tv_set_title">设置</string>
     <string name="tv_logout_title">退出账户</string>
     <string name="message_not_logged_in">未登录</string>
@@ -69,6 +74,12 @@
     <string name="message_alipay_unsign_alert">确定关闭支付宝免密支付？</string>
     <string name="message_alipay_not_installed">未安装支付宝，请安装支付宝后再签约免密支付</string>
 
+    <!--coupon-->
+    <string name="title_coupon">优惠券</string>
+    <string name="tab_coupon_unused">未使用</string>
+    <string name="tab_coupon_used">已使用</string>
+    <string name="tab_coupon_expired">已过期</string>
+    <string name="message_coupon_empty">没有可用优惠券</string>
 
     <!--connom-->
     <string name="message_alert">提示</string>
@@ -76,4 +87,8 @@
     <string name="title_cancel">取消</string>
     <string name="skip">跳过</string>
     <string name="network_error">网络异常</string>
+    <string name="currency_cny">¥</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

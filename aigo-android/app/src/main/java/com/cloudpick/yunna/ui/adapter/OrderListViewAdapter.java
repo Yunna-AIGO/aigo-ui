@@ -1,5 +1,6 @@
 package com.cloudpick.yunna.ui.adapter;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
@@ -59,9 +60,13 @@ public class OrderListViewAdapter extends BaseAdapter implements ListAdapter {
         ((TextView)view.findViewById(R.id.lv_item_day)).setText(order.getDayOfWeek());
         ((TextView)view.findViewById(R.id.lv_item_date)).setText(order.getDate());
         ((TextView)view.findViewById(R.id.lv_item_store)).setText(order.getOrderDesc());
-        ((TextView)view.findViewById(R.id.lv_item_price)).setText(order.getOrderAmount());
         ((ImageView)view.findViewById(R.id.lv_item_img)).setImageResource(R.drawable.store);
-//        ((TextView)view.findViewById(R.id.lv_item_orderid)).setText(order.getOrderId());
+        ((TextView)view.findViewById(R.id.lv_item_amount)).setText(order.getDiscountPrice(true));
+        if(order.hasDiscount()){
+            TextView tv = view.findViewById(R.id.lv_item_orgn_amount);
+            tv.setText(order.getOrderAmount(true));
+            tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
         return view;
     }
 

@@ -21,4 +21,9 @@ public class DateUtil {
         DateTime dt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").parseDateTime(dateTimeStr);
         return dt.toString("MM-dd");
     }
+
+    public static String getDate(String dateTimeStr){
+        DateTime dt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").parseDateTime(dateTimeStr);
+        return dt.toString("yyyy-MM-dd");
+    }
 }

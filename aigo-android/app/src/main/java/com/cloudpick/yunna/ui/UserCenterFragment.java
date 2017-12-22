@@ -62,6 +62,12 @@ public class UserCenterFragment extends Fragment {
         startActivity(intent);
     }
 
+    @OnClick(R.id.btn_coupon)
+    void couponClick(View v){
+        Intent intent = CouponActivity.newIntent(getContext());
+        startActivity(intent);
+    }
+
     @OnClick(R.id.btn_signout)
     void signoutClick(View v){
         new AlertDialog.Builder(getContext())

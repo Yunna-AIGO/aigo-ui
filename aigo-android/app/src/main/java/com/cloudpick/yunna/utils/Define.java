@@ -6,21 +6,45 @@ package com.cloudpick.yunna.utils;
 
 public class Define {
 
-    public static boolean isDebug = true;
+    public static AppEnv appEnv = AppEnv.DEV;
 
     public static String getUrlPrefix(){
-        if(isDebug){
-            return "http://10.10.10.130:8080/cloudpick/rest/api/v1/";
-        }else{
+        if(appEnv == AppEnv.PROD){
             return "http://47.100.13.231/cloudpick/rest/api/v1/";
+        }else{
+            return "http://10.10.10.130:8080/cloudpick/rest/api/v1/";
         }
     }
 
     public static String getAppName(){
-        if(isDebug){
+        if(appEnv == AppEnv.DEV){
+            return "云拿-开发";
+        }else if(appEnv == AppEnv.TEST){
             return "云拿-测试";
         }else{
             return "云拿";
+        }
+    }
+
+    public static boolean showSkipInBindingPayment(){
+        if(appEnv == AppEnv.PROD){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public enum AppEnv{
+        DEV("DEV"), TEST("TEST"), PROD("PROD");
+
+        private final String value;
+
+        AppEnv(String value){
+            this.value = value;
+        }
+
+        public String getValue(){
+            return value;
         }
     }
 }

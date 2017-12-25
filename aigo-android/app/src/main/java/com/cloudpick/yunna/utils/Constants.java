@@ -20,7 +20,7 @@ public class Constants {
     public static final String PACKAGE_NAME_ALIPAY = "com.eg.android.AlipayGphone";
     public static final String APP_SCHEME = "yunna";
     public static final String ALIPAY_URL_PREFIX = "alipays://platformapi/startapp?appId=20000067&url=";
-
+    public static final boolean SHOW_SKIP_IN_BINDING_PAYMENT = Define.showSkipInBindingPayment();
 
     //response
     public static final String RESP_SUCCESS = "0000";

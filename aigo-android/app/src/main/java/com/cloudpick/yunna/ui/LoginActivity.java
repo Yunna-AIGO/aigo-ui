@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cloudpick.yunna.controller.LoginController;
+import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.Define;
 
 import java.util.Timer;
@@ -83,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                             Intent intent = PaymentActivity.newIntent(
                                     LoginActivity.this,
-                                    Define.isDebug,
+                                    Constants.SHOW_SKIP_IN_BINDING_PAYMENT,
                                     true);
                             startActivity(intent);
                         }

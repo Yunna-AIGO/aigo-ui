@@ -61,6 +61,7 @@
     <string name="title_setting">设置</string>
     <string name="tv_version_title">版本号</string>
     <string name="tv_auto_login_title">免登录</string>
+    <string name="tv_guide_title">进店指南</string>
 
     <!--payment-->
     <string name="title_payment">免密支付方式</string>

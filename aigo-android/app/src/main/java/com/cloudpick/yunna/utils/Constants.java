@@ -30,6 +30,7 @@ public class Constants {
     public static final String KEY_TOKEN_EXPIREDIN = "expiredIn";
     public static final String KEY_USER_ID = "userId";
     public static final String KEY_TOKEN = "token";
+    public static final String KEY_REGISTER = "register";
     public static final String KEY_ENTRY_URL = "entryUrl";
     public static final String KEY_NICKNAME = "nickName";
     public static final String KEY_MOBILE = "mobile";

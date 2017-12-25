@@ -68,6 +68,12 @@ public class UserCenterFragment extends Fragment {
         startActivity(intent);
     }
 
+    @OnClick(R.id.btn_guide)
+    void guideClick(View v){
+        Intent intent = GuideActivity.newIntent(getContext());
+        startActivity(intent);
+    }
+
     @OnClick(R.id.btn_signout)
     void signoutClick(View v){
         new AlertDialog.Builder(getContext())

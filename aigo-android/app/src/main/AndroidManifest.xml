@@ -24,11 +24,11 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_login"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TermOfServiceActivity"
             android:label="@string/title_term_of_service"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".OrderDetailActivity"
             android:label="@string/title_order_detail"
@@ -64,6 +64,10 @@
         <activity
             android:name=".CouponActivity"
             android:label="@string/title_coupon"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".GuideActivity"
+            android:label="@string/tv_guide_title"
             android:screenOrientation="portrait">
         </activity>
     </application>

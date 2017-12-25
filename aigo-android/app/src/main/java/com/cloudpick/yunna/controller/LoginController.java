@@ -64,21 +64,25 @@ public class LoginController extends BaseController {
             data.put("mobile", mobile);
             data.put("smsCode", smsCode);
             Requests.postAsync(Constants.URL_ENTRY, data,
-                    new Callback<Response<Map<String, String>>>(){
+                    new Callback<Response<Map<String, Object>>>(){
                         @Override
                         public void error(Exception e){
                             System.out.println(e.getMessage());
                         }
                         @Override
-                        public void ok(Response<Map<String, String>> r){
+                        public void ok(Response<Map<String, Object>> r){
                             if(r.isSuccess()){
                                 //save user info
                                 User.getUser().saveToken(
-                                        r.getData().get(Constants.KEY_USER_ID),
-                                        r.getData().get(Constants.KEY_TOKEN));
+                                        r.getData().get(Constants.KEY_USER_ID).toString(),
+                                        r.getData().get(Constants.KEY_TOKEN).toString());
+                                boolean isNewRegisted = (boolean)r.getData().get(Constants.KEY_REGISTER);
+                                if(isNewRegisted){
+                                    //TODO 判断用户是否是新注册用户，如果是新注册用户，弹出赠送优惠券对话框
+
+                                }
                                 boolean isBindingPayment = PaymentController.isBindingPayment(ThirdType.ALIPAY);
                                 handler.post(()->{action.ok(isBindingPayment);});
-
                             }else{
                                 handler.post(()->{
                                     action.failure(context.getResources().getText(R.string.login_success_failure) + ":" + r.getMessage());

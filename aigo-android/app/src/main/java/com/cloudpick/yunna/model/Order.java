@@ -1,6 +1,7 @@
 package com.cloudpick.yunna.model;
 
 import com.cloudpick.yunna.utils.DateUtil;
+import com.cloudpick.yunna.utils.enums.OrderStatus;
 
 import java.util.ArrayList;
 
@@ -79,6 +80,10 @@ public class Order{
         return userId;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Order(){
 
     }
@@ -122,8 +127,8 @@ public class Order{
         return getCouponAmount() > 0;
     }
 
-    public String getFormattedStatus(){
-        return "订单支付成功";
+    public String getStatusName(){
+        return OrderStatus.valueOf(status.toUpperCase()).getName();
     }
 
     private Double getCouponAmount(){
@@ -136,5 +141,10 @@ public class Order{
         return couponAmount;
     }
 
+    public boolean unPaid(){
+        return status.equals(OrderStatus.INIT.getCode()) ||
+                status.equals(OrderStatus.TIMEOUT.getCode()) ||
+                status.equals((OrderStatus.IN_PAYMENT.getCode()));
+    }
 
 }

@@ -27,8 +27,11 @@ public class LoginController extends BaseController {
 
     public void sendSMS(String mobile, final sendSMSAction action){
         try{
+            Map<String, String> queryParams = new HashMap<>();
+            queryParams.put("mobile", mobile);
             Requests.getAsync(
-                    String.format(Constants.URL_SENDSMS, mobile),
+                    Constants.URL_SENDSMS,
+                    queryParams,
                     new Callback<Response<Map<String, String>>>(){
                         @Override
                         public void error(Exception e){

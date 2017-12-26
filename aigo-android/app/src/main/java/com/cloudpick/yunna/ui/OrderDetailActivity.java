@@ -70,16 +70,15 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     private void setOrderInfo(Order orderInfo){
-        if(orderInfo == null){
-            tv_storeName.setText("");
-            tv_date.setText("");
-            tv_orderOrgnAmount.setText("");
-            tv_orderAmount.setText("");
-            tv_orderStatus.setText("");
-        }else{
+        tv_storeName.setText("");
+        tv_date.setText("");
+        tv_orderOrgnAmount.setText("");
+        tv_orderAmount.setText("");
+        tv_orderStatus.setText("");
+        if(orderInfo != null){
             tv_storeName.setText(orderInfo.getOrderDesc());
             tv_date.setText(orderInfo.getPayTime());
-            tv_orderStatus.setText(orderInfo.getFormattedStatus());
+            tv_orderStatus.setText(orderInfo.getStatusName());
             tv_orderAmount.setText(orderInfo.getDiscountPrice(false));
             if(orderInfo.hasDiscount()){
                 tv_orderOrgnAmount.setText(orderInfo.getOrderAmount(false));

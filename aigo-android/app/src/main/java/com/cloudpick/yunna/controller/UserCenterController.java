@@ -23,7 +23,7 @@ public class UserCenterController extends BaseController {
 
     public void loadUserInfo(final loadUserInfoAction action){
         String url = String.format(Constants.URL_USER_INFO, User.getUser().getUserId());
-        Requests.getAsync(url, new Callback<Response<Map<String, String>>>() {
+        Requests.getAsync(url, null, new Callback<Response<Map<String, String>>>() {
             @Override
             public void error(Exception e) {
                 System.out.println(e.getMessage());

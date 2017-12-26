@@ -30,7 +30,7 @@ public class CouponController extends BaseController {
         try{
             String url = String.format(Constants.URL_COUPON, User.getUser().getUserId());
             Type objectType = new TypeToken<Response<ArrayList<Coupon>>>(){}.getType();
-            Response<ArrayList<Coupon>> resp = Requests.get(url, objectType);
+            Response<ArrayList<Coupon>> resp = Requests.get(url, null, objectType);
             if(resp.isSuccess()){
                 ArrayList<Coupon> orderList = resp.getData();
                 return orderList;

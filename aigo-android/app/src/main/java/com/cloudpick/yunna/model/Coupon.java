@@ -1,5 +1,7 @@
 package com.cloudpick.yunna.model;
 
+import android.text.TextUtils;
+
 import com.cloudpick.yunna.utils.DateUtil;
 import com.cloudpick.yunna.utils.enums.CouponType;
 
@@ -15,7 +17,7 @@ public class Coupon {
     private CouponType couponType = CouponType.CASH_DISCOUNT;
 
     public String getCouponAmt() {
-        if(couponAmt == null || couponAmt.equals("")){
+        if(TextUtils.isEmpty(couponAmt)){
             return "0";
         }
         return couponAmt;
@@ -30,13 +32,7 @@ public class Coupon {
     }
 
     public String getCouponType() {
-
-        switch (couponType){
-            case CASH_DISCOUNT:
-                return "现金打折券";
-            default:
-                return "现金打折券";
-        }
+        return couponType.getName();
     }
 
     public String getCouponCategory(){

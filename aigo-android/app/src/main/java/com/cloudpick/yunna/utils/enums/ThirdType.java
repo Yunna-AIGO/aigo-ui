@@ -5,15 +5,22 @@ package com.cloudpick.yunna.utils.enums;
  */
 
 public enum ThirdType{
-    ALIPAY("ALIPAY"), WECHAT("WECHAT");
+    ALIPAY("ALIPAY","支付宝"),
+    WECHAT("WECHAT","微信");
 
-    private final String value;
+    private final String code;
+    private final String name;
 
-    ThirdType(String value){
-        this.value = value;
+    ThirdType(String code, String name){
+        this.code = code;
+        this.name = name;
     }
 
-    public String getValue(){
-        return value;
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
     }
 }

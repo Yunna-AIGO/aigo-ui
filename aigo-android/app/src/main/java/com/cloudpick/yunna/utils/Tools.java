@@ -1,9 +1,16 @@
 package com.cloudpick.yunna.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
+import android.app.AlertDialog;
+
+import com.cloudpick.yunna.ui.R;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -71,6 +78,42 @@ public class Tools {
             return phone;
         }
 
+    }
+
+    /**
+     * 显示Toast消息
+     * @param context
+     * @param msg
+     */
+    public static void ToastMessage(Context context, String msg){
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 检查是否有网络
+     * @param context
+     * @return
+     */
+    public static boolean hasNetwork(Context context, boolean alertToSetNetwork){
+        boolean hasNetwork = false;
+        try{
+            ConnectivityManager manger = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo info = manger.getActiveNetworkInfo();
+            hasNetwork = info != null && info.isConnected();
+        } catch (Exception e){
+            hasNetwork = false;
+        }
+
+        if(!hasNetwork && alertToSetNetwork){
+            new AlertDialog.Builder(context)
+                    .setTitle(R.string.message_alert)
+                    .setMessage(R.string.no_network)
+                    .setPositiveButton(R.string.title_ok, (d, i)->{
+                        Intent intent = new Intent("android.settings.WIFI_SETTINGS");
+                        context.startActivity(intent);
+                    }).show();
+        }
+        return hasNetwork;
     }
 
 }

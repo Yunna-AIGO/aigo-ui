@@ -10,10 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import com.alipay.sdk.app.PayTask;
 import com.cloudpick.yunna.controller.OrderListController;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.adapter.OrderListViewAdapter;
+import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.Tools;
+import com.cloudpick.yunna.utils.enums.AlipayResultStatus;
+import com.cloudpick.yunna.utils.enums.OrderStatus;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -53,6 +59,16 @@ public class OrdersFragment extends Fragment {
     }
 
     private void initComponent(View v){
+        adapter = new OrderListViewAdapter(R.layout.order_item, getContext(), (o)->{
+            payOrder(o);
+        });
+        orderListView.setAdapter(adapter);
+        orderListView.setOnItemClickListener((adapterView, view, i, l)->{
+            Log.d(LOG_TAG, i+"");
+            Intent intent = OrderDetailActivity.newIntent(
+                    getContext(), ((Order)adapter.getItem(i)).getOrderId());
+            startActivity(intent);
+        });
         emptyLayout.setOnRefreshListener((layout)->{
             refreshOrders(layout);
         });
@@ -74,16 +90,7 @@ public class OrdersFragment extends Fragment {
                 boolean hasOrder = orders != null && orders.size() > 0;
                 emptyLayout.setVisibility(hasOrder? View.INVISIBLE:View.VISIBLE);
                 pullToRefreshLayout.setVisibility(hasOrder? View.VISIBLE:View.INVISIBLE);
-                if(hasOrder){
-                    adapter = new OrderListViewAdapter(R.layout.order_item, getView().getContext(), orders);
-                    orderListView.setAdapter(adapter);
-                    orderListView.setOnItemClickListener((adapterView, v, i, l)->{
-                        Log.d(LOG_TAG, i+"");
-                        Intent intent = OrderDetailActivity.newIntent(
-                                getContext(), ((Order)adapter.getItem(i)).getOrderId());
-                        startActivity(intent);
-                    });
-                }
+                adapter.setDataSource(orders);
                 if(layout!=null){
                     layout.finishRefresh(800, orders != null);
                 }
@@ -98,12 +105,29 @@ public class OrdersFragment extends Fragment {
                 boolean hasOrder = orders != null && orders.size() > 0;
                 if(hasOrder){
                     adapter.addNewItems(orders);
-                    adapter.notifyDataSetChanged();
                 }
                 if(layout != null){
                     layout.finishLoadmore(500, orders != null);
                 }
             });
         }).start();
+    }
+
+    private void payOrder(Order order){
+        PayTypeSelectDialog dlg = new PayTypeSelectDialog(getContext(), order, (payType) -> {
+            controller.payOrder(order, payType, getActivity(), new OrderListController.PayAction() {
+                @Override
+                public void failure(String msg) {
+                    Tools.ToastMessage(getContext(), msg);
+                }
+
+                @Override
+                public void ok() {
+                    order.setStatus(OrderStatus.SUCCESS.getCode());
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        });
+        dlg.show();
     }
 }

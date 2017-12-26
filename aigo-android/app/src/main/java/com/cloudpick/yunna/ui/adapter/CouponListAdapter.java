@@ -64,17 +64,32 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Vi
 
     //添加数据
     public void addItem(Coupon c, int  position) {
+        if(c == null){
+            return;
+        }
+        if(position < 0){
+            position = 0;
+        }
+        if(position > couponList.size()){
+            position = couponList.size();
+        }
         couponList.add(position, c);
         notifyItemInserted(position);
     }
     //删除数据
     public void removeItem(Coupon c) {
         int position = couponList.indexOf(c);
+        if(position < 0){
+            return;
+        }
         couponList.remove(position);
         notifyItemRemoved(position);
     }
 
     public void appendItems(ArrayList<Coupon> coupons){
+        if(coupons == null){
+            return;
+        }
         couponList.addAll(coupons);
         notifyDataSetChanged();
     }
@@ -86,7 +101,9 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Vi
 
     public void setDataSource(ArrayList<Coupon> coupons){
         couponList.clear();
-        couponList.addAll(coupons);
+        if(coupons != null){
+            couponList.addAll(coupons);
+        }
         notifyDataSetChanged();
     }
 

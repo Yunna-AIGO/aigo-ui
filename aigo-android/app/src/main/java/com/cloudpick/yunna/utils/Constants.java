@@ -38,19 +38,25 @@ public class Constants {
     public static final String KEY_SIGNED = "signed";
     public static final String KEY_AGREEMENT_STATUS = "agreementStatus";
     public static final String KEY_SIGN_REQUEST_INFO = "signRequestInfo";
+    public static final String KEY_ALIPAY_RESULT_STATUS = "resultStatus";
+    public static final String KEY_ALIPAY_RESULT_RESULT = "result";
+    public static final String KEY_ALIPAY_RESULT_MEMO = "memo";
+
 
 
     //apis
     public static final String URL_ENTRY = urlPrefix + "logon/entry";
-    public static final String URL_SENDSMS = urlPrefix + "logon/sendsms?mobile=%s";
+    public static final String URL_SENDSMS = urlPrefix + "logon/sendsms";
     public static final String URL_QRCODE = urlPrefix + "logon/qrcode";
     public static final String URL_USER_INFO = urlPrefix + "user/%s/getNormalUser";
-    public static final String URL_ORDERS = urlPrefix + "order/%s/list?pageNum=%s&pageSize=%s&orderStatus=%s&orderType=%s&startDate=%s&endDate=%s";
+    public static final String URL_ORDERS = urlPrefix + "order/%s/list";
     public static final String URL_ORDER_INFO = urlPrefix + "order/%s/info";
-    public static final String URL_DUT_QUERY = urlPrefix + "dut/query?userId=%s&thirdType=%s";
+    public static final String URL_DUT_QUERY = urlPrefix + "dut/query";
     public static final String URL_DUT_SIGN = urlPrefix + "dut/sign";
     public static final String URL_DUT_UNSIGN = urlPrefix + "dut/unsign";
     public static final String URL_COUPON = urlPrefix + "coupon/%s/list";
+    public static final String URL_TRADE_PAY = urlPrefix + "trade/pay";
+    public static final String URL_TRADE_INFO = urlPrefix + "trade/%s/info";
 
 
 }

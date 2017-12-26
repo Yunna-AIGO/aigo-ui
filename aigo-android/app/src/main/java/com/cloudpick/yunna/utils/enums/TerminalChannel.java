@@ -5,17 +5,23 @@ package com.cloudpick.yunna.utils.enums;
  */
 
 public enum TerminalChannel {
-    ALIPAYAPP("ALIPAYAPP"), //支付宝钱包
-    PC("PC"), //PC端访问
-    WAP("WAP"); //WAP访问
+    ALIPAYAPP("ALIPAYAPP", "支付宝钱包"),
+    PC("PC", "PC端访问"),
+    WAP("WAP", "WAP访问");
 
-    private final String value;
+    private final String code;
+    private final String name;
 
-    TerminalChannel(String value){
-        this.value = value;
+    TerminalChannel(String code, String name){
+        this.code = code;
+        this.name = name;
     }
 
-    public String getValue(){
-        return value;
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -38,8 +38,8 @@ public class PaymentController extends BaseController {
         }
         Map<String, String> data = new HashMap<>();
         data.put("userId", User.getUser().getUserId());
-        data.put("terminalChannel", TerminalChannel.ALIPAYAPP.getValue());
-        data.put("thirdType", ThirdType.ALIPAY.getValue());
+        data.put("terminalChannel", TerminalChannel.ALIPAYAPP.getCode());
+        data.put("thirdType", ThirdType.ALIPAY.getCode());
         try{
             Response<Map<String, String>> resp = Requests.post(Constants.URL_DUT_SIGN, data, Response.class);
             if(resp.isSuccess()){
@@ -68,7 +68,7 @@ public class PaymentController extends BaseController {
     public void unBindAlipay(final unBindAlipayAction action){
         Map<String, String> data = new HashMap<>();
         data.put("userId", User.getUser().getUserId());
-        data.put("thirdType", ThirdType.ALIPAY.getValue());
+        data.put("thirdType", ThirdType.ALIPAY.getCode());
         try{
             Response<Map<String, String>> resp = Requests.post(Constants.URL_DUT_UNSIGN, data, Response.class);
             if(resp.isSuccess()){
@@ -95,9 +95,11 @@ public class PaymentController extends BaseController {
 
 
     public static boolean isBindingPayment(ThirdType thirdType){
-        String url = String.format(Constants.URL_DUT_QUERY, User.getUser().getUserId(), thirdType.getValue());
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("userId", User.getUser().getUserId());
+        queryParams.put("thirdType", thirdType.getCode());
         try{
-            Response<Map<String, Object>> resp =  Requests.get(url, Response.class);
+            Response<Map<String, Object>> resp = Requests.get(Constants.URL_DUT_QUERY, queryParams, Response.class);
             return resp.isSuccess() && (boolean)resp.getData().get(Constants.KEY_SIGNED) &&
                     resp.getData().get(Constants.KEY_AGREEMENT_STATUS).toString().equals(AgreementStatus.NORMAL.getValue());
         }catch(Exception e){

@@ -40,6 +40,12 @@
     <string name="tab_topup_title">充值记录</string>
     <string name="message_take_something">随便拿点啥吧~</string>
     <string name="message_please_topup">请去充值哦～</string>
+    <string name="btn_pay_title">去支付</string>
+    <string name="tv_select_paytype_title">请选择支付方式</string>
+    <string name="tv_paydesc_title">需支付</string>
+    <string name="tv_price_unit">元</string>
+    <string name="tv_pay_by_alipay_title">支付宝支付</string>
+    <string name="tv_pay_by_weixin_title">微信支付</string>
 
     <!--order detail-->
     <string name="title_order_detail">订单详情</string>
@@ -73,7 +79,7 @@
     <string name="message_alipay_unsign_success">支付宝代扣解约成功</string>
     <string name="message_alipay_unsign_failure">支付宝代扣解约失败</string>
     <string name="message_alipay_unsign_alert">确定关闭支付宝免密支付？</string>
-    <string name="message_alipay_not_installed">未安装支付宝，请安装支付宝后再签约免密支付</string>
+    <string name="message_alipay_not_installed">请先安装支付宝～</string>
 
     <!--coupon-->
     <string name="title_coupon">优惠券</string>
@@ -89,6 +95,7 @@
     <string name="skip">跳过</string>
     <string name="network_error">网络异常</string>
     <string name="currency_cny">¥</string>
+    <string name="no_network">连接不到网络</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

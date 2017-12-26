@@ -3,6 +3,7 @@ package com.cloudpick.yunna.ui.adapter;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.content.Context;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.utils.enums.OrderStatus;
 
 import java.util.ArrayList;
 
@@ -24,11 +26,13 @@ public class OrderListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<Order> data;
     private int itemLayoutId;
     private LayoutInflater inflater;
+    private OrderItemClickListener listener;
 
-    public OrderListViewAdapter(int itemLayoutId, Context context, ArrayList<Order> data)
+    public OrderListViewAdapter(int itemLayoutId, Context context, OrderItemClickListener listener)
     {
-        this.data = data;
+        this.data = new ArrayList<Order>();
         this.itemLayoutId = itemLayoutId;
+        this.listener = listener;
         inflater = LayoutInflater.from(context);
     }
 
@@ -49,8 +53,7 @@ public class OrderListViewAdapter extends BaseAdapter implements ListAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup)
-    {
+    public View getView(int position, View view, ViewGroup viewGroup){
         Order order = (Order)data.get(position);
         if(view == null)
         {
@@ -67,12 +70,41 @@ public class OrderListViewAdapter extends BaseAdapter implements ListAdapter {
             tv.setText(order.getOrderAmount(true));
             tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
+        Button btn_pay = (Button)view.findViewById(R.id.btn_pay);
+        if(order.unPaid()){
+            btn_pay.setVisibility(View.VISIBLE);
+            btn_pay.setOnClickListener((v)->{
+                if(listener != null){
+                    listener.payOrder(order);
+                }
+            });
+        }else{
+            btn_pay.setVisibility(View.INVISIBLE);
+        }
         return view;
     }
 
     public void addNewItems(ArrayList<Order> orders){
-        for(Order o: orders){
-            data.add(o);
+        if(orders != null){
+            data.addAll(orders);
+            notifyDataSetChanged();
         }
+    }
+
+    public void clearItems(){
+        data.clear();
+        notifyDataSetChanged();
+    }
+
+    public void setDataSource(ArrayList<Order> orders){
+        data.clear();
+        if(orders != null){
+            data.addAll(orders);
+        }
+        notifyDataSetChanged();
+    }
+
+    public interface OrderItemClickListener{
+        void payOrder(Order order);
     }
 }

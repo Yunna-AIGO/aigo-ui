@@ -130,6 +130,7 @@ public class MainActivity extends FragmentActivity {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus)
         {
+            //TODO defect 此处逻辑有误,需调整
             if(qrcodeFragment != null){
                 ((QRCodeFragment)qrcodeFragment).resetQrcodeImageView();
             }

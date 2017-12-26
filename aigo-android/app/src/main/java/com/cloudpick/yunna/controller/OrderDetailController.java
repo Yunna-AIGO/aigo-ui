@@ -24,7 +24,7 @@ public class OrderDetailController extends BaseController {
             handler.post(()->{action.failure();});
         }else{
             String url = String.format(Constants.URL_ORDER_INFO, orderId);
-            Requests.getAsync(url, new Callback<Response<Order>>() {
+            Requests.getAsync(url, null, new Callback<Response<Order>>() {
                 @Override
                 public void error(Exception e) {
                     System.out.println(e.getMessage());

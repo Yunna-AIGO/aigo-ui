@@ -1,5 +1,10 @@
 package com.cloudpick.yunna.utils.http;
 
+import android.net.Uri;
+
+import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.enums.OrderType;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,13 +34,15 @@ public class Requests {
     /**
      * get
      * @param url
+     * @param queryParams
      * @param clazz
      * @param <T>
      * @return
      * @throws IOException
      */
-    public static <T> T get(String url, Class<T> clazz) throws IOException{
-        Request request = new Request.Builder().url(url).build();
+    public static <T> T get(String url, Map<String, String> queryParams, Class<T> clazz) throws IOException{
+        String u = parseUrl(url, queryParams);
+        Request request = new Request.Builder().url(u).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
         return new Gson().fromJson(response.body().string(), clazz);
     }
@@ -43,18 +50,19 @@ public class Requests {
     /**
      * get
      * @param url
+     * @param queryParams
      * @param type
      * @param <T>
      * @return
      * @throws IOException
      */
-    public static <T> T get(String url, Type type) throws IOException{
+    public static <T> T get(String url, Map<String, String> queryParams, Type type) throws IOException{
         //TODO 将获取类型封装到内部
-        Request request = new Request.Builder().url(url).build();
+        String u = parseUrl(url, queryParams);
+        Request request = new Request.Builder().url(u).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
         return new Gson().fromJson(response.body().string(), type);
     }
-
 
     public static <T> T post(String url, Map<?, ?> data, Class<T> clazz) throws IOException{
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
@@ -67,10 +75,12 @@ public class Requests {
     /**
      * get 异步
      * @param url
+     * @param queryParams
      * @param c callback
      */
-    public static void getAsync(String url, final Callback c){
-        Request request = new Request.Builder().url(url).build();
+    public static void getAsync(String url, Map<String, String> queryParams, final Callback c){
+        String u = parseUrl(url, queryParams);
+        Request request = new Request.Builder().url(u).build();
         Call call = new OkHttpClient().newCall(request);
         call.enqueue(new okhttp3.Callback() {
             @Override
@@ -110,4 +120,14 @@ public class Requests {
         });
     }
 
+    private static String parseUrl(String url, Map<String, String> queryParams){
+        if(queryParams == null){
+            return url;
+        }
+        Uri.Builder builder = Uri.parse(url).buildUpon();
+        for (String key : queryParams.keySet()) {
+            builder.appendQueryParameter(key, queryParams.get(key));
+        }
+        return builder.build().toString();
+    }
 }

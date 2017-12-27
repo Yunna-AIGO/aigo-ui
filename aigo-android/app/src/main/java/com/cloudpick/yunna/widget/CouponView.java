@@ -29,7 +29,7 @@ public class CouponView extends LinearLayout {
      * 圆背景色
      */
     private int circle_color = Color.WHITE;
-    private int circle_side = 1;
+    private int circle_side = 0;
     /**
      * Y方向圆数量
      */

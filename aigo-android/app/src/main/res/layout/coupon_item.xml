@@ -22,7 +22,7 @@
             custom:gap="3dp"
             custom:radius="2dp"
             custom:circle_color="@color/colorLightGrey"
-            custom:circle_side="right">
+            custom:circle_side="left">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -72,7 +72,6 @@
             android:layout_height="match_parent"
             custom:gap="3dp"
             custom:radius="2dp"
-            custom:circle_side="left"
             custom:circle_color="@color/colorLightGrey">
             <LinearLayout
                 android:layout_width="wrap_content"

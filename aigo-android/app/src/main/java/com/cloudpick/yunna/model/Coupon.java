@@ -11,16 +11,18 @@ import com.cloudpick.yunna.utils.enums.CouponType;
 
 public class Coupon {
 
-    private String couponAmt = "";
+    private String amount = "";
     private String fromDate = "";
     private String toDate = "";
-    private CouponType couponType = CouponType.CASH_DISCOUNT;
+    private String couponType = CouponType.CASH_DISCOUNT.getCode();
+    private String couponDesc = "";
+//    private CouponType couponType = CouponType.CASH_DISCOUNT;
 
     public String getCouponAmt() {
-        if(TextUtils.isEmpty(couponAmt)){
+        if(TextUtils.isEmpty(amount)){
             return "0";
         }
-        return couponAmt;
+        return amount;
     }
 
     public String getFromDate() {
@@ -32,11 +34,22 @@ public class Coupon {
     }
 
     public String getCouponType() {
-        return couponType.getName();
+        return couponType;
     }
 
+    public String getCouponDesc(){
+        return couponDesc;
+    }
+
+
     public String getCouponCategory(){
-        switch (couponType){
+        CouponType ct = CouponType.CASH_DISCOUNT;
+        try{
+            ct = CouponType.valueOf(couponType);
+        }catch (Exception e){
+        }
+
+        switch (ct){
             case CASH_DISCOUNT:
                 return "通用券";
             default:
@@ -44,12 +57,12 @@ public class Coupon {
         }
     }
 
-    public String getCouponDesc(){
-        return getCouponAmt() + "元" + getCouponType();
+    public String getCouponLongDesc(){
+        return getCouponAmt() + "元" + getCouponDesc();
     }
 
     public String getCouponInstructions(){
-        return "";
+        return "无使用门槛";
     }
 
     public String getCouponExpiredIn(){

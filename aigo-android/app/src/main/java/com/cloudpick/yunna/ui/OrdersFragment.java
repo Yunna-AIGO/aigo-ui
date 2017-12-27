@@ -10,15 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import com.alipay.sdk.app.PayTask;
 import com.cloudpick.yunna.controller.OrderListController;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.adapter.OrderListViewAdapter;
-import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.ui.dialog.PayTypeSelectDialog;
 import com.cloudpick.yunna.utils.Tools;
-import com.cloudpick.yunna.utils.enums.AlipayResultStatus;
 import com.cloudpick.yunna.utils.enums.OrderStatus;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

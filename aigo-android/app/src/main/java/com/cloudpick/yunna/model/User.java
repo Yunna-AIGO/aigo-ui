@@ -1,6 +1,7 @@
 package com.cloudpick.yunna.model;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.cloudpick.yunna.utils.ACache;
 import com.cloudpick.yunna.utils.Constants;
@@ -68,7 +69,7 @@ public class User {
     public boolean checkUser(){
         userId = cache.getAsString(Constants.KEY_USER_ID);
         token = cache.getAsString(Constants.KEY_TOKEN);
-        return userId != null && userId != "" && token != null && token != "";
+        return !TextUtils.isEmpty(userId) && !TextUtils.isEmpty(token);
     }
 
     public void saveToken(String userId, String token){

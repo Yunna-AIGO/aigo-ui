@@ -6,7 +6,7 @@ package com.cloudpick.yunna.utils;
 
 public class Define {
 
-    public static AppEnv appEnv = AppEnv.PROD;
+    public static AppEnv appEnv = AppEnv.DEV;
 
     public static String getUrlPrefix(){
         if(appEnv == AppEnv.PROD){

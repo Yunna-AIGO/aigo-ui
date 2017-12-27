@@ -44,7 +44,8 @@ public class Requests {
         String u = parseUrl(url, queryParams);
         Request request = new Request.Builder().url(u).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
-        return new Gson().fromJson(response.body().string(), clazz);
+        String json = response.body().string();
+        return new Gson().fromJson(json, clazz);
     }
 
     /**
@@ -61,14 +62,16 @@ public class Requests {
         String u = parseUrl(url, queryParams);
         Request request = new Request.Builder().url(u).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
-        return new Gson().fromJson(response.body().string(), type);
+        String json = response.body().string();
+        return new Gson().fromJson(json, type);
     }
 
     public static <T> T post(String url, Map<?, ?> data, Class<T> clazz) throws IOException{
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
         Request request = new Request.Builder().url(url).post(body).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
-        return new Gson().fromJson(response.body().string(), clazz);
+        String json = response.body().string();
+        return new Gson().fromJson(json, clazz);
     }
 
 
@@ -90,7 +93,8 @@ public class Requests {
 
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                Object o = new Gson().fromJson(response.body().string(), c.getType());
+                String json = response.body().string();
+                Object o = new Gson().fromJson(json, c.getType());
                 c.ok(o);
             }
         });
@@ -114,7 +118,8 @@ public class Requests {
 
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                Object o = new Gson().fromJson(response.body().string(), c.getType());
+                String json = response.body().string();
+                Object o = new Gson().fromJson(json, c.getType());
                 c.ok(o);
             }
         });

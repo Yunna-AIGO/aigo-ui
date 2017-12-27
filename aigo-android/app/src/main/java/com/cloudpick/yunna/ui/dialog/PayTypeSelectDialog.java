@@ -1,4 +1,4 @@
-package com.cloudpick.yunna.ui;
+package com.cloudpick.yunna.ui.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.model.Order;
+import com.cloudpick.yunna.ui.R;
 import com.cloudpick.yunna.ui.adapter.CommonRecyclerViewAdapter;
 import com.cloudpick.yunna.utils.enums.PayType;
 

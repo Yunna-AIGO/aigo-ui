@@ -5,14 +5,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cloudpick.yunna.controller.LoginController;
+import com.cloudpick.yunna.ui.dialog.CouponNotifyDialog;
 import com.cloudpick.yunna.utils.Constants;
-import com.cloudpick.yunna.utils.Define;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -76,20 +77,34 @@ public class LoginActivity extends AppCompatActivity {
                         showMessage(msg);
                     }
                     @Override
-                    public void ok(boolean isBindingPayment) {
-                        if(isBindingPayment){
-                            Intent intent = MainActivity.newIntent(LoginActivity.this);
-                            startActivity(intent);
-                            LoginActivity.this.finish();
-                        }else{
-                            Intent intent = PaymentActivity.newIntent(
+                    public void ok(boolean isBindingPayment, boolean isCoupon, String couponAmt) {
+                        if(isCoupon && !TextUtils.isEmpty(couponAmt)){
+                            CouponNotifyDialog dlg = new CouponNotifyDialog(
                                     LoginActivity.this,
-                                    Constants.SHOW_SKIP_IN_BINDING_PAYMENT,
-                                    true);
-                            startActivity(intent);
+                                    getResources().getString(R.string.currency_cny) + couponAmt,
+                                    ()->{
+                                        enter(isBindingPayment);
+                                    });
+                            dlg.show();
+                        }else{
+                            enter(isBindingPayment);
                         }
                     }
                 });
+    }
+
+    private void enter(boolean isBindingPayment){
+        if(isBindingPayment){
+            Intent intent = MainActivity.newIntent(LoginActivity.this);
+            startActivity(intent);
+            LoginActivity.this.finish();
+        }else{
+            Intent intent = PaymentActivity.newIntent(
+                    LoginActivity.this,
+                    Constants.SHOW_SKIP_IN_BINDING_PAYMENT,
+                    true);
+            startActivity(intent);
+        }
     }
 
     @OnTextChanged(value = R.id.et_mobile, callback = OnTextChanged.Callback.TEXT_CHANGED)

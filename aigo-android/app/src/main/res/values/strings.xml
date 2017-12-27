@@ -87,6 +87,8 @@
     <string name="tab_coupon_used">已使用</string>
     <string name="tab_coupon_expired">已过期</string>
     <string name="message_coupon_empty">没有可用优惠券</string>
+    <string name="dialog_coupon_message1">获得一张现金折扣券</string>
+    <string name="dialog_coupon_message2">开启免密支付后即可使用</string>
 
     <!--connom-->
     <string name="message_alert">提示</string>

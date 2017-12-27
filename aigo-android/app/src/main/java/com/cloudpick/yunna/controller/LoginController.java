@@ -75,17 +75,28 @@ public class LoginController extends BaseController {
                         @Override
                         public void ok(Response<Map<String, Object>> r){
                             if(r.isSuccess()){
-                                //save user info
-                                User.getUser().saveToken(
-                                        r.getData().get(Constants.KEY_USER_ID).toString(),
-                                        r.getData().get(Constants.KEY_TOKEN).toString());
-                                boolean isNewRegisted = (boolean)r.getData().get(Constants.KEY_REGISTER);
-                                if(isNewRegisted){
-                                    //TODO 判断用户是否是新注册用户，如果是新注册用户，弹出赠送优惠券对话框
-
+                                try{
+                                    //save user info
+                                    String userId = r.getData().get(Constants.KEY_USER_ID).toString();
+                                    String token = r.getData().get(Constants.KEY_TOKEN).toString();
+                                    User.getUser().saveToken(userId, token);
+                                }catch (Exception e){
+                                    action.failure(context.getResources().getText(R.string.login_success_failure) + ":" + e.getMessage());
+                                    return;
                                 }
-                                boolean isBindingPayment = PaymentController.isBindingPayment(ThirdType.ALIPAY);
-                                handler.post(()->{action.ok(isBindingPayment);});
+                                handler.post(()->{
+                                    boolean isBindingPayment = PaymentController.isBindingPayment(ThirdType.ALIPAY);
+                                    boolean hasCoupon = false;
+                                    String couponAmount = "";
+                                    try{
+                                        hasCoupon = (boolean)r.getData().get(Constants.KEY_HAS_COUPON);
+                                        couponAmount = r.getData().get(Constants.KEY_COUPON_AMOUNT).toString();
+                                        //boolean isCoupon = true;
+                                        //String couponAmount = "5.65";
+                                    }catch (Exception e){
+                                    }
+                                    action.ok(isBindingPayment, hasCoupon, couponAmount);
+                                });
                             }else{
                                 handler.post(()->{
                                     action.failure(context.getResources().getText(R.string.login_success_failure) + ":" + r.getMessage());
@@ -100,7 +111,7 @@ public class LoginController extends BaseController {
 
     public interface loginAction {
         void failure(String msg);
-        void ok(boolean isBindingPayment);
+        void ok(boolean isBindingPayment, boolean isCoupon, String couponAmt);
     }
 
     public boolean isValidMobile(String mobile){
@@ -123,6 +134,5 @@ public class LoginController extends BaseController {
     public void setCaptchaSended(boolean captchaSended) {
         this.captchaSended = captchaSended;
     }
-
 
 }

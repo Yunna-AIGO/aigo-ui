@@ -74,9 +74,10 @@
             android:id="@+id/btn_pay"
             android:layout_width="60dp"
             android:layout_height="30dp"
+            android:layout_marginRight="5dp"
             android:focusable="false"
-            android:background="@color/colorOrange"
-            android:textColor="@color/colorWhite"
+            android:background="@drawable/shape_round_corner"
+            android:textColor="@color/colorOrange"
             android:text="@string/btn_pay_title"/>
     </LinearLayout>
 </LinearLayout>

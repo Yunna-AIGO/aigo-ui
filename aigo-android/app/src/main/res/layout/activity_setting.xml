@@ -24,53 +24,87 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:paddingRight="30dp"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:theme="@style/cell">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:paddingLeft="16dp"
                         android:textSize="16sp"
                         android:text="@string/tv_auto_login_title"/>
-                    <Spinner
-                        android:id="@+id/sp_token_expiredIn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:layout_alignParentRight="true"
-                        android:entries="@array/expiredin"/>
-                </RelativeLayout>
-                <RelativeLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center_vertical">
+                        <Spinner
+                            android:id="@+id/sp_token_expiredIn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:entries="@array/expiredin"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/colorGrey">
-                </RelativeLayout>
-                <RelativeLayout
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:paddingRight="30dp"
+                    android:layout_height="50dp"
+
+                    android:orientation="horizontal"
+                    android:theme="@style/cell">
+                    <LinearLayout
+                        android:id="@+id/btn_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="16dp"
+                            android:textSize="16sp"
+                            android:text="@string/tv_feedback_title"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorGrey">
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:theme="@style/cell">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:paddingLeft="16dp"
                         android:textSize="16sp"
                         android:text="@string/tv_version_title"/>
-                    <TextView
-                        android:id="@+id/tv_version"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:layout_alignParentRight="true"
-                        android:text="0.0.0"/>
-                </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center_vertical">
+                        <TextView
+                            android:id="@+id/tv_version"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:paddingRight="20dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
 

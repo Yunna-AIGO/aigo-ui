@@ -15,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".WelcomeActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
@@ -35,15 +44,6 @@
             android:label="@string/title_setting"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WelcomeActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".PaymentActivity"
             android:label="@string/title_payment"
             android:launchMode="singleTask"
@@ -61,12 +61,23 @@
         <activity
             android:name=".CouponActivity"
             android:label="@string/title_coupon"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GuideActivity"
             android:label="@string/tv_guide_title"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderAppealActivity"
+            android:label="@string/title_order_appeal"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AppealFeedbackDetailActivity"
+            android:label="@string/title_feedback_handle_result"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateFeedbackActivity"
+            android:label="@string/title_feedback"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

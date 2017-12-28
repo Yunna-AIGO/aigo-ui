@@ -27,9 +27,8 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:orientation="horizontal"
-                    android:paddingRight="5dp"
                     android:theme="@style/cell">
                     <TextView
                         android:layout_width="60dp"
@@ -38,27 +37,38 @@
                         android:text="@string/tv_mobile_prefix"
                         android:layout_marginRight="15dp"
                         android:textSize="16sp"/>
-                    <EditText
-                        android:id="@+id/et_mobile"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp"
+                        android:layout_weight="1">
+                        <EditText
+                            android:id="@+id/et_mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:maxLength="11"
+                            android:inputType="phone"
+                            android:focusable="true"
+                            android:textSize="16sp"
+                            android:hint="@string/et_mobile_placeholder"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:maxLength="11"
-                        android:ems="10"
-                        android:inputType="phone"
-                        android:focusable="true"
-                        android:textSize="16sp"
-                        android:hint="@string/et_mobile_placeholder"/>
-                    <Button
-                        android:id="@+id/btn_get_captcha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:text="@string/btn_get_captcha_title"
-                        android:layout_marginLeft="15dp"
-                        android:padding="5dp"
-                        android:textSize="12dp"
-                        android:background="@color/colorLightGrey"
-                        android:enabled="false"/>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp"
+                        android:gravity="center_vertical|right">
+                        <Button
+                            android:id="@+id/btn_get_captcha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="@string/btn_get_captcha_title"
+                            android:textSize="12sp"
+                            android:background="@color/colorLightGrey"
+                            android:enabled="false"/>
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,7 +76,7 @@
                     android:background="@color/colorGrey"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:theme="@style/cell">
                     <TextView
@@ -76,15 +86,38 @@
                         android:text="@string/tv_captcha_text"
                         android:layout_marginRight="15dp"
                         android:textSize="16sp"/>
-                    <EditText
-                        android:id="@+id/et_captcha"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp"
+                        android:layout_weight="1">
+                        <EditText
+                            android:id="@+id/et_captcha"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="number"
+                            android:maxLength="6"
+                            android:textSize="16sp"
+                            android:hint="@string/et_captcha_placeholder"/>
+                    </LinearLayout>
+                    <!--这个LinearLayout无作用，为了与上面对奇-->
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:ems="10"
-                        android:inputType="number"
-                        android:maxLength="6"
-                        android:textSize="16sp"
-                        android:hint="@string/et_captcha_placeholder"/>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp"
+                        android:gravity="center_vertical|right">
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="@string/btn_get_captcha_title"
+                            android:textSize="12sp"
+                            android:visibility="invisible"
+                            android:background="@color/colorLightGrey"
+                            android:enabled="false"/>
+                    </LinearLayout>
                 </LinearLayout>
                 <Button
                     android:id="@+id/btn_login"

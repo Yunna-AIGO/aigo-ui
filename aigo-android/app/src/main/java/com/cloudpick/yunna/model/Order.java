@@ -1,5 +1,8 @@
 package com.cloudpick.yunna.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.cloudpick.yunna.utils.DateUtil;
 import com.cloudpick.yunna.utils.enums.OrderStatus;
 
@@ -9,7 +12,7 @@ import java.util.ArrayList;
  * Created by maxwell on 17-12-8.
  */
 
-public class Order{
+public class Order extends BaseModel implements Parcelable{
 
     public static final String ORDER_ID = "OrderId";
 
@@ -146,5 +149,68 @@ public class Order{
                 status.equals(OrderStatus.TIMEOUT.getCode()) ||
                 status.equals((OrderStatus.IN_PAYMENT.getCode()));
     }
+
+    public boolean paid(){
+        return status.equals(OrderStatus.SUCCESS.getCode());
+    }
+
+
+    //implement Parcelable
+
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags)
+    {
+        out.writeString(ext);
+        out.writeString(gmtCreate);
+        out.writeString(couponAmt);
+        out.writeString(orderDesc);
+        out.writeString(orderId);
+        out.writeString(orderType);
+        out.writeString(payTime);
+        out.writeString(status);
+        out.writeString(storeId);
+        out.writeString(userId);
+        out.writeDouble(orderAmt);
+        out.writeDouble(unPaidAmt);
+        out.writeTypedList(goodsList);
+
+//        Goods[] arr = new Goods[goodsList.size()];
+//        goodsList.toArray(arr);
+//        out.writeParcelableArray(arr, flags);
+    }
+
+    private Order(Parcel in)
+    {
+        ext = in.readString();
+        gmtCreate = in.readString();
+        couponAmt = in.readString();
+        orderDesc = in.readString();
+        orderId = in.readString();
+        orderType = in.readString();
+        payTime = in.readString();
+        status = in.readString();
+        storeId = in.readString();
+        userId = in.readString();
+        orderAmt = in.readDouble();
+        unPaidAmt = in.readDouble();
+        goodsList = in.createTypedArrayList(Goods.CREATOR);
+    }
+
+    public static final Parcelable.Creator<Order> CREATOR = new Parcelable.Creator<Order>()
+    {
+        public Order createFromParcel(Parcel in)
+        {
+            return new Order(in);
+        }
+
+        public Order[] newArray(int size)
+        {
+            return new Order[size];
+        }
+    };
 
 }

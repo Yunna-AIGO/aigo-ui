@@ -54,10 +54,26 @@
     <string name="tv_order_amount_title">金额：</string>
     <string name="tv_order_status_title">状态：</string>
     <string name="tv_goods_list_title">商品列表</string>
+    <string name="btn_order_appeal_title">申诉</string>
+    <string name="tv_orderId_title">订单编号</string>
+
+    <!--order appeal-->
+    <string name="title_order_appeal">订单申诉</string>
+    <string name="tv_order_appeal_desc_title">问题描述</string>
+    <string name="et_order_appeal_hint">请您在此填写申诉内容</string>
+
+    <!--feedback-->
+    <string name="title_feedback">意见反馈</string>
+    <string name="title_feedback_handle_result">处理结果</string>
+    <string name="tv_feedback_handle_result_title">处理结果</string>
+    <string name="tv_feedback_type_title">反馈类型</string>
+    <string name="tv_feedback_type_advice">建议</string>
+    <string name="tv_feedback_type_problem">问题</string>
 
     <!--user center-->
     <string name="tv_payment_title">支付方式</string>
     <string name="tv_coupon_title">优惠券</string>
+    <string name="tv_guide_title">进店指南</string>
     <string name="tv_set_title">设置</string>
     <string name="tv_logout_title">退出账户</string>
     <string name="message_not_logged_in">未登录</string>
@@ -67,18 +83,19 @@
     <string name="title_setting">设置</string>
     <string name="tv_version_title">版本号</string>
     <string name="tv_auto_login_title">免登录</string>
-    <string name="tv_guide_title">进店指南</string>
+    <string name="tv_feedback_title">意见反馈</string>
+
 
     <!--payment-->
-    <string name="title_payment">免密支付方式</string>
-    <string name="payment_alipay_title">支付宝免密支付</string>
-    <string name="payment_alipay_sign">开通支付宝免密支付</string>
-    <string name="payment_alipay_unsign">关闭支付宝免密支付</string>
-    <string name="message_alipay_sign_success">支付宝代扣签约成功</string>
-    <string name="message_alipay_sign_failure">支付宝代扣签约失败</string>
-    <string name="message_alipay_unsign_success">支付宝代扣解约成功</string>
-    <string name="message_alipay_unsign_failure">支付宝代扣解约失败</string>
-    <string name="message_alipay_unsign_alert">确定关闭支付宝免密支付？</string>
+    <string name="title_payment">支付方式</string>
+    <string name="payment_alipay_title">支付宝支付</string>
+    <string name="payment_alipay_sign">开通支付宝支付</string>
+    <string name="payment_alipay_unsign">关闭支付宝支付</string>
+    <string name="message_alipay_sign_success">已开通支付宝支付</string>
+    <string name="message_alipay_sign_failure">支付宝支付开通失败</string>
+    <string name="message_alipay_unsign_success">已关闭支付宝支付</string>
+    <string name="message_alipay_unsign_failure">支付宝支付关闭失败</string>
+    <string name="message_alipay_unsign_alert">确定关闭支付宝支付？</string>
     <string name="message_alipay_not_installed">请先安装支付宝～</string>
 
     <!--coupon-->
@@ -88,7 +105,7 @@
     <string name="tab_coupon_expired">已过期</string>
     <string name="message_coupon_empty">没有可用优惠券</string>
     <string name="dialog_coupon_message1">获得一张现金折扣券</string>
-    <string name="dialog_coupon_message2">开启免密支付后即可使用</string>
+    <string name="dialog_coupon_message2">开通支付宝支付后即可使用</string>
 
     <!--connom-->
     <string name="message_alert">提示</string>
@@ -98,6 +115,9 @@
     <string name="network_error">网络异常</string>
     <string name="currency_cny">¥</string>
     <string name="no_network">连接不到网络</string>
+    <string name="commit">提交</string>
+    <string name="commit_failed">提交失败</string>
+    <string name="commit_success">提交成功</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

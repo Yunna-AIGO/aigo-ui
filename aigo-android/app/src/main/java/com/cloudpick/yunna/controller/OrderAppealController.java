@@ -2,6 +2,7 @@ package com.cloudpick.yunna.controller;
 
 import android.content.Context;
 
+import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.R;
 import com.cloudpick.yunna.utils.Constants;
@@ -14,28 +15,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by maxwell on 17-12-20.
+ * Created by maxwell on 17-12-28.
  */
 
-public class SettingController extends BaseController {
+public class OrderAppealController extends BaseController {
 
-    public SettingController(Context context){
+    public OrderAppealController(Context context){
         super(context);
     }
 
-    public int getTokenExpiredIn(){
-        return User.getUser().getTokenExpiredInSelection();
-    }
 
-    public void setTokenExpiredIn(String expiredInStr){
-        User.getUser().setTokenExpiredIn(expiredInStr);
-    }
-
-    public void commitFeedback(String feedbackContent, FeedbackType feedbackType, commitFeedbackAction action){
+    public void commitAppeal(Order order, String appealDesc, commitAppealAction action){
         Map<String, String> data = new HashMap<>();
         data.put("userId", User.getUser().getUserId());
-        data.put("desc", feedbackContent);
-        data.put("feedbackType", feedbackType.getCode());
+        data.put("desc", appealDesc);
+        data.put("orderNo", order.getOrderId());
+        data.put("feedbackType", FeedbackType.APPEAL.getCode());
         Requests.postAsync(Constants.URL_FEEDBACK_INSERT, data, new Callback<Response<Object>>() {
             @Override
             public void error(Exception e) {
@@ -53,7 +48,7 @@ public class SettingController extends BaseController {
         });
     }
 
-    public interface commitFeedbackAction{
+    public interface commitAppealAction{
         void failure(String msg);
         void ok();
     }

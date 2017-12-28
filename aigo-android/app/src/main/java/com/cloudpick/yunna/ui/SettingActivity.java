@@ -16,6 +16,7 @@ import com.cloudpick.yunna.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -35,6 +36,11 @@ public class SettingActivity extends AppCompatActivity {
         controller = new SettingController(SettingActivity.this);
         ButterKnife.bind(this);
         initComponent();
+    }
+
+    @OnClick(R.id.btn_feedback)
+    void btnFeedbackClick(View v){
+        startActivity(CreateFeedbackActivity.newIntent(SettingActivity.this));
     }
 
     private void initComponent(){

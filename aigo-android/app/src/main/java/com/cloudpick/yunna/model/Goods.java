@@ -1,10 +1,13 @@
 package com.cloudpick.yunna.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by maxwell on 17-12-8.
  */
 
-public class Goods {
+public class Goods extends BaseModel implements Parcelable {
 
     private String goodsId;
     private String goodsName;
@@ -70,7 +73,44 @@ public class Goods {
     }
 
 
-//    public static Goods newInstance(){
-//
-//    }
+
+    //implement Parcelable
+
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags)
+    {
+        out.writeString(goodsId);
+        out.writeString(goodsName);
+        out.writeString(goodsNum);
+        out.writeString(goodsUnit);
+        out.writeString(goodsPrice);
+        out.writeString(goodsPhotoUrl);
+    }
+
+    private Goods(Parcel in)
+    {
+        goodsId = in.readString();
+        goodsName = in.readString();
+        goodsNum = in.readString();
+        goodsUnit = in.readString();
+        goodsPrice = in.readString();
+        goodsPhotoUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<Goods> CREATOR = new Parcelable.Creator<Goods>()
+    {
+        public Goods createFromParcel(Parcel in)
+        {
+            return new Goods(in);
+        }
+
+        public Goods[] newArray(int size)
+        {
+            return new Goods[size];
+        }
+    };
 }

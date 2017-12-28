@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.IBinder;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import android.app.AlertDialog;
 
@@ -90,6 +92,16 @@ public class Tools {
     }
 
     /**
+     * 显示Toast消息
+     * @param context
+     * @param resId
+     */
+    public static void ToastMessage(Context context, int resId){
+        String msg = context.getResources().getString(resId);
+        ToastMessage(context, msg);
+    }
+
+    /**
      * 检查是否有网络
      * @param context
      * @return
@@ -116,4 +128,15 @@ public class Tools {
         return hasNetwork;
     }
 
+    /**
+     * 隐藏软键盘
+     * @param context
+     * @param token
+     */
+    public static void hideSoftInput(Context context, IBinder token) {
+        if (token != null) {
+            InputMethodManager manager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 }

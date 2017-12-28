@@ -1,29 +1,41 @@
 package com.cloudpick.yunna.ui;
 
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.controller.OrderDetailController;
+import com.cloudpick.yunna.model.Feedback;
 import com.cloudpick.yunna.model.Order;
-import com.cloudpick.yunna.ui.adapter.GoodsListViewAdapter;
+import com.cloudpick.yunna.ui.fragment.GoodsListFragment;
+import com.cloudpick.yunna.utils.enums.FeedbackStatus;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class OrderDetailActivity extends AppCompatActivity {
+
+    public static final int REQUEST_CODE_APPEAL_RESULT = 0;
 
     private static final String ORDER_ID = "com.cloudpick.yunna.ui.orderId";
 
     private OrderDetailController controller = null;
+    private Order order = null;
+    private Feedback feedback = null;
 
     @BindView(R.id.tb_order_detail)
     Toolbar toolbar;
@@ -37,8 +49,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     TextView tv_orderOrgnAmount;
     @BindView(R.id.tv_orderStatus)
     TextView tv_orderStatus;
-    @BindView(R.id.lv_goods)
-    ListView lv_goods;
+    @BindView(R.id.btn_order_appeal)
+    Button btn_order_appeal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +81,77 @@ public class OrderDetailActivity extends AppCompatActivity {
         tv_orderOrgnAmount.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
+    @OnClick(R.id.btn_order_appeal)
+    void btnOrderAppealClick(View view){
+        int tag = (int)view.getTag();
+        if(tag == 1){
+            orderAppeal();
+        }else if(tag == 2){
+            viewFeedback();
+        }
+    }
+
+    private void orderAppeal(){
+        if(order != null && order.paid()){
+            //申诉前检查order是否可被申诉
+            Intent intent = OrderAppealActivity.newIntent(OrderDetailActivity.this, order);
+            startActivityForResult(intent, REQUEST_CODE_APPEAL_RESULT);
+        }
+    }
+
+    private void viewFeedback(){
+        if(feedback != null){
+            startActivity(AppealFeedbackDetailActivity.newIntent(
+                    OrderDetailActivity.this, feedback, order.getGoodsList()));
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE_APPEAL_RESULT) {
+            if (data == null) {
+                return;
+            }
+            boolean commitSuccess = OrderAppealActivity.wasCommitSuccess(data);
+            if(commitSuccess){
+                setButtonAsStatus(FeedbackStatus.ACCEPT.getName());
+            }
+        }
+    }
+
+    private void setButtonAsAppeal(){
+        btn_order_appeal.setVisibility(View.VISIBLE);
+        btn_order_appeal.setBackground(getResources().getDrawable(R.drawable.shape_round_corner));
+        btn_order_appeal.setEnabled(true);
+        btn_order_appeal.setTextColor(getResources().getColor(R.color.colorRed));
+        btn_order_appeal.setText(R.string.btn_order_appeal_title);
+        btn_order_appeal.setTag(1);
+    }
+
+    private void setButtonAsStatus(String status){
+        btn_order_appeal.setVisibility(View.VISIBLE);
+        btn_order_appeal.setBackground(getResources().getDrawable(R.drawable.shape_round_corner_noborder));
+        btn_order_appeal.setEnabled(false);
+        btn_order_appeal.setTextColor(getResources().getColor(R.color.colorLightOrange));
+        btn_order_appeal.setText(status);
+        btn_order_appeal.setTag(0);
+    }
+
+    private void setButtonAsDone(){
+        btn_order_appeal.setVisibility(View.VISIBLE);
+        btn_order_appeal.setBackground(getResources().getDrawable(R.drawable.shape_round_corner));
+        btn_order_appeal.setEnabled(true);
+        btn_order_appeal.setTextColor(getResources().getColor(R.color.colorLightOrange));
+        btn_order_appeal.setText(FeedbackStatus.DONE.getName());
+        btn_order_appeal.setTag(2);
+    }
+
+
     private void setOrderInfo(Order orderInfo){
+        this.order = orderInfo;
         tv_storeName.setText("");
         tv_date.setText("");
         tv_orderOrgnAmount.setText("");
@@ -83,39 +165,38 @@ public class OrderDetailActivity extends AppCompatActivity {
             if(orderInfo.hasDiscount()){
                 tv_orderOrgnAmount.setText(orderInfo.getOrderAmount(false));
             }
-
-            GoodsListViewAdapter adapter = new GoodsListViewAdapter(
-                    R.layout.goods_item, this,orderInfo.getGoodsList());
-            lv_goods.setAdapter(adapter);
-            lv_goods.setOnItemClickListener((adapterView, v, i, l)->{});
-            try{
-                setListViewHeightBasedOnChildren(lv_goods);
-            }catch (Exception e){
-                //System.out.println(e.getMessage());
+            if(!orderInfo.paid()){
+                btn_order_appeal.setVisibility(View.INVISIBLE);
+            }else{
+                //检查订单的申诉状态，调整按钮类型
+                controller.checkOrderFeedbackStatus(orderInfo.getOrderId(), new OrderDetailController.checkAction() {
+                    @Override
+                    public void failure() {
+                        btn_order_appeal.setVisibility(View.INVISIBLE);
+                    }
+                    @Override
+                    public void ok(Feedback fb) {
+                        if(fb == null){
+                            setButtonAsAppeal();
+                        }else{
+                            feedback = fb;
+                            if(fb.isDone()){
+                                setButtonAsDone();
+                            }else{
+                                setButtonAsStatus(fb.getFeedbackStatus().getName());
+                            }
+                        }
+                    }
+                });
             }
         }
+        Fragment frag = GoodsListFragment.newInstance(
+                orderInfo==null?new ArrayList<>():orderInfo.getGoodsList());
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tran = fm.beginTransaction();
+        tran.add(R.id.fragment_container_goods_list, frag);
+        tran.commit();
     }
-
-    public void setListViewHeightBasedOnChildren(ListView lv){
-        if (lv == null) {
-            return;
-        }
-        ListAdapter listAdapter = lv.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, lv);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = lv.getLayoutParams();
-        params.height = totalHeight + (lv.getDividerHeight() * (listAdapter.getCount() - 1));
-        lv.setLayoutParams(params);
-    }
-
-
 
     public static Intent newIntent(Context packageContext, String orderId){
         Intent intent = new Intent(packageContext, OrderDetailActivity.class);

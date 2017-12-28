@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -124,27 +124,36 @@
                             android:textSize="16sp"/>
                         <TextView
                             android:id="@+id/tv_orderStatus"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:textSize="16sp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right|center_vertical"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/btn_order_appeal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/btn_order_appeal_title"
+                                android:textColor="@color/colorRed"
+                                android:layout_marginRight="10dp"
+                                android:visibility="invisible"
+                                android:background="@drawable/shape_round_corner"/>
+                        </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:theme="@style/dividing_line"/>
-                    <TextView
-                        android:layout_height="wrap_content"
+                    <FrameLayout
+                        android:id="@+id/fragment_container_goods_list"
                         android:layout_width="match_parent"
-                        android:textSize="18sp"
-                        android:layout_margin="10dp"
-                        android:textColor="@color/colorDodgerBlue"
-                        android:text="@string/tv_goods_list_title"/>
-                    <ListView
-                        android:id="@+id/lv_goods"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/cell"/>
+                        android:layout_height="wrap_content">
+
+                    </FrameLayout>
                 </LinearLayout>
 
             </ScrollView>

@@ -50,11 +50,14 @@ public class UserCenterFragment extends Fragment {
         return v;
     }
 
-    @OnClick(R.id.btn_payment)
-    void bindingPaymentClick(View v){
-        Intent intent = PaymentActivity.newIntent(getContext(), false, false);
-        startActivity(intent);
+    @OnClick(R.id.btn_feedback)
+    void btnFeedbackClick(View v){
+        startActivity(CreateFeedbackActivity.newIntent(getContext()));
     }
+//    void bindingPaymentClick(View v){
+//        Intent intent = PaymentActivity.newIntent(getContext(), false, false);
+//        startActivity(intent);
+//    }
 
     @OnClick(R.id.btn_setting)
     void settingClick(View v){

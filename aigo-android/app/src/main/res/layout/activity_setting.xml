@@ -27,6 +27,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:theme="@style/cell">
+                    <LinearLayout
+                        android:id="@+id/btn_payment_config"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="16dp"
+                            android:textSize="16sp"
+                            android:text="@string/tv_payment_title"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorGrey">
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:theme="@style/cell">
@@ -47,33 +72,6 @@
                             android:textSize="16sp"
                             android:entries="@array/expiredin"/>
                     </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorGrey">
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-
-                    android:orientation="horizontal"
-                    android:theme="@style/cell">
-                    <LinearLayout
-                        android:id="@+id/btn_feedback"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:clickable="true"
-                        android:background="?android:attr/selectableItemBackground">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="16dp"
-                            android:textSize="16sp"
-                            android:text="@string/tv_feedback_title"/>
-                    </LinearLayout>
-
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

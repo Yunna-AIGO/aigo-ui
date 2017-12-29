@@ -46,6 +46,7 @@
     <string name="tv_price_unit">元</string>
     <string name="tv_pay_by_alipay_title">支付宝支付</string>
     <string name="tv_pay_by_weixin_title">微信支付</string>
+    <string name="message_pay_fail">支付失败</string>
 
     <!--order detail-->
     <string name="title_order_detail">订单详情</string>
@@ -71,9 +72,9 @@
     <string name="tv_feedback_type_problem">问题</string>
 
     <!--user center-->
-    <string name="tv_payment_title">支付方式</string>
     <string name="tv_coupon_title">优惠券</string>
     <string name="tv_guide_title">进店指南</string>
+    <string name="tv_feedback_title">意见反馈</string>
     <string name="tv_set_title">设置</string>
     <string name="tv_logout_title">退出账户</string>
     <string name="message_not_logged_in">未登录</string>
@@ -81,10 +82,9 @@
 
     <!--setting-->
     <string name="title_setting">设置</string>
+    <string name="tv_payment_title">支付方式</string>
     <string name="tv_version_title">版本号</string>
     <string name="tv_auto_login_title">免登录</string>
-    <string name="tv_feedback_title">意见反馈</string>
-
 
     <!--payment-->
     <string name="title_payment">支付方式</string>

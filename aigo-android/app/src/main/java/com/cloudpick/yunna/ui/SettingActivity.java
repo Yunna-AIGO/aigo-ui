@@ -38,9 +38,11 @@ public class SettingActivity extends AppCompatActivity {
         initComponent();
     }
 
-    @OnClick(R.id.btn_feedback)
-    void btnFeedbackClick(View v){
-        startActivity(CreateFeedbackActivity.newIntent(SettingActivity.this));
+    @OnClick(R.id.btn_payment_config)
+    void btnPaymentConfigClick(View v){
+        Intent intent = PaymentActivity.newIntent(
+                SettingActivity.this, false, false);
+        startActivity(intent);
     }
 
     private void initComponent(){

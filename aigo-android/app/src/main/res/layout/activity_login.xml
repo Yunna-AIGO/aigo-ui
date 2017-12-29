@@ -52,6 +52,7 @@
                             android:inputType="phone"
                             android:focusable="true"
                             android:textSize="16sp"
+                            android:background="@drawable/shape_round_corner_noborder"
                             android:hint="@string/et_mobile_placeholder"/>
                     </LinearLayout>
                     <LinearLayout
@@ -66,7 +67,9 @@
                             android:layout_height="30dp"
                             android:text="@string/btn_get_captcha_title"
                             android:textSize="12sp"
-                            android:background="@color/colorLightGrey"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorBlack"
+                            android:background="@drawable/shape_round_corner"
                             android:enabled="false"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -97,6 +100,7 @@
                             android:id="@+id/et_captcha"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@drawable/shape_round_corner_noborder"
                             android:inputType="number"
                             android:maxLength="6"
                             android:textSize="16sp"
@@ -126,7 +130,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
-                    android:background="@color/colorOrange"
+                    android:background="@drawable/shape_round_corner_bg_default"
                     android:text="@string/btn_login_title"
                     android:textSize="18sp"
                     android:textColor="@color/colorWhite"

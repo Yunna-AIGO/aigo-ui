@@ -10,6 +10,7 @@ import com.cloudpick.yunna.ui.R;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.enums.AlipayResultStatus;
+import com.cloudpick.yunna.utils.enums.OrderStatus;
 import com.cloudpick.yunna.utils.enums.PayType;
 import com.cloudpick.yunna.utils.http.Callback;
 import com.cloudpick.yunna.utils.http.Requests;
@@ -88,13 +89,13 @@ public class OrderListController extends BaseController {
     private void payByAlipay(Order order, Activity activity, PayAction action){
         if(payHandling){
             handler.post(()->{
-                action.failure("支付处理中...");
+                action.terminate(context.getResources().getString(R.string.message_in_process));
             });
             return;
         }
         if(!Tools.isAppInstalled(context, Constants.PACKAGE_NAME_ALIPAY)){
             handler.post(()->{
-                action.failure(context.getResources().getString(R.string.message_alipay_not_installed));
+                action.terminate(context.getResources().getString(R.string.message_alipay_not_installed));
             });
             return;
         }
@@ -107,6 +108,7 @@ public class OrderListController extends BaseController {
             @Override
             public void error(Exception e) {
                 System.out.println(e.getMessage());
+                action.terminate(context.getResources().getString(R.string.network_error));
                 payHandling = false;
             }
 
@@ -127,7 +129,7 @@ public class OrderListController extends BaseController {
                     }).start();
                 }else{
                     handler.post(()->{
-                        action.failure(r.getMessage());
+                        action.terminate(r.getMessage());
                     });
                 }
                 payHandling = false;
@@ -136,6 +138,7 @@ public class OrderListController extends BaseController {
     }
 
     public interface PayAction{
+        void terminate(String msg);//终止操作;场景：后台未生成交易单号就退出交易
         void failure(String msg);
         void ok();
     }

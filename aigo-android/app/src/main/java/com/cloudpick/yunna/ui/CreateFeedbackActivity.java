@@ -72,8 +72,8 @@ public class CreateFeedbackActivity extends AppCompatActivity {
         Drawable background;
         for(int i=0;i<btnList.length;i++){
             if(btnList[i].getId() == btn.getId()){
-                fontColor = getResources().getColor(R.color.colorLightOrange);
-                background = getResources().getDrawable(R.drawable.shape_round_corner_selected);
+                fontColor = getResources().getColor(R.color.colorDefault);
+                background = getResources().getDrawable(R.drawable.shape_round_corner_default);
             }else{
                 fontColor = getResources().getColor(R.color.colorBlack);
                 background = getResources().getDrawable(R.drawable.shape_round_corner);

@@ -1,6 +1,7 @@
 package com.cloudpick.yunna.controller;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.cloudpick.yunna.model.Feedback;
 import com.cloudpick.yunna.model.Order;
@@ -26,7 +27,7 @@ public class OrderDetailController extends BaseController {
 
 
     public void loadOrderDetail(String orderId, final loadOrderAction action){
-        if(orderId.equals("")){
+        if(TextUtils.isEmpty(orderId)){
             handler.post(()->{action.failure();});
         }else{
             String url = String.format(Constants.URL_ORDER_INFO, orderId);

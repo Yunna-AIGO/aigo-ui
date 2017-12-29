@@ -7,7 +7,7 @@
     tools:context=".CouponActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb_coupon"
@@ -16,31 +16,32 @@
             android:layout_width="match_parent" >
         </android.support.v7.widget.Toolbar>
         <FrameLayout
+            android:id="@+id/fl_coupon_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager_coupon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tab_layout_coupon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <android.support.design.widget.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tab_coupon_unused" />
-                    <android.support.design.widget.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tab_coupon_used" />
-                    <android.support.design.widget.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tab_coupon_expired" />
-                </android.support.design.widget.TabLayout>
-            </android.support.v4.view.ViewPager>
+            <!--<android.support.v4.view.ViewPager-->
+                <!--android:id="@+id/pager_coupon"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+                <!--<android.support.design.widget.TabLayout-->
+                    <!--android:id="@+id/tab_layout_coupon"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<android.support.design.widget.TabItem-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/tab_coupon_unused" />-->
+                    <!--<android.support.design.widget.TabItem-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/tab_coupon_used" />-->
+                    <!--<android.support.design.widget.TabItem-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/tab_coupon_expired" />-->
+                <!--</android.support.design.widget.TabLayout>-->
+            <!--</android.support.v4.view.ViewPager>-->
 
 
             <View android:layout_width="match_parent"

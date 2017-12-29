@@ -36,6 +36,9 @@ public class LoginController extends BaseController {
                         @Override
                         public void error(Exception e){
                             System.out.println(e.getMessage());
+                            handler.post(()->{
+                                action.failure(context.getResources().getString(R.string.network_error));
+                            });
                         }
                         @Override
                         public void ok(Response<Map<String, String>> r){
@@ -71,6 +74,9 @@ public class LoginController extends BaseController {
                         @Override
                         public void error(Exception e){
                             System.out.println(e.getMessage());
+                            handler.post(()->{
+                                action.failure(context.getResources().getString(R.string.network_error));
+                            });
                         }
                         @Override
                         public void ok(Response<Map<String, Object>> r){
@@ -81,7 +87,9 @@ public class LoginController extends BaseController {
                                     String token = r.getData().get(Constants.KEY_TOKEN).toString();
                                     User.getUser().saveToken(userId, token);
                                 }catch (Exception e){
-                                    action.failure(context.getResources().getText(R.string.login_success_failure) + ":" + e.getMessage());
+                                    handler.post(()->{
+                                        action.failure(context.getResources().getString(R.string.login_success_failure));
+                                    });
                                     return;
                                 }
                                 handler.post(()->{

@@ -57,7 +57,8 @@ public class AppealFeedbackDetailActivity extends AppCompatActivity {
 
         tv_orderId.setText(getResources().getString(R.string.tv_orderId_title) + "：" + feedback.getOrderNo());
         tv_appeal_desc.setText(feedback.getDesc());
-        tv_handle_result.setText(feedback.getHandleResult());
+        //tv_handle_result.setText(feedback.getHandleResult());
+        tv_handle_result.setText("fdasfdasdfasdfasdfasdfsadfoipjklxcjvoi  asiodfjlzxcvjuoi xziocfvuj soioasij fdsiaou fasoiu fdsaoiu fdsaoi oi");
 
         //load goods list
         Fragment frag = GoodsListFragment.newInstance(goodsList);

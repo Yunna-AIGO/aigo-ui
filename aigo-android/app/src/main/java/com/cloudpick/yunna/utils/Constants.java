@@ -12,7 +12,7 @@ public class Constants {
     private static final String urlPrefix = Define.getUrlPrefix();
 
     //app
-    public static final String VERSION = "1.0.0.alpha";
+    public static final String VERSION = "1.2.0";
     public static final String APP_NAMESPACE = "com.cloudpick.yunna";
     public static final Integer REFRESH_QRCODE_INTERVAL = 1000 * 60;
     public static final Integer ORDER_PAGE_SIZE = 10;

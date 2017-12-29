@@ -39,6 +39,8 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.tb_order_detail)
     Toolbar toolbar;
+    @BindView(R.id.tv_orderId)
+    TextView tv_orderId;
     @BindView(R.id.tv_storeName)
     TextView tv_storeName;
     @BindView(R.id.tv_date)
@@ -124,27 +126,21 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private void setButtonAsAppeal(){
         btn_order_appeal.setVisibility(View.VISIBLE);
-        btn_order_appeal.setBackground(getResources().getDrawable(R.drawable.shape_round_corner));
         btn_order_appeal.setEnabled(true);
-        btn_order_appeal.setTextColor(getResources().getColor(R.color.colorRed));
         btn_order_appeal.setText(R.string.btn_order_appeal_title);
         btn_order_appeal.setTag(1);
     }
 
     private void setButtonAsStatus(String status){
         btn_order_appeal.setVisibility(View.VISIBLE);
-        btn_order_appeal.setBackground(getResources().getDrawable(R.drawable.shape_round_corner_noborder));
         btn_order_appeal.setEnabled(false);
-        btn_order_appeal.setTextColor(getResources().getColor(R.color.colorLightOrange));
         btn_order_appeal.setText(status);
         btn_order_appeal.setTag(0);
     }
 
     private void setButtonAsDone(){
         btn_order_appeal.setVisibility(View.VISIBLE);
-        btn_order_appeal.setBackground(getResources().getDrawable(R.drawable.shape_round_corner));
         btn_order_appeal.setEnabled(true);
-        btn_order_appeal.setTextColor(getResources().getColor(R.color.colorLightOrange));
         btn_order_appeal.setText(FeedbackStatus.DONE.getName());
         btn_order_appeal.setTag(2);
     }
@@ -152,12 +148,14 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private void setOrderInfo(Order orderInfo){
         this.order = orderInfo;
+        tv_orderId.setText("");
         tv_storeName.setText("");
         tv_date.setText("");
         tv_orderOrgnAmount.setText("");
         tv_orderAmount.setText("");
         tv_orderStatus.setText("");
         if(orderInfo != null){
+            tv_orderId.setText(orderInfo.getOrderId());
             tv_storeName.setText(orderInfo.getOrderDesc());
             tv_date.setText(orderInfo.getPayTime());
             tv_orderStatus.setText(orderInfo.getStatusName());

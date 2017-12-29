@@ -14,6 +14,7 @@
     <string name="tv_refresh_qrcode_title">点击刷新二维码</string>
     <string name="welcome">欢迎光临</string>
     <string name="scan_qrcode_message">请扫二维码进店</string>
+    <string name="message_goto_order_page">请去订单页支付</string>
 
 
     <!--login page-->
@@ -40,16 +41,18 @@
     <string name="tab_topup_title">充值记录</string>
     <string name="message_take_something">随便拿点啥吧~</string>
     <string name="message_please_topup">请去充值哦～</string>
-    <string name="btn_pay_title">去支付</string>
     <string name="tv_select_paytype_title">请选择支付方式</string>
     <string name="tv_paydesc_title">需支付</string>
     <string name="tv_price_unit">元</string>
     <string name="tv_pay_by_alipay_title">支付宝支付</string>
     <string name="tv_pay_by_weixin_title">微信支付</string>
-    <string name="message_pay_fail">支付失败</string>
+    <string name="message_pay_failed">支付失败</string>
+    <string name="message_goto_pay_order">去支付</string>
+    <string name="message_in_payment">支付中</string>
 
     <!--order detail-->
     <string name="title_order_detail">订单详情</string>
+    <string name="tv_orderId_short_title">单号：</string>
     <string name="tv_store_title">门店：</string>
     <string name="tv_order_date_title">日期：</string>
     <string name="tv_order_amount_title">金额：</string>
@@ -57,6 +60,7 @@
     <string name="tv_goods_list_title">商品列表</string>
     <string name="btn_order_appeal_title">申诉</string>
     <string name="tv_orderId_title">订单编号</string>
+
 
     <!--order appeal-->
     <string name="title_order_appeal">订单申诉</string>
@@ -76,9 +80,9 @@
     <string name="tv_guide_title">进店指南</string>
     <string name="tv_feedback_title">意见反馈</string>
     <string name="tv_set_title">设置</string>
-    <string name="tv_logout_title">退出账户</string>
+    <string name="tv_logout_title">退出账号</string>
     <string name="message_not_logged_in">未登录</string>
-    <string name="message_signout">确认退出登录？</string>
+    <string name="message_signout">您确定要退出账号吗？</string>
 
     <!--setting-->
     <string name="title_setting">设置</string>
@@ -118,7 +122,6 @@
     <string name="commit">提交</string>
     <string name="commit_failed">提交失败</string>
     <string name="commit_success">提交成功</string>
+    <string name="message_in_process">处理中...</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

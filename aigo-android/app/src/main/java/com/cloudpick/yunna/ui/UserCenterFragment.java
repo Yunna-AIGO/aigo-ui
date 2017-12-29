@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,12 +101,12 @@ public class UserCenterFragment extends Fragment {
             @Override
             public void ok() {
                 String name = User.getUser().getNickName();
-                if(name == null || name.equals("")){
+                if(TextUtils.isEmpty(name)){
                     name = Tools.hidePartialPhone(User.getUser().getMobile());
                 }
                 tv_name.setText(name);
                 String picUrl = User.getUser().getPicUrl();
-                if(picUrl != null && !picUrl.equals("")){
+                if(!TextUtils.isEmpty(picUrl)){
                     DisplayImageOptions options = new DisplayImageOptions.Builder()
                             .showImageOnLoading(R.drawable.icon_mine_active)
                             .showImageOnFail(R.drawable.icon_mine_active)

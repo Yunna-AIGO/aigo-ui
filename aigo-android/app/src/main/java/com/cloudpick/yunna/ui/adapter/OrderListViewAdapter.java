@@ -70,18 +70,32 @@ public class OrderListViewAdapter extends BaseAdapter implements ListAdapter {
             tv.setText(order.getOrderAmount(true));
             tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        Button btn_pay = (Button)view.findViewById(R.id.btn_pay);
+        Button btn = (Button)view.findViewById(R.id.btn_pay);
         if(order.unPaid()){
-            btn_pay.setVisibility(View.VISIBLE);
-            btn_pay.setOnClickListener((v)->{
-                if(listener != null){
-                    listener.payOrder(order);
-                }
-            });
+            setButtonAsPay(btn, order);
+        }else if(order.isInPayment()){
+            setButtonAsInPayment(btn);
         }else{
-            btn_pay.setVisibility(View.INVISIBLE);
+            btn.setVisibility(View.INVISIBLE);
         }
         return view;
+    }
+
+    private void setButtonAsPay(Button btn, Order order){
+        btn.setVisibility(View.VISIBLE);
+        btn.setEnabled(true);
+        btn.setText(R.string.message_goto_pay_order);
+        btn.setOnClickListener((v)->{
+            if(listener != null){
+                listener.payOrder(order);
+            }
+        });
+    }
+
+    private void setButtonAsInPayment(Button btn){
+        btn.setVisibility(View.VISIBLE);
+        btn.setText(R.string.message_in_payment);
+        btn.setEnabled(false);
     }
 
     public void addNewItems(ArrayList<Order> orders){

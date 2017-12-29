@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -97,5 +98,32 @@ public class OrderAppealActivity extends AppCompatActivity {
         Intent intent = new Intent(packageContext, OrderAppealActivity.class);
         intent.putExtra(ORDER_OBJECT_KEY, order);
         return intent;
+    }
+
+    /**
+     * 获取点击事件
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View view = getCurrentFocus();
+            if (isShouldHideKeyBord(view, ev)) {
+                Tools.hideSoftInput(OrderAppealActivity.this, view.getWindowToken());
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 判定当前是否需要隐藏
+     */
+    protected boolean isShouldHideKeyBord(View v, MotionEvent ev) {
+        if (v != null && (v instanceof EditText)) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
+            return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
+        }
+        return false;
     }
 }

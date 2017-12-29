@@ -1,5 +1,7 @@
 package com.cloudpick.yunna.utils.http;
 
+import android.text.TextUtils;
+
 import com.cloudpick.yunna.utils.Constants;
 
 import java.util.Map;
@@ -31,7 +33,7 @@ public class Response<T>{
     }
 
     public String getMessage(String prefix){
-        if(message.equals("")){return prefix;}
+        if(TextUtils.isEmpty(message)){return prefix;}
         else{return prefix + ":" + message;}
     }
 

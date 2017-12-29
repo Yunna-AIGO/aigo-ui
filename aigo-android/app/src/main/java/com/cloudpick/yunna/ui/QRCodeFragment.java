@@ -73,14 +73,6 @@ public class QRCodeFragment extends Fragment {
         refreshQrCode(true);
     }
 
-    @OnClick(R.id.tv_msg2)
-    void clickRefreshQrCodeView(View v){
-        boolean flag = (boolean)tv_msg2.getTag();
-        if(flag){
-            refreshQrCode(true);
-        }
-    }
-
     private void loadSliderImages(View v){
         //TODO: 目前图片为本地图片，以后改为远程图片的话，需要异步加载图片
         HashMap<String, Integer> url_imgs = new HashMap<String, Integer>();
@@ -104,19 +96,18 @@ public class QRCodeFragment extends Fragment {
             @Override
             public void error(){
                 //网络问题
-                showQrCodeFailed(getResources().getString(R.string.network_error));
+                showQrCodeFailed(getResources().getString(R.string.network_error), false);
             }
             @Override
             public void failure(String msg) {
                 //获取二维码失败,有未支付的订单
-                showQrCodeFailed(msg);
+                showQrCodeFailed(msg, true);
             }
             @Override
             public void ok(Bitmap qrcodeImage) {
                 qrcodeImageView.setVisibility(View.VISIBLE);
                 tv_msg1.setText(R.string.welcome);
                 tv_msg2.setText(R.string.scan_qrcode_message);
-                tv_msg2.setTag(false);
                 tv_msg2.setTextColor(getResources().getColor(R.color.colorBlack));
                 if(qrcodeImage !=null){
                     qrcodeImageView.setImageBitmap(qrcodeImage);
@@ -128,12 +119,14 @@ public class QRCodeFragment extends Fragment {
         });
     }
 
-    private void showQrCodeFailed(String msg){
+    private void showQrCodeFailed(String msg, boolean flag){
         qrcodeImageView.setVisibility(View.INVISIBLE);
         tv_msg1.setText(msg);
-        tv_msg2.setText(R.string.tv_refresh_qrcode_title);
-        tv_msg2.setTag(true);
-        tv_msg2.setTextColor(getResources().getColor(R.color.colorOrange));
+        if(flag){
+            tv_msg2.setText(R.string.message_goto_order_page);
+        }else{
+            tv_msg2.setText("");
+        }
         stopAutoRefreshQrCode();
     }
 

@@ -59,7 +59,10 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
         btn_ok.setOnClickListener(this);
         tv_order_amount.setText(order.getDiscountPrice(false));
 
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
+        ArrayList<PayTypeInfo> payTypes = getPayTypes();
+
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(
+                payTypes.size(), StaggeredGridLayoutManager.HORIZONTAL);
         rv_pay_type.setLayoutManager(layoutManager);
 
         adapter = new CommonRecyclerViewAdapter<PayTypeInfo>(getContext(), R.layout.item_paytype,
@@ -77,7 +80,7 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
                     img_paytype_select.setImageResource(resId);
                 });
         rv_pay_type.setAdapter(adapter);
-        adapter.setDataSource(getPayTypes());
+        adapter.setDataSource(payTypes);
     }
 
     private ArrayList<PayTypeInfo> getPayTypes(){

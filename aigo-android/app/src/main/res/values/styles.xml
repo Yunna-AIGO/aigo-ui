@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorOrange</item>
+        <item name="colorPrimary">@color/colorDefault</item>
         <item name="colorPrimaryDark">@color/colorLightBlack</item>
-        <item name="colorAccent">@color/colorOrange</item>
+        <item name="colorAccent">@color/colorDefault</item>
         <item name="android:windowBackground">@color/colorLightGrey</item>
     </style>
 
@@ -38,6 +38,11 @@
         <item name="android:paddingRight">10dp</item>
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="animation_dialog_select_paytype" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_select_paytype_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_select_paytype_exit</item>
     </style>
 
 </resources>

@@ -95,7 +95,6 @@ public class Order extends BaseModel implements Parcelable{
         try{
             return DateUtil.getDayOfWeek(gmtCreate);
         }catch(Exception e){
-            System.out.println(e.getMessage());
             return "";
         }
     }
@@ -104,26 +103,33 @@ public class Order extends BaseModel implements Parcelable{
         try{
             return DateUtil.getShortDate(gmtCreate);
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return "";
         }
     }
 
     public String getOrderAmount(boolean includeCurrencyTag){
-        String ret = String.format("%.2f", orderAmt);
-        if(includeCurrencyTag){
-            ret = "¥" + ret;
+        try{
+            String ret = String.format("%.2f", orderAmt);
+            if(includeCurrencyTag){
+                ret = "¥" + ret;
+            }
+            return ret;
+        }catch (Exception ex){
+            return "";
         }
-        return ret;
     }
 
     public String getDiscountPrice(boolean includeCurrencyTag){
-        Double discountAmt = orderAmt - getCouponAmount();
-        String ret = String.format("%.2f", discountAmt);
-        if(includeCurrencyTag){
-            ret = "¥" + ret;
+        try{
+            Double discountAmt = orderAmt - getCouponAmount();
+            String ret = String.format("%.2f", discountAmt);
+            if(includeCurrencyTag){
+                ret = "¥" + ret;
+            }
+            return ret;
+        }catch (Exception ex){
+            return "";
         }
-        return ret;
     }
 
     public boolean hasDiscount(){
@@ -146,8 +152,11 @@ public class Order extends BaseModel implements Parcelable{
 
     public boolean unPaid(){
         return status.equals(OrderStatus.INIT.getCode()) ||
-                status.equals(OrderStatus.TIMEOUT.getCode()) ||
-                status.equals((OrderStatus.IN_PAYMENT.getCode()));
+                status.equals(OrderStatus.TIMEOUT.getCode());
+    }
+
+    public boolean isInPayment(){
+        return status.equals(OrderStatus.IN_PAYMENT.getCode());
     }
 
     public boolean paid(){
@@ -177,10 +186,6 @@ public class Order extends BaseModel implements Parcelable{
         out.writeDouble(orderAmt);
         out.writeDouble(unPaidAmt);
         out.writeTypedList(goodsList);
-
-//        Goods[] arr = new Goods[goodsList.size()];
-//        goodsList.toArray(arr);
-//        out.writeParcelableArray(arr, flags);
     }
 
     private Order(Parcel in)

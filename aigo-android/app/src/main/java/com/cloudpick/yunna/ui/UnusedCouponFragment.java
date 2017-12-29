@@ -87,7 +87,13 @@ public class UnusedCouponFragment extends Fragment {
         }).start();
     }
 
-
+    public static UnusedCouponFragment newInstance(CouponController controller){
+        UnusedCouponFragment frag = new UnusedCouponFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(CouponActivity.COUPON_CONTROLLER, controller);
+        frag.setArguments(args);
+        return frag;
+    }
 
 
 

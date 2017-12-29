@@ -49,14 +49,15 @@
                             android:layout_height="30dp"
                             android:text="@string/tv_feedback_type_advice"
                             android:layout_marginLeft="10dp"
-                            android:textColor="@color/colorLightOrange"
-                            android:background="@drawable/shape_round_corner_selected"/>
+                            android:textColor="@color/colorDefault"
+                            android:background="@drawable/shape_round_corner_default"/>
                         <Button
                             android:id="@+id/btn_feedback_problem"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:layout_marginLeft="10dp"
                             android:text="@string/tv_feedback_type_problem"
+                            android:textColor="@color/colorBlack"
                             android:background="@drawable/shape_round_corner"/>
                     </LinearLayout>
                     <LinearLayout
@@ -64,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_margin="10dp"
-                        android:background="@color/colorLightGrey">
+                        android:background="@drawable/shape_round_corner_textarea">
                         <EditText
                             android:id="@+id/et_feedback_content"
                             android:layout_width="match_parent"
@@ -92,7 +93,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:textAlignment="center"
-                            android:background="@color/colorRed"
+                            android:background="@drawable/shape_round_corner_bg_default"
                             android:textColor="@color/colorWhite"
                             android:textSize="16sp"
                             android:text="@string/commit"/>

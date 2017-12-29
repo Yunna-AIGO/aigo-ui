@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -16,7 +19,6 @@ import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.adapter.OrderListViewAdapter;
 import com.cloudpick.yunna.ui.dialog.PayTypeSelectDialog;
 import com.cloudpick.yunna.utils.Tools;
-import com.cloudpick.yunna.utils.enums.OrderStatus;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -114,17 +116,32 @@ public class OrdersFragment extends Fragment {
         PayTypeSelectDialog dlg = new PayTypeSelectDialog(getContext(), order, (payType) -> {
             controller.payOrder(order, payType, getActivity(), new OrderListController.PayAction() {
                 @Override
-                public void failure(String msg) {
+                public void terminate(String msg){
                     Tools.ToastMessage(getContext(), msg);
                 }
-
+                @Override
+                public void failure(String msg) {
+                    Log.d("ssss", "failure refresh");
+                    refreshOrders(null);
+                    Tools.ToastMessage(getContext(), msg);
+                }
                 @Override
                 public void ok() {
-                    order.setStatus(OrderStatus.SUCCESS.getCode());
-                    adapter.notifyDataSetChanged();
+                    Log.d("ssss", "ok refresh");
+                    refreshOrders(null);
+//                    order.setStatus(OrderStatus.SUCCESS.getCode());
+//                    adapter.notifyDataSetChanged();
                 }
             });
         });
+
+        try{
+            Window win = dlg.getWindow();
+            win.getAttributes().gravity = Gravity.BOTTOM;
+            win.setWindowAnimations(R.style.animation_dialog_select_paytype);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
         dlg.show();
     }
 }

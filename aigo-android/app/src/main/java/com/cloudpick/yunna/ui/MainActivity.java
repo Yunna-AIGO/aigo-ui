@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity {
                 }
                 newFragment = orderFragment;
                 toolbar.setTitle(R.string.tab_order_title);
-                navigation.getMenu().findItem(id).setIcon(R.drawable.icon_order);
+                navigation.getMenu().findItem(id).setIcon(R.drawable.icon_order_active);
                 break;
             case R.id.navigation_user_center:
                 if(userCenterFragment == null){

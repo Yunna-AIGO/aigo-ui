@@ -51,7 +51,8 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         Coupon c = couponList.get(position);
         holder.tv_coupon_amount.setText(c.getCouponAmt());
-        holder.tv_coupon_type.setText(c.getCouponCategory());
+        //holder.tv_coupon_type.setText(c.getCouponCategory());
+        holder.tv_coupon_type.setText(c.getCouponDesc());
         holder.tv_coupon_desc.setText(c.getCouponLongDesc());
         holder.tv_coupon_instructions.setText(c.getCouponInstructions());
         holder.tv_coupon_expiredin.setText(c.getCouponExpiredIn());

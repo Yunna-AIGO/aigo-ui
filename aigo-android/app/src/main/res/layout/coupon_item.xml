@@ -54,7 +54,7 @@
                     android:id="@+id/tv_coupon_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:layout_below="@+id/tv_currency"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/colorWhite"

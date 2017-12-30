@@ -87,6 +87,7 @@ public class CreateFeedbackActivity extends AppCompatActivity {
     void commitFeedback(View v){
         String content = et_feedback_content.getText().toString();
         if(TextUtils.isEmpty(content)){
+            Tools.ToastMessage(CreateFeedbackActivity.this, R.string.message_feedback_content_empty);
             return;
         }
         controller.commitFeedback(content, feedbackType, new SettingController.commitFeedbackAction() {

@@ -72,6 +72,7 @@ public class OrderAppealActivity extends AppCompatActivity {
     void commitAppeal(View v){
         String appealDesc = et_order_appeal_content.getText().toString();
         if(TextUtils.isEmpty(appealDesc)){
+            Tools.ToastMessage(OrderAppealActivity.this, R.string.message_order_appeal_content_empty);
             return;
         }
         controller.commitAppeal(order, appealDesc, new OrderAppealController.commitAppealAction() {

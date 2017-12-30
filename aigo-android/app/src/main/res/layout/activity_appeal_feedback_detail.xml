@@ -30,29 +30,54 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
                         android:orientation="vertical"
                         android:theme="@style/cell">
-                        <TextView
-                            android:id="@+id/tv_orderId"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:theme="@style/textViewPadding"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:theme="@style/cell">
+                            <TextView
+                                android:id="@+id/tv_orderId"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:theme="@style/textViewPadding"
+                                android:textSize="16sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/colorLightGrey"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:theme="@style/cell">
+                            <TextView
+                                android:theme="@style/textViewPadding"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="@string/tv_order_appeal_desc_title"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/colorLightGrey"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
                             <TextView
-                                android:theme="@style/textViewPadding"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/tv_order_appeal_desc_title"/>
-                            <TextView
                                 android:id="@+id/tv_appeal_desc"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:minHeight="50dp"
+                                android:textSize="16sp"
                                 android:theme="@style/textViewPadding"/>
                         </LinearLayout>
                         <LinearLayout
@@ -61,17 +86,31 @@
                             android:background="@color/colorLightGrey"/>
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:theme="@style/cell">
                             <TextView
                                 android:theme="@style/textViewPadding"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textSize="16sp"
                                 android:text="@string/tv_feedback_handle_result_title"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/colorLightGrey"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
                             <TextView
                                 android:id="@+id/tv_handle_result"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:minHeight="50dp"
+                                android:textSize="16sp"
                                 android:theme="@style/textViewPadding"/>
                         </LinearLayout>
                     </LinearLayout>

@@ -66,6 +66,7 @@
     <string name="title_order_appeal">订单申诉</string>
     <string name="tv_order_appeal_desc_title">问题描述</string>
     <string name="et_order_appeal_hint">请您在此填写申诉内容</string>
+    <string name="message_order_appeal_content_empty">请输入问题描述</string>
 
     <!--feedback-->
     <string name="title_feedback">意见反馈</string>
@@ -74,6 +75,8 @@
     <string name="tv_feedback_type_title">反馈类型</string>
     <string name="tv_feedback_type_advice">建议</string>
     <string name="tv_feedback_type_problem">问题</string>
+    <string name="et_feedback_hint">请输入建议或者问题的描述</string>
+    <string name="message_feedback_content_empty">请输入问题描述</string>
 
     <!--user center-->
     <string name="tv_coupon_title">优惠券</string>

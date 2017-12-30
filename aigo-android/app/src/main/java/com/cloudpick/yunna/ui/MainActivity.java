@@ -69,7 +69,7 @@ public class MainActivity extends FragmentActivity {
                 if(qrcodeFragment == null){
                     qrcodeFragment = new QRCodeFragment();
                 }else{
-                    ((QRCodeFragment)qrcodeFragment).startAutoRefreshQrCode();
+                    ((QRCodeFragment)qrcodeFragment).refreshQrCode(true);
                 }
                 newFragment = qrcodeFragment;
                 toolbar.setTitle(R.string.title_qrcode);

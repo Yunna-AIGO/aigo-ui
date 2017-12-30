@@ -90,7 +90,7 @@ public class QRCodeFragment extends Fragment {
         slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
     }
 
-    private void refreshQrCode(boolean startAutoRefreshQrCode){
+    public void refreshQrCode(boolean startAutoRefreshQrCode){
         Log.d("ssss", "refresh qrcode");
         controller.refreshQrCode(new QRCodeController.refreshQrCodeAction() {
             @Override

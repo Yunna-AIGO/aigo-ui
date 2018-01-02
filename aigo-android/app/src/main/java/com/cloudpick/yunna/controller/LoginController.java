@@ -92,8 +92,8 @@ public class LoginController extends BaseController {
                                     });
                                     return;
                                 }
+                                boolean isBindingPayment = PaymentController.isBindingPayment(ThirdType.ALIPAY);
                                 handler.post(()->{
-                                    boolean isBindingPayment = PaymentController.isBindingPayment(ThirdType.ALIPAY);
                                     boolean hasCoupon = false;
                                     String couponAmount = "";
                                     try{

@@ -81,14 +81,17 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void initComponent(){
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.setNavigationOnClickListener((v)->{
-            PaymentActivity.this.finish();
-        });
+        if(!navToMainActivity){
+            //不是导航到主页面的话，显示回退按钮
+            toolbar.setNavigationIcon(R.drawable.back);
+            toolbar.setNavigationOnClickListener((v)->{
+                PaymentActivity.this.finish();
+            });
+        }
         if(showToolbarMenu){
             toolbar.setOnMenuItemClickListener((item)->{
                 switch (item.getItemId()) {
-                    case R.id.action_edit:
+                    case R.id.action_skip:
                         navToMainActivity();
                         break;
                 }
@@ -163,7 +166,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void navToMainActivity(){
-        Intent intent = MainActivity.newIntent(PaymentActivity.this);
+        Intent intent = MainActivity.newIntent(PaymentActivity.this, false);
         startActivity(intent);
         PaymentActivity.this.finish();
     }

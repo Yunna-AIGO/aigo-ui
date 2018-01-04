@@ -86,7 +86,7 @@ public class UserCenterFragment extends Fragment {
                 .setNegativeButton(R.string.title_cancel, (d,i)->{})
                 .setPositiveButton(R.string.title_ok, (d,i)->{
                     controller.signout();
-                    startActivity(LoginActivity.newIntent(getContext()));
+                    startActivity(LoginActivity.newIntent(getContext(), false));
                     getActivity().finish();
                 }).show();
     }

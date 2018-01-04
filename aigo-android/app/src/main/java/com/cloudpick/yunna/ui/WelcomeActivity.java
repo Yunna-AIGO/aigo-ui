@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.utils.NotificationHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -28,12 +29,11 @@ public class WelcomeActivity extends Activity {
             new Thread(()->{
                 runOnUiThread(()->{
                     if(!User.getUser().checkUser()){
-                        startActivity(LoginActivity.newIntent(WelcomeActivity.this));
-                        WelcomeActivity.this.finish();
+                        startActivity(LoginActivity.newIntent(WelcomeActivity.this, true));
                     }else{
-                        startActivity(MainActivity.newIntent(WelcomeActivity.this));
-                        WelcomeActivity.this.finish();
+                        startActivity(MainActivity.newIntent(WelcomeActivity.this, true));
                     }
+                    WelcomeActivity.this.finish();
                 });
             }).start();
         }
@@ -51,12 +51,15 @@ public class WelcomeActivity extends Activity {
     }
 
     private void initApp(){
+        //init user instance
         User.getUser().init(getApplicationContext());
-
+        //init imageLoader
         ImageLoaderConfiguration config = new ImageLoaderConfiguration
                 .Builder(getApplicationContext())
                 .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);
+        //init notification
+        NotificationHelper.getInstance().init(WelcomeActivity.this);
     }
 }

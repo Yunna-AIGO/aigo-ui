@@ -63,8 +63,7 @@ public class QRCodeFragment extends Fragment {
 
     private void initComponent(View v){
         loadSliderImages(v);
-        //在resetQrcodeImageView方法中刷新二维码，此处不再刷新
-        //refreshQrCode(true);
+        refreshQrCode(true);
     }
 
     @OnClick(R.id.img_qr_code)
@@ -131,10 +130,10 @@ public class QRCodeFragment extends Fragment {
     }
 
     public void startAutoRefreshQrCode(){
-        Log.d("ssss", "start refresh qrcode");
         if(timer != null){
             return;
         }
+        Log.d("ssss", "start refresh qrcode");
         timer = new Timer();
         autoRefreshQrCodeTask = new TimerTask() {
             @Override
@@ -146,8 +145,8 @@ public class QRCodeFragment extends Fragment {
     }
 
     public void stopAutoRefreshQrCode(){
-        Log.d("ssss", "stop refresh qrcode");
         if(timer != null){
+            Log.d("ssss", "stop refresh qrcode");
             try{
                 timer.cancel();
                 timer = null;
@@ -163,13 +162,12 @@ public class QRCodeFragment extends Fragment {
         stopAutoRefreshQrCode();
     }
 
-    public void resetQrcodeImageView(){
+    public void resetQrcodeImageViewSize(){
         int h = Math.min(ll_qrcode.getHeight(), ll_qrcode.getWidth());
         h = (int)(h / 1.5);
         LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams)qrcodeImageView.getLayoutParams();
         ll.width = h;
         ll.height = h;
         qrcodeImageView.setLayoutParams(ll);
-        refreshQrCode(true);
     }
 }

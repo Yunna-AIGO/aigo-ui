@@ -4,51 +4,92 @@
     android:layout_height="match_parent"
     android:layout_marginTop="4dp"
     tools:context="com.cloudpick.yunna.ui.OrdersFragment">
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/layout_empty"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/ll_coupon_notify_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/img_no_order"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="20dp"
-                android:layout_centerInParent="true"
-                android:tint="@color/colorOrange"
-                android:src="@drawable/cart"/>
-            <TextView
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:theme="@style/cell">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:layout_below="@+id/img_no_order"
-                android:textSize="16dp"
-                android:text="@string/message_take_something" />
-        </RelativeLayout>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                android:orientation="horizontal"
+                android:gravity="center_vertical|center_horizontal">
+                <!--<ImageView-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:src="@drawable/coupon"/>-->
+                <TextView
+                    android:id="@+id/tv_coupon_notify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:padding="5dp"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/layout_items"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorGrey"/>
+        </LinearLayout>
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <ListView
-            android:id="@+id/lv_order"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent">
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/layout_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible">
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img_no_order"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_centerInParent="true"
+                        android:tint="@color/colorOrange"
+                        android:src="@drawable/cart"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/colorBlack"
+                        android:layout_below="@+id/img_no_order"
+                        android:textSize="16dp"
+                        android:text="@string/message_take_something" />
+                </RelativeLayout>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/layout_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <ListView
+                    android:id="@+id/lv_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+
 
 </FrameLayout>

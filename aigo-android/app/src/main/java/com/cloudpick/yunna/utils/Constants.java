@@ -7,12 +7,9 @@ package com.cloudpick.yunna.utils;
 public class Constants {
     // options
 
-    // local test
-    //private static final String urlPrefix = "http://192.168.2.120:9000/api/v1/";
     private static final String urlPrefix = Define.getUrlPrefix();
 
     //app
-    public static final String VERSION = "1.2.0";
     public static final String APP_NAMESPACE = "com.cloudpick.yunna";
     public static final Integer REFRESH_QRCODE_INTERVAL = 1000 * 60;
     public static final Integer ORDER_PAGE_SIZE = 10;
@@ -43,6 +40,10 @@ public class Constants {
     public static final String KEY_ALIPAY_RESULT_STATUS = "resultStatus";
     public static final String KEY_ALIPAY_RESULT_RESULT = "result";
     public static final String KEY_ALIPAY_RESULT_MEMO = "memo";
+    public static final String KEY_VERSION_NO = "versionNo";
+    public static final String KEY_DOWNLOAD_URL = "downloadUrl";
+    public static final String KEY_IS_FORCE = "force";
+    public static final String KEY_OS_TYPE = "osType";
 
 
 
@@ -61,6 +62,7 @@ public class Constants {
     public static final String URL_TRADE_INFO = urlPrefix + "trade/%s/info";
     public static final String URL_FEEDBACK_INSERT = urlPrefix + "feedback/insert";
     public static final String URL_FEEDBACK_QUERY = urlPrefix + "feedback/select/%s";
+    public static final String URL_APP_VERSION = urlPrefix + "app/version";
 
 
 }

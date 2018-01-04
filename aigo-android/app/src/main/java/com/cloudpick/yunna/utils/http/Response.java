@@ -59,4 +59,27 @@ public class Response<T>{
     public T getUserInfo() {
         return userInfo;
     }
+
+    //版本api返回数据格式
+    //{"code":"0000","osType":"android","versionNo":"1.2.2","downloadUrl":"https://www.pgyer.com/JomV","force":false,"success":true}
+    private String osType;
+    private String versionNo;
+    private String downloadUrl;
+    private boolean force;
+
+    public String getOsType() {
+        return osType;
+    }
+
+    public String getVersionNo() {
+        return versionNo;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public boolean isForce() {
+        return force;
+    }
 }

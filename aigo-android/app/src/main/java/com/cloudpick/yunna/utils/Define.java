@@ -1,50 +1,59 @@
 package com.cloudpick.yunna.utils;
 
+import com.cloudpick.yunna.ui.BuildConfig;
+
 /**
  * Created by maxwell on 17-12-19.
  */
 
 public class Define {
 
-    public static AppEnv appEnv = AppEnv.DEV;
-
-    public static String getUrlPrefix(){
-        if(appEnv == AppEnv.PROD){
-            return "http://47.100.13.231/cloudpick/rest/api/v1/";
-        }else{
-            return "http://10.10.10.130:8080/cloudpick/rest/api/v1/";
+    public static AppEnv getAppEnv(){
+        switch(BuildConfig.APP_ENV){
+            case 0:
+                return AppEnv.DEV;
+            case 1:
+                return AppEnv.TEST;
+            case 2:
+                return AppEnv.PROD;
+            default:
+                return AppEnv.DEV;
         }
     }
 
-    public static String getAppName(){
-        if(appEnv == AppEnv.DEV){
-            return "云拿-开发";
-        }else if(appEnv == AppEnv.TEST){
-            return "云拿-测试";
-        }else{
-            return "云拿";
-        }
+    public static String getUrlPrefix(){
+        return BuildConfig.BASE_URL;
     }
 
     public static boolean showSkipInBindingPayment(){
-        if(appEnv == AppEnv.PROD){
+        if(getAppEnv() == AppEnv.PROD){
             return false;
         }else{
             return true;
         }
     }
 
+    public static String getAppVersion(){
+        return BuildConfig.VERSION_NAME;
+    }
+
     public enum AppEnv{
-        DEV("DEV"), TEST("TEST"), PROD("PROD");
+        DEV(0, "DEV"), TEST(1, "TEST"), PROD(2, "PROD");
 
-        private final String value;
+        private final int code;
+        private final String name;
 
-        AppEnv(String value){
-            this.value = value;
+        AppEnv(int code, String name){
+            this.code = code;
+            this.name = name;
         }
 
-        public String getValue(){
-            return value;
+        public int getCode(){
+            return code;
+        }
+
+        public String getName(){
+            return name;
         }
     }
 }

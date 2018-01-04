@@ -61,6 +61,40 @@
                     android:background="@color/colorGrey">
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/ll_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:theme="@style/cell">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="16dp"
+                            android:textSize="16sp"
+                            android:text="@string/tv_notification_title"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingRight="10dp"
+                            android:gravity="right|center_vertical">
+                            <Switch
+                                android:id="@+id/sw_notification"
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/colorGrey">
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center_vertical"

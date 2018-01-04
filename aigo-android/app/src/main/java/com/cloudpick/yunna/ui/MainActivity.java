@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 
+import com.cloudpick.yunna.utils.VersionHelper;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,6 +36,13 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initComponent();
+
+        new VersionHelper(MainActivity.this, getIntent()).checkVersion(new VersionHelper.checkVersionAction() {
+            @Override
+            public void onUpgrade() {
+                MainActivity.this.finish();
+            }
+        });
     }
 
     private void initComponent(){
@@ -119,7 +128,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        if(currentNavigationItemId == R.id.navigation_qrcode){
+        if(isQrCodeFragment()){
             ((QRCodeFragment)qrcodeFragment).startAutoRefreshQrCode();
         }
     }
@@ -130,15 +139,19 @@ public class MainActivity extends FragmentActivity {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus)
         {
-            //TODO defect 此处逻辑有误,需调整
-            if(qrcodeFragment != null){
-                ((QRCodeFragment)qrcodeFragment).resetQrcodeImageView();
+            if(isQrCodeFragment()){
+                ((QRCodeFragment)qrcodeFragment).resetQrcodeImageViewSize();
             }
         }
     }
 
-    public static Intent newIntent(Context packageContext){
+    private boolean isQrCodeFragment(){
+        return qrcodeFragment != null && currentNavigationItemId == R.id.navigation_qrcode;
+    }
+
+    public static Intent newIntent(Context packageContext, boolean checkVersion){
         Intent intent = new Intent(packageContext, MainActivity.class);
+        intent.putExtra(VersionHelper.CHECK_VERSION_KEY, checkVersion);
         return intent;
     }
 

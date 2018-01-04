@@ -25,6 +25,10 @@ public class Coupon {
         return amount;
     }
 
+    public Double getCouponAmount(){
+        return Double.parseDouble(getCouponAmt());
+    }
+
     public String getFromDate() {
         return DateUtil.getDate(fromDate);
     }

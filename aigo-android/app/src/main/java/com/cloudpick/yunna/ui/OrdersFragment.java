@@ -3,14 +3,16 @@ package com.cloudpick.yunna.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -37,8 +39,14 @@ public class OrdersFragment extends Fragment {
     SmartRefreshLayout pullToRefreshLayout;
     @BindView(R.id.layout_empty)
     SmartRefreshLayout emptyLayout;
+    @BindView(R.id.ll_coupon_notify_layout)
+    LinearLayout ll_coupon_notify_layout;
+    @BindView(R.id.tv_coupon_notify)
+    TextView tv_coupon_notify;
+
 
     private ArrayList<Order> orders;
+    private String couponAmount = "";
     private OrderListViewAdapter adapter = null;
 
 
@@ -85,11 +93,21 @@ public class OrdersFragment extends Fragment {
         new Thread(()->{
             controller.resetPageInfo();
             orders = controller.getOrders();
+            couponAmount = controller.getCouponAmount();
             getActivity().runOnUiThread(()->{
+                //set order list
                 boolean hasOrder = orders != null && orders.size() > 0;
                 emptyLayout.setVisibility(hasOrder? View.INVISIBLE:View.VISIBLE);
                 pullToRefreshLayout.setVisibility(hasOrder? View.VISIBLE:View.INVISIBLE);
                 adapter.setDataSource(orders);
+                //set coupon notify
+                if(TextUtils.isEmpty(couponAmount)){
+                    ll_coupon_notify_layout.setVisibility(View.GONE);
+                }else{
+                    ll_coupon_notify_layout.setVisibility(View.VISIBLE);
+                    String msg = String.format(getContext().getString(R.string.message_unused_coupon_notify), couponAmount);
+                    tv_coupon_notify.setText(msg);
+                }
                 if(layout!=null){
                     layout.finishRefresh(800, orders != null);
                 }

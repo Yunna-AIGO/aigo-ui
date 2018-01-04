@@ -68,7 +68,7 @@
                             android:text="@string/btn_get_captcha_title"
                             android:textSize="12sp"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/colorLightBlack"
                             android:background="@drawable/shape_round_corner"
                             android:enabled="false"/>
                     </LinearLayout>

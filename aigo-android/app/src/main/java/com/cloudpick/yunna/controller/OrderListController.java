@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.alipay.sdk.app.PayTask;
+import com.cloudpick.yunna.model.Coupon;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.R;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.enums.AlipayResultStatus;
-import com.cloudpick.yunna.utils.enums.OrderStatus;
 import com.cloudpick.yunna.utils.enums.PayType;
 import com.cloudpick.yunna.utils.http.Callback;
 import com.cloudpick.yunna.utils.http.Requests;
@@ -65,6 +65,29 @@ public class OrderListController extends BaseController {
         }catch(IOException e){
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    public String getCouponAmount(){
+        try{
+            String url = String.format(Constants.URL_COUPON, User.getUser().getUserId());
+            Type objectType = new TypeToken<Response<ArrayList<Coupon>>>(){}.getType();
+            Response<ArrayList<Coupon>> resp = Requests.get(url, null, objectType);
+            if(!resp.isSuccess()){
+                return "";
+            }
+            double couponAmount = 0;
+            for (Coupon coupon : resp.getData()) {
+                couponAmount += coupon.getCouponAmount();
+            }
+            if(couponAmount == 0){
+                return "";
+            }else{
+                return String.format("%.2f", couponAmount);
+            }
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+            return "";
         }
     }
 

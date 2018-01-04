@@ -44,6 +44,7 @@ public class CouponNotifyDialog extends AlertDialog implements View.OnClickListe
 
     private void initDialog(){
         setCanceledOnTouchOutside(false);
+        setCancelable(false);
         btn_ok.setOnClickListener(this);
         tv_coupon_amount.setText(couponAmount);
     }

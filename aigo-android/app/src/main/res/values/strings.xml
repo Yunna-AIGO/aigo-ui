@@ -1,7 +1,5 @@
 <resources>
     <!--scan page-->
-    <!--<string name="app_name">云拿</string>-->
-    <string name="app_name">云拿-测试</string>
     <string name="title_qrcode">扫一扫</string>
     <string name="title_order">我的订单</string>
     <string name="title_user_center">个人中心</string>
@@ -92,6 +90,7 @@
     <string name="tv_payment_title">支付方式</string>
     <string name="tv_version_title">版本号</string>
     <string name="tv_auto_login_title">免登录</string>
+    <string name="tv_notification_title">消息通知</string>
 
     <!--payment-->
     <string name="title_payment">支付方式</string>
@@ -111,10 +110,14 @@
     <string name="tab_coupon_used">已使用</string>
     <string name="tab_coupon_expired">已过期</string>
     <string name="message_coupon_empty">没有可用优惠券</string>
-    <string name="dialog_coupon_message1">获得一张现金折扣券</string>
-    <string name="dialog_coupon_message2">开通支付宝支付后即可使用</string>
+    <string name="dialog_coupon_message1">您已获取</string>
+    <string name="dialog_coupon_message2">首次购物即可使用</string>
+    <string name="message_unused_coupon_notify">您有%s元的优惠券未使用哦～</string>
 
-    <!--connom-->
+    <!--notification-->
+
+
+    <!--connom & app-->
     <string name="message_alert">提示</string>
     <string name="title_ok">确定</string>
     <string name="title_cancel">取消</string>
@@ -126,5 +129,10 @@
     <string name="commit_failed">提交失败</string>
     <string name="commit_success">提交成功</string>
     <string name="message_in_process">处理中...</string>
+    <string name="dialog_title_app_upgrade">版本更新</string>
+    <string name="message_new_app_version">%s版本发布了，赶紧来下载啊</string>
+    <string name="btn_donot_update_title">稍后再说</string>
+    <string name="btn_update_now_title">立即更新</string>
+
 
 </resources>

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.cloudpick.yunna.controller.LoginController;
 import com.cloudpick.yunna.ui.dialog.CouponNotifyDialog;
 import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.VersionHelper;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,6 +50,12 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar)findViewById(R.id.tb_login);
         setSupportActionBar(toolbar);
+        new VersionHelper(LoginActivity.this, getIntent()).checkVersion(new VersionHelper.checkVersionAction() {
+            @Override
+            public void onUpgrade() {
+                LoginActivity.this.finish();
+            }
+        });
     }
 
     @OnClick(R.id.btn_get_captcha)
@@ -95,9 +102,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void enter(boolean isBindingPayment){
         if(isBindingPayment){
-            Intent intent = MainActivity.newIntent(LoginActivity.this);
+            Intent intent = MainActivity.newIntent(LoginActivity.this, false);
             startActivity(intent);
-            LoginActivity.this.finish();
         }else{
             Intent intent = PaymentActivity.newIntent(
                     LoginActivity.this,
@@ -105,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                     true);
             startActivity(intent);
         }
+        LoginActivity.this.finish();
     }
 
     @OnTextChanged(value = R.id.et_mobile, callback = OnTextChanged.Callback.TEXT_CHANGED)
@@ -126,7 +133,9 @@ public class LoginActivity extends AppCompatActivity {
     private void checkButtonReady(String mobile, String captcha){
         boolean validMobile = controller.isValidMobile(mobile);
         boolean validCaptcha = controller.isValidCaptcha(captcha);
-        btn_sendCaptcha.setEnabled(validMobile && !controller.isCaptchaSended());
+        boolean isSendCaptchaOk = validMobile && !controller.isCaptchaSended();
+        btn_sendCaptcha.setEnabled(isSendCaptchaOk);
+        btn_sendCaptcha.setTextColor(getResources().getColor(isSendCaptchaOk?R.color.colorDarkBlack:R.color.colorLightBlack));
         btn_login.setEnabled(validMobile && validCaptcha);
         btn_login.setAlpha(validMobile && validCaptcha? 1.0f:0.5f);
     }
@@ -161,8 +170,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public static Intent newIntent(Context packageContext){
+    public static Intent newIntent(Context packageContext, boolean checkVersion){
         Intent intent = new Intent(packageContext, LoginActivity.class);
+        intent.putExtra(VersionHelper.CHECK_VERSION_KEY, checkVersion);
         return intent;
     }
 }

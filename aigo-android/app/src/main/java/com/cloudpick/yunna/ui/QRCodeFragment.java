@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.cloudpick.yunna.controller.QRCodeController;
 import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.event.DelayClickListener;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -64,13 +65,22 @@ public class QRCodeFragment extends Fragment {
     private void initComponent(View v){
         loadSliderImages(v);
         refreshQrCode(true);
+
+        qrcodeImageView.setOnClickListener(new DelayClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                Log.d(Constants.LOG_TAG, "exec refresh qrcode");
+                stopAutoRefreshQrCode();
+                refreshQrCode(true);
+            }
+        });
     }
 
-    @OnClick(R.id.img_qr_code)
-    void clickQrCodeImageView(View v){
-        stopAutoRefreshQrCode();
-        refreshQrCode(true);
-    }
+//    @OnClick(R.id.img_qr_code)
+//    void clickQrCodeImageView(View v){
+//        stopAutoRefreshQrCode();
+//        refreshQrCode(true);
+//    }
 
     private void loadSliderImages(View v){
         //TODO: 目前图片为本地图片，以后改为远程图片的话，需要异步加载图片
@@ -90,7 +100,7 @@ public class QRCodeFragment extends Fragment {
     }
 
     public void refreshQrCode(boolean startAutoRefreshQrCode){
-        Log.d("ssss", "refresh qrcode");
+        Log.d(Constants.LOG_TAG, "refresh qrcode");
         controller.refreshQrCode(new QRCodeController.refreshQrCodeAction() {
             @Override
             public void error(){
@@ -133,7 +143,7 @@ public class QRCodeFragment extends Fragment {
         if(timer != null){
             return;
         }
-        Log.d("ssss", "start refresh qrcode");
+        Log.d(Constants.LOG_TAG, "start refresh qrcode");
         timer = new Timer();
         autoRefreshQrCodeTask = new TimerTask() {
             @Override
@@ -146,7 +156,7 @@ public class QRCodeFragment extends Fragment {
 
     public void stopAutoRefreshQrCode(){
         if(timer != null){
-            Log.d("ssss", "stop refresh qrcode");
+            Log.d(Constants.LOG_TAG, "stop refresh qrcode");
             try{
                 timer.cancel();
                 timer = null;

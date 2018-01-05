@@ -1,9 +1,9 @@
 package com.cloudpick.yunna.model;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.cloudpick.yunna.utils.ACache;
+import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.Constants;
 
 /**
@@ -27,7 +27,6 @@ public class User {
 
     private final Integer defaultTokenExpiredIn = 90 * ACache.TIME_DAY;
 
-    private ACache cache = null;
     private String userId;
     private String mobile;
     private String nickName;
@@ -57,33 +56,28 @@ public class User {
     private User(){
     }
 
-    public User init(Context context){
-        cache = ACache.get(context);
-        return this;
-    }
-
     /*
      * check user in local
      * if not pass return false
      */
     public boolean checkUser(){
-        userId = cache.getAsString(Constants.KEY_USER_ID);
-        token = cache.getAsString(Constants.KEY_TOKEN);
+        userId = AppData.getAppData().getAsString(Constants.KEY_USER_ID);
+        token = AppData.getAppData().getAsString(Constants.KEY_TOKEN);
         return !TextUtils.isEmpty(userId) && !TextUtils.isEmpty(token);
     }
 
     public void saveToken(String userId, String token){
         this.userId = userId;
         this.token = token;
-        cache.put(Constants.KEY_USER_ID, userId);
-        cache.put(Constants.KEY_TOKEN, token, getTokenExpiredIn());
+        AppData.getAppData().put(Constants.KEY_USER_ID, userId);
+        AppData.getAppData().put(Constants.KEY_TOKEN, token, getTokenExpiredIn());
     }
 
     private int getTokenExpiredIn(){
         try{
-            String expiredIn = cache.getAsString(Constants.KEY_TOKEN_EXPIREDIN);
+            String expiredIn = AppData.getAppData().getAsString(Constants.KEY_TOKEN_EXPIREDIN);
             if(expiredIn == null){
-                cache.put(Constants.KEY_TOKEN_EXPIREDIN, defaultTokenExpiredIn.toString());
+                AppData.getAppData().put(Constants.KEY_TOKEN_EXPIREDIN, defaultTokenExpiredIn.toString());
                 return defaultTokenExpiredIn;
             }
             return Integer.parseInt(expiredIn);
@@ -94,7 +88,7 @@ public class User {
     }
 
     public void signout(){
-        cache.remove(Constants.KEY_TOKEN);
+        AppData.getAppData().remove(Constants.KEY_TOKEN);
     }
 
     public void setUserInfo(String nickName, String mobile, String picUrl){
@@ -125,7 +119,7 @@ public class User {
                 expiredIn = 365 * ACache.TIME_DAY;
                 break;
         }
-        cache.put(Constants.KEY_TOKEN_EXPIREDIN, expiredIn.toString());
+        AppData.getAppData().put(Constants.KEY_TOKEN_EXPIREDIN, expiredIn.toString());
     }
 
     public int getTokenExpiredInSelection(){

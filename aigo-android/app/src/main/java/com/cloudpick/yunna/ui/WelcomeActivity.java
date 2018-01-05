@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.NotificationHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -51,8 +52,8 @@ public class WelcomeActivity extends Activity {
     }
 
     private void initApp(){
-        //init user instance
-        User.getUser().init(getApplicationContext());
+        //init app data
+        AppData.getAppData().init(getApplicationContext());
         //init imageLoader
         ImageLoaderConfiguration config = new ImageLoaderConfiguration
                 .Builder(getApplicationContext())

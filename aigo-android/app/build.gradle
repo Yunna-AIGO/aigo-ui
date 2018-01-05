@@ -32,7 +32,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release_config
-
             buildConfigField("int", "APP_ENV", "2")
 //            buildConfigField("String", "BASE_URL", "\"http://47.100.13.231/cloudpick/rest/api/v1/\"")
             buildConfigField("String", "BASE_URL", "\"http://www.yunatop.com/cloudpick/rest/api/v1/\"")
@@ -100,6 +99,7 @@ dependencies {
     compile 'joda-time:joda-time:2.9.9'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.9'//gif播放
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.9'
+    //gif播放
     implementation files('libs/alipaySdk-20170922.jar')
 }

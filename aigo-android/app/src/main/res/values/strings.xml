@@ -133,6 +133,7 @@
     <string name="message_new_app_version">%s版本发布了，赶紧来下载啊</string>
     <string name="btn_donot_update_title">稍后再说</string>
     <string name="btn_update_now_title">立即更新</string>
+    <string name="message_loading_dialog_please_wait">请稍等...</string>
 
 
 </resources>

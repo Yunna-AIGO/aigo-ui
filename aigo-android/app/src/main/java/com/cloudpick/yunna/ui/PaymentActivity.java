@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudpick.yunna.controller.PaymentController;
+import com.cloudpick.yunna.ui.dialog.LoadingDialog;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.enums.ThirdType;
 
@@ -33,7 +34,6 @@ public class PaymentActivity extends AppCompatActivity {
     private boolean showToolbarMenu = false;
     private boolean navToMainActivity = false;
     private Map<ThirdType, Boolean> signStatus = new HashMap<>();
-    private boolean isBusy = false;
 
     @BindView(R.id.tv_payment_alipay_option)
     TextView tv_payment_alipy_option;
@@ -108,50 +108,62 @@ public class PaymentActivity extends AppCompatActivity {
             runOnUiThread(()->{
                 updateAlipaySignStatusUI(signStatus.get(ThirdType.ALIPAY));
                 rl_payment_alipay.setOnClickListener((v)->{
-                    if(isBusy){
-                        return;
-                    }
-                    isBusy = true;
                     if(signStatus.get(ThirdType.ALIPAY)){
                         //先提醒用户，再解约
                         new AlertDialog.Builder(PaymentActivity.this)
-                                .setTitle(R.string.message_alert)
-                                .setMessage(R.string.message_alipay_unsign_alert)
-                                .setNegativeButton(R.string.title_cancel, (d, i)->{
-                                    isBusy = false;
-                                })
-                                .setPositiveButton(R.string.title_ok, (d, i)->{
-                                    new Thread(()->{
-                                        controller.unBindAlipay(new PaymentController.unBindAlipayAction() {
-                                            @Override
-                                            public void failure(String msg) {
-                                                showMessage(msg);
-                                            }
-                                            @Override
-                                            public void ok(String msg) {
-                                                showMessage(msg);
-                                                updateAlipaySignStatusUI(false);
-                                                signStatus.put(ThirdType.ALIPAY, false);
-                                            }
-                                        });
-                                        isBusy = false;
-                                    }).start();
-                                }).show();
+                            .setTitle(R.string.message_alert)
+                            .setMessage(R.string.message_alipay_unsign_alert)
+                            .setNegativeButton(R.string.title_cancel, (d, i)->{
+                            })
+                            .setPositiveButton(R.string.title_ok, (d, i)->{
+                                new LoadingDialog.Builder()
+                                    .setLoadingAction(new LoadingDialog.LoadingAction() {
+                                        @Override
+                                        public Object exec() {
+                                            controller.unBindAlipay(new PaymentController.unBindAlipayAction() {
+                                                @Override
+                                                public void failure(String msg) {
+                                                    showMessage(msg);
+                                                }
+                                                @Override
+                                                public void ok(String msg) {
+                                                    showMessage(msg);
+                                                    updateAlipaySignStatusUI(false);
+                                                    signStatus.put(ThirdType.ALIPAY, false);
+                                                }
+                                            });
+                                            return null;
+                                        }
+                                        @Override
+                                        public void onComplete(Object param) {
+                                        }
+                                    })
+                                    .build(PaymentActivity.this).loading();
+                            }).show();
                     }else{
-                        new Thread(()->{
-                            controller.bindAlipay(new PaymentController.bindAlipayAction() {
+                        new LoadingDialog.Builder()
+                            .setLoadingAction(new LoadingDialog.LoadingAction() {
                                 @Override
-                                public void failure(String msg) {
-                                    showMessage(msg);
+                                public Object exec() {
+                                    controller.bindAlipay(new PaymentController.bindAlipayAction() {
+                                        @Override
+                                        public void failure(String msg) {
+                                            showMessage(msg);
+                                        }
+                                        @Override
+                                        public void ok(Uri uri) {
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                    return null;
                                 }
                                 @Override
-                                public void ok(Uri uri) {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                                    startActivity(intent);
+                                public void onComplete(Object param) {
+                                    //不做任何操作，因为在支付宝拉起改View时，在onNewIntent中会更新UI
                                 }
-                            });
-                            isBusy = false;
-                        }).start();
+                            })
+                            .build(PaymentActivity.this).loading();
                     }
                 });
             });

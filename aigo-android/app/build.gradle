@@ -47,7 +47,7 @@ android {
         debugMobile {
             applicationIdSuffix '.debug'
             buildConfigField("int", "APP_ENV", "0")
-            buildConfigField("String", "BASE_URL", "\"http://10.10.13.34:8000/cloudpick/rest/api/v1/\"")
+            buildConfigField("String", "BASE_URL", "\"http://10.10.13.33:8000/cloudpick/rest/api/v1/\"")
             resValue("string", "app_name", "云拿-开发")
             signingConfig signingConfigs.release_config
         }
@@ -99,7 +99,8 @@ dependencies {
     compile 'joda-time:joda-time:2.9.9'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.9'
     //gif播放
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.9'
     implementation files('libs/alipaySdk-20170922.jar')
+    compile 'com.wang.avi:library:2.1.3'
 }

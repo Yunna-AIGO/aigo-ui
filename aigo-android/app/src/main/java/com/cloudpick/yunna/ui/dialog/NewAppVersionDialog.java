@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.utils.ShapeUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +49,8 @@ public class NewAppVersionDialog extends AlertDialog implements View.OnClickList
     private void initDialog(){
         setCanceledOnTouchOutside(false);
         setCancelable(false);
+        ShapeUtil.TextOnlyShape().render(btn_ok);
+        ShapeUtil.TextOnlyShape().render(btn_cancel);
         btn_ok.setOnClickListener(this);
         btn_cancel.setOnClickListener(this);
         String msg = String.format(getContext().getResources().getString(R.string.message_new_app_version), version);

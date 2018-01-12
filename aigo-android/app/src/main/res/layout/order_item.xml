@@ -76,7 +76,7 @@
             android:layout_height="30dp"
             android:layout_marginRight="5dp"
             android:focusable="false"
-            android:background="@drawable/shape_round_corner_default"
+            android:background="@drawable/shape_round_corner"
             android:textColor="@color/colorDefault"/>
     </LinearLayout>
 </LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.cloudpick.yunna.controller.LoginController;
 import com.cloudpick.yunna.ui.dialog.CouponNotifyDialog;
 import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.VersionHelper;
 
 import java.util.Timer;
@@ -33,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     private Timer timer = new Timer();
     private TimerTask task;
 
+    @BindView(R.id.tb_login)
+    Toolbar toolbar;
     @BindView(R.id.btn_get_captcha)
     Button btn_sendCaptcha;
     @BindView(R.id.btn_login)
@@ -48,14 +51,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         controller = new LoginController(LoginActivity.this);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tb_login);
-        setSupportActionBar(toolbar);
+        initComponent();
         new VersionHelper(LoginActivity.this, getIntent()).checkVersion(new VersionHelper.checkVersionAction() {
             @Override
             public void onUpgrade() {
                 LoginActivity.this.finish();
             }
         });
+    }
+
+    private void initComponent(){
+        setSupportActionBar(toolbar);
+        ShapeUtil.TextOnlyShape().render(et_mobile);
+        ShapeUtil.TextOnlyShape().render(et_captcha);
+        ShapeUtil.DefaultButtonShape(true).render(btn_login);
+        ShapeUtil.CommonButtonShape().render(btn_sendCaptcha);
     }
 
     @OnClick(R.id.btn_get_captcha)

@@ -50,15 +50,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:background="@drawable/shape_round_corner_textarea">
+                            android:orientation="vertical">
                             <EditText
                                 android:id="@+id/et_order_appeal_content"
                                 android:layout_width="match_parent"
                                 android:layout_height="150dp"
                                 android:padding="6dp"
                                 android:hint="@string/et_order_appeal_hint"
-                                android:background="@drawable/shape_round_corner_noborder"
+                                android:background="@drawable/shape_round_corner"
                                 android:inputType="textMultiLine"
                                 android:gravity="top|left"
                                 android:maxLength="500"
@@ -78,7 +77,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:textAlignment="center"
-                                android:background="@drawable/shape_round_corner_bg_default"
+                                android:background="@drawable/shape_round_corner"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="16sp"
                                 android:text="@string/commit"/>

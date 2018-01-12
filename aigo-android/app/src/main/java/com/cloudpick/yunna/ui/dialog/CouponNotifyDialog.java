@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.utils.ShapeUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +46,10 @@ public class CouponNotifyDialog extends AlertDialog implements View.OnClickListe
     private void initDialog(){
         setCanceledOnTouchOutside(false);
         setCancelable(false);
+        new ShapeUtil.Builder()
+                .setColor(R.color.colorRed)
+                .setBorderWidth(0)
+                .build().render(btn_ok);
         btn_ok.setOnClickListener(this);
         tv_coupon_amount.setText(couponAmount);
     }

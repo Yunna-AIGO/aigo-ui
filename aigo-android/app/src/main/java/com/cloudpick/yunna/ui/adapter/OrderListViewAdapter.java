@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.enums.OrderStatus;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class OrderListViewAdapter extends BaseAdapter implements ListAdapter {
     private int itemLayoutId;
     private LayoutInflater inflater;
     private OrderItemClickListener listener;
+    private ShapeUtil btnShape = ShapeUtil.DefaultButtonShape(false);
 
     public OrderListViewAdapter(int itemLayoutId, Context context, OrderItemClickListener listener)
     {
@@ -71,6 +73,7 @@ public class OrderListViewAdapter extends BaseAdapter implements ListAdapter {
             tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
         Button btn = (Button)view.findViewById(R.id.btn_pay);
+        btnShape.render(btn);
         if(order.unPaid()){
             setButtonAsPay(btn, order);
         }else if(order.isInPayment()){

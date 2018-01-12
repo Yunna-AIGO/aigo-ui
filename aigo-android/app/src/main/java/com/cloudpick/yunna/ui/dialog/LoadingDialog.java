@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
@@ -66,8 +67,10 @@ public class LoadingDialog extends AlertDialog {
     private void initDialog(){
         setCanceledOnTouchOutside(false);
         setCancelable(false);
-        ((GradientDrawable)ll_loading_dialog.getBackground())
-                .setColor(getContext().getResources().getColor(R.color.colorDarkBlack));
+        new ShapeUtil.Builder()
+                .setBorderWidth(0)
+                .setColor(R.color.colorDarkBlack)
+                .build().render(ll_loading_dialog);
         tv_loading_title.setText(title);
         if(!TextUtils.isEmpty(subTitle)){
             tv_loading_subTitle.setVisibility(View.VISIBLE);

@@ -50,7 +50,7 @@
                             android:text="@string/tv_feedback_type_advice"
                             android:layout_marginLeft="10dp"
                             android:textColor="@color/colorDefault"
-                            android:background="@drawable/shape_round_corner_default"/>
+                            android:background="@drawable/shape_round_corner"/>
                         <Button
                             android:id="@+id/btn_feedback_problem"
                             android:layout_width="60dp"
@@ -64,15 +64,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/shape_round_corner_textarea">
+                        android:layout_margin="10dp">
                         <EditText
                             android:id="@+id/et_feedback_content"
                             android:layout_width="match_parent"
                             android:layout_height="180dp"
                             android:padding="6dp"
                             android:hint="@string/et_feedback_hint"
-                            android:background="@drawable/shape_round_corner_noborder"
+                            android:background="@drawable/shape_round_corner"
                             android:inputType="textMultiLine"
                             android:gravity="top|left"
                             android:maxLength="500"
@@ -93,7 +92,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:textAlignment="center"
-                            android:background="@drawable/shape_round_corner_bg_default"
+                            android:background="@drawable/shape_round_corner"
                             android:textColor="@color/colorWhite"
                             android:textSize="16sp"
                             android:text="@string/commit"/>

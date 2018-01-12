@@ -19,6 +19,7 @@ import com.cloudpick.yunna.controller.OrderDetailController;
 import com.cloudpick.yunna.model.Feedback;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.enums.FeedbackStatus;
 
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener((v)->{
             OrderDetailActivity.this.finish();
         });
+        ShapeUtil.DefaultButtonShape(false).render(btn_order_appeal);
         controller.loadOrderDetail(getIntent().getStringExtra(ORDER_ID),
                 new OrderDetailController.loadOrderAction() {
                     @Override

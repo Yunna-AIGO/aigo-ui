@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.cloudpick.yunna.controller.SettingController;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.enums.FeedbackType;
 
@@ -24,6 +25,9 @@ public class CreateFeedbackActivity extends AppCompatActivity {
 
     private SettingController controller = null;
     private FeedbackType feedbackType = FeedbackType.ADVICE;
+    private ShapeUtil selectedStyle = ShapeUtil.DefaultButtonShape(false);
+    private ShapeUtil unselectedStyle = ShapeUtil.CommonButtonShape();
+
 
 
     @BindView(R.id.tb_feedback)
@@ -34,6 +38,8 @@ public class CreateFeedbackActivity extends AppCompatActivity {
     Button btn_feedback_advice;
     @BindView(R.id.btn_feedback_problem)
     Button btn_feedback_problem;
+    @BindView(R.id.btn_commit_feedback)
+    Button btn_commit_feedback;
 
 
 
@@ -52,6 +58,10 @@ public class CreateFeedbackActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener((v)->{
             CreateFeedbackActivity.this.finish();
         });
+        ShapeUtil.TextAreaShape().render(et_feedback_content);
+        ShapeUtil.DefaultButtonShape(true).render(btn_commit_feedback);
+        selectedStyle.render(btn_feedback_advice);
+        unselectedStyle.render(btn_feedback_problem);
     }
 
 
@@ -69,17 +79,15 @@ public class CreateFeedbackActivity extends AppCompatActivity {
         feedbackType = ft;
         Button[] btnList = new Button[]{btn_feedback_advice, btn_feedback_problem};
         int fontColor;
-        Drawable background;
         for(int i=0;i<btnList.length;i++){
             if(btnList[i].getId() == btn.getId()){
                 fontColor = getResources().getColor(R.color.colorDefault);
-                background = getResources().getDrawable(R.drawable.shape_round_corner_default);
+                selectedStyle.render(btnList[i]);
             }else{
                 fontColor = getResources().getColor(R.color.colorBlack);
-                background = getResources().getDrawable(R.drawable.shape_round_corner);
+                unselectedStyle.render(btnList[i]);
             }
             btnList[i].setTextColor(fontColor);
-            btnList[i].setBackground(background);
         }
     }
 

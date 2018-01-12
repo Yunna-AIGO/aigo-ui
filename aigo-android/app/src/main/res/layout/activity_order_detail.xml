@@ -163,7 +163,7 @@
                                 android:textColor="@color/colorDefault"
                                 android:layout_marginRight="10dp"
                                 android:visibility="invisible"
-                                android:background="@drawable/shape_round_corner_default"/>
+                                android:background="@drawable/shape_round_corner"/>
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout

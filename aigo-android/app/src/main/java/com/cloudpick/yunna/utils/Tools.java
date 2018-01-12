@@ -139,4 +139,16 @@ public class Tools {
             manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
+    public static int dp2px(Context context, float dpValue)
+    {
+        float m = context.getResources().getDisplayMetrics().density;
+        return (int)(dpValue * m + 0.5f);
+    }
+
+    public static int px2dp(Context context, float pxValue)
+    {
+        float m = context.getResources().getDisplayMetrics().density;
+        return (int)(pxValue / m + 0.5f);
+    }
 }

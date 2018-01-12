@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.cloudpick.yunna.ui.LoginActivity"
-    android:background="#eee">
+    android:background="@color/colorLightGrey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                             android:inputType="phone"
                             android:focusable="true"
                             android:textSize="16sp"
-                            android:background="@drawable/shape_round_corner_noborder"
+                            android:background="@drawable/shape_round_corner"
                             android:hint="@string/et_mobile_placeholder"/>
                     </LinearLayout>
                     <LinearLayout
@@ -100,27 +100,11 @@
                             android:id="@+id/et_captcha"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/shape_round_corner_noborder"
+                            android:background="@drawable/shape_round_corner"
                             android:inputType="number"
                             android:maxLength="6"
                             android:textSize="16sp"
                             android:hint="@string/et_captcha_placeholder"/>
-                    </LinearLayout>
-                    <!--这个LinearLayout无作用，为了与上面对奇-->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingRight="10dp"
-                        android:gravity="center_vertical|right">
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/btn_get_captcha_title"
-                            android:textSize="12sp"
-                            android:visibility="invisible"
-                            android:background="@color/colorLightGrey"
-                            android:enabled="false"/>
                     </LinearLayout>
                 </LinearLayout>
                 <Button
@@ -130,7 +114,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
-                    android:background="@drawable/shape_round_corner_bg_default"
+                    android:background="@drawable/shape_round_corner"
                     android:text="@string/btn_login_title"
                     android:textSize="18sp"
                     android:textColor="@color/colorWhite"

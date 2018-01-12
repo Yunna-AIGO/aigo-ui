@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.R;
 import com.cloudpick.yunna.ui.adapter.CommonRecyclerViewAdapter;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.enums.PayType;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
         setCanceledOnTouchOutside(true);
         btn_ok.setOnClickListener(this);
         tv_order_amount.setText(order.getDiscountPrice(false));
+        ShapeUtil.DefaultButtonShape(true).render(btn_ok);
 
         ArrayList<PayTypeInfo> payTypes = getPayTypes();
 

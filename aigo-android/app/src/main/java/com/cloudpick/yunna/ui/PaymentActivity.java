@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.cloudpick.yunna.controller.PaymentController;
 import com.cloudpick.yunna.ui.dialog.LoadingDialog;
 import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.enums.ThirdType;
 
 import java.util.HashMap;
@@ -81,6 +82,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void initComponent(){
         setSupportActionBar(toolbar);
+        ShapeUtil.CardShape(R.color.colorGrey).render(rl_payment_alipay);
         if(!navToMainActivity){
             //不是导航到主页面的话，显示回退按钮
             toolbar.setNavigationIcon(R.drawable.back);

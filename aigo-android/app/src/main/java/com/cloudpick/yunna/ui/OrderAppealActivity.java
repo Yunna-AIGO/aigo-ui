@@ -11,12 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.controller.OrderAppealController;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.Tools;
 
 import java.util.ArrayList;
@@ -40,6 +42,8 @@ public class OrderAppealActivity extends AppCompatActivity {
     TextView tv_orderId;
     @BindView(R.id.et_order_appeal_content)
     EditText et_order_appeal_content;
+    @BindView(R.id.btn_commit_appeal)
+    Button btn_commit_appeal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class OrderAppealActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener((v)->{
             OrderAppealActivity.this.finish();
         });
+        ShapeUtil.TextAreaShape().render(et_order_appeal_content);
+        ShapeUtil.DefaultButtonShape(true).render(btn_commit_appeal);
 
         tv_orderId.setText(getResources().getString(R.string.tv_orderId_title) + "：" + order.getOrderId());
 

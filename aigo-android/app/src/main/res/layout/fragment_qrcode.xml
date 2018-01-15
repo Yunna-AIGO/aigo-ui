@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -29,34 +30,87 @@
             android:layout_height="wrap_content"
             android:rotation="45"
             android:scaleType="fitStart"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:indicatorName="BallPulseIndicator"
+            app:indicatorColor="@color/colorGrey"/>
+        <LinearLayout
+            android:id="@+id/ll_options"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical|center_horizontal"
+            android:visibility="gone">
+            <Button
+                android:id="@+id/btn_network_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTransparent"
+                android:drawableTop="@drawable/network_error"
+                android:drawablePadding="10dp"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:text="@string/network_error"/>
+            <LinearLayout
+                android:id="@+id/ll_msg_qrcode_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:text="有订单未支付"/>
+                <TextView
+                    android:id="@+id/tv_option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorBlack"
+                    android:text="点击去支付"/>
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="3">
-        <TextView
-            android:id="@+id/tv_msg1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/colorBlack"
-            android:layout_marginTop="5dp"
-            android:text="@string/welcome">
-        </TextView>
-        <TextView
-            android:id="@+id/tv_msg2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="16sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/colorBlack"
-            android:text="@string/scan_qrcode_message">
-        </TextView>
+        <LinearLayout
+            android:id="@+id/ll_msg_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="5dp"
+                android:text="@string/welcome">
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/colorBlack"
+                android:text="@string/scan_qrcode_message">
+            </TextView>
+        </LinearLayout>
     </LinearLayout>
 
 

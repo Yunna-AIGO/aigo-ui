@@ -2,13 +2,10 @@ package com.cloudpick.yunna.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -20,6 +17,7 @@ import com.cloudpick.yunna.controller.OrderListController;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.adapter.OrderListViewAdapter;
 import com.cloudpick.yunna.ui.dialog.PayTypeSelectDialog;
+import com.cloudpick.yunna.ui.main.MainActivityFragment;
 import com.cloudpick.yunna.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -27,7 +25,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OrdersFragment extends Fragment {
+public class OrdersFragment extends MainActivityFragment {
 
     private static final String LOG_TAG = "OrdersFragment";
 
@@ -52,17 +50,16 @@ public class OrdersFragment extends Fragment {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getLayoutId(){
+        return R.layout.fragment_orders;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_orders, container, false);
+    protected void initView(View view, Bundle savedInstanceState){
         controller = new OrderListController(getContext());
-        ButterKnife.bind(this, v);
-        initComponent(v);
-        return v;
+        this.title = getResources().getString(R.string.tab_order_title);
+        ButterKnife.bind(this, view);
+        initComponent(view);
     }
 
     private void initComponent(View v){

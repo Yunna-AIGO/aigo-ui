@@ -1,11 +1,10 @@
 package com.cloudpick.yunna.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.view.ViewGroup;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -13,11 +12,14 @@ import android.widget.TextView;
 
 
 import com.cloudpick.yunna.controller.QRCodeController;
+import com.cloudpick.yunna.ui.main.MainActivityFragment;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.event.DelayClickListener;
+import com.cloudpick.yunna.controller.QRCodeController.QRCodeError;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.HashMap;
 import java.util.Timer;
@@ -31,42 +33,48 @@ import butterknife.OnClick;
  * Created by maxwell on 17-12-7.
  */
 
-public class QRCodeFragment extends Fragment {
+public class QRCodeFragment extends MainActivityFragment {
 
     private QRCodeController controller = null;
     private TimerTask autoRefreshQrCodeTask;
     private Timer timer = null;
+    //用于标记是否已经计算过二维码View的Size
+    private boolean flag = false;
 
+    @BindView(R.id.avi_loading)
+    AVLoadingIndicatorView avi_loading;
     @BindView(R.id.ll_qrcode)
     LinearLayout ll_qrcode;
+    @BindView(R.id.ll_options)
+    LinearLayout ll_options;
+    @BindView(R.id.ll_msg_welcome)
+    LinearLayout ll_msg_welcome;
+    @BindView(R.id.ll_msg_qrcode_error)
+    LinearLayout ll_msg_qrcode_error;
     @BindView(R.id.img_qr_code)
-    ImageView qrcodeImageView;
-    @BindView(R.id.tv_msg1)
-    TextView tv_msg1;
-    @BindView(R.id.tv_msg2)
-    TextView tv_msg2;
+    ImageView img_qr_code;
     @BindView(R.id.fragment_qrcode_slider)
     SliderLayout slider;
+    @BindView(R.id.btn_network_error)
+    Button btn_network_error;
+    @BindView(R.id.tv_message)
+    TextView tv_message;
+    @BindView(R.id.tv_option)
+    TextView tv_option;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
+    protected int getLayoutId(){
+        return R.layout.fragment_qrcode;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View v = inflater.inflate(R.layout.fragment_qrcode, container, false);
+    protected void initView(View view, Bundle savedInstanceState){
         controller = new QRCodeController(this.getContext());
-        ButterKnife.bind(this, v);
-        initComponent(v);
-        return v;
-    }
-
-    private void initComponent(View v){
-        loadSliderImages(v);
-        refreshQrCode(true);
-
-        qrcodeImageView.setOnClickListener(new DelayClickListener() {
+        ButterKnife.bind(this, view);
+        this.title = getResources().getString(R.string.title_qrcode);
+        loadSliderImages(view);
+        img_qr_code.setOnClickListener(new DelayClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
                 Log.d(Constants.LOG_TAG, "exec refresh qrcode");
@@ -76,11 +84,30 @@ public class QRCodeFragment extends Fragment {
         });
     }
 
-//    @OnClick(R.id.img_qr_code)
-//    void clickQrCodeImageView(View v){
-//        stopAutoRefreshQrCode();
-//        refreshQrCode(true);
-//    }
+    @Override
+    public void setFragmentVisible(boolean visible){
+        if(visible){
+            refreshQrCode(true);
+        }else{
+            stopAutoRefreshQrCode();
+        }
+    }
+
+    @OnClick(R.id.btn_network_error)
+    void btn_network_error_click(View v){
+        refreshQrCode(true);
+    }
+
+    @OnClick(R.id.tv_option)
+    void tv_option_click(View v){
+        QRCodeError error = (QRCodeError)v.getTag();
+        if(error == QRCodeError.NOTBINDING_PAYMENT){
+            Intent intent = PaymentActivity.newIntent(getContext(), false, false);
+            getContext().startActivity(intent);
+        }else if(error == QRCodeError.ORDER_NOT_PAID){
+            switchToFramgent(MainActivity.MainFragment.ORDER);
+        }
+    }
 
     private void loadSliderImages(View v){
         //TODO: 目前图片为本地图片，以后改为远程图片的话，需要异步加载图片
@@ -99,28 +126,78 @@ public class QRCodeFragment extends Fragment {
         slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
     }
 
-    public void refreshQrCode(boolean startAutoRefreshQrCode){
+    private void switchToLoadingQrCodeView(){
+        img_qr_code.setVisibility(View.GONE);
+        ll_options.setVisibility(View.GONE);
+        ll_msg_welcome.setVisibility(View.INVISIBLE);
+        avi_loading.setVisibility(View.VISIBLE);
+        avi_loading.smoothToShow();
+    }
+
+    private void switchToQrCodeLoadingFailedView(QRCodeError qrcodeError, String msg){
+        avi_loading.hide();
+        stopAutoRefreshQrCode();
+        avi_loading.setVisibility(View.GONE);
+        img_qr_code.setVisibility(View.GONE);
+        ll_msg_welcome.setVisibility(View.INVISIBLE);
+        ll_options.setVisibility(View.VISIBLE);
+
+        if(qrcodeError == QRCodeError.NETWORK_ERROR){
+            ll_msg_qrcode_error.setVisibility(View.GONE);
+            btn_network_error.setVisibility(View.VISIBLE);
+        }else{
+            btn_network_error.setVisibility(View.GONE);
+            ll_msg_qrcode_error.setVisibility(View.VISIBLE);
+            tv_message.setText(msg);
+            if(qrcodeError == QRCodeError.NOTBINDING_PAYMENT){
+                tv_option.setText(R.string.message_goto_payment_page);
+            }else if(qrcodeError == QRCodeError.ORDER_NOT_PAID){
+                tv_option.setText(R.string.message_goto_order_page);
+            }
+            tv_option.setTag(qrcodeError);
+        }
+    }
+
+    private void switchToQrCodeView(Bitmap qrcodeImage){
+        avi_loading.hide();
+        ll_options.setVisibility(View.GONE);
+        avi_loading.setVisibility(View.GONE);
+        img_qr_code.setVisibility(View.VISIBLE);
+        ll_msg_welcome.setVisibility(View.VISIBLE);
+
+        if(!flag){
+            int h = Math.min(ll_qrcode.getHeight(), ll_qrcode.getWidth());
+            h = (int)(h / 1.5);
+            LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams)img_qr_code.getLayoutParams();
+            ll.width = h;
+            ll.height = h;
+            img_qr_code.setLayoutParams(ll);
+            flag = true;
+        }
+        if(qrcodeImage != null){
+            img_qr_code.setImageBitmap(qrcodeImage);
+        }
+    }
+
+    private void refreshQrCode(boolean startAutoRefreshQrCode){
         Log.d(Constants.LOG_TAG, "refresh qrcode");
+        boolean showIndicator = img_qr_code.getVisibility() == View.GONE;
+        if(showIndicator){
+            switchToLoadingQrCodeView();
+        }
         controller.refreshQrCode(new QRCodeController.refreshQrCodeAction() {
             @Override
-            public void error(){
+            public void networkError(){
                 //网络问题
-                showQrCodeFailed(getResources().getString(R.string.network_error), false);
+                switchToQrCodeLoadingFailedView(QRCodeError.NETWORK_ERROR, "");
             }
             @Override
-            public void failure(String msg) {
-                //获取二维码失败,有未支付的订单
-                showQrCodeFailed(msg, true);
+            public void failure(String msg, QRCodeError error) {
+                switchToQrCodeLoadingFailedView(error, msg);
             }
             @Override
             public void ok(Bitmap qrcodeImage) {
-                qrcodeImageView.setVisibility(View.VISIBLE);
-                tv_msg1.setText(R.string.welcome);
-                tv_msg2.setText(R.string.scan_qrcode_message);
-                tv_msg2.setTextColor(getResources().getColor(R.color.colorBlack));
-                if(qrcodeImage !=null){
-                    qrcodeImageView.setImageBitmap(qrcodeImage);
-                }
+                switchToQrCodeView(qrcodeImage);
                 if(startAutoRefreshQrCode){
                     startAutoRefreshQrCode();
                 }
@@ -128,18 +205,7 @@ public class QRCodeFragment extends Fragment {
         });
     }
 
-    private void showQrCodeFailed(String msg, boolean flag){
-        qrcodeImageView.setVisibility(View.INVISIBLE);
-        tv_msg1.setText(msg);
-        if(flag){
-            tv_msg2.setText(R.string.message_goto_order_page);
-        }else{
-            tv_msg2.setText("");
-        }
-        stopAutoRefreshQrCode();
-    }
-
-    public void startAutoRefreshQrCode(){
+    private void startAutoRefreshQrCode(){
         if(timer != null){
             return;
         }
@@ -154,7 +220,7 @@ public class QRCodeFragment extends Fragment {
         timer.schedule(autoRefreshQrCodeTask, Constants.REFRESH_QRCODE_INTERVAL, Constants.REFRESH_QRCODE_INTERVAL);
     }
 
-    public void stopAutoRefreshQrCode(){
+    private void stopAutoRefreshQrCode(){
         if(timer != null){
             Log.d(Constants.LOG_TAG, "stop refresh qrcode");
             try{
@@ -166,18 +232,4 @@ public class QRCodeFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-        stopAutoRefreshQrCode();
-    }
-
-    public void resetQrcodeImageViewSize(){
-        int h = Math.min(ll_qrcode.getHeight(), ll_qrcode.getWidth());
-        h = (int)(h / 1.5);
-        LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams)qrcodeImageView.getLayoutParams();
-        ll.width = h;
-        ll.height = h;
-        qrcodeImageView.setLayoutParams(ll);
-    }
 }

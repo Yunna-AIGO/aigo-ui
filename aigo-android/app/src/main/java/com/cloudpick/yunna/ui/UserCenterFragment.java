@@ -4,16 +4,14 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.controller.UserCenterController;
 import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.ui.main.MainActivityFragment;
 import com.cloudpick.yunna.utils.Tools;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -27,7 +25,7 @@ import butterknife.OnClick;
  * Created by maxwell on 17-12-7.
  */
 
-public class UserCenterFragment extends Fragment {
+public class UserCenterFragment extends MainActivityFragment {
 
     private UserCenterController controller = null;
 
@@ -36,29 +34,23 @@ public class UserCenterFragment extends Fragment {
     @BindView(R.id.img_avatar)
     ImageView img_avatar;
 
-
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
+    protected int getLayoutId(){
+        return R.layout.fragment_user_center;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View v = inflater.inflate(R.layout.fragment_user_center, container, false);
+    protected void initView(View view, Bundle savedInstanceState){
         controller = new UserCenterController(getContext());
-        ButterKnife.bind(this, v);
+        this.title = getResources().getString(R.string.title_user_center);
+        ButterKnife.bind(this, view);
         loadUserInfo();
-        return v;
     }
 
     @OnClick(R.id.btn_feedback)
     void btnFeedbackClick(View v){
         startActivity(CreateFeedbackActivity.newIntent(getContext()));
     }
-//    void bindingPaymentClick(View v){
-//        Intent intent = PaymentActivity.newIntent(getContext(), false, false);
-//        startActivity(intent);
-//    }
 
     @OnClick(R.id.btn_setting)
     void settingClick(View v){

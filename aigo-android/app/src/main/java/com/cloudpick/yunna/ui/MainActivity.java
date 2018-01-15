@@ -5,19 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 
+import com.cloudpick.yunna.ui.base.BaseActivity;
+import com.cloudpick.yunna.ui.main.MainActivityFragment;
 import com.cloudpick.yunna.utils.VersionHelper;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
     private int currentNavigationItemId = -1;
 
@@ -26,26 +25,25 @@ public class MainActivity extends FragmentActivity {
     @BindView(R.id.tb_main)
     Toolbar toolbar;
 
-    private Fragment qrcodeFragment = null;
-    private Fragment orderFragment = null;
-    private Fragment userCenterFragment = null;
+    private MainActivityFragment qrcodeFragment = null;
+    private MainActivityFragment orderFragment = null;
+    private MainActivityFragment userCenterFragment = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        initComponent();
-
-        new VersionHelper(MainActivity.this, getIntent()).checkVersion(new VersionHelper.checkVersionAction() {
-            @Override
-            public void onUpgrade() {
-                MainActivity.this.finish();
-            }
-        });
+    protected int getContentViewId(){
+        return R.layout.activity_main;
     }
 
-    private void initComponent(){
+    @Override
+    protected Fragment getCurrentFragment(){
+        return getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState){
+        ButterKnife.bind(this);
+        switchFragment(R.id.navigation_qrcode);
+
         navigation.setOnNavigationItemSelectedListener((item)->{
             switch (item.getItemId()) {
                 case R.id.navigation_qrcode:
@@ -60,29 +58,26 @@ public class MainActivity extends FragmentActivity {
             }
             return false;
         });
-        switchFragment(R.id.navigation_qrcode);
+        new VersionHelper(MainActivity.this, getIntent()).checkVersion(new VersionHelper.checkVersionAction() {
+            @Override
+            public void onUpgrade() {
+                MainActivity.this.finish();
+            }
+        });
     }
 
     private void switchFragment(int id){
         if(id == currentNavigationItemId){
             return;
         }
-        if(currentNavigationItemId == R.id.navigation_qrcode){
-            ((QRCodeFragment)qrcodeFragment).stopAutoRefreshQrCode();
-        }
 
-        resetMenuIcon();
-        Fragment newFragment = null;
+        MainActivityFragment frag = null;
         switch(id){
             case R.id.navigation_qrcode:
                 if(qrcodeFragment == null){
                     qrcodeFragment = new QRCodeFragment();
-                }else{
-                    ((QRCodeFragment)qrcodeFragment).refreshQrCode(true);
                 }
-                newFragment = qrcodeFragment;
-                toolbar.setTitle(R.string.title_qrcode);
-                navigation.getMenu().findItem(id).setIcon(R.drawable.icon_qrcode_active);
+                frag = qrcodeFragment;
                 break;
             case R.id.navigation_order:
                 if(orderFragment == null){
@@ -90,69 +85,107 @@ public class MainActivity extends FragmentActivity {
                     //目前仅显示订单
                     orderFragment = new OrdersFragment();
                 }
-                newFragment = orderFragment;
-                toolbar.setTitle(R.string.tab_order_title);
-                navigation.getMenu().findItem(id).setIcon(R.drawable.icon_order_active);
+                frag = orderFragment;
                 break;
             case R.id.navigation_user_center:
                 if(userCenterFragment == null){
                     userCenterFragment = new UserCenterFragment();
                 }
-                newFragment = userCenterFragment;
-                toolbar.setTitle(R.string.title_user_center);
-                navigation.getMenu().findItem(id).setIcon(R.drawable.icon_mine_active);
+                frag = userCenterFragment;
                 break;
         }
+        if(frag == null){
+            return;
+        }
+        resetMenuIcon(id);
+        toolbar.setTitle(frag.getTitle());
         FragmentManager fm = getSupportFragmentManager();
-        int containerId = R.id.fragment_container;
         FragmentTransaction tran = fm.beginTransaction();
-        List<Fragment> fragments = fm.getFragments();
-        for(Fragment f: fragments){
+        for(Fragment f: fm.getFragments()){
+            if(f instanceof MainActivityFragment){
+                ((MainActivityFragment)f).setFragmentVisible(false);
+            }
             tran.hide(f);
         }
-        if(!newFragment.isAdded()){
-            tran.add(containerId, newFragment);
+        if(!frag.isAdded()){
+            tran.add(R.id.fragment_container, frag);
         }else{
-            tran.show(newFragment);
+            tran.show(frag);
+        }
+        if(isViewResReady()){
+            frag.setFragmentVisible(true);
         }
         tran.commit();
         currentNavigationItemId = id;
     }
 
-    private void resetMenuIcon(){
-        navigation.getMenu().findItem(R.id.navigation_qrcode).setIcon(R.drawable.icon_qrcode);
-        navigation.getMenu().findItem(R.id.navigation_order).setIcon(R.drawable.icon_order);
-        navigation.getMenu().findItem(R.id.navigation_user_center).setIcon(R.drawable.icon_mine);
+    private void resetMenuIcon(int selectedNavItemId){
+        int resId = selectedNavItemId == R.id.navigation_qrcode? R.drawable.icon_qrcode_active:R.drawable.icon_qrcode;
+        navigation.getMenu().findItem(R.id.navigation_qrcode).setIcon(resId);
+        resId = selectedNavItemId == R.id.navigation_order? R.drawable.icon_order_active:R.drawable.icon_order;
+        navigation.getMenu().findItem(R.id.navigation_order).setIcon(resId);
+        resId = selectedNavItemId == R.id.navigation_user_center? R.drawable.icon_mine_active:R.drawable.icon_mine;
+        navigation.getMenu().findItem(R.id.navigation_user_center).setIcon(resId);
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        if(isQrCodeFragment()){
-            ((QRCodeFragment)qrcodeFragment).startAutoRefreshQrCode();
+        Fragment frag = getCurrentFragment();
+        if(frag != null && frag instanceof MainActivityFragment){
+            ((MainActivityFragment)frag).setFragmentVisible(true);
         }
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus)
-    {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus)
-        {
-            if(isQrCodeFragment()){
-                ((QRCodeFragment)qrcodeFragment).resetQrcodeImageViewSize();
-            }
+    protected void onPause(){
+        super.onPause();
+        Fragment frag = getCurrentFragment();
+        if(frag != null && frag instanceof MainActivityFragment){
+            ((MainActivityFragment)frag).setFragmentVisible(false);
         }
     }
 
-    private boolean isQrCodeFragment(){
-        return qrcodeFragment != null && currentNavigationItemId == R.id.navigation_qrcode;
+    public void switchTo(MainFragment mainFragment){
+        switch(mainFragment){
+            case QRCODE:
+                switchFragment(R.id.navigation_qrcode);
+                break;
+            case ORDER:
+                switchFragment(R.id.navigation_order);
+                break;
+            case USER_CENTER:
+                switchFragment(R.id.navigation_user_center);
+                break;
+        }
     }
 
     public static Intent newIntent(Context packageContext, boolean checkVersion){
         Intent intent = new Intent(packageContext, MainActivity.class);
         intent.putExtra(VersionHelper.CHECK_VERSION_KEY, checkVersion);
         return intent;
+    }
+
+    public enum MainFragment {
+        QRCODE("QRCODE", "QRCODE"),//QRCODE
+        ORDER("ORDER", "ORDER"),//ORDER
+        USER_CENTER("USER_CENTER", "USER_CENTER");//USER_CENTER
+
+        private final String code;
+        private final String name;
+
+        MainFragment(String code, String name){
+            this.code = code;
+            this.name = name;
+        }
+
+        public String getCode(){
+            return code;
+        }
+
+        public String getName(){
+            return this.name;
+        }
     }
 
 }

@@ -12,7 +12,10 @@
     <string name="tv_refresh_qrcode_title">点击刷新二维码</string>
     <string name="welcome">欢迎光临</string>
     <string name="scan_qrcode_message">请扫二维码进店</string>
-    <string name="message_goto_order_page">请去订单页支付</string>
+    <string name="message_order_not_paid">有订单未支付</string>
+    <string name="message_goto_order_page">点击去支付</string>
+    <string name="message_no_payment">未开通支付方式</string>
+    <string name="message_goto_payment_page">点击去开通</string>
 
 
     <!--login page-->

@@ -27,7 +27,6 @@ import java.util.Map;
 
 public class QRCodeController extends BaseController {
 
-
     public QRCodeController(Context context){
         super(context);
     }
@@ -42,7 +41,7 @@ public class QRCodeController extends BaseController {
                 @Override
                 public void error(Exception e) {
                     System.out.println(e.getMessage());
-                    handler.post(()->{action.error();});
+                    handler.post(()->{action.networkError();});
                 }
 
                 @Override
@@ -55,7 +54,18 @@ public class QRCodeController extends BaseController {
                         });
                     }else{
                         handler.post(()->{
-                            action.failure(r.getMessage());
+                            if(r.getCode().equals(QRCodeError.NOTBINDING_PAYMENT.getName())){
+                                action.failure(
+                                        context.getResources().getString(R.string.message_no_payment),
+                                        QRCodeError.NOTBINDING_PAYMENT);
+                            }else if(r.getCode().equals(QRCodeError.ORDER_NOT_PAID.getName())){
+                                action.failure(
+                                        context.getResources().getString(R.string.message_order_not_paid),
+                                        QRCodeError.ORDER_NOT_PAID);
+                            }else{
+                                //其他情况暂时不暴露问题原因，统一归类到网络异常
+                                action.networkError();
+                            }
                         });
                     }
                 }
@@ -66,9 +76,10 @@ public class QRCodeController extends BaseController {
     }
 
     public interface refreshQrCodeAction{
-        void error();
-        void failure(String msg);
+        void networkError();
+        void failure(String msg, QRCodeError error);
         void ok(Bitmap qrcodeImage);
+
     }
 
     private Bitmap generateQRCodeImage(String qrcodeStr, int width, int height, int rotate){
@@ -101,5 +112,27 @@ public class QRCodeController extends BaseController {
         }
     }
 
+    public enum QRCodeError {
+        NETWORK_ERROR("NETWORK_ERROR", "NETWORK_ERROR"),//network error
+        NOTBINDING_PAYMENT("NOTBINDING_PAYMENT", "LGN2001011"),//not binging payment
+        ORDER_NOT_PAID("ORDER_NOT_PAID", "LGN2001008"),//order not paid
+        NONE("NONE", "NONE");//no error
+
+        private final String code;
+        private final String name;
+
+        QRCodeError(String code, String name){
+            this.code = code;
+            this.name = name;
+        }
+
+        public String getCode(){
+            return code;
+        }
+
+        public String getName(){
+            return this.name;
+        }
+    }
 
 }

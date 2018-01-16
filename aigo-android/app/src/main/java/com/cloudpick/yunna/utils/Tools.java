@@ -151,4 +151,12 @@ public class Tools {
         float m = context.getResources().getDisplayMetrics().density;
         return (int)(pxValue / m + 0.5f);
     }
+
+    public static void Sleep(long millis){
+        try{
+            Thread.sleep(millis);
+        }catch (Exception ex){
+
+        }
+    }
 }

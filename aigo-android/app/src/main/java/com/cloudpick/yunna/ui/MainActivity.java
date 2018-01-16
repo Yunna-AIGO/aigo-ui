@@ -58,11 +58,8 @@ public class MainActivity extends BaseActivity {
             }
             return false;
         });
-        new VersionHelper(MainActivity.this, getIntent()).checkVersion(new VersionHelper.checkVersionAction() {
-            @Override
-            public void onUpgrade() {
-                MainActivity.this.finish();
-            }
+        new VersionHelper(MainActivity.this, getIntent()).checkVersion(()->{
+            MainActivity.this.finish();
         });
     }
 

@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
                     android:textSize="16sp"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorDefault"
                     android:text="点击去支付"/>
             </LinearLayout>
 

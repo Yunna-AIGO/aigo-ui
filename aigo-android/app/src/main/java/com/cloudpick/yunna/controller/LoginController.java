@@ -25,43 +25,24 @@ public class LoginController extends BaseController {
         super(context);
     }
 
-    public void sendSMS(String mobile, final sendSMSAction action){
+    public SendSMSResult sendSMS(String mobile){
+        SendSMSResult result = new SendSMSResult();
         try{
             Map<String, String> queryParams = new HashMap<>();
             queryParams.put("mobile", mobile);
-            Requests.getAsync(
-                    Constants.URL_SENDSMS,
-                    queryParams,
-                    new Callback<Response<Map<String, String>>>(){
-                        @Override
-                        public void error(Exception e){
-                            System.out.println(e.getMessage());
-                            handler.post(()->{
-                                action.failure(context.getResources().getString(R.string.network_error));
-                            });
-                        }
-                        @Override
-                        public void ok(Response<Map<String, String>> r){
-                            captchaSended = r.isSuccess();
-                            if(!captchaSended){
-                                handler.post(()->{
-                                    action.failure(context.getResources().getString(R.string.sms_send_failure) + ":" + r.getMessage());
-                                });
-                            }else{
-                                handler.post(()->{
-                                    action.ok(context.getResources().getString(R.string.sms_send_success));
-                                });
-                            }
-                        }
-                    });
+            Response<Map<String, Object>> resp = Requests.get(Constants.URL_SENDSMS, queryParams, Response.class );
+            result.setSuccess(resp.isSuccess());
+            if(resp.isSuccess()){
+                result.setMessage(context.getResources().getString(R.string.sms_send_success));
+            }else{
+                result.setMessage(context.getResources().getString(R.string.sms_send_failure) + ":" + resp.getMessage());
+            }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
+            result.setSuccess(false);
+            result.setMessage(context.getResources().getString(R.string.network_error));
         }
-    }
-
-    public interface sendSMSAction {
-        void failure(String msg);
-        void ok(String msg);
+        return result;
     }
 
     public void login(String mobile, String smsCode, final loginAction action){
@@ -99,8 +80,6 @@ public class LoginController extends BaseController {
                                     try{
                                         hasCoupon = (boolean)r.getData().get(Constants.KEY_HAS_COUPON);
                                         couponAmount = r.getData().get(Constants.KEY_COUPON_AMOUNT).toString();
-                                        //boolean isCoupon = true;
-                                        //String couponAmount = "5.65";
                                     }catch (Exception e){
                                     }
                                     action.ok(isBindingPayment, hasCoupon, couponAmount);
@@ -132,15 +111,27 @@ public class LoginController extends BaseController {
         return captcha.length() == 6;
     }
 
+    public class SendSMSResult{
+        private boolean success;
+        private String message;
 
-    private boolean captchaSended = false;
+        public SendSMSResult(){
+        }
 
-    public boolean isCaptchaSended() {
-        return captchaSended;
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setSuccess(boolean success) {
+            this.success = success;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
     }
-
-    public void setCaptchaSended(boolean captchaSended) {
-        this.captchaSended = captchaSended;
-    }
-
 }

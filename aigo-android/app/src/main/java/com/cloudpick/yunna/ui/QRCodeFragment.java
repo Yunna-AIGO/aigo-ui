@@ -131,11 +131,11 @@ public class QRCodeFragment extends MainActivityFragment {
         ll_options.setVisibility(View.GONE);
         ll_msg_welcome.setVisibility(View.INVISIBLE);
         avi_loading.setVisibility(View.VISIBLE);
-        avi_loading.smoothToShow();
+        showLoadingIndicator();
     }
 
     private void switchToQrCodeLoadingFailedView(QRCodeError qrcodeError, String msg){
-        avi_loading.hide();
+        hideLoadingIndicator();
         stopAutoRefreshQrCode();
         avi_loading.setVisibility(View.GONE);
         img_qr_code.setVisibility(View.GONE);
@@ -159,7 +159,7 @@ public class QRCodeFragment extends MainActivityFragment {
     }
 
     private void switchToQrCodeView(Bitmap qrcodeImage){
-        avi_loading.hide();
+        hideLoadingIndicator();
         ll_options.setVisibility(View.GONE);
         avi_loading.setVisibility(View.GONE);
         img_qr_code.setVisibility(View.VISIBLE);
@@ -232,4 +232,11 @@ public class QRCodeFragment extends MainActivityFragment {
         }
     }
 
+    private void showLoadingIndicator(){
+        avi_loading.smoothToShow();
+    }
+
+    private void hideLoadingIndicator(){
+        avi_loading.hide();
+    }
 }

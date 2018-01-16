@@ -102,6 +102,7 @@
     <string name="title_payment">支付方式</string>
     <string name="payment_alipay_title">支付宝支付</string>
     <string name="payment_alipay_sign">开通支付宝支付</string>
+    <string name="payment_alipay_signed">已开通支付宝支付</string>
     <string name="payment_alipay_unsign">关闭支付宝支付</string>
     <string name="message_alipay_sign_success">已开通支付宝支付</string>
     <string name="message_alipay_sign_failure">支付宝支付开通失败</string>

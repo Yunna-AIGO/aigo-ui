@@ -50,8 +50,7 @@ public class VersionHelper {
                         final boolean isForce = r.isForce();
                         final String downloadUrl = r.getDownloadUrl();
                         final String osType = r.getOsType().toLowerCase();
-                        if(!TextUtils.isEmpty(version) && "android".equals(osType) &&
-                                !TextUtils.isEmpty(downloadUrl) && !Define.getAppVersion().equals(version)){
+                        if("android".equals(osType) && hasNewVersion(version) && !TextUtils.isEmpty(downloadUrl)){
                             new Handler(Looper.getMainLooper()).post(()->{
                                 NewAppVersionDialog dlg = new NewAppVersionDialog(context, version, isForce,
                                         new NewAppVersionDialog.DialogCallback() {
@@ -77,6 +76,30 @@ public class VersionHelper {
                 }
             }
         });
+    }
+
+    private boolean hasNewVersion(String version){
+        if(TextUtils.isEmpty(version)){
+            return false;
+        }
+        String currentVersion = Define.getAppVersion();
+        String[] versionParts = version.split("\\.");
+        String[] currentVersionParts = currentVersion.split("\\.");
+        try{
+            if(versionParts.length != currentVersionParts.length){
+                return false;
+            }
+            for(int i=0;i<versionParts.length;i++){
+                if(Integer.parseInt(versionParts[i]) > Integer.parseInt(currentVersionParts[i])){
+                    return true;
+                }
+            }
+            return false;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            System.out.println("version error!");
+            return false;
+        }
     }
 
     public interface checkVersionAction{

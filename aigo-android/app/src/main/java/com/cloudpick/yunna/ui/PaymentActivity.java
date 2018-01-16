@@ -111,37 +111,38 @@ public class PaymentActivity extends AppCompatActivity {
                 updateAlipaySignStatusUI(signStatus.get(ThirdType.ALIPAY));
                 rl_payment_alipay.setOnClickListener((v)->{
                     if(signStatus.get(ThirdType.ALIPAY)){
-                        //先提醒用户，再解约
-                        new AlertDialog.Builder(PaymentActivity.this)
-                            .setTitle(R.string.message_alert)
-                            .setMessage(R.string.message_alipay_unsign_alert)
-                            .setNegativeButton(R.string.title_cancel, (d, i)->{
-                            })
-                            .setPositiveButton(R.string.title_ok, (d, i)->{
-                                new LoadingDialog.Builder()
-                                    .setLoadingAction(new LoadingDialog.LoadingAction() {
-                                        @Override
-                                        public Object exec() {
-                                            controller.unBindAlipay(new PaymentController.unBindAlipayAction() {
-                                                @Override
-                                                public void failure(String msg) {
-                                                    showMessage(msg);
-                                                }
-                                                @Override
-                                                public void ok(String msg) {
-                                                    showMessage(msg);
-                                                    updateAlipaySignStatusUI(false);
-                                                    signStatus.put(ThirdType.ALIPAY, false);
-                                                }
-                                            });
-                                            return null;
-                                        }
-                                        @Override
-                                        public void onComplete(Object param) {
-                                        }
-                                    })
-                                    .build(PaymentActivity.this).loading();
-                            }).show();
+                        //app中暂不提供解约
+//                        //先提醒用户，再解约
+//                        new AlertDialog.Builder(PaymentActivity.this)
+//                            .setTitle(R.string.message_alert)
+//                            .setMessage(R.string.message_alipay_unsign_alert)
+//                            .setNegativeButton(R.string.title_cancel, (d, i)->{
+//                            })
+//                            .setPositiveButton(R.string.title_ok, (d, i)->{
+//                                new LoadingDialog.Builder()
+//                                    .setLoadingAction(new LoadingDialog.LoadingAction() {
+//                                        @Override
+//                                        public Object exec() {
+//                                            controller.unBindAlipay(new PaymentController.unBindAlipayAction() {
+//                                                @Override
+//                                                public void failure(String msg) {
+//                                                    showMessage(msg);
+//                                                }
+//                                                @Override
+//                                                public void ok(String msg) {
+//                                                    showMessage(msg);
+//                                                    updateAlipaySignStatusUI(false);
+//                                                    signStatus.put(ThirdType.ALIPAY, false);
+//                                                }
+//                                            });
+//                                            return null;
+//                                        }
+//                                        @Override
+//                                        public void onComplete(Object param) {
+//                                        }
+//                                    })
+//                                    .build(PaymentActivity.this).loading();
+//                            }).show();
                     }else{
                         new LoadingDialog.Builder()
                             .setLoadingAction(new LoadingDialog.LoadingAction() {
@@ -174,8 +175,8 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void updateAlipaySignStatusUI(final boolean isBind){
         runOnUiThread(()->{
-            tv_payment_alipy_option.setText(isBind? R.string.payment_alipay_unsign:R.string.payment_alipay_sign);
-            img_payment_alipay_option.setImageResource(isBind? R.drawable.close:R.drawable.add);
+            tv_payment_alipy_option.setText(isBind? R.string.payment_alipay_signed:R.string.payment_alipay_sign);
+            img_payment_alipay_option.setImageResource(isBind? R.drawable.payment_check:R.drawable.add);
         });
     }
 

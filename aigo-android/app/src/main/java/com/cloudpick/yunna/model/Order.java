@@ -3,6 +3,7 @@ package com.cloudpick.yunna.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.DateUtil;
 import com.cloudpick.yunna.utils.enums.OrderStatus;
 
@@ -14,15 +15,13 @@ import java.util.ArrayList;
 
 public class Order extends BaseModel implements Parcelable{
 
-    public static final String ORDER_ID = "OrderId";
-
 
     private String ext;
     private String gmtCreate;
     private ArrayList<Goods> goodsList;
     private Double orderAmt;
     private String couponAmt;
-    private String orderDesc;
+    private String orderDesc;//弃用，兼容老版本
     private String orderId;
     private String orderType;
     private String payTime;
@@ -30,6 +29,9 @@ public class Order extends BaseModel implements Parcelable{
     private String storeId;
     private Double unPaidAmt;
     private String userId;
+    private String storeName;
+    private String desc;//订单描述
+    private ArrayList<String> goodsIdList;
 
     public String getExt() {
         return ext;
@@ -85,6 +87,18 @@ public class Order extends BaseModel implements Parcelable{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public ArrayList<String> getGoodsIdList() {
+        return goodsIdList;
     }
 
     public Order(){
@@ -163,6 +177,20 @@ public class Order extends BaseModel implements Parcelable{
         return status.equals(OrderStatus.SUCCESS.getCode());
     }
 
+    public int getGoodsCount(){
+        if(goodsIdList == null){
+            return 0;
+        }else{
+            return goodsIdList.size();
+        }
+    }
+
+    public String getGoodsImageUrl(int goodsIdIndex){
+        if(goodsIdIndex < 0 || goodsIdIndex >= getGoodsCount()){
+            return "";
+        }
+        return Constants.goodsImageUrlPrefix + goodsIdList.get(goodsIdIndex) + ".jpg";
+    }
 
     //implement Parcelable
 
@@ -186,6 +214,9 @@ public class Order extends BaseModel implements Parcelable{
         out.writeDouble(orderAmt);
         out.writeDouble(unPaidAmt);
         out.writeTypedList(goodsList);
+        out.writeString(desc);
+        out.writeString(storeName);
+        out.writeStringList(goodsIdList);
     }
 
     private Order(Parcel in)
@@ -203,6 +234,9 @@ public class Order extends BaseModel implements Parcelable{
         orderAmt = in.readDouble();
         unPaidAmt = in.readDouble();
         goodsList = in.createTypedArrayList(Goods.CREATOR);
+        desc = in.readString();
+        storeName = in.readString();
+        goodsIdList = in.createStringArrayList();
     }
 
     public static final Parcelable.Creator<Order> CREATOR = new Parcelable.Creator<Order>()

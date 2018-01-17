@@ -53,6 +53,9 @@
     <string name="message_pay_failed">支付失败</string>
     <string name="message_goto_pay_order">去支付</string>
     <string name="message_in_payment">支付中</string>
+    <string name="tv_goods_count">共%d件商品</string>
+    <string name="tv_actual_paid_amount">实付：</string>
+    <string name="order_status_finished">已完成</string>
 
     <!--order detail-->
     <string name="title_order_detail">订单详情</string>
@@ -61,6 +64,7 @@
     <string name="tv_order_date_title">日期：</string>
     <string name="tv_order_amount_title">金额：</string>
     <string name="tv_order_status_title">状态：</string>
+    <string name="tv_order_desc_title">描述：</string>
     <string name="tv_goods_list_title">商品列表</string>
     <string name="btn_order_appeal_title">申诉</string>
     <string name="tv_orderId_title">订单编号</string>

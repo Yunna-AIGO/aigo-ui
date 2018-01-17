@@ -9,6 +9,7 @@ public class Constants {
     public static final String LOG_TAG = "ssss";
 
     private static final String urlPrefix = Define.getUrlPrefix();
+    public static final String goodsImageUrlPrefix = "http://img.yunatop.com/";
 
     //app
     public static final String APP_NAMESPACE = "com.cloudpick.yunna";

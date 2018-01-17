@@ -12,7 +12,7 @@ public enum OrderStatus {
     CLOSED("closed", "订单关闭"),
     REFUND_SUCCESS("refund_success", "退款成功"),
     REFUND_FAIL("refund_fail", "退款失败"),
-    REFUND_INPROCESS("refund_inprocess", "退款进行中");
+    REFUND_INPROCESS("refund_inprocess", "退款中");
 
 
 

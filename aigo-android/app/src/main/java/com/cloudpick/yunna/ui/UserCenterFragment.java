@@ -42,7 +42,6 @@ public class UserCenterFragment extends MainActivityFragment {
     @Override
     protected void initView(View view, Bundle savedInstanceState){
         controller = new UserCenterController(getContext());
-        this.title = getResources().getString(R.string.title_user_center);
         ButterKnife.bind(this, view);
         loadUserInfo();
     }

@@ -36,8 +36,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".OrderDetailActivity"
-            android:label="@string/title_order_detail"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_order_detail"/>
         <activity
             android:name=".SettingActivity"
             android:label="@string/title_setting"

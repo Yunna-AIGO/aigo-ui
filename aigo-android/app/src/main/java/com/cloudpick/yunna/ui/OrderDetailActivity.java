@@ -8,16 +8,18 @@ import android.graphics.Paint;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.controller.OrderDetailController;
 import com.cloudpick.yunna.model.Feedback;
 import com.cloudpick.yunna.model.Order;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;
 import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.enums.FeedbackStatus;
@@ -28,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class OrderDetailActivity extends AppCompatActivity {
+public class OrderDetailActivity extends BaseActivity {
 
     public static final int REQUEST_CODE_APPEAL_RESULT = 0;
 
@@ -54,11 +56,20 @@ public class OrderDetailActivity extends AppCompatActivity {
     TextView tv_orderStatus;
     @BindView(R.id.btn_order_appeal)
     Button btn_order_appeal;
+    @BindView(R.id.tv_orderDesc)
+    TextView tv_orderDesc;
+    @BindView(R.id.ll_orderDesc)
+    LinearLayout ll_orderDesc;
+    @BindView(R.id.ll_dividing_line)
+    LinearLayout ll_dividing_line;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
+    protected int getContentViewId(){
+        return R.layout.activity_order_detail;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState){
         controller = new OrderDetailController(OrderDetailActivity.this);
         ButterKnife.bind(this);
         initComponent();
@@ -71,14 +82,18 @@ public class OrderDetailActivity extends AppCompatActivity {
             OrderDetailActivity.this.finish();
         });
         ShapeUtil.DefaultButtonShape(false).render(btn_order_appeal);
+
+        runActivityTask("","",null);
         controller.loadOrderDetail(getIntent().getStringExtra(ORDER_ID),
                 new OrderDetailController.loadOrderAction() {
                     @Override
                     public void failure() {
+                        TerminateFakeActivityTask();
                         setOrderInfo(null);
                     }
                     @Override
                     public void ok(Order order) {
+                        TerminateFakeActivityTask();
                         setOrderInfo(order);
                     }
                 });
@@ -156,12 +171,22 @@ public class OrderDetailActivity extends AppCompatActivity {
         tv_orderOrgnAmount.setText("");
         tv_orderAmount.setText("");
         tv_orderStatus.setText("");
+        tv_orderDesc.setText("");
+        ll_orderDesc.setVisibility(View.GONE);
+        ll_dividing_line.setVisibility(View.GONE);
         if(orderInfo != null){
             tv_orderId.setText(orderInfo.getOrderId());
-            tv_storeName.setText(orderInfo.getOrderDesc());
+            tv_storeName.setText(orderInfo.getStoreName());
             tv_date.setText(orderInfo.getPayTime());
             tv_orderStatus.setText(orderInfo.getStatusName());
             tv_orderAmount.setText(orderInfo.getDiscountPrice(false));
+            String desc = orderInfo.getDesc();
+            if(!TextUtils.isEmpty(desc)){
+                tv_orderDesc.setText(orderInfo.getDesc());
+                ll_orderDesc.setVisibility(View.VISIBLE);
+                ll_dividing_line.setVisibility(View.VISIBLE);
+            }
+
             if(orderInfo.hasDiscount()){
                 tv_orderOrgnAmount.setText(orderInfo.getOrderAmount(false));
             }

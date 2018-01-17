@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.main.MainActivityFragment;
@@ -15,6 +16,7 @@ import com.cloudpick.yunna.utils.VersionHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
@@ -63,6 +65,14 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @OnClick(R.id.tb_main)
+    void onToolbarClick(View v){
+        Fragment frag = getCurrentFragment();
+        if(frag instanceof OrdersFragment){
+            ((OrdersFragment)frag).toolbarClicked();
+        }
+    }
+
     private void switchFragment(int id){
         if(id == currentNavigationItemId){
             return;
@@ -73,6 +83,7 @@ public class MainActivity extends BaseActivity {
             case R.id.navigation_qrcode:
                 if(qrcodeFragment == null){
                     qrcodeFragment = new QRCodeFragment();
+                    qrcodeFragment.setTitle(getResources().getString(R.string.title_qrcode));
                 }
                 frag = qrcodeFragment;
                 break;
@@ -81,12 +92,14 @@ public class MainActivity extends BaseActivity {
                     //orderFragment = new OrderFragment();
                     //目前仅显示订单
                     orderFragment = new OrdersFragment();
+                    orderFragment.setTitle(getResources().getString(R.string.tab_order_title));
                 }
                 frag = orderFragment;
                 break;
             case R.id.navigation_user_center:
                 if(userCenterFragment == null){
                     userCenterFragment = new UserCenterFragment();
+                    userCenterFragment.setTitle(getResources().getString(R.string.title_user_center));
                 }
                 frag = userCenterFragment;
                 break;

@@ -9,8 +9,6 @@ import com.cloudpick.yunna.ui.base.BaseFragment;
 
 public abstract class MainActivityFragment extends BaseFragment {
 
-    protected String title = "";
-
     public void setFragmentVisible(boolean visible){
     }
 
@@ -18,10 +16,6 @@ public abstract class MainActivityFragment extends BaseFragment {
         if (getHostActivity() instanceof MainActivity){
             ((MainActivity)getHostActivity()).switchTo(mainFragment);
         }
-    }
-
-    public String getTitle(){
-        return title;
     }
 
 }

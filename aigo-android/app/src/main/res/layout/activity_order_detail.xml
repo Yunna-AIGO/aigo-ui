@@ -159,13 +159,41 @@
                             <Button
                                 android:id="@+id/btn_order_appeal"
                                 android:layout_width="60dp"
-                                android:layout_height="30dp"
+                                android:layout_height="25dp"
                                 android:textColor="@color/colorDefault"
                                 android:layout_marginRight="10dp"
                                 android:visibility="invisible"
                                 android:background="@drawable/shape_round_corner"/>
                         </LinearLayout>
                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_dividing_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:theme="@style/dividing_line"
+                        android:orientation="vertical"/>
+                    <LinearLayout
+                        android:id="@+id/ll_orderDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:theme="@style/cell">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="12dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/tv_order_desc_title"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:id="@+id/tv_orderDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"

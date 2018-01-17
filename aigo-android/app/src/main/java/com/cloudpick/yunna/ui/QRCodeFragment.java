@@ -72,7 +72,6 @@ public class QRCodeFragment extends MainActivityFragment {
     protected void initView(View view, Bundle savedInstanceState){
         controller = new QRCodeController(this.getContext());
         ButterKnife.bind(this, view);
-        this.title = getResources().getString(R.string.title_qrcode);
         loadSliderImages(view);
         img_qr_code.setOnClickListener(new DelayClickListener() {
             @Override

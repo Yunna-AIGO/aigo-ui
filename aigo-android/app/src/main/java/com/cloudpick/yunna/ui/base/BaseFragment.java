@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 public abstract class BaseFragment extends Fragment {
 
+    private String title = "";
     protected BaseActivity hostActivity;
 
     /**
@@ -67,7 +68,11 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
-
-
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

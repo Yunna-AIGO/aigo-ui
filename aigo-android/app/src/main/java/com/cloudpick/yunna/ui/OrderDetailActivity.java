@@ -179,7 +179,7 @@ public class OrderDetailActivity extends BaseActivity {
             tv_storeName.setText(orderInfo.getStoreName());
             tv_date.setText(orderInfo.getPayTime());
             tv_orderStatus.setText(orderInfo.getStatusName());
-            tv_orderAmount.setText(orderInfo.getDiscountPrice(false));
+            tv_orderAmount.setText(orderInfo.getDiscountPrice(true));
             String desc = orderInfo.getDesc();
             if(!TextUtils.isEmpty(desc)){
                 tv_orderDesc.setText(orderInfo.getDesc());

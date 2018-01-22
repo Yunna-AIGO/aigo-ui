@@ -67,16 +67,14 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorBlack"
-                    android:text="有订单未支付"/>
+                    android:textColor="@color/colorBlack"/>
                 <TextView
                     android:id="@+id/tv_option"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
                     android:textSize="16sp"
-                    android:textColor="@color/colorDefault"
-                    android:text="点击去支付"/>
+                    android:textColor="@color/colorDefault"/>
             </LinearLayout>
 
         </LinearLayout>

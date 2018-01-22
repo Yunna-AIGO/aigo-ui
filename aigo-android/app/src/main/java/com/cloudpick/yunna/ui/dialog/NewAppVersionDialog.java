@@ -53,7 +53,7 @@ public class NewAppVersionDialog extends AlertDialog implements View.OnClickList
         ShapeUtil.TextOnlyShape().render(btn_cancel);
         btn_ok.setOnClickListener(this);
         btn_cancel.setOnClickListener(this);
-        String msg = String.format(getContext().getResources().getString(R.string.message_new_app_version), version);
+        String msg = getContext().getResources().getString(R.string.message_new_app_version);
         tv_new_version_message.setText(msg);
         btn_cancel.setVisibility(isForce? View.GONE: View.VISIBLE);
     }

@@ -90,8 +90,12 @@ public class VersionHelper {
                 return false;
             }
             for(int i=0;i<versionParts.length;i++){
-                if(Integer.parseInt(versionParts[i]) > Integer.parseInt(currentVersionParts[i])){
+                int nv = Integer.parseInt(versionParts[i]);
+                int cv = Integer.parseInt(currentVersionParts[i]);
+                if(nv > cv){
                     return true;
+                }else if(nv < cv){
+                    return false;
                 }
             }
             return false;

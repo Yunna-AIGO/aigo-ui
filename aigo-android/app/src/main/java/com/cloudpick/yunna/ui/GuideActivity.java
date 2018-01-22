@@ -89,12 +89,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                     new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             gifView.setLayoutParams(lp);
-            //TODO 2nd gif
-            if(i == 1){
-                gifView.setScaleType(ImageView.ScaleType.FIT_XY);
-            }else{
-                gifView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            }
+            gifView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             gifViews[i] = gifView;
             try{
                 GifDrawable gifDrawable = new GifDrawable(getResources(), gifIdArray[i]);

@@ -46,6 +46,13 @@ public class UserCenterFragment extends MainActivityFragment {
         loadUserInfo();
     }
 
+    @Override
+    public void setFragmentVisible(boolean visible){
+        if(visible && controller != null){
+            loadUserInfo();
+        }
+    }
+
     @OnClick(R.id.btn_feedback)
     void btnFeedbackClick(View v){
         startActivity(CreateFeedbackActivity.newIntent(getContext()));

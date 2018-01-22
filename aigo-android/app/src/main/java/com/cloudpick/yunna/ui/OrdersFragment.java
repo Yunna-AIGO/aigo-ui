@@ -245,7 +245,7 @@ public class OrdersFragment extends MainActivityFragment {
     private ImageView newGoodsImageView(String goodsImgUrl){
         ImageView imageView = new ImageView(getContext());
         imageView.setBackgroundColor(getResources().getColor(R.color.colorGrey));
-        int wh = Tools.dp2px(getContext(), 70);
+        int wh = Tools.dp2px(getContext(), 60);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(wh, wh);
         lp.setMargins(0, 0, Tools.dp2px(getContext(), 8), 0);
         imageView.setLayoutParams(lp);

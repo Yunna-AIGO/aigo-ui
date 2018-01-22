@@ -159,13 +159,13 @@ public class MainActivity extends BaseActivity {
     public void switchTo(MainFragment mainFragment){
         switch(mainFragment){
             case QRCODE:
-                switchFragment(R.id.navigation_qrcode);
+                navigation.setSelectedItemId(R.id.navigation_qrcode);
                 break;
             case ORDER:
-                switchFragment(R.id.navigation_order);
+                navigation.setSelectedItemId(R.id.navigation_order);
                 break;
             case USER_CENTER:
-                switchFragment(R.id.navigation_user_center);
+                navigation.setSelectedItemId(R.id.navigation_user_center);
                 break;
         }
     }

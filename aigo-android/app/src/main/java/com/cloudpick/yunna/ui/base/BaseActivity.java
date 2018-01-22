@@ -119,7 +119,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             public Object execTask() {
                 isFakeTaskRunning.set(true);
                 while(isFakeTaskRunning.get()){
-                    Tools.Sleep(500);
+                    Tools.Sleep(100);
                 }
                 return null;
             }
@@ -134,6 +134,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void TerminateFakeActivityTask(){
         isFakeTaskRunning.set(false);
+        Tools.Sleep(200);
     }
 
 //    /**

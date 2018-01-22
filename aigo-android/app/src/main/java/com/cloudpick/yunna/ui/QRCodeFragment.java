@@ -97,9 +97,9 @@ public class QRCodeFragment extends MainActivityFragment {
         refreshQrCode(true);
     }
 
-    @OnClick(R.id.tv_option)
+    @OnClick({R.id.tv_option, R.id.tv_message})
     void tv_option_click(View v){
-        QRCodeError error = (QRCodeError)v.getTag();
+        QRCodeError error = (QRCodeError)ll_msg_qrcode_error.getTag();
         if(error == QRCodeError.NOTBINDING_PAYMENT){
             Intent intent = PaymentActivity.newIntent(getContext(), false, false);
             getContext().startActivity(intent);
@@ -153,7 +153,7 @@ public class QRCodeFragment extends MainActivityFragment {
             }else if(qrcodeError == QRCodeError.ORDER_NOT_PAID){
                 tv_option.setText(R.string.message_goto_order_page);
             }
-            tv_option.setTag(qrcodeError);
+            ll_msg_qrcode_error.setTag(qrcodeError);
         }
     }
 

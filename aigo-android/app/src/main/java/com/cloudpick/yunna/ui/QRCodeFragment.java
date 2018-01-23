@@ -1,5 +1,6 @@
 package com.cloudpick.yunna.ui;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -200,6 +201,17 @@ public class QRCodeFragment extends MainActivityFragment {
                 if(startAutoRefreshQrCode){
                     startAutoRefreshQrCode();
                 }
+            }
+            @Override
+            public void relogin(){
+                new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.message_alert)
+                        .setMessage(R.string.message_account_expired)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.title_ok, (d,i)->{
+                            startActivity(LoginActivity.newIntent(getContext(), false));
+                            getActivity().finish();
+                        }).show();
             }
         });
     }

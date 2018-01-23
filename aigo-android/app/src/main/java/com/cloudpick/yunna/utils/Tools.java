@@ -35,6 +35,16 @@ public class Tools {
             }
         }
         return pName.contains(packageName);
+
+        //TODO:尝试使用下面的方式来查看已安装的app
+//        PackageManager packageManager = context.getPackageManager();
+//        try{
+//            packageManager.getPackageInfo(packageName, 0);
+//            return true;
+//        }catch (Exception ex){
+//            ex.printStackTrace();
+//            return false;
+//        }
     }
 
 
@@ -150,6 +160,30 @@ public class Tools {
     {
         float m = context.getResources().getDisplayMetrics().density;
         return (int)(pxValue / m + 0.5f);
+    }
+
+    /**
+     * 将px值转换为sp值，保证文字大小不变
+     *
+     * @param context
+     * @param pxValue
+     * @return
+     */
+    public static int px2sp(Context context, float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    /**
+     * 将sp值转换为px值，保证文字大小不变
+     *
+     * @param context
+     * @param spValue
+     * @return
+     */
+    public static int sp2px(Context context, float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
     }
 
     public static void Sleep(long millis){

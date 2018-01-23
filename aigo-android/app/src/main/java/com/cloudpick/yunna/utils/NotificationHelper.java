@@ -43,12 +43,13 @@ public class NotificationHelper {
 
     private final int NOTIFY_ID = 0;
 
-    private boolean isNewNotification = false;
+    //android 8+使用的时NotificationChannel，通知相关操作都有所不同
+    private boolean useNotificationChannel = false;
     private Context context = null;
     private NotificationManager notificationManager = null;
 
     private NotificationHelper(){
-        isNewNotification = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+        useNotificationChannel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
     public void init(Context context){
@@ -57,7 +58,7 @@ public class NotificationHelper {
         }
         this.context = context;
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if(isNewNotification && notificationManager != null){
+        if(useNotificationChannel && notificationManager != null){
             initNotificationChannel();
         }
     }
@@ -79,7 +80,7 @@ public class NotificationHelper {
      * @param content 内容
      */
     public void notify(String title, String content){
-        if(isNewNotification){
+        if(useNotificationChannel){
             notificationManager.notify(NOTIFY_ID, getNewNotification(title, content).build());
         }else{
             notificationManager.notify(NOTIFY_ID, getNotification(title, content).build());
@@ -126,7 +127,7 @@ public class NotificationHelper {
     }
 
     public void setNotificationStatus(){
-        if(isNewNotification){
+        if(useNotificationChannel){
             goToNewNotificationSettings();
         }else{
             goToNotificationSettings();
@@ -150,9 +151,10 @@ public class NotificationHelper {
         }
     }
 
+    @TargetApi(26)
     private void goToNewNotificationSettings() {
         Log.d("ssss", "notification setting(android 8+)");
-        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+        Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
         intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
         intent.putExtra(Settings.EXTRA_CHANNEL_ID, NOTIFICATION_CHANNEL_ID);
         context.startActivity(intent);
@@ -164,7 +166,19 @@ public class NotificationHelper {
      * @return
      */
     public boolean isEnabled() {
-        //sdk19以下无法使用该方法获取通知是否开启
-        return NotificationManagerCompat.from(context).areNotificationsEnabled();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            return areNotificationsEnabled();
+        }else{
+            //sdk19以下使用该方法返回的都是True
+            return NotificationManagerCompat.from(context).areNotificationsEnabled();
+        }
+
+    }
+
+    @TargetApi(24)
+    private boolean areNotificationsEnabled(){
+        boolean rslt = notificationManager.areNotificationsEnabled();
+        Log.d("ssss", "notification " + (rslt? "on":"off"));
+        return notificationManager.areNotificationsEnabled();
     }
 }

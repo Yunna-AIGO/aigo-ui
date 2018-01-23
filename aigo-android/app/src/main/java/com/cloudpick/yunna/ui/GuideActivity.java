@@ -11,17 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.cloudpick.yunna.utils.Tools;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
+import static android.util.DisplayMetrics.DENSITY_HIGH;
+
 
 public class GuideActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.pager_guide)
-    ViewPager pager_guid;
+    ViewPager pager_guide;
     @BindView(R.id.ll_indicator)
     ViewGroup ll_indicator;
     @BindView(R.id.tb_guide)
@@ -33,10 +39,9 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     private ImageView[] indicators;
 
     /**
-     * 装ImageView数组
+     * 装View的数组
      */
-    //private ImageView[] mImageViews;
-    private GifImageView[] gifViews;
+    private View[] guideViews;
 
     /**
      * gif资源id
@@ -46,6 +51,12 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
             R.drawable.guide_two,
             R.drawable.guide_three,
             R.drawable.guide_four
+    };
+    private int[] titleArray = new int[]{
+            R.string.guide_title_one,
+            R.string.guide_title_two,
+            R.string.guide_title_three,
+            R.string.guide_title_four,
     };
 
     @Override
@@ -63,50 +74,64 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
             GuideActivity.this.finish();
         });
         initIndicators();
-        loadGif();
+        loadViews();
         setPagerViewAdapter();
     }
 
     private void initIndicators(){
+        int wh = 20;
+        int margin = 10;
+        int bottomMargin = 30;
+        if(getResources().getDisplayMetrics().densityDpi <= DENSITY_HIGH){
+            wh = 10;
+            margin = 5;
+            bottomMargin = 15;
+        }
+
         indicators = new ImageView[gifIdArray.length];
         for(int i=0;i<indicators.length;i++){
             ImageView imageView = new ImageView(this);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(20,20));
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(wh, wh));
             indicators[i] = imageView;
             setIndicatorStatus(indicators[i], i == 0);
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)imageView.getLayoutParams();
-            lp.leftMargin = 10;
-            lp.rightMargin = 10;
+            lp.leftMargin = margin;
+            lp.rightMargin = margin;
             ll_indicator.addView(imageView, lp);
         }
+        RelativeLayout.LayoutParams rp = (RelativeLayout.LayoutParams)ll_indicator.getLayoutParams();
+        rp.bottomMargin = bottomMargin;
+        ll_indicator.setLayoutParams(rp);
     }
 
-    private void loadGif(){
-        //将图片装载到数组中
-        gifViews = new GifImageView[gifIdArray.length];
-        for(int i=0;i<gifViews.length;i++){
+    private void loadViews(){
+        guideViews = new View[gifIdArray.length];
+        for(int i=0;i<guideViews.length;i++){
+            View v = getLayoutInflater().inflate(R.layout.viewpage_guide, null);
             GifImageView gifView = new GifImageView(this);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                    new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             gifView.setLayoutParams(lp);
             gifView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            gifViews[i] = gifView;
             try{
                 GifDrawable gifDrawable = new GifDrawable(getResources(), gifIdArray[i]);
                 gifView.setImageDrawable(gifDrawable);
+                ((LinearLayout)v.findViewById(R.id.ll_guide_gif)).addView(gifView);
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
+            ((TextView)v.findViewById(R.id.tv_guide_title)).setText(titleArray[i]);
+            guideViews[i] = v;
         }
     }
 
     private void setPagerViewAdapter(){
         //设置Adapter
-        pager_guid.setAdapter(new GuidAdapter());
+        pager_guide.setAdapter(new GuideAdapter());
         //设置监听，主要是设置点点的背景
-        pager_guid.setOnPageChangeListener(this);
+        pager_guide.setOnPageChangeListener(this);
         //设置ViewPager的默认项, 设置为长度的100倍，这样子开始就能往左滑动
-        pager_guid.setCurrentItem((gifViews.length) * 100);
+        pager_guide.setCurrentItem((guideViews.length) * 100);
     }
 
     private void setIndicatorStatus(ImageView indicator, boolean selected){
@@ -126,7 +151,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     @Override
     public void onPageSelected(int position) {
-        int index = position % gifViews.length;
+        int index = position % guideViews.length;
         for(int i=0; i<indicators.length; i++){
             setIndicatorStatus(indicators[i], i == index);
         }
@@ -138,9 +163,9 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     }
 
 
-    public class GuidAdapter extends PagerAdapter {
+    public class GuideAdapter extends PagerAdapter {
 
-        public GuidAdapter(){
+        public GuideAdapter(){
 
         }
 
@@ -156,7 +181,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
         @Override
         public void destroyItem(View container, int position, Object object) {
-            ((ViewPager)container).removeView(gifViews[position % gifViews.length]);
+            ((ViewPager)container).removeView(guideViews[position % guideViews.length]);
         }
 
         /**
@@ -164,9 +189,9 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
          */
         @Override
         public Object instantiateItem(View container, int position) {
-            ImageView imgView = gifViews[position % gifViews.length];
-            ((ViewPager)container).addView(imgView, 0);
-            return imgView;
+            View v = guideViews[position % guideViews.length];
+            ((ViewPager)container).addView(v, 0);
+            return v;
         }
 
     }

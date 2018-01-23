@@ -125,6 +125,12 @@
     <string name="dialog_coupon_message2">首次购物即可使用</string>
     <string name="message_unused_coupon_notify">您有%s元的优惠券未使用哦～</string>
 
+    <!--guide-->
+    <string name="guide_title_one">请扫码进门</string>
+    <string name="guide_title_two">拿取和放回</string>
+    <string name="guide_title_three">不能给予他人哦</string>
+    <string name="guide_title_four">即拿即走，自动结账</string>
+
     <!--notification-->
 
 
@@ -145,6 +151,7 @@
     <string name="btn_donot_update_title">稍后再说</string>
     <string name="btn_update_now_title">立即更新</string>
     <string name="message_loading_dialog_please_wait">请稍等...</string>
+    <string name="message_account_expired">用户信息过期，请重新登录</string>
 
 
 </resources>

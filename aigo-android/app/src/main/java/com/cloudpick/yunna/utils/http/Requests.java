@@ -2,11 +2,7 @@ package com.cloudpick.yunna.utils.http;
 
 import android.net.Uri;
 
-import com.cloudpick.yunna.model.User;
-import com.cloudpick.yunna.utils.Constants;
-import com.cloudpick.yunna.utils.enums.OrderType;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -44,8 +40,12 @@ public class Requests {
         String u = parseUrl(url, queryParams);
         Request request = new Request.Builder().url(u).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
-        String json = response.body().string();
-        return new Gson().fromJson(json, clazz);
+        if(response.isSuccessful()){
+            String json = response.body().string();
+            return new Gson().fromJson(json, clazz);
+        }else{
+            throw new IOException("request failed, code:" + response.code());
+        }
     }
 
     /**
@@ -62,16 +62,24 @@ public class Requests {
         String u = parseUrl(url, queryParams);
         Request request = new Request.Builder().url(u).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
-        String json = response.body().string();
-        return new Gson().fromJson(json, type);
+        if(response.isSuccessful()){
+            String json = response.body().string();
+            return new Gson().fromJson(json, type);
+        }else{
+            throw new IOException("request failed, code:" + response.code());
+        }
     }
 
     public static <T> T post(String url, Map<?, ?> data, Class<T> clazz) throws IOException{
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
         Request request = new Request.Builder().url(url).post(body).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
-        String json = response.body().string();
-        return new Gson().fromJson(json, clazz);
+        if(response.isSuccessful()){
+            String json = response.body().string();
+            return new Gson().fromJson(json, clazz);
+        }else{
+            throw new IOException("request failed, code:" + response.code());
+        }
     }
 
 
@@ -93,9 +101,13 @@ public class Requests {
 
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                String json = response.body().string();
-                Object o = new Gson().fromJson(json, c.getType());
-                c.ok(o);
+                if(response.isSuccessful()){
+                    String json = response.body().string();
+                    Object o = new Gson().fromJson(json, c.getType());
+                    c.ok(o);
+                }else{
+                    c.error(new IOException("request failed, code:" + response.code()));
+                }
             }
         });
     }
@@ -118,9 +130,13 @@ public class Requests {
 
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                String json = response.body().string();
-                Object o = new Gson().fromJson(json, c.getType());
-                c.ok(o);
+                if(response.isSuccessful()){
+                    String json = response.body().string();
+                    Object o = new Gson().fromJson(json, c.getType());
+                    c.ok(o);
+                }else{
+                    c.error(new IOException("request failed, code:" + response.code()));
+                }
             }
         });
     }

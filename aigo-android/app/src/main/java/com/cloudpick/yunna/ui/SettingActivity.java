@@ -15,7 +15,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.controller.SettingController;
-import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.Define;
 import com.cloudpick.yunna.utils.NotificationHelper;
 
@@ -91,7 +90,7 @@ public class SettingActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         Log.d("ssss", "setting view on resume");
-//        sw_notification.setChecked(NotificationHelper.getInstance().isEnabled());
+        sw_notification.setChecked(NotificationHelper.getInstance().isEnabled());
     }
 
     @Override

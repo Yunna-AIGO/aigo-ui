@@ -65,6 +65,9 @@ public class QRCodeController extends BaseController {
                                 action.failure(
                                         context.getResources().getString(R.string.message_order_not_paid),
                                         QRCodeError.ORDER_NOT_PAID);
+                            }else if(r.getCode().equals(QRCodeError.ACCOUNT_EXPIRED.getName())){
+                                User.getUser().signout();
+                                action.relogin();
                             }else{
                                 //其他情况暂时不暴露问题原因，统一归类到网络异常
                                 action.networkError();
@@ -82,6 +85,7 @@ public class QRCodeController extends BaseController {
         void networkError();
         void failure(String msg, QRCodeError error);
         void ok(Bitmap qrcodeImage);
+        void relogin();
     }
 
     private Bitmap generateQRCodeImage(String qrcodeStr, int width, int height, int rotate){
@@ -118,6 +122,7 @@ public class QRCodeController extends BaseController {
         NETWORK_ERROR("NETWORK_ERROR", "NETWORK_ERROR"),//network error
         NOTBINDING_PAYMENT("NOTBINDING_PAYMENT", "LGN2001011"),//not binging payment
         ORDER_NOT_PAID("ORDER_NOT_PAID", "LGN2001008"),//order not paid
+        ACCOUNT_EXPIRED("EXPIRED", "LGN2001002"),//account expired
         NONE("NONE", "NONE");//no error
 
         private final String code;

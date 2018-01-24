@@ -32,6 +32,7 @@ public class Order extends BaseModel implements Parcelable{
     private String storeName;
     private String desc;//订单描述
     private ArrayList<String> goodsIdList;
+    private int count;
 
     public String getExt() {
         return ext;
@@ -99,6 +100,10 @@ public class Order extends BaseModel implements Parcelable{
 
     public ArrayList<String> getGoodsIdList() {
         return goodsIdList;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public Order(){
@@ -177,7 +182,7 @@ public class Order extends BaseModel implements Parcelable{
         return status.equals(OrderStatus.SUCCESS.getCode());
     }
 
-    public int getGoodsCount(){
+    public int getGoodsImageCount(){
         if(goodsIdList == null){
             return 0;
         }else{
@@ -186,7 +191,7 @@ public class Order extends BaseModel implements Parcelable{
     }
 
     public String getGoodsImageUrl(int goodsIdIndex){
-        if(goodsIdIndex < 0 || goodsIdIndex >= getGoodsCount()){
+        if(goodsIdIndex < 0 || goodsIdIndex >= getGoodsImageCount()){
             return "";
         }
         return Constants.goodsImageUrlPrefix + goodsIdList.get(goodsIdIndex) + ".jpg";
@@ -217,6 +222,7 @@ public class Order extends BaseModel implements Parcelable{
         out.writeString(desc);
         out.writeString(storeName);
         out.writeStringList(goodsIdList);
+        out.writeInt(count);
     }
 
     private Order(Parcel in)
@@ -237,6 +243,7 @@ public class Order extends BaseModel implements Parcelable{
         desc = in.readString();
         storeName = in.readString();
         goodsIdList = in.createStringArrayList();
+        count = in.readInt();
     }
 
     public static final Parcelable.Creator<Order> CREATOR = new Parcelable.Creator<Order>()

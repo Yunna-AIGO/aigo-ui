@@ -183,7 +183,7 @@ public class OrdersFragment extends MainActivityFragment {
         ((ImageView)v.findViewById(R.id.img_store)).setImageResource(R.drawable.store);
         ((TextView)v.findViewById(R.id.tv_storeName)).setText(o.getStoreName());
         ((TextView)v.findViewById(R.id.tv_goods_count)).setText(
-                String.format(getResources().getString(R.string.tv_goods_count), o.getGoodsCount()));
+                String.format(getResources().getString(R.string.tv_goods_count), o.getCount()));
         setOrderAmount(o, v);
         setOrderStatus(o, v);
         setGoodsImage(o, v);
@@ -226,18 +226,18 @@ public class OrdersFragment extends MainActivityFragment {
     }
 
     private void setGoodsImage(Order o, View v){
-        int ct = o.getGoodsCount();
-        if(ct == 0){
+        int goodsImageCount = o.getGoodsImageCount();
+        if(goodsImageCount == 0){
             return;
         }
-        if(maxVisibleGoodsImageCount != -1 && ct > maxVisibleGoodsImageCount){
-            ct = maxVisibleGoodsImageCount;
+        if(maxVisibleGoodsImageCount != -1 && goodsImageCount > maxVisibleGoodsImageCount){
+            goodsImageCount = maxVisibleGoodsImageCount;
         }
         LinearLayout ll = v.findViewById(R.id.ll_goods_imgs);
         if(ll.getChildCount() != 0){
             ll.removeAllViews();
         }
-        for(int i=0;i<ct;i++){
+        for(int i=0;i<goodsImageCount;i++){
             ll.addView(newGoodsImageView(o.getGoodsImageUrl(i)));
         }
     }

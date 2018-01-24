@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cloudpick.yunna.R;
+
 
 public class TopupRecordsFragment extends Fragment {
 

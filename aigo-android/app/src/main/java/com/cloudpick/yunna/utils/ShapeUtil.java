@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 
 /**
  * Created by maxwell on 18-1-12.

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.CouponController;
 import com.cloudpick.yunna.model.Coupon;
 import com.cloudpick.yunna.ui.adapter.CouponListAdapter;

@@ -9,7 +9,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.cloudpick.yunna.model.Goods;
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.ui.adapter.GoodsListViewAdapter;
 
 import java.util.ArrayList;

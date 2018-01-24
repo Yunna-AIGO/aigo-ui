@@ -10,7 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.ShapeUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 

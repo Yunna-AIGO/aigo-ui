@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import android.app.AlertDialog;
 
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

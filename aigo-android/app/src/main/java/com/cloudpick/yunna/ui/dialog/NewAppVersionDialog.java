@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.ShapeUtil;
 
 import butterknife.BindView;

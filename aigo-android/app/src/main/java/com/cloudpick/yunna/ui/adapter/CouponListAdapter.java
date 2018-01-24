@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.model.Coupon;
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 
 import java.util.ArrayList;
 

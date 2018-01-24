@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.model.Feedback;
 import com.cloudpick.yunna.model.Goods;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.OrderListController;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.adapter.CommonRecyclerViewAdapter;

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.QRCodeController;
 import com.cloudpick.yunna.ui.main.MainActivityFragment;
 import com.cloudpick.yunna.utils.Constants;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.NotificationHelper;

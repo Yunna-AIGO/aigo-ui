@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 
 /**
  * Created by maxwell on 17-12-22.

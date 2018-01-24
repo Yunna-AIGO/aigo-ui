@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.model.Order;
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.ui.adapter.CommonRecyclerViewAdapter;
 import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.enums.PayType;

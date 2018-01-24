@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.LoginController;
 import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.dialog.CouponNotifyDialog;

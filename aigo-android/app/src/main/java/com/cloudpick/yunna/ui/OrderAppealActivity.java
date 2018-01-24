@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.OrderAppealController;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;

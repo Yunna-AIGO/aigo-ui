@@ -3,7 +3,7 @@ package com.cloudpick.yunna.controller;
 import android.content.Context;
 
 import com.cloudpick.yunna.model.User;
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.enums.ThirdType;
 import com.cloudpick.yunna.utils.http.Callback;

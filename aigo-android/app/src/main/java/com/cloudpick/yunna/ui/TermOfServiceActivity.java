@@ -8,6 +8,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.Constants;
 
 import butterknife.BindView;

@@ -1,6 +1,6 @@
 package com.cloudpick.yunna.utils;
 
-import com.cloudpick.yunna.ui.BuildConfig;
+import com.cloudpick.yunna.BuildConfig;
 
 /**
  * Created by maxwell on 17-12-19.

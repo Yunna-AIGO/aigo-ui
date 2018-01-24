@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.UserCenterController;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.main.MainActivityFragment;

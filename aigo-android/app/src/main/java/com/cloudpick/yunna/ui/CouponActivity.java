@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.CouponController;
 import com.cloudpick.yunna.ui.adapter.CouponFragmentAdapter;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;

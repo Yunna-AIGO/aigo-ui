@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cloudpick.yunna.utils.Tools;
+import com.cloudpick.yunna.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

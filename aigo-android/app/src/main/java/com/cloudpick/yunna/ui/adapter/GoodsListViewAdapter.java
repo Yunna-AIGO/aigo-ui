@@ -11,7 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.model.Goods;
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

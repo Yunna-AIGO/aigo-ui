@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.PaymentController;
 import com.cloudpick.yunna.ui.dialog.LoadingDialog;
 import com.cloudpick.yunna.utils.Constants;

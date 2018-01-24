@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.SettingController;
 import com.cloudpick.yunna.utils.Define;
 import com.cloudpick.yunna.utils.NotificationHelper;

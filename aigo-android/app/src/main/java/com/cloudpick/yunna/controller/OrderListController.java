@@ -7,7 +7,7 @@ import com.alipay.sdk.app.PayTask;
 import com.cloudpick.yunna.model.Coupon;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.model.User;
-import com.cloudpick.yunna.ui.R;
+import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.enums.AlipayResultStatus;

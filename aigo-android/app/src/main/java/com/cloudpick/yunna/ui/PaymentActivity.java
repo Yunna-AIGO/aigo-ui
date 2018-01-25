@@ -182,7 +182,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void navToMainActivity(){
-        Intent intent = MainActivity.newIntent(PaymentActivity.this, false);
+        Intent intent = MainActivity.newIntent(PaymentActivity.this, false, null);
         startActivity(intent);
         PaymentActivity.this.finish();
     }

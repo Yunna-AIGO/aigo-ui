@@ -23,7 +23,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.2.4"
+        versionName "1.2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -33,14 +33,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release_config
             buildConfigField("int", "APP_ENV", "2")
-//            buildConfigField("String", "BASE_URL", "\"http://47.100.13.231/cloudpick/rest/api/v1/\"")
             buildConfigField("String", "BASE_URL", "\"http://www.yunatop.com/cloudpick/rest/api/v1/\"")
+            buildConfigField("boolean", "SHOW_PUSH_LOG", "false")
+            buildConfigField("String", "PUSH_PLUGINS", "\"JPUSH\"")
             resValue("string", "app_name", "云拿")
+            resValue("string", "jpush_app_key", "d4155acbf753f2408c1ef323")
         }
         debug {
             applicationIdSuffix '.debug'
             buildConfigField("int", "APP_ENV", "0")
             buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8000/cloudpick/rest/api/v1/\"")
+            buildConfigField("boolean", "SHOW_PUSH_LOG", "true")
+            buildConfigField("String", "PUSH_PLUGINS", "\"MOCK_PUSH\"")
             resValue("string", "app_name", "云拿-开发")
         }
         //真机调试
@@ -48,6 +52,8 @@ android {
             applicationIdSuffix '.debug'
             buildConfigField("int", "APP_ENV", "0")
             buildConfigField("String", "BASE_URL", "\"http://10.10.13.111:8000/cloudpick/rest/api/v1/\"")
+            buildConfigField("boolean", "SHOW_PUSH_LOG", "true")
+            buildConfigField("String", "PUSH_PLUGINS", "\"MOCK_PUSH\"")
             resValue("string", "app_name", "云拿-真机开发")
             signingConfig signingConfigs.release_config
         }
@@ -56,7 +62,11 @@ android {
             applicationIdSuffix '.test'
             buildConfigField("int", "APP_ENV", "1")
             buildConfigField("String", "BASE_URL", "\"http://10.10.10.130:8080/cloudpick/rest/api/v1/\"")
+            buildConfigField("boolean", "SHOW_PUSH_LOG", "true")
+            buildConfigField("String", "PUSH_PLUGINS", "\"JPUSH\"")
             resValue("string", "app_name", "云拿-测试")
+            resValue("string", "jpush_app_key", "44ae7471cb831bb5c0362d27")
+            debuggable false
         }
     }
     sourceSets {

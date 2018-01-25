@@ -6,7 +6,7 @@ package com.cloudpick.yunna.utils;
 
 public class Constants {
     // options
-    public static final String LOG_TAG = "ssss";
+    public static final String LOG_TAG = "CloudPick";
 
     private static final String urlPrefix = Define.getUrlPrefix();
     public static final String goodsImageUrlPrefix = "http://img.yunatop.com/";

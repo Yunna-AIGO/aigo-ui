@@ -79,12 +79,12 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         ll_notification.setVisibility(View.GONE);
-//        sw_notification.setChecked(NotificationHelper.getInstance().isEnabled());
-//        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT){
-//            ll_notification.setVisibility(View.GONE);
-//        }else{
-//            ll_notification.setVisibility(View.VISIBLE);
-//        }
+        sw_notification.setChecked(NotificationHelper.getInstance().isEnabled());
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT){
+            ll_notification.setVisibility(View.GONE);
+        }else{
+            ll_notification.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

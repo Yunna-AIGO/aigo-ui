@@ -83,6 +83,7 @@ public class QRCodeFragment extends MainActivityFragment {
                 refreshQrCode(true);
             }
         });
+        refreshQrCode(true);
     }
 
     @Override

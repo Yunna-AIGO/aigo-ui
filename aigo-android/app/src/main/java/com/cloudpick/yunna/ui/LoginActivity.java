@@ -126,7 +126,7 @@ public class LoginActivity extends BaseActivity {
 
     private void enter(boolean isBindingPayment){
         if(isBindingPayment){
-            Intent intent = MainActivity.newIntent(LoginActivity.this, false);
+            Intent intent = MainActivity.newIntent(LoginActivity.this, false, null);
             startActivity(intent);
         }else{
             Intent intent = PaymentActivity.newIntent(

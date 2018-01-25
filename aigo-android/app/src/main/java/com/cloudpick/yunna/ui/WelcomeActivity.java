@@ -1,25 +1,48 @@
 package com.cloudpick.yunna.ui;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.utils.AppData;
-import com.cloudpick.yunna.utils.NotificationHelper;
+import com.cloudpick.yunna.utils.message.AppAction;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BaseActivity {
+
+    private AppAction appAction = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getContentViewId(){
+        return R.layout.activity_welcome;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState){
+        //init app data
+        AppData.getAppData().init(getApplicationContext());
+        //init imageLoader
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration
+                .Builder(getApplicationContext())
+                .writeDebugLogs()
+                .build();
+        ImageLoader.getInstance().init(config);
+
+        Intent intent = getIntent();
+        if(intent != null){
+            appAction = intent.getParcelableExtra(MainActivity.APP_ACTION_KEY);
+        }
+    }
+
+    @Override
+    protected void beforeViewCreate(Bundle savedInstanceState){
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_welcome);
-        initApp();
     }
 
     @Override
@@ -33,7 +56,7 @@ public class WelcomeActivity extends Activity {
                     if(!User.getUser().checkUser()){
                         startActivity(LoginActivity.newIntent(WelcomeActivity.this, true));
                     }else{
-                        startActivity(MainActivity.newIntent(WelcomeActivity.this, true));
+                        startActivity(MainActivity.newIntent(WelcomeActivity.this, true, appAction));
                     }
                     WelcomeActivity.this.finish();
                 });
@@ -52,16 +75,9 @@ public class WelcomeActivity extends Activity {
 //        }, 3000);
     }
 
-    private void initApp(){
-        //init app data
-        AppData.getAppData().init(getApplicationContext());
-        //init imageLoader
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration
-                .Builder(getApplicationContext())
-                .writeDebugLogs()
-                .build();
-        ImageLoader.getInstance().init(config);
-        //init notification
-        NotificationHelper.getInstance().init(WelcomeActivity.this);
+    public static Intent newIntent(Context packageContext, AppAction action){
+        Intent intent = new Intent(packageContext, WelcomeActivity.class);
+        intent.putExtra(MainActivity.APP_ACTION_KEY, action);
+        return intent;
     }
 }

@@ -8,18 +8,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.main.MainActivityFragment;
 import com.cloudpick.yunna.utils.VersionHelper;
+import com.cloudpick.yunna.utils.message.AppAction;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.cloudpick.yunna.utils.Constants.LOG_TAG;
+
 public class MainActivity extends BaseActivity {
+    public static final String APP_ACTION_KEY = "com.cloudpick.yunna.ui.appAction";
+    public static boolean isAlive = false;
 
     private int currentNavigationItemId = -1;
 
@@ -31,6 +37,8 @@ public class MainActivity extends BaseActivity {
     private MainActivityFragment qrcodeFragment = null;
     private MainActivityFragment orderFragment = null;
     private MainActivityFragment userCenterFragment = null;
+
+    private boolean isViewResReady = false;
 
     @Override
     protected int getContentViewId(){
@@ -45,8 +53,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState){
         ButterKnife.bind(this);
-        switchFragment(R.id.navigation_qrcode);
-
+        //绑定底部导航切换事件
         navigation.setOnNavigationItemSelectedListener((item)->{
             switch (item.getItemId()) {
                 case R.id.navigation_qrcode:
@@ -61,9 +68,18 @@ public class MainActivity extends BaseActivity {
             }
             return false;
         });
+        //处理跳转事件
+        handleAppAction(getIntent());
+        //版本检查
         new VersionHelper(MainActivity.this, getIntent()).checkVersion(()->{
             MainActivity.this.finish();
         });
+    }
+
+    @Override
+    protected void afterViewCreated(Bundle savedInstanceState){
+        isViewResReady = true;
+        isAlive = true;
     }
 
     @OnClick(R.id.tb_main)
@@ -72,6 +88,36 @@ public class MainActivity extends BaseActivity {
         if(frag instanceof OrdersFragment){
             ((OrdersFragment)frag).toolbarClicked();
         }
+    }
+
+    /**
+     * 处理跳转事件
+     * @param intent
+     */
+    private void handleAppAction(Intent intent){
+        AppAction action = null;
+        if(intent != null){
+            action = intent.getParcelableExtra(APP_ACTION_KEY);
+        }
+        if(action != null){
+            Log.d(LOG_TAG, "action is " + action.getAppActionTypes().getName());
+            switch(action.getAppActionTypes()){
+                case APP_ACTION_ORDERLIST:
+                    Log.d(LOG_TAG, "switch to order");
+                    switchTo(MainFragment.ORDER);
+                    return;
+                case APP_ACTION_COUPONLIST:
+                    Log.d(LOG_TAG, "switch to qrcode");
+                    switchTo(MainFragment.QRCODE);
+                    Log.d(LOG_TAG, "start coupon list");
+                    startActivity(CouponActivity.newIntent(MainActivity.this));
+                    return;
+            }
+        }else{
+            Log.d(LOG_TAG, "action is null");
+        }
+        Log.d(LOG_TAG, "switch to qrcode");
+        switchTo(MainFragment.QRCODE);
     }
 
     private void switchFragment(int id){
@@ -85,6 +131,8 @@ public class MainActivity extends BaseActivity {
                 if(qrcodeFragment == null){
                     qrcodeFragment = new QRCodeFragment();
                     qrcodeFragment.setTitle(getResources().getString(R.string.title_qrcode));
+                }else{
+                    qrcodeFragment.setFragmentVisible(true);
                 }
                 frag = qrcodeFragment;
                 break;
@@ -94,6 +142,8 @@ public class MainActivity extends BaseActivity {
                     //目前仅显示订单
                     orderFragment = new OrdersFragment();
                     orderFragment.setTitle(getResources().getString(R.string.tab_order_title));
+                }else{
+                    orderFragment.setFragmentVisible(true);
                 }
                 frag = orderFragment;
                 break;
@@ -101,6 +151,8 @@ public class MainActivity extends BaseActivity {
                 if(userCenterFragment == null){
                     userCenterFragment = new UserCenterFragment();
                     userCenterFragment.setTitle(getResources().getString(R.string.title_user_center));
+                }else{
+                    userCenterFragment.setFragmentVisible(true);
                 }
                 frag = userCenterFragment;
                 break;
@@ -123,9 +175,9 @@ public class MainActivity extends BaseActivity {
         }else{
             tran.show(frag);
         }
-        if(isViewResReady()){
-            frag.setFragmentVisible(true);
-        }
+//        if(isViewResReady){
+//            frag.setFragmentVisible(true);
+//        }
         tran.commit();
         currentNavigationItemId = id;
     }
@@ -171,9 +223,10 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public static Intent newIntent(Context packageContext, boolean checkVersion){
+    public static Intent newIntent(Context packageContext, boolean checkVersion, AppAction action){
         Intent intent = new Intent(packageContext, MainActivity.class);
         intent.putExtra(VersionHelper.CHECK_VERSION_KEY, checkVersion);
+        intent.putExtra(APP_ACTION_KEY, action);
         return intent;
     }
 

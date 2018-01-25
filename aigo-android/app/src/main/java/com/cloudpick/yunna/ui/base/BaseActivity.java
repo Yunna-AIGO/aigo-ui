@@ -20,14 +20,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public abstract class BaseActivity extends AppCompatActivity {
 
     /**
-     * 标记Activity中View的资源是否已经准备好
-     */
-    private boolean isViewResReady = false;
-    public boolean isViewResReady() {
-        return isViewResReady;
-    }
-
-    /**
      * 标记Activity是否正在执行runActivityTask
      */
     private boolean isActivityBusy = false;
@@ -38,7 +30,26 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract int getContentViewId();
 
+    /**
+     * 初始化视图
+     * @param savedInstanceState
+     */
     protected abstract void initView(Bundle savedInstanceState);
+
+    /**
+     * 视图创建前
+     * @param savedInstanceState
+     */
+    protected void beforeViewCreate(Bundle savedInstanceState){
+
+    }
+
+    /**
+     * 视图创建完成
+     * @param savedInstanceState
+     */
+    protected void afterViewCreated(Bundle savedInstanceState){
+    }
 
     /**
      * 获取当前显示的fragment
@@ -53,9 +64,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //beforeViewCreate在此处调用是为了防止用户重写方法设置屏幕的横纵被基类中的覆盖
+        beforeViewCreate(savedInstanceState);
         setContentView(getContentViewId());
         initView(savedInstanceState);
-        isViewResReady = true;
+        afterViewCreated(savedInstanceState);
     }
 
     /**

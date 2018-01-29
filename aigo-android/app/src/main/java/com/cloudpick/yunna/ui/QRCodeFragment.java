@@ -3,6 +3,8 @@ package com.cloudpick.yunna.ui;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -138,47 +140,53 @@ public class QRCodeFragment extends MainActivityFragment {
 
     private void switchToQrCodeLoadingFailedView(QRCodeError qrcodeError, String msg){
         hideLoadingIndicator();
-        stopAutoRefreshQrCode();
         avi_loading.setVisibility(View.GONE);
         img_qr_code.setVisibility(View.GONE);
         ll_msg_welcome.setVisibility(View.INVISIBLE);
-        ll_options.setVisibility(View.VISIBLE);
 
-        if(qrcodeError == QRCodeError.NETWORK_ERROR){
-            ll_msg_qrcode_error.setVisibility(View.GONE);
-            btn_network_error.setVisibility(View.VISIBLE);
-        }else{
-            btn_network_error.setVisibility(View.GONE);
-            ll_msg_qrcode_error.setVisibility(View.VISIBLE);
-            tv_message.setText(msg);
-            if(qrcodeError == QRCodeError.NOTBINDING_PAYMENT){
-                tv_option.setText(R.string.message_goto_payment_page);
-            }else if(qrcodeError == QRCodeError.ORDER_NOT_PAID){
-                tv_option.setText(R.string.message_goto_order_page);
+        getHostActivity().getHandler().postDelayed(()->{
+            stopAutoRefreshQrCode();
+            ll_options.setVisibility(View.VISIBLE);
+
+            if(qrcodeError == QRCodeError.NETWORK_ERROR){
+                ll_msg_qrcode_error.setVisibility(View.GONE);
+                btn_network_error.setVisibility(View.VISIBLE);
+            }else{
+                btn_network_error.setVisibility(View.GONE);
+                ll_msg_qrcode_error.setVisibility(View.VISIBLE);
+                tv_message.setText(msg);
+                if(qrcodeError == QRCodeError.NOTBINDING_PAYMENT){
+                    tv_option.setText(R.string.message_goto_payment_page);
+                }else if(qrcodeError == QRCodeError.ORDER_NOT_PAID){
+                    tv_option.setText(R.string.message_goto_order_page);
+                }
+                ll_msg_qrcode_error.setTag(qrcodeError);
             }
-            ll_msg_qrcode_error.setTag(qrcodeError);
-        }
+        }, 500);
     }
 
     private void switchToQrCodeView(Bitmap qrcodeImage){
         hideLoadingIndicator();
         ll_options.setVisibility(View.GONE);
         avi_loading.setVisibility(View.GONE);
-        img_qr_code.setVisibility(View.VISIBLE);
-        ll_msg_welcome.setVisibility(View.VISIBLE);
 
-        if(!flag){
-            int h = Math.min(ll_qrcode.getHeight(), ll_qrcode.getWidth());
-            h = (int)(h / 1.5);
-            LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams)img_qr_code.getLayoutParams();
-            ll.width = h;
-            ll.height = h;
-            img_qr_code.setLayoutParams(ll);
-            flag = true;
-        }
-        if(qrcodeImage != null){
-            img_qr_code.setImageBitmap(qrcodeImage);
-        }
+        getHostActivity().getHandler().postDelayed(()->{
+            img_qr_code.setVisibility(View.VISIBLE);
+            ll_msg_welcome.setVisibility(View.VISIBLE);
+
+            if(!flag){
+                int h = Math.min(ll_qrcode.getHeight(), ll_qrcode.getWidth());
+                h = (int)(h / 1.5);
+                LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams)img_qr_code.getLayoutParams();
+                ll.width = h;
+                ll.height = h;
+                img_qr_code.setLayoutParams(ll);
+                flag = true;
+            }
+            if(qrcodeImage != null){
+                img_qr_code.setImageBitmap(qrcodeImage);
+            }
+        }, 500);
     }
 
     private void refreshQrCode(boolean startAutoRefreshQrCode){

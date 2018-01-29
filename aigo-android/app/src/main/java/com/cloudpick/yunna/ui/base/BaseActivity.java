@@ -2,6 +2,8 @@ package com.cloudpick.yunna.ui.base;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -23,6 +25,19 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 标记Activity是否正在执行runActivityTask
      */
     private boolean isActivityBusy = false;
+
+    private Handler handler = null;
+    /**
+     *  获取application的主线程
+     * @return
+     */
+    public Handler getHandler(){
+        if(handler == null){
+            handler = new Handler(Looper.getMainLooper());
+        }
+        return handler;
+    }
+
 
     /**
      * 布局文件ID

@@ -17,6 +17,7 @@ public class Constants {
     public static final Integer ORDER_PAGE_SIZE = 10;
     public static final String TERM_OF_SERVICE_URL = "http://www.cloudpick.me/TermOfService.html";
     public static final String PACKAGE_NAME_ALIPAY = "com.eg.android.AlipayGphone";
+    public static final String PACKAGE_NAME_WECHAT = "com.tencent.mm";
     public static final String APP_SCHEME = "yunna";
     public static final String ALIPAY_URL_PREFIX = "alipays://platformapi/startapp?appId=20000067&url=";
     public static final boolean SHOW_SKIP_IN_BINDING_PAYMENT = Define.showSkipInBindingPayment();

@@ -2,6 +2,7 @@ package com.cloudpick.yunna.controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
 import com.cloudpick.yunna.model.Coupon;
@@ -10,11 +11,13 @@ import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.Tools;
+import com.cloudpick.yunna.utils.WXApi;
 import com.cloudpick.yunna.utils.enums.AlipayResultStatus;
 import com.cloudpick.yunna.utils.enums.PayType;
 import com.cloudpick.yunna.utils.http.Callback;
 import com.cloudpick.yunna.utils.http.Requests;
 import com.cloudpick.yunna.utils.http.Response;
+import com.cloudpick.yunna.wxapi.WXPayEntryActivity;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -103,6 +106,7 @@ public class OrderListController extends BaseController {
                 payByAlipay(order, activity, action);
                 break;
             case WECHAT_PAY:
+                payByWechat(order, action);
                 break;
             case CP_PAY:
                 break;
@@ -130,13 +134,14 @@ public class OrderListController extends BaseController {
         Requests.postAsync(Constants.URL_TRADE_PAY, data, new Callback<Response<TradeInfo>>() {
             @Override
             public void error(Exception e) {
+                payHandling = false;
                 System.out.println(e.getMessage());
                 action.terminate(context.getResources().getString(R.string.network_error));
-                payHandling = false;
             }
 
             @Override
             public void ok(Response<TradeInfo> r) {
+                payHandling = false;
                 if(r.isSuccess()){
                     new Thread(()->{
                         PayTask alipay = new PayTask(activity);
@@ -155,9 +160,58 @@ public class OrderListController extends BaseController {
                         action.terminate(r.getMessage());
                     });
                 }
-                payHandling = false;
             }
         });
+    }
+
+    private void payByWechat(Order order, PayAction action){
+        //TODO 微信支付基本完成。在返回app时的逻辑需要优化
+        if(payHandling){
+            handler.post(()->{
+                action.terminate(context.getResources().getString(R.string.message_in_process));
+            });
+            return;
+        }
+        if(!WXApi.getInstance(context).isAppInstalled()){
+            handler.post(()->{
+                action.terminate(context.getResources().getString(R.string.message_wechat_not_installed));
+            });
+            return;
+        }
+        payHandling = true;
+        Map<String, String> data = new HashMap<>();
+        data.put("userId", User.getUser().getUserId());
+        data.put("orderId", order.getOrderId());
+        data.put("payType", PayType.WECHAT_PAY.getCode());
+        Requests.postAsync(Constants.URL_TRADE_PAY, data, new Callback<Response<WXApi.TradeInfo>>() {
+            @Override
+            public void error(Exception e) {
+                payHandling = false;
+                System.out.println(e.getMessage());
+                action.terminate(context.getResources().getString(R.string.network_error));
+            }
+
+            @Override
+            public void ok(Response<WXApi.TradeInfo> r) {
+                payHandling = false;
+                if(r.isSuccess()){
+                    new Thread(()->{
+                        //set response
+                        WXPayEntryActivity.wxPayResp = (errCode)->{
+                            handler.post(()->{
+                                action.ok();
+                            });
+                        };
+                        WXApi.getInstance(context).pay(r.getData());
+                    }).start();
+                }else{
+                    handler.post(()->{
+                        action.terminate(r.getMessage());
+                    });
+                }
+            }
+        });
+
     }
 
     public interface PayAction{
@@ -187,4 +241,6 @@ public class OrderListController extends BaseController {
         public TradeInfo(){
         }
     }
+
+
 }

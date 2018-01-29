@@ -92,12 +92,11 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
                 context.getResources().getString(R.string.tv_pay_by_alipay_title),
                 PayType.ALIPAY,
                 true));
-        //暂不提供微信支付
-//        payTypes.add(new PayType(
-//                R.drawable.weixinzhifu,
-//                context.getResources().getString(R.string.tv_pay_by_weixin_title),
-//                PayType.WECHAT_PAY,
-//                false));
+        payTypes.add(new PayTypeInfo(
+                R.drawable.weixinzhifu,
+                context.getResources().getString(R.string.tv_pay_by_weixin_title),
+                PayType.WECHAT_PAY,
+                false));
         return payTypes;
     }
 
@@ -110,8 +109,8 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
                         if(onClickOk != null){
                             onClickOk.ok(payType.getPayType());
                         }
+                        break;
                     }
-                    break;
                 }
                 this.dismiss();
                 break;

@@ -27,14 +27,16 @@ public class Tools {
     public static boolean isAppInstalled(Context context, String packageName){
         final PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        List<String> pName = new ArrayList<String>();
         if (pinfo != null) {
             for (int i = 0; i < pinfo.size(); i++) {
                 String pn = pinfo.get(i).packageName;
-                pName.add(pn);
+                if(pn.equalsIgnoreCase(packageName)){
+                    return true;
+                }
             }
         }
-        return pName.contains(packageName);
+        return false;
+
 
         //TODO:尝试使用下面的方式来查看已安装的app
 //        PackageManager packageManager = context.getPackageManager();

@@ -41,14 +41,12 @@ public class QRCodeController extends BaseController {
             Requests.postAsync(Constants.URL_QRCODE, data, new Callback<Response<Map<String, String>>>() {
                 @Override
                 public void error(Exception e) {
-                    Tools.Sleep(500);
                     System.out.println(e.getMessage());
                     handler.post(()->{action.networkError();});
                 }
 
                 @Override
                 public void ok(Response<Map<String, String>> r) {
-                    Tools.Sleep(500);
                     if(r.isSuccess()){
                         Bitmap qrcodeImage = generateQRCodeImage(
                                 r.getData().get(Constants.KEY_ENTRY_URL), 160, 160, 0);

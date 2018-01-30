@@ -3,7 +3,6 @@ package com.cloudpick.yunna.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +15,8 @@ import android.widget.TextView;
 
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.SettingController;
+import com.cloudpick.yunna.ui.base.BaseActivity;
+import com.cloudpick.yunna.ui.settings.payment.PaymentActivity;
 import com.cloudpick.yunna.utils.Define;
 import com.cloudpick.yunna.utils.NotificationHelper;
 
@@ -23,7 +24,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
+
+    private static final String TAG = "CloudPick";
 
     private SettingController controller = null;
 
@@ -38,15 +41,28 @@ public class SettingActivity extends AppCompatActivity {
     @BindView(R.id.ll_notification)
     LinearLayout ll_notification;
 
+    //override
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+    protected int getContentViewId(){
+        return R.layout.activity_setting;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState){
         controller = new SettingController(SettingActivity.this);
         ButterKnife.bind(this);
         initComponent();
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d(TAG, "setting view on resume");
+        sw_notification.setChecked(NotificationHelper.getInstance().isEnabled());
+    }
+
+
+    //bind event
     @OnClick(R.id.btn_payment_config)
     void btnPaymentConfigClick(View v){
         Intent intent = PaymentActivity.newIntent(
@@ -87,18 +103,7 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        Log.d("ssss", "setting view on resume");
-        sw_notification.setChecked(NotificationHelper.getInstance().isEnabled());
-    }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        Log.d("ssss", "setting view on start");
-    }
 
 
     public static Intent newIntent(Context packageContext){

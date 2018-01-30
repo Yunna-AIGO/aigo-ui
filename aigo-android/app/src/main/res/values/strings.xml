@@ -104,17 +104,16 @@
 
     <!--payment-->
     <string name="title_payment">支付方式</string>
-    <string name="payment_alipay_title">支付宝支付</string>
-    <string name="payment_alipay_sign">开通支付宝支付</string>
-    <string name="payment_alipay_signed">已开通支付宝支付</string>
-    <string name="payment_alipay_unsign">关闭支付宝支付</string>
-    <string name="message_alipay_sign_success">已开通支付宝支付</string>
-    <string name="message_alipay_sign_failure">支付宝支付开通失败</string>
-    <string name="message_alipay_unsign_success">已关闭支付宝支付</string>
-    <string name="message_alipay_unsign_failure">支付宝支付关闭失败</string>
-    <string name="message_alipay_unsign_alert">确定关闭支付宝支付？</string>
-    <string name="message_alipay_not_installed">请先安装支付宝～</string>
-    <string name="message_wechat_not_installed">请先安装微信～</string>
+    <string name="payment_third_type_title">%s支付</string>
+    <string name="payment_third_type_sign">开通%s支付</string>
+    <string name="payment_third_type_signed">已开通%s支付</string>
+    <string name="payment_third_type_unsign">关闭%s支付</string>
+    <string name="message_third_type_sign_success">已开通%s支付</string>
+    <string name="message_third_type_unsign_success">已关闭%s支付</string>
+    <string name="message_third_type_unsign_failure">%s支付关闭失败</string>
+    <string name="message_third_type_sign_failure">%s支付开通失败</string>
+    <string name="message_third_type_unsign_alert">确定关闭%s支付？</string>
+    <string name="message_pay_client_not_installed">请先安装%s～</string>
     <string name="message_wechat_pay_result_success">支付成功</string>
     <string name="message_wechat_pay_result_cancel">支付已取消</string>
     <string name="message_wechat_pay_result_fail">支付失败</string>

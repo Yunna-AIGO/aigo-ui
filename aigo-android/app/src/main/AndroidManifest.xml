@@ -138,7 +138,7 @@
             android:label="@string/title_setting"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.PaymentActivity"
+            android:name=".ui.settings.payment.PaymentActivity"
             android:label="@string/title_payment"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">

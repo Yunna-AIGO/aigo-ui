@@ -4,6 +4,9 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -163,6 +166,40 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void TerminateFakeActivityTask(){
         isFakeTaskRunning.set(false);
         Tools.Sleep(200);
+    }
+
+    /**
+     * 添加fragment
+     * @param containerViewId
+     * @param fragment
+     * @param fragmentTag
+     */
+    protected void addFragment(@IdRes int containerViewId,
+                               @NonNull Fragment fragment,
+                               @NonNull String fragmentTag) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(containerViewId, fragment, fragmentTag)
+                .disallowAddToBackStack()
+                .commit();
+    }
+
+    /**
+     * 替换fragment
+     * @param containerViewId
+     * @param fragment
+     * @param fragmentTag
+     * @param backStackStateName
+     */
+    protected void replaceFragment(@IdRes int containerViewId,
+                                   @NonNull Fragment fragment,
+                                   @NonNull String fragmentTag,
+                                   @Nullable String backStackStateName) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(containerViewId, fragment, fragmentTag)
+                .addToBackStack(backStackStateName)
+                .commit();
     }
 
 //    /**

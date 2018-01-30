@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.util.Log;
 
+import com.tencent.mm.opensdk.modelbiz.OpenWebview;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
-import static com.cloudpick.yunna.utils.Constants.LOG_TAG;
 
 /**
  * Created by maxwell on 18-1-26.
@@ -16,6 +15,7 @@ import static com.cloudpick.yunna.utils.Constants.LOG_TAG;
 
 public class WXApi extends ContextWrapper {
 
+    private static final String TAG = "CloudPick";
     public static final int PAY_RESULT_CANCELED = -2;
     public static final int PAY_RESULT_ERROR = -1;
     public static final int PAY_RESULT_SUCCESSED = 0;
@@ -51,7 +51,7 @@ public class WXApi extends ContextWrapper {
             }
         }catch (Exception ex){
             ex.printStackTrace();
-            Log.d(LOG_TAG,  "check wechat installed error!");
+            Log.d(TAG,  "check wechat installed error!");
             return false;
         }
     }
@@ -66,6 +66,12 @@ public class WXApi extends ContextWrapper {
         request.timeStamp= tradeInfo.timestamp;
         request.sign= tradeInfo.sign;
         return api.sendReq(request);
+    }
+
+    public void sign(String signRequestInfo){
+        OpenWebview.Req req = new OpenWebview.Req();
+        req.url = signRequestInfo;
+        api.sendReq(req);
     }
 
 

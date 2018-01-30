@@ -6,6 +6,7 @@ package com.cloudpick.yunna.utils.enums;
 
 public enum TerminalChannel {
     ALIPAYAPP("ALIPAYAPP", "支付宝钱包"),
+    WECHAT("WECHAT", "微信钱包"),
     PC("PC", "PC端访问"),
     WAP("WAP", "WAP访问");
 

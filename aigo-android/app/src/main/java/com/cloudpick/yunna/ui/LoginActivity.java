@@ -13,6 +13,7 @@ import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.LoginController;
 import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.dialog.CouponNotifyDialog;
+import com.cloudpick.yunna.ui.settings.payment.PaymentActivity;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.Tools;
@@ -107,25 +108,25 @@ public class LoginActivity extends BaseActivity {
                     TerminateFakeActivityTask();
                 }
                 @Override
-                public void ok(boolean isBindingPayment, boolean isCoupon, String couponAmt) {
+                public void ok(boolean hasSignedPayment, boolean isCoupon, String couponAmt) {
                     TerminateFakeActivityTask();
                     if(isCoupon && !TextUtils.isEmpty(couponAmt)){
                         CouponNotifyDialog dlg = new CouponNotifyDialog(
                                 LoginActivity.this,
                                 getResources().getString(R.string.currency_cny) + couponAmt,
                                 ()->{
-                                    enter(isBindingPayment);
+                                    enter(hasSignedPayment);
                                 });
                         dlg.show();
                     }else{
-                        enter(isBindingPayment);
+                        enter(hasSignedPayment);
                     }
                 }
             });
     }
 
-    private void enter(boolean isBindingPayment){
-        if(isBindingPayment){
+    private void enter(boolean hasSignedPayment){
+        if(hasSignedPayment){
             Intent intent = MainActivity.newIntent(LoginActivity.this, false, null);
             startActivity(intent);
         }else{

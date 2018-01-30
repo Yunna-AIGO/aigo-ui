@@ -73,7 +73,7 @@ public class LoginController extends BaseController {
                                     });
                                     return;
                                 }
-                                boolean isBindingPayment = PaymentController.isBindingPayment(ThirdType.ALIPAY);
+                                boolean hasSignedPayment = PaymentController.hasSignedPayment();
                                 handler.post(()->{
                                     boolean hasCoupon = false;
                                     String couponAmount = "";
@@ -82,7 +82,7 @@ public class LoginController extends BaseController {
                                         couponAmount = r.getData().get(Constants.KEY_COUPON_AMOUNT).toString();
                                     }catch (Exception e){
                                     }
-                                    action.ok(isBindingPayment, hasCoupon, couponAmount);
+                                    action.ok(hasSignedPayment, hasCoupon, couponAmount);
                                 });
                             }else{
                                 handler.post(()->{
@@ -98,7 +98,7 @@ public class LoginController extends BaseController {
 
     public interface loginAction {
         void failure(String msg);
-        void ok(boolean isBindingPayment, boolean isCoupon, String couponAmt);
+        void ok(boolean hasSignedPayment, boolean isCoupon, String couponAmt);
     }
 
     public boolean isValidMobile(String mobile){

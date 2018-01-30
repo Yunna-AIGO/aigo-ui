@@ -116,13 +116,13 @@ public class OrderListController extends BaseController {
     private void payByAlipay(Order order, Activity activity, PayAction action){
         if(payHandling){
             handler.post(()->{
-                action.terminate(context.getResources().getString(R.string.message_in_process));
+                action.terminate(context.getString(R.string.message_in_process));
             });
             return;
         }
         if(!Tools.isAppInstalled(context, Constants.PACKAGE_NAME_ALIPAY)){
             handler.post(()->{
-                action.terminate(context.getResources().getString(R.string.message_alipay_not_installed));
+                action.terminate(context.getString(R.string.message_pay_client_not_installed, PayType.ALIPAY.getName()));
             });
             return;
         }
@@ -136,7 +136,7 @@ public class OrderListController extends BaseController {
             public void error(Exception e) {
                 payHandling = false;
                 System.out.println(e.getMessage());
-                action.terminate(context.getResources().getString(R.string.network_error));
+                action.terminate(context.getString(R.string.network_error));
             }
 
             @Override
@@ -168,13 +168,13 @@ public class OrderListController extends BaseController {
         //TODO 微信支付基本完成。在返回app时的逻辑需要优化
         if(payHandling){
             handler.post(()->{
-                action.terminate(context.getResources().getString(R.string.message_in_process));
+                action.terminate(context.getString(R.string.message_in_process));
             });
             return;
         }
         if(!WXApi.getInstance(context).isAppInstalled()){
             handler.post(()->{
-                action.terminate(context.getResources().getString(R.string.message_wechat_not_installed));
+                action.terminate(context.getString(R.string.message_pay_client_not_installed, PayType.WECHAT_PAY.getName()));
             });
             return;
         }
@@ -188,7 +188,7 @@ public class OrderListController extends BaseController {
             public void error(Exception e) {
                 payHandling = false;
                 System.out.println(e.getMessage());
-                action.terminate(context.getResources().getString(R.string.network_error));
+                action.terminate(context.getString(R.string.network_error));
             }
 
             @Override

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_payment_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:layout_marginBottom="0dp"
+    android:clickable="true"
+    android:background="@drawable/shape_round_corner">
+    <TextView
+        android:id="@+id/tv_payment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:layout_margin="15dp"/>
+
+    <ImageView
+        android:id="@+id/img_payment"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/tv_payment_title"
+        android:layout_alignStart="@+id/tv_payment_title"
+        android:layout_below="@+id/tv_payment_title"
+        android:layout_marginBottom="15dp"
+        android:background="@color/colorTransparent" />
+
+    <TextView
+        android:id="@+id/tv_payment_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_payment"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/img_payment"
+        android:layout_toRightOf="@+id/img_payment"
+        android:textColor="@color/colorWhite"/>
+    <ImageView
+        android:id="@+id/img_payment_option"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:tint="@color/colorWhite"/>
+
+</RelativeLayout>

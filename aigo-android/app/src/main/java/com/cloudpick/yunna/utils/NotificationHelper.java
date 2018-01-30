@@ -145,6 +145,7 @@ public class NotificationHelper {
         }else{
             Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
             intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("app_package", context.getPackageName());
             intent.putExtra("app_uid", context.getApplicationInfo().uid);
             context.startActivity(intent);

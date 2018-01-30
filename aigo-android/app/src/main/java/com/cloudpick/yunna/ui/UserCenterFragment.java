@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.UserCenterController;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.main.MainActivityFragment;
+import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.Tools;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -30,6 +32,8 @@ public class UserCenterFragment extends MainActivityFragment {
 
     private UserCenterController controller = null;
 
+    @BindView(R.id.ll_user_center)
+    LinearLayout ll_user_center;
     @BindView(R.id.tv_name)
     TextView tv_name;
     @BindView(R.id.img_avatar)
@@ -44,6 +48,7 @@ public class UserCenterFragment extends MainActivityFragment {
     protected void initView(View view, Bundle savedInstanceState){
         controller = new UserCenterController(getContext());
         ButterKnife.bind(this, view);
+        ShapeUtil.CardShape(R.color.colorWhite).render(ll_user_center);
         loadUserInfo();
     }
 

@@ -115,7 +115,9 @@ public class LoginActivity extends BaseActivity {
                                             }
                                             return newCaptchaUrl;
                                         }else{
-                                            waitForInputSmsCaptcha();
+                                            getHandler().post(()->{
+                                                waitForInputSmsCaptcha();
+                                            });
                                             return null;
                                         }
                                     }

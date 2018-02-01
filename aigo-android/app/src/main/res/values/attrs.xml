@@ -35,4 +35,16 @@
         </attr>
     </declare-styleable>
 
+    <attr name="cellIcon" format="integer"/>
+    <attr name="cellTitle" format="string"/>
+    <attr name="cellTitleSize" format="dimension"/>
+    <attr name="cellBackgroundColor" format="color"/>
+    <declare-styleable name="CellView">
+        <attr name="cellIcon"/>
+        <attr name="cellTitle"/>
+        <attr name="cellTitleSize"/>
+        <attr name="cellBackgroundColor"/>
+    </declare-styleable>
+
+
 </resources>

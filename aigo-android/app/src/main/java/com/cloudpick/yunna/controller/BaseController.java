@@ -5,7 +5,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
+import android.support.annotation.StringRes;
+
+import com.cloudpick.yunna.utils.Tools;
 
 /**
  * Created by maxwell on 17-12-18.
@@ -21,6 +23,18 @@ public class BaseController implements Parcelable {
         this.handler = new Handler(Looper.getMainLooper());
     }
 
+    protected void showMessage(String msg){
+        if(handler != null){
+            handler.post(()->{
+                Tools.ToastMessage(context, msg);
+            });
+        }
+    }
+
+    protected void showMessage(@StringRes int msgId){
+        String msg = context.getResources().getString(msgId);
+        showMessage(msg);
+    }
 
     /**
      * 保存控制器相关状态,如果需要，子类重载该方法

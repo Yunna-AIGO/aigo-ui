@@ -9,7 +9,7 @@ public class Constants {
     public static final String LOG_TAG = "CloudPick";
 
     private static final String urlPrefix = Define.getUrlPrefix();
-    public static final String goodsImageUrlPrefix = "http://img.yunatop.com/";
+    public static final String imgUrlPrefix = "http://img.yunatop.com/";
 
     //app
     public static final String APP_NAMESPACE = "com.cloudpick.yunna";
@@ -30,6 +30,7 @@ public class Constants {
     public static final String KEY_TOKEN_EXPIREDIN = "expiredIn";
     public static final String KEY_USER_ID = "userId";
     public static final String KEY_TOKEN = "token";
+    public static final String KEY_CAPTCHA_URL = "captchaUrl";
     public static final String KEY_HAS_COUPON = "coupon";
     public static final String KEY_COUPON_AMOUNT = "couponAmt";
 
@@ -53,6 +54,8 @@ public class Constants {
     //apis
     public static final String URL_ENTRY = urlPrefix + "logon/entry";
     public static final String URL_SENDSMS = urlPrefix + "logon/sendsms";
+    public static final String URL_SENDSMS_V2 = urlPrefix + "logon/sendsmsV2";
+    public static final String URL_REFRESH_CAPTCHA = urlPrefix + "logon/captcha";
     public static final String URL_QRCODE = urlPrefix + "logon/qrcode";
     public static final String URL_USER_INFO = urlPrefix + "user/%s/getNormalUser";
     public static final String URL_ORDERS = urlPrefix + "order/%s/list";

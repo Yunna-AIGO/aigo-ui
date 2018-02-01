@@ -39,7 +39,7 @@ public class WXApi extends ContextWrapper {
     private WXApi(Context ctx){
         super(ctx);
         api = WXAPIFactory.createWXAPI(ctx, appId);
-        //api.registerApp(appId);
+        api.registerApp(appId);//这一句一定要加，否则拉不起微信app
     }
 
     public boolean isAppInstalled(){

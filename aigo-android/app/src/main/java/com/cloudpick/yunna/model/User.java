@@ -73,6 +73,10 @@ public class User {
         AppData.getAppData().put(Constants.KEY_TOKEN, token, getTokenExpiredIn());
     }
 
+    public void updateExpiredIn(){
+        AppData.getAppData().put(Constants.KEY_TOKEN, token, getTokenExpiredIn());
+    }
+
     private int getTokenExpiredIn(){
         try{
             String expiredIn = AppData.getAppData().getAsString(Constants.KEY_TOKEN_EXPIREDIN);

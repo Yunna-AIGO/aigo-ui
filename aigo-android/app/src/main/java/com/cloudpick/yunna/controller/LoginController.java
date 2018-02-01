@@ -1,11 +1,13 @@
 package com.cloudpick.yunna.controller;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.Constants;
-import com.cloudpick.yunna.utils.enums.ThirdType;
+import com.cloudpick.yunna.utils.MapUtils;
+import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.http.Callback;
 import com.cloudpick.yunna.utils.http.Requests;
 import com.cloudpick.yunna.utils.http.Response;
@@ -25,22 +27,39 @@ public class LoginController extends BaseController {
         super(context);
     }
 
-    public SendSMSResult sendSMS(String mobile){
+    /**
+     * 发送手机验证码，如果没有图片验证码的话，captchaValue一定要传入null
+     * @param mobile
+     * @param captchaValue
+     * @return
+     */
+    public SendSMSResult sendSMS(String mobile, @Nullable String captchaValue){
         SendSMSResult result = new SendSMSResult();
         try{
-            Map<String, String> queryParams = new HashMap<>();
-            queryParams.put("mobile", mobile);
-            Response<Map<String, Object>> resp = Requests.get(Constants.URL_SENDSMS, queryParams, Response.class );
-            result.setSuccess(resp.isSuccess());
+            Map<String, String> data = new HashMap<>();
+            data.put("mobile", mobile);
+            if(captchaValue != null){
+                data.put("captchaValue", captchaValue);
+            }
+            Response<Map<String, Object>> resp = Requests.post(Constants.URL_SENDSMS_V2, data, Response.class );
             if(resp.isSuccess()){
-                result.setMessage(context.getResources().getString(R.string.sms_send_success));
+                result.setSendSMSError(SendSMSError.NONE);
             }else{
-                result.setMessage(context.getResources().getString(R.string.sms_send_failure) + ":" + resp.getMessage());
+                String captchaUrl = MapUtils.getAsString(resp.getData(), Constants.KEY_CAPTCHA_URL, "");
+                result.setCaptchaUrl(captchaUrl);
+                if(resp.getCode().equals(SendSMSError.CAPTCHA_NEEDED.getName())){
+                    result.setSendSMSError(SendSMSError.CAPTCHA_NEEDED);
+                }else if(resp.getCode().equals(SendSMSError.CAPTCHA_ERROR.getName())){
+                    result.setSendSMSError(SendSMSError.CAPTCHA_ERROR);
+                    showMessage(R.string.message_image_captcha_error);
+                }else{
+                    showMessage(resp.getMessage());
+                }
             }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
-            result.setSuccess(false);
-            result.setMessage(context.getResources().getString(R.string.network_error));
+            showMessage(R.string.network_error);
+            result.setSendSMSError(SendSMSError.NETWORK_ERROR);
         }
         return result;
     }
@@ -111,27 +130,66 @@ public class LoginController extends BaseController {
         return captcha.length() == 6;
     }
 
+    public String refreshCaptcha(String mobile){
+        try{
+            Map<String, String> data = new HashMap<>();
+            data.put("mobile", mobile);
+            Response<Map<String, Object>> resp = Requests.post(Constants.URL_REFRESH_CAPTCHA, data, Response.class );
+            if(resp.isSuccess()){
+                return MapUtils.getAsString(resp.getData(), Constants.KEY_CAPTCHA_URL, "");
+            }else{
+                showMessage(resp.getMessage());
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
     public class SendSMSResult{
-        private boolean success;
-        private String message;
+        private SendSMSError sendSMSError;
+        private String captchaUrl;
 
         public SendSMSResult(){
         }
 
-        public boolean isSuccess() {
-            return success;
+        public SendSMSError getSendSMSError() {
+            return sendSMSError;
         }
 
-        public String getMessage() {
-            return message;
+        public void setSendSMSError(SendSMSError sendSMSError) {
+            this.sendSMSError = sendSMSError;
         }
 
-        public void setSuccess(boolean success) {
-            this.success = success;
+        public String getCaptchaUrl() {
+            return captchaUrl;
         }
 
-        public void setMessage(String message) {
-            this.message = message;
+        public void setCaptchaUrl(String captchaUrl) {
+            this.captchaUrl = captchaUrl;
+        }
+    }
+
+    public enum SendSMSError {
+        NETWORK_ERROR("NETWORK_ERROR", "NETWORK_ERROR"),//network error
+        CAPTCHA_NEEDED("CAPTCHA_NEEDED", "LGN3001003"),//captcha needed
+        CAPTCHA_ERROR("CAPTCHA_ERROR", "LGN3001004"),//captcha error
+        NONE("NONE", "NONE");//no error
+
+        private final String code;
+        private final String name;
+
+        SendSMSError(String code, String name){
+            this.code = code;
+            this.name = name;
+        }
+
+        public String getCode(){
+            return code;
+        }
+
+        public String getName(){
+            return this.name;
         }
     }
 }

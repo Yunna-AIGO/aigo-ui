@@ -15,7 +15,6 @@ import android.app.AlertDialog;
 import com.cloudpick.yunna.R;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +22,8 @@ import java.util.List;
  */
 
 public class Tools {
+
+    private static final String TAG = "CloudPick";
 
     public static boolean isAppInstalled(Context context, String packageName){
         final PackageManager packageManager = context.getPackageManager();

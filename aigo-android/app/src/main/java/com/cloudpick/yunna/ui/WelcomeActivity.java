@@ -56,6 +56,8 @@ public class WelcomeActivity extends BaseActivity {
                     if(!User.getUser().checkUser()){
                         startActivity(LoginActivity.newIntent(WelcomeActivity.this, true));
                     }else{
+                        //用户token续期
+                        User.getUser().updateExpiredIn();
                         startActivity(MainActivity.newIntent(WelcomeActivity.this, true, appAction));
                     }
                     WelcomeActivity.this.finish();

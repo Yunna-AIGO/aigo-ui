@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.cloudpick.yunna.ui.dialog.NewAppVersionDialog;
 import com.cloudpick.yunna.utils.http.Callback;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 public class VersionHelper {
 
+    private static final String TAG = "CloudPick";
     public static final String CHECK_VERSION_KEY = "com.cloudpick.yunna.ui.checkVersionKey";
 
     private Context context = null;
@@ -86,12 +88,15 @@ public class VersionHelper {
         String[] versionParts = version.split("\\.");
         String[] currentVersionParts = currentVersion.split("\\.");
         try{
-            if(versionParts.length != currentVersionParts.length){
-                return false;
-            }
-            for(int i=0;i<versionParts.length;i++){
-                int nv = Integer.parseInt(versionParts[i]);
-                int cv = Integer.parseInt(currentVersionParts[i]);
+            int iterationCount = Math.max(versionParts.length, currentVersionParts.length);
+            for(int i=0;i<iterationCount;i++){
+                int nv = 0, cv = 0;
+                if(i < versionParts.length){
+                    nv = Integer.parseInt(versionParts[i]);
+                }
+                if(i < currentVersionParts.length){
+                    cv = Integer.parseInt(currentVersionParts[i]);
+                }
                 if(nv > cv){
                     return true;
                 }else if(nv < cv){
@@ -101,7 +106,7 @@ public class VersionHelper {
             return false;
         }catch (Exception ex){
             ex.printStackTrace();
-            System.out.println("version error!");
+            Log.d(TAG, "version error!");
             return false;
         }
     }

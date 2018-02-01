@@ -2,10 +2,13 @@ package com.cloudpick.yunna.utils.http;
 
 import android.net.Uri;
 
+import com.cloudpick.yunna.utils.AppData;
+import com.cloudpick.yunna.utils.Constants;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -38,7 +41,7 @@ public class Requests {
      */
     public static <T> T get(String url, Map<String, String> queryParams, Class<T> clazz) throws IOException{
         String u = parseUrl(url, queryParams);
-        Request request = new Request.Builder().url(u).build();
+        Request request = handleCustomHanders(new Request.Builder().url(u), getCustomeHeaders()).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
         if(response.isSuccessful()){
             String json = response.body().string();
@@ -60,7 +63,7 @@ public class Requests {
     public static <T> T get(String url, Map<String, String> queryParams, Type type) throws IOException{
         //TODO 将获取类型封装到内部
         String u = parseUrl(url, queryParams);
-        Request request = new Request.Builder().url(u).build();
+        Request request = handleCustomHanders(new Request.Builder().url(u), getCustomeHeaders()).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
         if(response.isSuccessful()){
             String json = response.body().string();
@@ -72,7 +75,7 @@ public class Requests {
 
     public static <T> T post(String url, Map<?, ?> data, Class<T> clazz) throws IOException{
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
-        Request request = new Request.Builder().url(url).post(body).build();
+        Request request = handleCustomHanders(new Request.Builder().url(url).post(body), getCustomeHeaders()).build();
         okhttp3.Response response = new OkHttpClient().newCall(request).execute();
         if(response.isSuccessful()){
             String json = response.body().string();
@@ -91,7 +94,7 @@ public class Requests {
      */
     public static void getAsync(String url, Map<String, String> queryParams, final Callback c){
         String u = parseUrl(url, queryParams);
-        Request request = new Request.Builder().url(u).build();
+        Request request = handleCustomHanders(new Request.Builder().url(u), getCustomeHeaders()).build();
         Call call = new OkHttpClient().newCall(request);
         call.enqueue(new okhttp3.Callback() {
             @Override
@@ -120,7 +123,7 @@ public class Requests {
      */
     public static void postAsync(String url, Map<?, ?> data, final Callback c){
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
-        Request request = new Request.Builder().url(url).post(body).build();
+        Request request = handleCustomHanders(new Request.Builder().url(url).post(body), getCustomeHeaders()).build();
         Call call = new OkHttpClient().newCall(request);
         call.enqueue(new okhttp3.Callback() {
             @Override
@@ -150,5 +153,23 @@ public class Requests {
             builder.appendQueryParameter(key, queryParams.get(key));
         }
         return builder.build().toString();
+    }
+
+    private static Request.Builder handleCustomHanders(Request.Builder builder, Map<String, String> headers){
+        for (String key : headers.keySet()) {
+            builder.addHeader(key, headers.get(key));
+        }
+        return builder;
+    }
+
+    private static Map<String, String> getCustomeHeaders(){
+        Map<String, String> headers = new HashMap<>();
+        String token = AppData.getAppData().getAsString(Constants.KEY_TOKEN);
+        if(token == null){
+            token = "";
+        }
+        headers.put(Constants.KEY_TOKEN, token);
+        return headers;
+
     }
 }

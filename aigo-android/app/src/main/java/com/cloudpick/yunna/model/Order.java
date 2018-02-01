@@ -194,7 +194,7 @@ public class Order extends BaseModel implements Parcelable{
         if(goodsIdIndex < 0 || goodsIdIndex >= getGoodsImageCount()){
             return "";
         }
-        return Constants.goodsImageUrlPrefix + goodsIdList.get(goodsIdIndex) + ".jpg";
+        return Constants.imgUrlPrefix + goodsIdList.get(goodsIdIndex) + ".jpg";
     }
 
     //implement Parcelable

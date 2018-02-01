@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.LoginController;
 import com.cloudpick.yunna.ui.base.BaseActivity;
+import com.cloudpick.yunna.ui.dialog.CaptchaDialog;
 import com.cloudpick.yunna.ui.dialog.CouponNotifyDialog;
 import com.cloudpick.yunna.ui.settings.payment.PaymentActivity;
 import com.cloudpick.yunna.utils.Constants;
@@ -70,6 +72,11 @@ public class LoginActivity extends BaseActivity {
         ShapeUtil.CommonButtonShape().render(btn_sendCaptcha);
     }
 
+    /**
+     * 点击发送验证码，在complete的回调函数中，只对SendSMSError的NONE和CAPTCHA_NEEDED处理，其他情况都忽略
+     * 需要提示用户的消息都在controller中处理掉了
+     * @param view
+     */
     @OnClick(R.id.btn_get_captcha)
     void sendSMS(View view){
         String mobile = et_mobile.getText().toString();
@@ -77,20 +84,45 @@ public class LoginActivity extends BaseActivity {
             Tools.ToastMessage(LoginActivity.this, getResources().getString(R.string.message_mobile_number_error));
             return;
         }
-        runActivityTask(getResources().getString(R.string.message_captcha_sending), "", new ActivityTaskAction() {
+        runActivityTask("", "", new ActivityTaskAction() {
             @Override
             public Object execTask() {
-                return controller.sendSMS(mobile);
+                return controller.sendSMS(mobile, null);
             }
             @Override
             public void complete(Object param) {
                 if(param instanceof LoginController.SendSMSResult){
                     LoginController.SendSMSResult result = (LoginController.SendSMSResult)param;
-                    Tools.ToastMessage(LoginActivity.this, result.getMessage());
-                    if(result.isSuccess()){
-                        btn_sendCaptcha.setEnabled(false);
-                        et_captcha.requestFocus();
-                        startCountdown();
+                    if(result.getSendSMSError() == LoginController.SendSMSError.NONE){
+                        waitForInputSmsCaptcha();
+                    }else if(result.getSendSMSError() == LoginController.SendSMSError.CAPTCHA_NEEDED){
+                        //验证码错误或者需要输入验证码
+                        CaptchaDialog dlg = new CaptchaDialog(
+                                LoginActivity.this,
+                                result.getCaptchaUrl(),
+                                new CaptchaDialog.DialogOperation() {
+                                    @Override
+                                    public String getCaptcha() {
+                                        return controller.refreshCaptcha(mobile);
+                                    }
+                                    @Override
+                                    public String verifyCaptcha(String input) {
+                                        LoginController.SendSMSResult rslt = controller.sendSMS(mobile, input);
+                                        if(rslt.getSendSMSError() != LoginController.SendSMSError.NONE){
+                                            String newCaptchaUrl = rslt.getCaptchaUrl();
+                                            if(newCaptchaUrl == null){
+                                                newCaptchaUrl = "";
+                                            }
+                                            return newCaptchaUrl;
+                                        }else{
+                                            waitForInputSmsCaptcha();
+                                            return null;
+                                        }
+                                    }
+                                });
+                        dlg.setOwnerActivity(LoginActivity.this);
+                        dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dlg.show();
                     }
                 }
             }
@@ -125,20 +157,6 @@ public class LoginActivity extends BaseActivity {
             });
     }
 
-    private void enter(boolean hasSignedPayment){
-        if(hasSignedPayment){
-            Intent intent = MainActivity.newIntent(LoginActivity.this, false, null);
-            startActivity(intent);
-        }else{
-            Intent intent = PaymentActivity.newIntent(
-                    LoginActivity.this,
-                    Constants.SHOW_SKIP_IN_BINDING_PAYMENT,
-                    true);
-            startActivity(intent);
-        }
-        LoginActivity.this.finish();
-    }
-
     @OnTextChanged(value = R.id.et_mobile, callback = OnTextChanged.Callback.TEXT_CHANGED)
     void onMobileChanged(CharSequence s, int start, int before, int count) {
         checkButtonReady(s.toString(), et_captcha.getText().toString());
@@ -153,6 +171,29 @@ public class LoginActivity extends BaseActivity {
     void viewTermOfService(View view){
         Intent intent = new Intent(LoginActivity.this, TermOfServiceActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * 开启倒计时，等待输入短信验证码
+     */
+    private void waitForInputSmsCaptcha(){
+        btn_sendCaptcha.setEnabled(false);
+        et_captcha.requestFocus();
+        startCountdown();
+    }
+
+    private void enter(boolean hasSignedPayment){
+        if(hasSignedPayment){
+            Intent intent = MainActivity.newIntent(LoginActivity.this, false, null);
+            startActivity(intent);
+        }else{
+            Intent intent = PaymentActivity.newIntent(
+                    LoginActivity.this,
+                    Constants.SHOW_SKIP_IN_BINDING_PAYMENT,
+                    true);
+            startActivity(intent);
+        }
+        LoginActivity.this.finish();
     }
 
     private void checkButtonReady(String mobile, String captcha){

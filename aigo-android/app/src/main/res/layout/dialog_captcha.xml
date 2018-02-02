@@ -37,7 +37,7 @@
                 android:textSize="18sp"
                 android:inputType="text"
                 android:focusable="true"
-                android:textCursorDrawable="@null"
+                android:textCursorDrawable="@drawable/cursor_color"
                 android:hint="@string/et_captcha_placeholder"/>
         </LinearLayout>
         <LinearLayout

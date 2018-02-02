@@ -62,6 +62,7 @@
                                 android:gravity="top|left"
                                 android:maxLength="500"
                                 android:textSize="13sp"
+                                android:textCursorDrawable="@drawable/cursor_color"
                                 android:scrollbars="vertical"/>
                         </LinearLayout>
                         <LinearLayout

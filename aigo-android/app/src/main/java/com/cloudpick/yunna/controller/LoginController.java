@@ -57,7 +57,7 @@ public class LoginController extends BaseController {
                 }
             }
         }catch(Exception ex){
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
             showMessage(R.string.network_error);
             result.setSendSMSError(SendSMSError.NETWORK_ERROR);
         }
@@ -73,7 +73,7 @@ public class LoginController extends BaseController {
                     new Callback<Response<Map<String, Object>>>(){
                         @Override
                         public void error(Exception e){
-                            System.out.println(e.getMessage());
+                            e.printStackTrace();
                             handler.post(()->{
                                 action.failure(context.getResources().getString(R.string.network_error));
                             });
@@ -85,7 +85,7 @@ public class LoginController extends BaseController {
                                     //save user info
                                     String userId = r.getData().get(Constants.KEY_USER_ID).toString();
                                     String token = r.getData().get(Constants.KEY_TOKEN).toString();
-                                    User.getUser().saveToken(userId, token);
+                                    User.getUser().saveInfo(userId, token, mobile);
                                 }catch (Exception e){
                                     handler.post(()->{
                                         action.failure(context.getResources().getString(R.string.login_success_failure));
@@ -111,7 +111,7 @@ public class LoginController extends BaseController {
                         }
                     });
         }catch(Exception ex){
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

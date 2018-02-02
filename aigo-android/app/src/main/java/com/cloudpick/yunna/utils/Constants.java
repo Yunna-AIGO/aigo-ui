@@ -65,7 +65,6 @@ public class Constants {
     public static final String URL_DUT_UNSIGN = urlPrefix + "dut/unsign";
     public static final String URL_COUPON = urlPrefix + "coupon/%s/list";
     public static final String URL_TRADE_PAY = urlPrefix + "trade/pay";
-    public static final String URL_TRADE_INFO = urlPrefix + "trade/%s/info";
     public static final String URL_FEEDBACK_INSERT = urlPrefix + "feedback/insert";
     public static final String URL_FEEDBACK_QUERY = urlPrefix + "feedback/select/%s";
     public static final String URL_APP_VERSION = urlPrefix + "app/version";

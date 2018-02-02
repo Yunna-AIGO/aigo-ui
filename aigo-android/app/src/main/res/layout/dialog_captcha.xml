@@ -49,8 +49,9 @@
             <ImageView
                 android:id="@+id/img_captcha"
                 android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"/>
+                android:layout_height="36dp"
+                android:src="@drawable/image_placehold"
+                android:scaleType="fitXY"/>
         </LinearLayout>
     </LinearLayout>
     <Button

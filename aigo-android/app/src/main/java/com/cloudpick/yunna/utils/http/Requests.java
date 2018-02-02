@@ -1,6 +1,7 @@
 package com.cloudpick.yunna.utils.http;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.Constants;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -24,7 +26,12 @@ import okhttp3.RequestBody;
 
 public class Requests {
 
+    private static final String TAG = "CloudPick";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final int ConnectionTimeout = 3 * 1000;
+    private static final int ReadTimeout = 3 * 1000;
+    private static final int WriteTimeout = 3 * 1000;
+
 
     public Requests(){
 
@@ -42,7 +49,7 @@ public class Requests {
     public static <T> T get(String url, Map<String, String> queryParams, Class<T> clazz) throws IOException{
         String u = parseUrl(url, queryParams);
         Request request = handleCustomHanders(new Request.Builder().url(u), getCustomeHeaders()).build();
-        okhttp3.Response response = new OkHttpClient().newCall(request).execute();
+        okhttp3.Response response = newClient().newCall(request).execute();
         if(response.isSuccessful()){
             String json = response.body().string();
             return new Gson().fromJson(json, clazz);
@@ -64,7 +71,7 @@ public class Requests {
         //TODO 将获取类型封装到内部
         String u = parseUrl(url, queryParams);
         Request request = handleCustomHanders(new Request.Builder().url(u), getCustomeHeaders()).build();
-        okhttp3.Response response = new OkHttpClient().newCall(request).execute();
+        okhttp3.Response response = newClient().newCall(request).execute();
         if(response.isSuccessful()){
             String json = response.body().string();
             return new Gson().fromJson(json, type);
@@ -76,7 +83,7 @@ public class Requests {
     public static <T> T post(String url, Map<?, ?> data, Class<T> clazz) throws IOException{
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
         Request request = handleCustomHanders(new Request.Builder().url(url).post(body), getCustomeHeaders()).build();
-        okhttp3.Response response = new OkHttpClient().newCall(request).execute();
+        okhttp3.Response response = newClient().newCall(request).execute();
         if(response.isSuccessful()){
             String json = response.body().string();
             return new Gson().fromJson(json, clazz);
@@ -95,7 +102,7 @@ public class Requests {
     public static void getAsync(String url, Map<String, String> queryParams, final Callback c){
         String u = parseUrl(url, queryParams);
         Request request = handleCustomHanders(new Request.Builder().url(u), getCustomeHeaders()).build();
-        Call call = new OkHttpClient().newCall(request);
+        Call call = newClient().newCall(request);
         call.enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -124,7 +131,7 @@ public class Requests {
     public static void postAsync(String url, Map<?, ?> data, final Callback c){
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
         Request request = handleCustomHanders(new Request.Builder().url(url).post(body), getCustomeHeaders()).build();
-        Call call = new OkHttpClient().newCall(request);
+        Call call = newClient().newCall(request);
         call.enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -142,6 +149,15 @@ public class Requests {
                 }
             }
         });
+    }
+
+
+    private static OkHttpClient newClient(){
+        return new OkHttpClient.Builder()
+                .connectTimeout(ConnectionTimeout, TimeUnit.MILLISECONDS)
+                .writeTimeout(WriteTimeout, TimeUnit.MILLISECONDS)
+                .readTimeout(ReadTimeout, TimeUnit.MILLISECONDS)
+                .build();
     }
 
     private static String parseUrl(String url, Map<String, String> queryParams){

@@ -96,31 +96,41 @@ public class UserCenterFragment extends MainActivityFragment {
     }
 
     private void loadUserInfo(){
-        controller.loadUserInfo(new UserCenterController.loadUserInfoAction() {
-            @Override
-            public void failure() {
-                tv_name.setText(R.string.message_not_logged_in);
-                img_avatar.setImageResource(R.drawable.icon_mine_active);
-            }
-            @Override
-            public void ok() {
-                String name = User.getUser().getNickName();
-                if(TextUtils.isEmpty(name)){
-                    name = Tools.hidePartialPhone(User.getUser().getMobile());
-                }
-                tv_name.setText(name);
-                String picUrl = User.getUser().getPicUrl();
-                if(!TextUtils.isEmpty(picUrl)){
-                    DisplayImageOptions options = new DisplayImageOptions.Builder()
-                            .showImageOnLoading(R.drawable.icon_mine_active)
-                            .showImageOnFail(R.drawable.icon_mine_active)
-                            .cacheInMemory(true)
-                            .cacheOnDisk(true)
-                            .bitmapConfig(Bitmap.Config.RGB_565)
-                            .build();
-                    ImageLoader.getInstance().displayImage(picUrl, img_avatar, options);
-                }
-            }
-        });
+        String mobile = User.getUser().getMobile();
+        if(!TextUtils.isEmpty(mobile)){
+            tv_name.setText(mobile);
+        }else{
+            tv_name.setText(R.string.message_not_logged_in);
+        }
+        img_avatar.setImageResource(R.drawable.icon_mine_active);
     }
+
+//    private void loadUserInfo(){
+//        controller.loadUserInfo(new UserCenterController.loadUserInfoAction() {
+//            @Override
+//            public void failure() {
+//                tv_name.setText(R.string.message_not_logged_in);
+//                img_avatar.setImageResource(R.drawable.icon_mine_active);
+//            }
+//            @Override
+//            public void ok() {
+//                String name = User.getUser().getNickName();
+//                if(TextUtils.isEmpty(name)){
+//                    name = Tools.hidePartialPhone(User.getUser().getMobile());
+//                }
+//                tv_name.setText(name);
+//                String picUrl = User.getUser().getPicUrl();
+//                if(!TextUtils.isEmpty(picUrl)){
+//                    DisplayImageOptions options = new DisplayImageOptions.Builder()
+//                            .showImageOnLoading(R.drawable.icon_mine_active)
+//                            .showImageOnFail(R.drawable.icon_mine_active)
+//                            .cacheInMemory(true)
+//                            .cacheOnDisk(true)
+//                            .bitmapConfig(Bitmap.Config.RGB_565)
+//                            .build();
+//                    ImageLoader.getInstance().displayImage(picUrl, img_avatar, options);
+//                }
+//            }
+//        });
+//    }
 }

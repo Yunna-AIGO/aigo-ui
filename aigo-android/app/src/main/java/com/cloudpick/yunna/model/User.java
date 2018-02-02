@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.cloudpick.yunna.utils.ACache;
 import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.Tools;
 
 /**
  * Created by maxwell on 17-12-9.
@@ -63,14 +64,17 @@ public class User {
     public boolean checkUser(){
         userId = AppData.getAppData().getAsString(Constants.KEY_USER_ID);
         token = AppData.getAppData().getAsString(Constants.KEY_TOKEN);
+        mobile = AppData.getAppData().getAsString(Constants.KEY_MOBILE);
         return !TextUtils.isEmpty(userId) && !TextUtils.isEmpty(token);
     }
 
-    public void saveToken(String userId, String token){
+    public void saveInfo(String userId, String token, String mobile){
         this.userId = userId;
         this.token = token;
+        this.mobile = Tools.hidePartialPhone(mobile);
         AppData.getAppData().put(Constants.KEY_USER_ID, userId);
         AppData.getAppData().put(Constants.KEY_TOKEN, token, getTokenExpiredIn());
+        AppData.getAppData().put(Constants.KEY_MOBILE, this.mobile);
     }
 
     public void updateExpiredIn(){
@@ -92,7 +96,9 @@ public class User {
     }
 
     public void signout(){
+        AppData.getAppData().remove(Constants.KEY_USER_ID);
         AppData.getAppData().remove(Constants.KEY_TOKEN);
+        AppData.getAppData().remove(Constants.KEY_MOBILE);
     }
 
     public void setUserInfo(String nickName, String mobile, String picUrl){

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cloudpick.yunna.BuildConfig;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.base.BaseFragment;
@@ -26,7 +27,7 @@ public class PaymentCard extends BaseFragment {
     public static final String TAG = "CloudPick";
 
     // fields
-    private final boolean allowUnsign = true;
+    private final boolean allowUnsign = BuildConfig.ALLOW_UNSIGN;
     private CardOperation operation = null;
     private ThirdType thirdType;
     /**
@@ -76,27 +77,7 @@ public class PaymentCard extends BaseFragment {
     @OnClick(R.id.rl_payment_card)
     void paymentOptionClick(View v){
         if(signStatus == SignStatus.SIGN && allowUnsign && operation != null){
-            new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.message_alert)
-                    .setMessage(getString(R.string.message_third_type_unsign_alert, thirdType.getName()))
-                    .setNegativeButton(R.string.title_cancel, (d, i)->{})
-                    .setPositiveButton(R.string.title_ok, (d, i)->{
-                        getHostActivity().runActivityTask("", "", new BaseActivity.ActivityTaskAction() {
-                            @Override
-                            public Object execTask() {
-                                if(operation.unsign()){
-                                    //解约操作成功
-                                    return SignStatus.UNSIGN;
-                                }else{
-                                    return SignStatus.UNKNOWN;
-                                }
-                            }
-                            @Override
-                            public void complete(Object param) {
-                                updateSignStatus((SignStatus)param);
-                            }
-                        });
-                    }).show();
+            showUnsignDialog();
             return;
         }
         if(signStatus == SignStatus.UNSIGN && operation != null){
@@ -137,21 +118,9 @@ public class PaymentCard extends BaseFragment {
      */
     public void updateSignStatus(SignStatus signStatus){
         if(signStatus == SignStatus.UNKNOWN){
-            if(operation != null){
-                getHostActivity().runActivityTask("", "", new BaseActivity.ActivityTaskAction() {
-                    @Override
-                    public Object execTask() {
-                        return operation.isSigned();
-                    }
-                    @Override
-                    public void complete(Object param) {
-                        updateSignStatus((boolean)param? SignStatus.SIGN: SignStatus.UNSIGN);
-                    }
-                });
-            }else{
-                signStatus = SignStatus.UNSIGN;
-                updateSignStatus(signStatus);
-            }
+            tv_payment_content.setText("");
+            img_payment_option.setImageDrawable(null);
+            return;
         }else{
             this.signStatus = signStatus;
             getHostActivity().runOnUiThread(()->{
@@ -210,13 +179,36 @@ public class PaymentCard extends BaseFragment {
         };
     }
 
+    private void showUnsignDialog(){
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.message_alert)
+                .setMessage(getString(R.string.message_third_type_unsign_alert, thirdType.getName()))
+                .setNegativeButton(R.string.title_cancel, (d, i)->{})
+                .setPositiveButton(R.string.title_ok, (d, i)->{
+                    getHostActivity().runActivityTask("", "", new BaseActivity.ActivityTaskAction() {
+                        @Override
+                        public Object execTask() {
+                            if(operation.unsign()){
+                                //解约操作成功
+                                return SignStatus.UNSIGN;
+                            }else{
+                                return SignStatus.UNKNOWN;
+                            }
+                        }
+                        @Override
+                        public void complete(Object param) {
+                            updateSignStatus((SignStatus)param);
+                        }
+                    });
+                }).show();
+    }
 
 
 
     public interface CardOperation{
         void sign();
         boolean unsign();
-        boolean isSigned();
+//        boolean isSigned();
     }
 
     public enum SignStatus{

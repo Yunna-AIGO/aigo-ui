@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+import com.cloudpick.yunna.model.ThirdTypeSignInfo;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.Constants;
@@ -15,8 +16,11 @@ import com.cloudpick.yunna.utils.enums.TerminalChannel;
 import com.cloudpick.yunna.utils.enums.ThirdType;
 import com.cloudpick.yunna.utils.http.Requests;
 import com.cloudpick.yunna.utils.http.Response;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -129,24 +133,26 @@ public class PaymentController extends BaseController {
     }
 
     /**
-     * 是否已签约指定的第三方免密支付
-     * @param thirdType
+     * 获取签约状态
      * @return
      */
-    public static boolean isSignedPayment(ThirdType thirdType){
-        Map<String, String> queryParams = new HashMap<>();
-        queryParams.put("userId", User.getUser().getUserId());
-        queryParams.put("thirdType", thirdType.getCode());
-        boolean rslt = false;
+    public static Map<ThirdType, Boolean> getSignedStatus(){
+        Map<ThirdType, Boolean> ret = new HashMap<>();
+        ret.put(ThirdType.ALIPAY, false);
+        ret.put(ThirdType.WECHAT, false);
         try{
-            Response<Map<String, Object>> resp = Requests.get(Constants.URL_DUT_QUERY, queryParams, Response.class);
-            rslt = resp.isSuccess() && (boolean)resp.getData().get(Constants.KEY_SIGNED) &&
-                    resp.getData().get(Constants.KEY_AGREEMENT_STATUS).toString().equals(AgreementStatus.NORMAL.getValue());
+            String url = String.format(Constants.URL_DUT_LIST, User.getUser().getUserId());
+            Type objectType = new TypeToken<Response<ArrayList<ThirdTypeSignInfo>>>(){}.getType();
+            Response<ArrayList<ThirdTypeSignInfo>> resp = Requests.get(url, null, objectType);
+            if(resp.isSuccess()){
+                for(ThirdTypeSignInfo info: resp.getData()){
+                    ret.put(info.getThirdType(), info.isSigned());
+                }
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
-        Log.d(TAG, String.format("Third type - %s  signed - %s", thirdType.getCode(), rslt));
-        return rslt;
+        return ret;
     }
 
     /**
@@ -154,11 +160,11 @@ public class PaymentController extends BaseController {
      * @return
      */
     public static boolean hasSignedPayment(){
-        if(isSignedPayment(ThirdType.ALIPAY)){
-            return true;
-        }
-        if(isSignedPayment(ThirdType.WECHAT)){
-            return true;
+        Map<ThirdType, Boolean> signStatus = getSignedStatus();
+        for (Boolean value : signStatus.values()) {
+            if(value == true){
+                return true;
+            }
         }
         return false;
     }

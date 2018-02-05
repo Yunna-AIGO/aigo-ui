@@ -128,8 +128,13 @@ public class PaymentActivity extends BaseActivity {
         runActivityTask("", "", new ActivityTaskAction() {
             @Override
             public Object execTask() {
+                Map<ThirdType, Boolean> signStatus = PaymentController.getSignedStatus();
                 for(IPaymentCard c : paymentCards){
-                    c.setPaymentCardStatus(PaymentController.isSignedPayment(c.getThirdType()));
+                    Boolean status = signStatus.get(c.getThirdType());
+                    if(status == null){
+                        status = false;
+                    }
+                    c.setPaymentCardStatus(status);
                 }
                 return null;
             }

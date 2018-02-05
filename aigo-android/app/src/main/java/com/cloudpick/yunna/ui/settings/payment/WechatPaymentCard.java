@@ -28,10 +28,6 @@ public class WechatPaymentCard implements IPaymentCard {
             public boolean unsign() {
                 return controller.unsignPayment(thirdType);
             }
-            @Override
-            public boolean isSigned(){
-                return PaymentController.isSignedPayment(thirdType);
-            }
         });
     }
 

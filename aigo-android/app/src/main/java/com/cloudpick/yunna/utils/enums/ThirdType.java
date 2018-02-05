@@ -6,7 +6,8 @@ package com.cloudpick.yunna.utils.enums;
 
 public enum ThirdType{
     ALIPAY("ALIPAY","支付宝"),
-    WECHAT("WECHAT","微信");
+    WECHAT("WECHAT","微信"),
+    UNKNOWN("UNKNOWN", "未知");
 
     private final String code;
     private final String name;

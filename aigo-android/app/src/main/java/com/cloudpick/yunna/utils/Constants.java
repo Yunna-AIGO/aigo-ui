@@ -53,14 +53,13 @@ public class Constants {
 
     //apis
     public static final String URL_ENTRY = urlPrefix + "logon/entry";
-    public static final String URL_SENDSMS = urlPrefix + "logon/sendsms";
     public static final String URL_SENDSMS_V2 = urlPrefix + "logon/sendsmsV2";
     public static final String URL_REFRESH_CAPTCHA = urlPrefix + "logon/captcha";
     public static final String URL_QRCODE = urlPrefix + "logon/qrcode";
     public static final String URL_USER_INFO = urlPrefix + "user/%s/getNormalUser";
     public static final String URL_ORDERS = urlPrefix + "order/%s/list";
     public static final String URL_ORDER_INFO = urlPrefix + "order/%s/info";
-    public static final String URL_DUT_QUERY = urlPrefix + "dut/query";
+    public static final String URL_DUT_LIST = urlPrefix + "dut/%s/list";
     public static final String URL_DUT_SIGN = urlPrefix + "dut/sign";
     public static final String URL_DUT_UNSIGN = urlPrefix + "dut/unsign";
     public static final String URL_COUPON = urlPrefix + "coupon/%s/list";

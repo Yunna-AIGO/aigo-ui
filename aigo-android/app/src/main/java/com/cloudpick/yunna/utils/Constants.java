@@ -32,7 +32,7 @@ public class Constants {
     public static final String KEY_TOKEN = "token";
     public static final String KEY_CAPTCHA_URL = "captchaUrl";
     public static final String KEY_HAS_COUPON = "coupon";
-    public static final String KEY_COUPON_AMOUNT = "couponAmt";
+    public static final String KEY_COUPON_TYPE = "couponType";
 
     public static final String KEY_ENTRY_URL = "entryUrl";
     public static final String KEY_NICKNAME = "nickName";

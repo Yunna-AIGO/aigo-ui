@@ -127,8 +127,8 @@
     <string name="tab_coupon_used">已使用</string>
     <string name="tab_coupon_expired">已过期</string>
     <string name="message_coupon_empty">没有可用优惠券</string>
-    <string name="dialog_coupon_message1">您已获取</string>
-    <string name="dialog_coupon_message2">首次购物即可使用</string>
+    <string name="message_coupon_info">您获得%d张优惠券</string>
+    <string name="dialog_coupon_message1">合计</string>
     <string name="message_unused_coupon_notify">您有%s元的优惠券未使用哦～</string>
 
     <!--guide-->

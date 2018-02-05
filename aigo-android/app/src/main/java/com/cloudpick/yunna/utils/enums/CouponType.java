@@ -5,7 +5,9 @@ package com.cloudpick.yunna.utils.enums;
  */
 
 public enum CouponType {
-    CASH_DISCOUNT("CASH_DISCOUNT", "现金打折券");
+    CASH_DISCOUNT("CASH_DISCOUNT", "现金打折券"),
+
+    ALL("ALL", "所有类型");
 
     private final String code;
     private final String name;

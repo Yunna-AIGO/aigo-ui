@@ -8,7 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cloudpick.yunna.R;
+import com.cloudpick.yunna.model.Coupon;
 import com.cloudpick.yunna.utils.ShapeUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,16 +26,19 @@ public class CouponNotifyDialog extends AlertDialog implements View.OnClickListe
     Button btn_ok;
     @BindView(R.id.tv_coupon_amount)
     TextView tv_coupon_amount;
+    @BindView(R.id.tv_coupon_number)
+    TextView tv_coupon_number;
 
     private Context context;
-    private String couponAmount;
+    private ArrayList<Coupon> coupons;
     private OnClickOk onClickOk;
 
-    public CouponNotifyDialog(Context context, String couponAmount, OnClickOk onClickOk){
+    public CouponNotifyDialog(Context context, ArrayList<Coupon> coupons, OnClickOk onClickOk){
         super(context);
         this.context = context;
-        this.couponAmount = couponAmount;
         this.onClickOk = onClickOk;
+        this.coupons = coupons;
+
     }
 
     @Override
@@ -51,7 +57,8 @@ public class CouponNotifyDialog extends AlertDialog implements View.OnClickListe
                 .setBorderWidth(0)
                 .build().render(btn_ok);
         btn_ok.setOnClickListener(this);
-        tv_coupon_amount.setText(couponAmount);
+        tv_coupon_number.setText(context.getString(R.string.message_coupon_info, coupons.size()));
+        tv_coupon_amount.setText(context.getString(R.string.currency_cny) + getCouponAmount());
     }
 
     @Override
@@ -64,6 +71,14 @@ public class CouponNotifyDialog extends AlertDialog implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    private String getCouponAmount(){
+        double amount = 0;
+        for(Coupon c : coupons){
+            amount += c.getCouponAmount();
+        }
+        return String.format("%.2f", amount);
     }
 
     public interface OnClickOk{

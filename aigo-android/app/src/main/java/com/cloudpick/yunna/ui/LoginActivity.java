@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.LoginController;
+import com.cloudpick.yunna.model.Coupon;
 import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.dialog.CaptchaDialog;
 import com.cloudpick.yunna.ui.dialog.CouponNotifyDialog;
@@ -21,6 +22,7 @@ import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.VersionHelper;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -142,12 +144,12 @@ public class LoginActivity extends BaseActivity {
                     TerminateFakeActivityTask();
                 }
                 @Override
-                public void ok(boolean hasSignedPayment, boolean isCoupon, String couponAmt) {
+                public void ok(boolean hasSignedPayment, boolean isCoupon, ArrayList<Coupon> coupons) {
                     TerminateFakeActivityTask();
-                    if(isCoupon && !TextUtils.isEmpty(couponAmt)){
+                    if(isCoupon && coupons != null && coupons.size() > 0){
                         CouponNotifyDialog dlg = new CouponNotifyDialog(
                                 LoginActivity.this,
-                                getResources().getString(R.string.currency_cny) + couponAmt,
+                                coupons,
                                 ()->{
                                     enter(hasSignedPayment);
                                 });

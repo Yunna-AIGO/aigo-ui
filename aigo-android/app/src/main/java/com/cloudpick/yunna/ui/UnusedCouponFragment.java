@@ -73,7 +73,7 @@ public class UnusedCouponFragment extends Fragment {
 
     private void refreshCoupons(final RefreshLayout layout){
         new Thread(()->{
-            final ArrayList<Coupon> coupons = controller.getCoupons();
+            final ArrayList<Coupon> coupons = controller.getCoupons(null);
             getActivity().runOnUiThread(()->{
                 boolean hasOrder = coupons != null && coupons.size() > 0;
                 emptyLayout.setVisibility(hasOrder? View.INVISIBLE:View.VISIBLE);

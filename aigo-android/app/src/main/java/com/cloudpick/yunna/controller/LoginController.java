@@ -3,15 +3,18 @@ package com.cloudpick.yunna.controller;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import com.cloudpick.yunna.model.Coupon;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.MapUtils;
 import com.cloudpick.yunna.utils.Tools;
+import com.cloudpick.yunna.utils.enums.CouponType;
 import com.cloudpick.yunna.utils.http.Callback;
 import com.cloudpick.yunna.utils.http.Requests;
 import com.cloudpick.yunna.utils.http.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -93,15 +96,10 @@ public class LoginController extends BaseController {
                                     return;
                                 }
                                 boolean hasSignedPayment = PaymentController.hasSignedPayment();
+                                boolean hasCoupon = MapUtils.getAsBoolean(r.getData(), Constants.KEY_HAS_COUPON, false);
+                                ArrayList<Coupon> coupons = hasCoupon? getCouponList(): null;
                                 handler.post(()->{
-                                    boolean hasCoupon = false;
-                                    String couponAmount = "";
-                                    try{
-                                        hasCoupon = (boolean)r.getData().get(Constants.KEY_HAS_COUPON);
-                                        couponAmount = r.getData().get(Constants.KEY_COUPON_AMOUNT).toString();
-                                    }catch (Exception e){
-                                    }
-                                    action.ok(hasSignedPayment, hasCoupon, couponAmount);
+                                    action.ok(hasSignedPayment, hasCoupon, coupons);
                                 });
                             }else{
                                 handler.post(()->{
@@ -117,7 +115,7 @@ public class LoginController extends BaseController {
 
     public interface loginAction {
         void failure(String msg);
-        void ok(boolean hasSignedPayment, boolean isCoupon, String couponAmt);
+        void ok(boolean hasSignedPayment, boolean isCoupon, ArrayList<Coupon> coupons);
     }
 
     public boolean isValidMobile(String mobile){
@@ -191,5 +189,11 @@ public class LoginController extends BaseController {
         public String getName(){
             return this.name;
         }
+    }
+
+
+    private ArrayList<Coupon> getCouponList(){
+        CouponController c = new CouponController(context);
+        return c.getCoupons(CouponType.CASH_DISCOUNT);
     }
 }

@@ -1,5 +1,7 @@
 package com.cloudpick.yunna.utils;
 
+import android.support.annotation.NonNull;
+
 import java.util.Map;
 
 /**
@@ -15,6 +17,15 @@ public class MapUtils {
             else return "";
         }else{
             return val.toString();
+        }
+    }
+
+    public static <T, V> boolean getAsBoolean(Map<T, V> map, T key, @NonNull boolean defaultValue){
+        try{
+            V val = map.get(key);
+            return (Boolean)val;
+        }catch (Exception ex){
+            return defaultValue;
         }
     }
 }

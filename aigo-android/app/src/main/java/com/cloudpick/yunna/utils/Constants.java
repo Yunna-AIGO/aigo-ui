@@ -38,16 +38,11 @@ public class Constants {
     public static final String KEY_NICKNAME = "nickName";
     public static final String KEY_MOBILE = "mobile";
     public static final String KEY_PIC_URL = "picUrl";
-    public static final String KEY_SIGNED = "signed";
-    public static final String KEY_AGREEMENT_STATUS = "agreementStatus";
     public static final String KEY_SIGN_REQUEST_INFO = "signRequestInfo";
     public static final String KEY_ALIPAY_RESULT_STATUS = "resultStatus";
-    public static final String KEY_ALIPAY_RESULT_RESULT = "result";
     public static final String KEY_ALIPAY_RESULT_MEMO = "memo";
-    public static final String KEY_VERSION_NO = "versionNo";
-    public static final String KEY_DOWNLOAD_URL = "downloadUrl";
-    public static final String KEY_IS_FORCE = "force";
-    public static final String KEY_OS_TYPE = "osType";
+    public static final String KEY_PUSH_TYPE = "type";
+    public static final String KEY_SUBSCRIBER_ID = "receiverId";
 
 
 
@@ -67,6 +62,8 @@ public class Constants {
     public static final String URL_FEEDBACK_INSERT = urlPrefix + "feedback/insert";
     public static final String URL_FEEDBACK_QUERY = urlPrefix + "feedback/select/%s";
     public static final String URL_APP_VERSION = urlPrefix + "app/version";
+    public static final String URL_LOGOUT = urlPrefix + "logon/out";
+    public static final String URL_SKD_INFO = urlPrefix + "logon/sdkInfo";
 
 
 }

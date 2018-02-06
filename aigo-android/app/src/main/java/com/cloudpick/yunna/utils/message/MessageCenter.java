@@ -14,14 +14,13 @@ import com.cloudpick.yunna.utils.message.push.PushPlugins;
 
 import java.lang.reflect.Constructor;
 
-import static com.cloudpick.yunna.utils.Constants.LOG_TAG;
-
 /**
  * Created by maxwell on 18-1-25.
  */
 
 public class MessageCenter {
 
+    private final static String TAG = "CloudPick";
     private volatile static MessageCenter instance = null;
 
     public static MessageCenter getInstance(){
@@ -36,7 +35,7 @@ public class MessageCenter {
     }
 
     private Context context;
-
+    private PushPlugins pushPlugins = null;
 
     private MessageCenter(){
 
@@ -45,10 +44,10 @@ public class MessageCenter {
     public void init(Context ctx){
         this.context = ctx;
         //初始化推送
-        PushPlugins pushPlugins = getPushPlugins();
+        pushPlugins = getPushPlugins();
         if(pushPlugins != null){
             pushPlugins.init();
-            Log.i(LOG_TAG, pushPlugins.toString());
+            Log.i(TAG, pushPlugins.toString());
         }
     }
 
@@ -93,6 +92,10 @@ public class MessageCenter {
         }
     }
 
+    public PushPlugins getRegistedPushPlugins(){
+        return pushPlugins;
+    }
+
 
     /**
      * 点击打开通知
@@ -106,12 +109,12 @@ public class MessageCenter {
             Intent intent = null;
             if(isAppAlive){
                 //MainActivity还存在，直接拉起跳转
-                Log.d(LOG_TAG, "the app process is alive");
+                Log.d(TAG, "the app process is alive");
                 intent = MainActivity.newIntent(context, false, appAction);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             }else{
                 //MainActivity不存在，拉起WelcomeActivity后再跳转
-                Log.d(LOG_TAG, "the app process is dead");
+                Log.d(TAG, "the app process is dead");
                 intent = WelcomeActivity.newIntent(context, appAction);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                intent.addCategory(Intent.CATEGORY_LAUNCHER);

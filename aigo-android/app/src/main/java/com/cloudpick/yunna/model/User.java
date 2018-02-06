@@ -65,6 +65,9 @@ public class User {
         userId = AppData.getAppData().getAsString(Constants.KEY_USER_ID);
         token = AppData.getAppData().getAsString(Constants.KEY_TOKEN);
         mobile = AppData.getAppData().getAsString(Constants.KEY_MOBILE);
+        if(!TextUtils.isEmpty(mobile)){
+            mobile = Tools.hidePartialPhone(mobile);
+        }
         return !TextUtils.isEmpty(userId) && !TextUtils.isEmpty(token);
     }
 
@@ -74,7 +77,7 @@ public class User {
         this.mobile = Tools.hidePartialPhone(mobile);
         AppData.getAppData().put(Constants.KEY_USER_ID, userId);
         AppData.getAppData().put(Constants.KEY_TOKEN, token, getTokenExpiredIn());
-        AppData.getAppData().put(Constants.KEY_MOBILE, this.mobile);
+        AppData.getAppData().put(Constants.KEY_MOBILE, mobile);
     }
 
     public void updateExpiredIn(){

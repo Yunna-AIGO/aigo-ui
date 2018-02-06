@@ -23,7 +23,7 @@ public class App extends Application {
         Log.d(LOG_TAG, getApplicationContext().getPackageName());
         //init notification
         NotificationHelper.getInstance().init(getApplicationContext());
-        //init message center
-        MessageCenter.getInstance().init(getApplicationContext());
+//        //init message center
+//        MessageCenter.getInstance().init(getApplicationContext());
     }
 }

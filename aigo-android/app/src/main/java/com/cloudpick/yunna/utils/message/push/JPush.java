@@ -25,7 +25,6 @@ import java.util.List;
 import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 
-import static com.cloudpick.yunna.utils.Constants.LOG_TAG;
 
 /**
  * Created by maxwell on 18-1-25.
@@ -33,6 +32,7 @@ import static com.cloudpick.yunna.utils.Constants.LOG_TAG;
 
 public class JPush extends PushPlugins {
 
+    private final static String TAG = "CloudPick";
     private final static String KEY_APP_KEY = "JPUSH_APPKEY";
 
     @Override
@@ -56,6 +56,7 @@ public class JPush extends PushPlugins {
                     String rid = JPushInterface.getRegistrationID(this);
                     if(!TextUtils.isEmpty(rid)){
                         setSubscriberId(rid);
+                        registSubscriberId();
                         break;
                     }
                     ct += 1;
@@ -169,11 +170,12 @@ public class JPush extends PushPlugins {
                 Bundle bundle = intent.getExtras();
                 String action = intent.getAction();
                 if(BuildConfig.DEBUG){
-                    Log.d(LOG_TAG, "[Receiver] onReceive - " + action + ", extras: " + printBundle(bundle));
+                    Log.d(TAG, "[Receiver] onReceive - " + action + ", extras: " + printBundle(bundle));
                 }
 
                 if (JPushInterface.ACTION_REGISTRATION_ID.equals(action)) {
                     String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
+                    Log.d(TAG, "regId - " + regId + "   from receiver");
                     //send the Registration Id to server...
                 } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(action)) {
                     //接收到推送下来的自定义消息
@@ -194,7 +196,7 @@ public class JPush extends PushPlugins {
                 } else if(JPushInterface.ACTION_CONNECTION_CHANGE.equals(action)) {
                     //boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
                 } else {
-                    Log.d(LOG_TAG, "Unhandled intent - " + action);
+                    Log.d(TAG, "Unhandled intent - " + action);
                 }
             } catch (Exception e){
 
@@ -215,7 +217,7 @@ public class JPush extends PushPlugins {
                     sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
                 } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
                     if (TextUtils.isEmpty(bundle.getString(JPushInterface.EXTRA_EXTRA))) {
-                        Log.i(LOG_TAG, "This message has no Extra data");
+                        Log.i(TAG, "This message has no Extra data");
                         continue;
                     }
 
@@ -228,7 +230,7 @@ public class JPush extends PushPlugins {
                                     myKey + " - " +json.optString(myKey) + "]");
                         }
                     } catch (JSONException e) {
-                        Log.e(LOG_TAG, "Get message extra JSON error!");
+                        Log.e(TAG, "Get message extra JSON error!");
                     }
 
                 } else {
@@ -256,7 +258,7 @@ public class JPush extends PushPlugins {
                 MessageCenter.getInstance().handleCustomMessage(title, content, action);
             } catch (Exception ex) {
                 ex.printStackTrace();
-                Log.e(LOG_TAG, "Extra JSON data structure error!");
+                Log.e(TAG, "Extra JSON data structure error!");
             }
         }
 
@@ -265,7 +267,7 @@ public class JPush extends PushPlugins {
                 String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
                 return new JSONObject(extras);
             } catch (JSONException e) {
-                Log.e(LOG_TAG, "Get message extra JSON error!");
+                Log.e(TAG, "Get message extra JSON error!");
                 return null;
             }
         }

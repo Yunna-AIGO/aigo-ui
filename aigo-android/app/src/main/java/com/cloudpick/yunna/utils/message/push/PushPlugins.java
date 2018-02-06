@@ -2,6 +2,17 @@ package com.cloudpick.yunna.utils.message.push;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.text.TextUtils;
+import android.util.Log;
+
+import com.cloudpick.yunna.model.User;
+import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.http.Callback;
+import com.cloudpick.yunna.utils.http.Requests;
+import com.cloudpick.yunna.utils.http.Response;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 推送插件基类
@@ -9,6 +20,8 @@ import android.content.ContextWrapper;
  */
 
 public abstract class PushPlugins extends ContextWrapper {
+
+    private static final String TAG = "CloudPick";
 
     private String subscriberId = "";
 
@@ -71,6 +84,29 @@ public abstract class PushPlugins extends ContextWrapper {
 
     public PushPlugins(Context context){
         super(context);
+    }
+
+    /**
+     * 向服务器注册subscriberId
+     */
+    public void registSubscriberId(){
+        if(!TextUtils.isEmpty(SubscriberId())){
+            Log.d(TAG, "regist subscriber id " + SubscriberId());
+            Map<String, String> data = new HashMap<>();
+            data.put(Constants.KEY_USER_ID, User.getUser().getUserId());
+            data.put(Constants.KEY_SUBSCRIBER_ID, SubscriberId());
+            data.put(Constants.KEY_PUSH_TYPE, getPushPluginsName().toLowerCase());
+            Requests.postAsync(Constants.URL_SKD_INFO, data,
+                    new Callback<Response<Object>>(){
+                        @Override
+                        public void error(Exception e){
+                            e.printStackTrace();
+                        }
+                        @Override
+                        public void ok(Response<Object> r){
+                        }
+                    });
+        }
     }
 
 

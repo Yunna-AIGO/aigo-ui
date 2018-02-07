@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -21,10 +22,12 @@ import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.OrderListController;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.ui.adapter.CommonRecyclerViewAdapter;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.dialog.PayTypeSelectDialog;
 import com.cloudpick.yunna.ui.main.MainActivityFragment;
 import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.Tools;
+import com.cloudpick.yunna.utils.enums.PayType;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -34,7 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OrdersFragment extends MainActivityFragment {
-
+    private static final String TAG = "CloudPick";
     private OrderListController controller = null;
 
     @BindView(R.id.rv_order_list)
@@ -149,27 +152,13 @@ public class OrdersFragment extends MainActivityFragment {
         }).start();
     }
 
-    private void payOrder(Order order){
-        PayTypeSelectDialog dlg = new PayTypeSelectDialog(getContext(), order, (payType) -> {
-            controller.payOrder(order, payType, getActivity(), new OrderListController.PayAction() {
-                @Override
-                public void terminate(String msg){
-                    Tools.ToastMessage(getContext(), msg);
-                }
-                @Override
-                public void failure(String msg) {
-                    refreshOrders(null);
-                    Tools.ToastMessage(getContext(), msg);
-                }
-                @Override
-                public void ok() {
-                    refreshOrders(null);
-//                    order.setStatus(OrderStatus.SUCCESS.getCode());
-//                    adapter.notifyDataSetChanged();
-                }
-            });
-        });
-
+    /**
+     * 选择支付方式
+     * @param order
+     */
+    private void selectPayType(Order order){
+        PayTypeSelectDialog dlg = new PayTypeSelectDialog(getContext(), order,
+                (payType) -> payOrder(order, payType));
         try{
             Window win = dlg.getWindow();
             win.getAttributes().gravity = Gravity.BOTTOM;
@@ -177,8 +166,27 @@ public class OrdersFragment extends MainActivityFragment {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        dlg.setOwnerActivity(getHostActivity());
         dlg.show();
     }
+
+    private void payOrder(Order order, PayType payType){
+        Log.d(TAG, "pay with " + payType.getName());
+        getHostActivity().runActivityTask("", "", new BaseActivity.ActivityTaskAction() {
+            @Override
+            public Object execTask() {
+                controller.payOrder(order, payType, getActivity(), ()->{
+                    refreshOrders(null);
+                });
+                return null;
+            }
+            @Override
+            public void complete(Object param) { }
+        });
+    }
+
+
+    //渲染订单列表中的每一项
 
     private void renderOrder(Order o, View v){
         ((ImageView)v.findViewById(R.id.img_store)).setImageResource(R.drawable.store);
@@ -210,7 +218,7 @@ public class OrdersFragment extends MainActivityFragment {
             btn.setTextColor(getResources().getColor(R.color.colorDefault));
             btn.setText(R.string.message_goto_pay_order);
             btn.setOnClickListener((view)->{
-                payOrder(o);
+                selectPayType(o);
             });
         }else{
             btn.setEnabled(false);

@@ -2,18 +2,20 @@ package com.cloudpick.yunna.controller;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.text.TextUtils;
 
 import com.alipay.sdk.app.PayTask;
 import com.cloudpick.yunna.model.Coupon;
 import com.cloudpick.yunna.model.Order;
+import com.cloudpick.yunna.model.TradeInfo;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.utils.Constants;
+import com.cloudpick.yunna.utils.MapUtils;
 import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.WXApi;
-import com.cloudpick.yunna.utils.enums.AlipayResultStatus;
 import com.cloudpick.yunna.utils.enums.PayType;
+import com.cloudpick.yunna.utils.enums.TransStatus;
 import com.cloudpick.yunna.utils.http.Callback;
 import com.cloudpick.yunna.utils.http.Requests;
 import com.cloudpick.yunna.utils.http.Response;
@@ -32,7 +34,7 @@ import java.util.Map;
  */
 
 public class OrderListController extends BaseController {
-
+    private static final String TAG = "CloudPick";
     private boolean isPageEnd = false;
     private int pageNum = 0;
 
@@ -114,133 +116,105 @@ public class OrderListController extends BaseController {
     }
 
     private void payByAlipay(Order order, Activity activity, PayAction action){
-        if(payHandling){
-            handler.post(()->{
-                action.terminate(context.getString(R.string.message_in_process));
-            });
-            return;
-        }
         if(!Tools.isAppInstalled(context, Constants.PACKAGE_NAME_ALIPAY)){
-            handler.post(()->{
-                action.terminate(context.getString(R.string.message_pay_client_not_installed, PayType.ALIPAY.getName()));
-            });
+            showMessage(context.getString(R.string.message_pay_client_not_installed, PayType.ALIPAY.getName()));
             return;
         }
-        payHandling = true;
-        Map<String, String> data = new HashMap<>();
-        data.put("userId", User.getUser().getUserId());
-        data.put("orderId", order.getOrderId());
-        data.put("payType", PayType.ALIPAY.getCode());
-        Requests.postAsync(Constants.URL_TRADE_PAY, data, new Callback<Response<TradeInfo>>() {
-            @Override
-            public void error(Exception e) {
-                payHandling = false;
-                System.out.println(e.getMessage());
-                action.terminate(context.getString(R.string.network_error));
+        try{
+            Map<String, String> data = getRequestData(order.getOrderId(), PayType.ALIPAY.getCode());
+            Type objectType = new TypeToken<Response<TradeInfo>>(){}.getType();
+            Response<TradeInfo> resp = Requests.post(Constants.URL_TRADE_PAY, data, objectType);
+            if(!resp.isSuccess()){
+                showMessage(resp.getMessage());
+                return;
             }
-
-            @Override
-            public void ok(Response<TradeInfo> r) {
-                payHandling = false;
-                if(r.isSuccess()){
-                    new Thread(()->{
-                        PayTask alipay = new PayTask(activity);
-                        Map<String, String> rslt = alipay.payV2(r.getData().getOrderInfo(), true);
-                        handler.post(()->{
-                            if(rslt.get(Constants.KEY_ALIPAY_RESULT_STATUS).equals(
-                                    AlipayResultStatus.SUCCEEDED.getCode())){
-                                action.ok();
-                            }else{
-                                action.failure(rslt.get(Constants.KEY_ALIPAY_RESULT_MEMO));
-                            }
-                        });
-                    }).start();
-                }else{
-                    handler.post(()->{
-                        action.terminate(r.getMessage());
-                    });
-                }
-            }
-        });
+            PayTask alipay = new PayTask(activity);
+            Map<String, String> rslt = alipay.payV2(resp.getData().getOrderInfo(), true);
+            handler.post(()-> action.finish());
+            //支付宝返回后，开启一个任务循环查询订单状态
+            queryOrderStatus(resp.getData().getTransId(), 1, action);
+        }
+        catch (IOException ioex){
+            ioex.printStackTrace();
+            showMessage(context.getString(R.string.network_error));
+        }catch (Exception ex){
+            ex.printStackTrace();
+            showMessage(context.getString(R.string.message_pay_fail));
+        }
     }
 
     private void payByWechat(Order order, PayAction action){
-        //TODO 微信支付基本完成。在返回app时的逻辑需要优化
-        if(payHandling){
-            handler.post(()->{
-                action.terminate(context.getString(R.string.message_in_process));
-            });
-            return;
-        }
         if(!WXApi.getInstance(context).isAppInstalled()){
-            handler.post(()->{
-                action.terminate(context.getString(R.string.message_pay_client_not_installed, PayType.WECHAT_PAY.getName()));
-            });
+            showMessage(context.getString(R.string.message_pay_client_not_installed, PayType.WECHAT_PAY.getName()));
             return;
         }
-        payHandling = true;
+        try{
+            Map<String, String> data = getRequestData(order.getOrderId(), PayType.WECHAT_PAY.getCode());
+            Type objectType = new TypeToken<Response<TradeInfo>>(){}.getType();
+            Response<TradeInfo> resp = Requests.post(Constants.URL_TRADE_PAY, data, objectType);
+            if(!resp.isSuccess()){
+                showMessage(resp.getMessage());
+                return;
+            }
+            WXPayEntryActivity.wxPayResp = (errCode)->{
+                //返回后，开启一个任务循环查询订单状态
+                handler.post(() -> action.finish());
+                queryOrderStatus(resp.getData().getTransId(), 1, action);
+            };
+            WXApi.getInstance(context).pay(resp.getData());
+        }catch (IOException ioex){
+            ioex.printStackTrace();
+            showMessage(context.getString(R.string.network_error));
+        }catch (Exception ex){
+            ex.printStackTrace();
+            showMessage(context.getString(R.string.message_pay_fail));
+        }
+    }
+
+    /**
+     * 根据times延迟查询订单信息 times分别未1，2，4，8秒
+     * @param tradeId
+     * @param times
+     */
+    private void queryOrderStatus(String tradeId, int times, PayAction action){
+        Tools.Sleep(times * 1000);
+        String url = String.format(Constants.TRADE_INFO, tradeId);
+        Requests.getAsync(url, null,
+                new Callback<Response<Map<String, String>>>() {
+                    @Override
+                    public void error(Exception e) {
+                        e.printStackTrace();
+                        if(times < 8){
+                            queryOrderStatus(tradeId, times * 2, action);
+                        }
+                    }
+                    @Override
+                    public void ok(Response<Map<String, String>> r) {
+                        if(r.isSuccess()){
+                            String status = MapUtils.getAsString(r.getData(), Constants.KEY_TRADE_STATUS, "");
+                            if(!TextUtils.isEmpty(status)){
+                                showMessage(TransStatus.isSuccess(status)?
+                                        R.string.message_pay_success:R.string.message_pay_fail);
+                                handler.post(()->action.finish());
+                                return;
+                            }
+                        }
+                        if(times < 8){
+                            queryOrderStatus(tradeId, times * 2, action);
+                        }
+                    }
+                });
+    }
+
+    private Map<String, String> getRequestData(String orderId, String payType){
         Map<String, String> data = new HashMap<>();
-        data.put("userId", User.getUser().getUserId());
-        data.put("orderId", order.getOrderId());
-        data.put("payType", PayType.WECHAT_PAY.getCode());
-        Requests.postAsync(Constants.URL_TRADE_PAY, data, new Callback<Response<WXApi.TradeInfo>>() {
-            @Override
-            public void error(Exception e) {
-                payHandling = false;
-                System.out.println(e.getMessage());
-                action.terminate(context.getString(R.string.network_error));
-            }
-
-            @Override
-            public void ok(Response<WXApi.TradeInfo> r) {
-                payHandling = false;
-                if(r.isSuccess()){
-                    new Thread(()->{
-                        //set response
-                        WXPayEntryActivity.wxPayResp = (errCode)->{
-                            handler.post(()->{
-                                action.ok();
-                            });
-                        };
-                        WXApi.getInstance(context).pay(r.getData());
-                    }).start();
-                }else{
-                    handler.post(()->{
-                        action.terminate(r.getMessage());
-                    });
-                }
-            }
-        });
-
+        data.put(Constants.KEY_USER_ID, User.getUser().getUserId());
+        data.put(Constants.KEY_ORDER_ID, orderId);
+        data.put(Constants.KEY_PAY_TYPE, payType);
+        return data;
     }
 
     public interface PayAction{
-        void terminate(String msg);//终止操作;场景：后台未生成交易单号就退出交易
-        void failure(String msg);
-        void ok();
+        void finish();
     }
-
-
-    public class TradeInfo{
-        private String orderInfo;
-        private String orderId;
-        private String transId;
-
-        public String getOrderInfo() {
-            return orderInfo;
-        }
-
-        public String getOrderId() {
-            return orderId;
-        }
-
-        public String getTransId() {
-            return transId;
-        }
-
-        public TradeInfo(){
-        }
-    }
-
-
 }

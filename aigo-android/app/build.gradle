@@ -22,8 +22,8 @@ android {
         applicationId "com.cloudpick.yunna"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.2.5"
+        versionCode 3
+        versionName "1.2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -62,10 +62,11 @@ android {
             resValue("string", "app_name", "云拿-真机开发")
             resValue("string", "push_plugins_key", "")
             signingConfig signingConfigs.release_config
+            debuggable true
         }
         releaseTest.initWith(buildTypes.release)
         releaseTest {
-            applicationIdSuffix '.test'
+            //applicationIdSuffix '.test'
             buildConfigField("int", "APP_ENV", "1")
             buildConfigField("String", "BASE_URL", "\"http://10.10.10.130:8080/cloudpick/rest/api/v1/\"")
             buildConfigField("boolean", "SHOW_PUSH_LOG", "true")

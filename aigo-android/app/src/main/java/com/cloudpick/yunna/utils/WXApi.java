@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.util.Log;
 
+import com.cloudpick.yunna.model.TradeInfo;
 import com.tencent.mm.opensdk.modelbiz.OpenWebview;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -59,12 +60,12 @@ public class WXApi extends ContextWrapper {
     public boolean pay(TradeInfo tradeInfo){
         PayReq request = new PayReq();
         request.appId = appId;
-        request.partnerId = tradeInfo.partnerId;
-        request.prepayId= tradeInfo.prepayId;
-        request.packageValue = tradeInfo.wxPackage;
-        request.nonceStr= tradeInfo.noncestr;
-        request.timeStamp= tradeInfo.timestamp;
-        request.sign= tradeInfo.sign;
+        request.partnerId = tradeInfo.getPartnerId();
+        request.prepayId= tradeInfo.getPrepayId();
+        request.packageValue = tradeInfo.getWxPackage();
+        request.nonceStr= tradeInfo.getNoncestr();
+        request.timeStamp= tradeInfo.getTimestamp();
+        request.sign= tradeInfo.getSign();
         return api.sendReq(request);
     }
 
@@ -78,23 +79,6 @@ public class WXApi extends ContextWrapper {
 
     public IWXAPI getApi(){
         return api;
-    }
-
-
-    public class TradeInfo{
-
-
-        private String appId;
-        private String noncestr;
-        private String partnerId;
-        private String prepayId;
-        private String sign;
-        private String timestamp;
-        private String transId;
-        private String wxPackage;
-
-        public TradeInfo(){
-        }
     }
 
 }

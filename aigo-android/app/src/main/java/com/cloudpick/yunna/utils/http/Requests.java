@@ -1,7 +1,6 @@
 package com.cloudpick.yunna.utils.http;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.Constants;
@@ -87,6 +86,19 @@ public class Requests {
         if(response.isSuccessful()){
             String json = response.body().string();
             return new Gson().fromJson(json, clazz);
+        }else{
+            throw new IOException("request failed, code:" + response.code());
+        }
+    }
+
+    public static <T> T post(String url, Map<?, ?> data, Type type) throws IOException{
+        //TODO 将获取类型封装到内部
+        RequestBody body = RequestBody.create(JSON, new Gson().toJson(data));
+        Request request = handleCustomHanders(new Request.Builder().url(url).post(body), getCustomeHeaders()).build();
+        okhttp3.Response response = newClient().newCall(request).execute();
+        if(response.isSuccessful()){
+            String json = response.body().string();
+            return new Gson().fromJson(json, type);
         }else{
             throw new IOException("request failed, code:" + response.code());
         }

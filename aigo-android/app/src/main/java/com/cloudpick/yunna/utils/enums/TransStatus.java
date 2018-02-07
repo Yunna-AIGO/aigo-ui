@@ -7,14 +7,14 @@ import java.util.ArrayList;
  */
 
 public enum TransStatus {
-    INIT("INIT", "init"),
-    PENDING_PAYMENT("PENDING_PAYMENT", "pending_payment"),
-    PROCESSING("PROCESSING", "processing"),
-    SUCCEEDED("SUCCEEDED", "succeeded"),
-    FAILED("FAILED", "failed"),
-    TIMEOUT("TIMEOUT", "timeout"),
-    PAY_CANCEL("PAY_CANCEL", "pay_cancel"),
-    CLOSED("CLOSED", "closed");
+    INIT("00","待支付"),
+    PENDING_PAYMENT("01","支付进行中"), //已经发送第三方支付
+    PROCESSING("02","交易处理中"),//查询第三方支付交易状态为处理中
+    SUCCEEDED("04","支付成功"),
+    FAILED("05","交易失败"), //明确支付失败
+    TIMEOUT("08"," 交易过期"), //过了一段时间没有支付会过期
+    PAY_CANCEL("09","交易取消"),//第三方不存在该笔交易
+    CLOSED("10","交易关闭");//第三方交易超时未支付或关闭
 
     private final String code;
     private final String name;
@@ -32,6 +32,29 @@ public enum TransStatus {
         return name;
     }
 
+    public static TransStatus codeOf(String code) throws Exception{
+        switch (code){
+            case "00":
+                return INIT;
+            case "01":
+                return PENDING_PAYMENT;
+            case "02":
+                return PROCESSING;
+            case "04":
+                return SUCCEEDED;
+            case "05":
+                return FAILED;
+            case "08":
+                return TIMEOUT;
+            case "09":
+                return PAY_CANCEL;
+            case "10":
+                return CLOSED;
+            default:
+                throw new Exception(String.format("code %s is not convert to TransStatus", code));
+        }
+    }
+
     public static boolean isPending(String code){
         return pendingList.contains(code);
     }
@@ -44,25 +67,18 @@ public enum TransStatus {
         return failedList.contains(code);
     }
 
+    private static ArrayList<String> pendingList = new ArrayList<String>();
+    private static ArrayList<String> successList = new ArrayList<String>();
+    private static ArrayList<String> failedList = new ArrayList<String>();
+    static {
+        pendingList.add("01");
+        pendingList.add("02");
 
-    private static ArrayList<String> pendingList = new ArrayList<String>(){
-        {
-            pendingList.add("INIT");
-            pendingList.add("PENDING_PAYMENT");
-            pendingList.add("PROCESSING");
-        }
-    };
-    private static ArrayList<String> successList = new ArrayList<String>(){
-        {
-            successList.add("SUCCEEDED");
-        }
-    };
-    private static ArrayList<String> failedList = new ArrayList<String>(){
-        {
-            failedList.add("FAILED");
-            failedList.add("TIMEOUT");
-            failedList.add("PAY_CANCEL");
-            failedList.add("CLOSED");
-        }
-    };
+        successList.add("04");
+
+        failedList.add("05");
+        failedList.add("08");
+        failedList.add("09");
+        failedList.add("10");
+    }
 }

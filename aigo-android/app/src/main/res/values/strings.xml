@@ -52,7 +52,6 @@
     <string name="tv_price_unit">元</string>
     <string name="tv_pay_by_alipay_title">支付宝支付</string>
     <string name="tv_pay_by_weixin_title">微信支付</string>
-    <string name="message_pay_failed">支付失败</string>
     <string name="message_goto_pay_order">去支付</string>
     <string name="message_in_payment">支付中</string>
     <string name="tv_goods_count">共%d件商品</string>
@@ -116,9 +115,9 @@
     <string name="message_third_type_sign_failure">%s支付开通失败</string>
     <string name="message_third_type_unsign_alert">确定关闭%s支付？</string>
     <string name="message_pay_client_not_installed">请先安装%s～</string>
-    <string name="message_wechat_pay_result_success">支付成功</string>
-    <string name="message_wechat_pay_result_cancel">支付已取消</string>
-    <string name="message_wechat_pay_result_fail">支付失败</string>
+    <string name="message_pay_success">支付成功</string>
+    <string name="message_pay_cancel">支付已取消</string>
+    <string name="message_pay_fail">支付失败</string>
     <string name="message_switch_to_order_page">正在跳转至订单页...</string>
 
     <!--coupon-->

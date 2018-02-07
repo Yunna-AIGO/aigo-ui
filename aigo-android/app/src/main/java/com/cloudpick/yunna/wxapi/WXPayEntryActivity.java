@@ -58,13 +58,13 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             int result = resp.errCode;
             if(result == WXApi.PAY_RESULT_SUCCESSED){
                 img_pay_result.setImageResource(R.drawable.pay_success);
-                tv_pay_result.setText(R.string.message_wechat_pay_result_success);
+                tv_pay_result.setText(R.string.message_pay_success);
             }else{
                 img_pay_result.setImageResource(R.drawable.pay_fail);
                 if(result == WXApi.PAY_RESULT_CANCELED){
-                    tv_pay_result.setText(R.string.message_wechat_pay_result_cancel);
+                    tv_pay_result.setText(R.string.message_pay_cancel);
                 }else{
-                    tv_pay_result.setText(R.string.message_wechat_pay_result_fail);
+                    tv_pay_result.setText(R.string.message_pay_fail);
                 }
             }
 

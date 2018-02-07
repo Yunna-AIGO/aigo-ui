@@ -33,7 +33,9 @@ public class Constants {
     public static final String KEY_CAPTCHA_URL = "captchaUrl";
     public static final String KEY_HAS_COUPON = "coupon";
     public static final String KEY_COUPON_TYPE = "couponType";
-
+    public static final String KEY_ORDER_ID = "orderId";
+    public static final String KEY_PAY_TYPE = "payType";
+    public static final String KEY_TRADE_STATUS = "transStatus";
     public static final String KEY_ENTRY_URL = "entryUrl";
     public static final String KEY_NICKNAME = "nickName";
     public static final String KEY_MOBILE = "mobile";
@@ -64,6 +66,7 @@ public class Constants {
     public static final String URL_APP_VERSION = urlPrefix + "app/version";
     public static final String URL_LOGOUT = urlPrefix + "logon/out";
     public static final String URL_SKD_INFO = urlPrefix + "logon/sdkInfo";
+    public static final String TRADE_INFO = urlPrefix + "trade/%s/info";
 
 
 }

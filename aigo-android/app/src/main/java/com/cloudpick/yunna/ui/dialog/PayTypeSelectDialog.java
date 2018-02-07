@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.cloudpick.yunna.model.Order;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.ui.adapter.CommonRecyclerViewAdapter;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.enums.PayType;
 
@@ -26,6 +27,8 @@ import butterknife.ButterKnife;
  */
 
 public class PayTypeSelectDialog extends AlertDialog implements View.OnClickListener {
+    private static final String TAG = "CloudPick";
+
 
     @BindView(R.id.btn_ok)
     Button btn_ok;
@@ -36,15 +39,15 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
 
     private CommonRecyclerViewAdapter<PayTypeInfo> adapter = null;
     private Order order;
-    private OnClickOk onClickOk;
+    private PayOrder payOrder;
 
     private Context context;
 
-    public PayTypeSelectDialog(Context context, Order order, OnClickOk onClickOk){
+    public PayTypeSelectDialog(Context context, Order order, PayOrder payOrder){
         super(context);
         this.context = context;
         this.order = order;
-        this.onClickOk = onClickOk;
+        this.payOrder = payOrder;
     }
 
     @Override
@@ -104,14 +107,10 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_ok:
-                for (PayTypeInfo payType : adapter.getDataSource()) {
-                    if(payType.isSelected()){
-                        if(onClickOk != null){
-                            onClickOk.ok(payType.getPayType());
-                        }
-                        break;
-                    }
-                }
+                PayType payType = getSelectedPayType();
+                ((BaseActivity)getOwnerActivity()).getHandler().post(()->{
+                    payOrder.pay(payType);
+                });
                 this.dismiss();
                 break;
             default:
@@ -119,8 +118,18 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
         }
     }
 
-    public interface OnClickOk{
-        void ok(PayType payType);
+    private PayType getSelectedPayType(){
+        for(PayTypeInfo pi : adapter.getDataSource()){
+            if(pi.isSelected()){
+                return pi.getPayType();
+            }
+        }
+        return PayType.ALIPAY;
+    }
+
+
+    public interface PayOrder{
+        void pay(PayType payType);
     }
 
     public class PayTypeInfo{

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -18,17 +17,16 @@ import android.widget.TextView;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.OrderAppealController;
 import com.cloudpick.yunna.model.Order;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;
 import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.Tools;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class OrderAppealActivity extends AppCompatActivity {
+public class OrderAppealActivity extends BaseActivity {
 
     private static final String ORDER_OBJECT_KEY = "com.cloudpick.yunna.ui.orderObjectKey";
     private static final String COMMIT_RESULT_KEY = "com.cloudpick.yunna.ui.appealResultKey";
@@ -47,9 +45,12 @@ public class OrderAppealActivity extends AppCompatActivity {
     Button btn_commit_appeal;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_appeal);
+    protected int getContentViewId(){
+        return R.layout.activity_order_appeal;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState){
         order = getIntent().getParcelableExtra(ORDER_OBJECT_KEY);
         controller = new OrderAppealController(OrderAppealActivity.this);
         ButterKnife.bind(this);

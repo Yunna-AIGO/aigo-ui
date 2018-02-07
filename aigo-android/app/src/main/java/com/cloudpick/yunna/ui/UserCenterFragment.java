@@ -2,7 +2,6 @@ package com.cloudpick.yunna.ui;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,9 +14,6 @@ import com.cloudpick.yunna.controller.UserCenterController;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.main.MainActivityFragment;
 import com.cloudpick.yunna.utils.ShapeUtil;
-import com.cloudpick.yunna.utils.Tools;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +26,7 @@ import butterknife.OnClick;
 
 public class UserCenterFragment extends MainActivityFragment {
 
+    private static final String TAG = "CloudPick";
     private UserCenterController controller = null;
 
     @BindView(R.id.ll_user_center)

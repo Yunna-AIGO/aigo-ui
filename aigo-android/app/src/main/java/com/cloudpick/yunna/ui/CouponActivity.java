@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
@@ -15,6 +14,7 @@ import android.widget.FrameLayout;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.CouponController;
 import com.cloudpick.yunna.ui.adapter.CouponFragmentAdapter;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CouponActivity extends AppCompatActivity {
+public class CouponActivity extends BaseActivity {
 
     public static final String ARG_OBJECT = "object";
     public static final String COUPON_CONTROLLER = "CouponController";
@@ -37,12 +37,14 @@ public class CouponActivity extends AppCompatActivity {
 //    TabLayout tabLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coupon);
+    protected int getContentViewId(){
+        return R.layout.activity_coupon;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState){
         controller = new CouponController(CouponActivity.this);
         ButterKnife.bind(this);
-
         initComponent();
     }
 

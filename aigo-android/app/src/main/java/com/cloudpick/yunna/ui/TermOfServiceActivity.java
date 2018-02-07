@@ -9,12 +9,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.cloudpick.yunna.R;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TermOfServiceActivity extends AppCompatActivity {
+public class TermOfServiceActivity extends BaseActivity {
 
     @BindView(R.id.tb_term_of_service)
     Toolbar toolbar;
@@ -22,9 +23,12 @@ public class TermOfServiceActivity extends AppCompatActivity {
     WebView webView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_term_of_service);
+    protected int getContentViewId(){
+        return R.layout.activity_term_of_service;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState){
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);

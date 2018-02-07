@@ -2,9 +2,7 @@ package com.cloudpick.yunna.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -14,6 +12,7 @@ import android.widget.EditText;
 
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.controller.SettingController;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.utils.ShapeUtil;
 import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.enums.FeedbackType;
@@ -22,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateFeedbackActivity extends AppCompatActivity {
+public class CreateFeedbackActivity extends BaseActivity {
 
     private SettingController controller = null;
     private FeedbackType feedbackType = FeedbackType.ADVICE;
@@ -42,12 +41,13 @@ public class CreateFeedbackActivity extends AppCompatActivity {
     @BindView(R.id.btn_commit_feedback)
     Button btn_commit_feedback;
 
-
+    @Override
+    protected int getContentViewId(){
+        return R.layout.activity_create_feedback;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_feedback);
+    protected void initView(Bundle savedInstanceState){
         controller = new SettingController(CreateFeedbackActivity.this);
         ButterKnife.bind(this);
         initComponent();

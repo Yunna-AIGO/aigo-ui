@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.model.Feedback;
 import com.cloudpick.yunna.model.Goods;
+import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.ui.fragment.GoodsListFragment;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AppealFeedbackDetailActivity extends AppCompatActivity {
+public class AppealFeedbackDetailActivity extends BaseActivity {
 
     private static final String FEEDBACK_OBJECT_KEY = "com.cloudpick.yunna.ui.feedbackObjectKey";
     private static final String GOODS_LIST_KEY = "com.cloudpick.yunna.ui.goodsListKey";
@@ -38,15 +38,17 @@ public class AppealFeedbackDetailActivity extends AppCompatActivity {
     TextView tv_handle_result;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appeal_feedback_detail);
+    protected int getContentViewId(){
+        return R.layout.activity_appeal_feedback_detail;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState){
         Intent data = getIntent();
         feedback = data.getParcelableExtra(FEEDBACK_OBJECT_KEY);
         goodsList = data.getParcelableArrayListExtra(GOODS_LIST_KEY);
         ButterKnife.bind(this);
         initComponent();
-
     }
 
     private void initComponent(){

@@ -11,7 +11,6 @@ import com.cloudpick.yunna.ui.MainActivity;
 import com.cloudpick.yunna.ui.WelcomeActivity;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.NotificationHelper;
-import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.enums.AppActionTypes;
 import com.cloudpick.yunna.utils.http.Callback;
 import com.cloudpick.yunna.utils.http.Requests;

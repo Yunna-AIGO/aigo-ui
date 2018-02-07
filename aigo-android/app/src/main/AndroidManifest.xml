@@ -7,8 +7,8 @@
     <permission
         android:name="${applicationId}.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-
     <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE" />
+
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -21,6 +21,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:allowBackup="true"
@@ -111,6 +114,7 @@
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="@string/push_plugins_key" /> <!--  </>值来自开发者平台取得的AppKey-->
 
+        <meta-data android:name="PGYER_APPID"  android:value="@string/pgyer_app_id" />
 
         <activity
             android:name=".ui.WelcomeActivity">
@@ -128,15 +132,13 @@
             android:label="@string/title_login"/>
         <activity
             android:name=".ui.TermOfServiceActivity"
-            android:label="@string/title_term_of_service"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_term_of_service"/>
         <activity
             android:name=".ui.OrderDetailActivity"
             android:label="@string/title_order_detail"/>
         <activity
             android:name=".ui.SettingActivity"
-            android:label="@string/title_setting"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_setting"/>
         <activity
             android:name=".ui.settings.payment.PaymentActivity"
             android:label="@string/title_payment"
@@ -154,24 +156,20 @@
         </activity>
         <activity
             android:name=".ui.CouponActivity"
-            android:label="@string/title_coupon"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_coupon"/>
         <activity
             android:name=".ui.GuideActivity"
             android:label="@string/tv_guide_title"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.OrderAppealActivity"
-            android:label="@string/title_order_appeal"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_order_appeal"/>
         <activity
             android:name=".ui.AppealFeedbackDetailActivity"
-            android:label="@string/title_feedback_handle_result"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_feedback_handle_result"/>
         <activity
             android:name=".ui.CreateFeedbackActivity"
-            android:label="@string/title_feedback"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_feedback"/>
 
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -179,6 +177,8 @@
             android:launchMode="singleTop"
             android:configChanges="keyboardHidden|orientation"><!--设置为 singleTop -->
         </activity>
+        <!-- Optional -->
+        <activity android:name="com.pgyersdk.activity.FeedbackActivity"/>
     </application>
 
 </manifest>

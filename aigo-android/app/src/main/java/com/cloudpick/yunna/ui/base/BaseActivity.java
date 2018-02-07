@@ -10,14 +10,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 
 import com.cloudpick.yunna.ui.dialog.LoadingDialog;
 import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.message.MessageCenter;
+import com.pgyersdk.activity.FeedbackActivity;
+import com.pgyersdk.feedback.PgyFeedback;
+import com.pgyersdk.feedback.PgyFeedbackShakeManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by maxwell on 18-1-15.
@@ -207,6 +208,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         MessageCenter.getInstance().registSubscriberId();
+        // custom sensitivity, defaults to 950, the smaller the number higher sensitivity.
+        PgyFeedbackShakeManager.setShakingThreshold(1000);
+        // Open as a dialog
+        PgyFeedbackShakeManager.register(this);
+        // Open as an Activity, in the case you must configure FeedbackActivity in the file of AndroidManifest.xml
+        PgyFeedbackShakeManager.register(this, false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PgyFeedbackShakeManager.unregister();
     }
 
 //    /**

@@ -10,7 +10,6 @@ import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.base.BaseActivity;
 import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.message.AppAction;
-import com.cloudpick.yunna.utils.message.MessageCenter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -33,9 +32,6 @@ public class WelcomeActivity extends BaseActivity {
                 .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);
-        //init message center
-        MessageCenter.getInstance().init(getApplicationContext());
-
         Intent intent = getIntent();
         if(intent != null){
             appAction = intent.getParcelableExtra(MainActivity.APP_ACTION_KEY);

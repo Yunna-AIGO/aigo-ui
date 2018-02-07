@@ -102,6 +102,12 @@ public class User {
         AppData.getAppData().remove(Constants.KEY_USER_ID);
         AppData.getAppData().remove(Constants.KEY_TOKEN);
         AppData.getAppData().remove(Constants.KEY_MOBILE);
+
+        userId = "";
+        mobile = "";
+        nickName = "";
+        token = "";
+        picUrl = "";
     }
 
     public void setUserInfo(String nickName, String mobile, String picUrl){

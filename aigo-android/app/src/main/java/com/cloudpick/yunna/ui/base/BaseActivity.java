@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 
 import com.cloudpick.yunna.ui.dialog.LoadingDialog;
 import com.cloudpick.yunna.utils.Tools;
+import com.cloudpick.yunna.utils.message.MessageCenter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
@@ -200,6 +201,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .replace(containerViewId, fragment, fragmentTag)
                 .addToBackStack(backStackStateName)
                 .commit();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        MessageCenter.getInstance().registSubscriberId();
     }
 
 //    /**

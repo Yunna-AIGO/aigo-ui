@@ -38,8 +38,6 @@ public class MainActivity extends BaseActivity {
     private MainActivityFragment orderFragment = null;
     private MainActivityFragment userCenterFragment = null;
 
-    private boolean isViewResReady = false;
-
     @Override
     protected int getContentViewId(){
         return R.layout.activity_main;
@@ -78,7 +76,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void afterViewCreated(Bundle savedInstanceState){
-        isViewResReady = true;
         isAlive = true;
     }
 
@@ -175,9 +172,6 @@ public class MainActivity extends BaseActivity {
         }else{
             tran.show(frag);
         }
-//        if(isViewResReady){
-//            frag.setFragmentVisible(true);
-//        }
         tran.commit();
         currentNavigationItemId = id;
     }

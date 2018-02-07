@@ -27,9 +27,9 @@ public class Requests {
 
     private static final String TAG = "CloudPick";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private static final int ConnectionTimeout = 3 * 1000;
-    private static final int ReadTimeout = 3 * 1000;
-    private static final int WriteTimeout = 3 * 1000;
+    private static final int ConnectionTimeout = 5 * 1000;
+    private static final int ReadTimeout = 5 * 1000;
+    private static final int WriteTimeout = 5 * 1000;
 
 
     public Requests(){

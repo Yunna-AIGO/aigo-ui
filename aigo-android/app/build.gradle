@@ -39,6 +39,7 @@ android {
             buildConfigField("String", "PUSH_PLUGINS", "\"JPUSH\"")
             resValue("string", "app_name", "云拿")
             resValue("string", "push_plugins_key", "d4155acbf753f2408c1ef323")
+            resValue("string", "pgyer_app_id", "5e220f3240674379ae72dc3b58058fd9")
             debuggable false
         }
         debug {
@@ -50,6 +51,7 @@ android {
             buildConfigField("String", "PUSH_PLUGINS", "\"MOCK_PUSH\"")
             resValue("string", "app_name", "云拿-开发")
             resValue("string", "push_plugins_key", "")
+            resValue("string", "pgyer_app_id", "1b1e875ea42124b82781109c6a5a26ac")
         }
         //真机调试
         debugMobile {
@@ -61,12 +63,13 @@ android {
             buildConfigField("String", "PUSH_PLUGINS", "\"MOCK_PUSH\"")
             resValue("string", "app_name", "云拿-真机开发")
             resValue("string", "push_plugins_key", "")
+            resValue("string", "pgyer_app_id", "1b1e875ea42124b82781109c6a5a26ac")
             signingConfig signingConfigs.release_config
             debuggable true
         }
         releaseTest.initWith(buildTypes.release)
         releaseTest {
-            //applicationIdSuffix '.test'
+            applicationIdSuffix '.test'
             buildConfigField("int", "APP_ENV", "1")
             buildConfigField("String", "BASE_URL", "\"http://10.10.10.130:8080/cloudpick/rest/api/v1/\"")
             buildConfigField("boolean", "SHOW_PUSH_LOG", "true")
@@ -74,6 +77,7 @@ android {
             buildConfigField("String", "PUSH_PLUGINS", "\"JPUSH\"")
             resValue("string", "app_name", "云拿-测试")
             resValue("string", "push_plugins_key", "44ae7471cb831bb5c0362d27")
+            resValue("string", "pgyer_app_id", "1b1e875ea42124b82781109c6a5a26ac")
             debuggable true
         }
     }

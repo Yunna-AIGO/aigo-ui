@@ -2,17 +2,26 @@ package com.cloudpick.yunna.utils.message;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.cloudpick.yunna.BuildConfig;
+import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.MainActivity;
 import com.cloudpick.yunna.ui.WelcomeActivity;
+import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.NotificationHelper;
+import com.cloudpick.yunna.utils.Tools;
 import com.cloudpick.yunna.utils.enums.AppActionTypes;
+import com.cloudpick.yunna.utils.http.Callback;
+import com.cloudpick.yunna.utils.http.Requests;
+import com.cloudpick.yunna.utils.http.Response;
 import com.cloudpick.yunna.utils.message.push.JPush;
 import com.cloudpick.yunna.utils.message.push.PushPlugins;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by maxwell on 18-1-25.
@@ -36,6 +45,7 @@ public class MessageCenter {
 
     private Context context;
     private PushPlugins pushPlugins = null;
+    private boolean registed = false;
 
     private MessageCenter(){
 
@@ -92,17 +102,69 @@ public class MessageCenter {
         }
     }
 
-    public PushPlugins getRegistedPushPlugins(){
-        return pushPlugins;
+
+    /**
+     * 向服务器注册subscriberId
+     */
+    public void registSubscriberId(){
+        if(registed){
+            Log.d(TAG, "already registed!");
+            return;
+        }
+        try{
+            String userId = User.getUser().getUserId();
+            String subscriberId = pushPlugins != null? pushPlugins.SubscriberId():"";
+            if(!TextUtils.isEmpty(userId) && !TextUtils.isEmpty(subscriberId)){
+                Log.d(TAG, "regist subscriber id " + subscriberId + " to server");
+                Map<String, String> data = new HashMap<>();
+                data.put(Constants.KEY_USER_ID, userId);
+                data.put(Constants.KEY_SUBSCRIBER_ID, subscriberId);
+                data.put(Constants.KEY_PUSH_TYPE, pushPlugins.getPushPluginsName().toLowerCase());
+                Requests.postAsync(Constants.URL_SKD_INFO, data,
+                        new Callback<Response<Object>>(){
+                            @Override
+                            public void error(Exception e){
+                                e.printStackTrace();
+                            }
+                            @Override
+                            public void ok(Response<Object> r){
+                                registed = true;
+                            }
+                        });
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
+    public void unregistSubscriberId(){
+        registed = false;
+        if(pushPlugins != null && !TextUtils.isEmpty(pushPlugins.SubscriberId())){
+            Log.d(TAG, "unregist subscriber id from server");
+            Map<String, String> data = new HashMap<>();
+            data.put(Constants.KEY_MOBILE, User.getUser().getMobile());
+            data.put(Constants.KEY_SUBSCRIBER_ID, pushPlugins.SubscriberId());
+            data.put(Constants.KEY_PUSH_TYPE, pushPlugins.getPushPluginsName().toLowerCase());
+            data.put(Constants.KEY_TOKEN, User.getUser().getToken());
+            Requests.postAsync(Constants.URL_LOGOUT, data,
+                    new Callback<Response<Object>>(){
+                        @Override
+                        public void error(Exception e){
+                            e.printStackTrace();
+                        }
+                        @Override
+                        public void ok(Response<Object> r){ }
+                    });
+        }
+    }
+
+    //推送相关
 
     /**
      * 点击打开通知
      * @param action
      * @param isAppAlive
      */
-    //推送相关
     public void handleNotificationOpened(String action, boolean isAppAlive){
         try{
             AppAction appAction = new AppAction(AppActionTypes.valueOf(action.toUpperCase()));

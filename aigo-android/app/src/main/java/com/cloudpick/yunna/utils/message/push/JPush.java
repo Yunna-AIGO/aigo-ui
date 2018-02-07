@@ -56,7 +56,6 @@ public class JPush extends PushPlugins {
                     String rid = JPushInterface.getRegistrationID(this);
                     if(!TextUtils.isEmpty(rid)){
                         setSubscriberId(rid);
-                        registSubscriberId();
                         break;
                     }
                     ct += 1;

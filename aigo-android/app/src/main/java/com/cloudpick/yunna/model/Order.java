@@ -159,6 +159,21 @@ public class Order extends BaseModel implements Parcelable{
         return OrderStatus.valueOf(status.toUpperCase()).getName();
     }
 
+    public String getUnpaidAmt(boolean includeCurrencyTag){
+        try{
+            if(unPaidAmt == 0){
+                return "";
+            }
+            String ret = String.format("%.2f", unPaidAmt);
+            if(includeCurrencyTag){
+                ret = "¥" + ret;
+            }
+            return ret;
+        }catch (Exception ex){
+            return "";
+        }
+    }
+
     private Double getCouponAmount(){
         Double couponAmount = 0d;
         try{

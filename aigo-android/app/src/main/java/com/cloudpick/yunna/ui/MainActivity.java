@@ -21,9 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.cloudpick.yunna.utils.Constants.LOG_TAG;
-
 public class MainActivity extends BaseActivity {
+    private static final String TAG = "CloudPick";
     public static final String APP_ACTION_KEY = "com.cloudpick.yunna.ui.appAction";
     public static boolean isAlive = false;
 
@@ -45,7 +44,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected Fragment getCurrentFragment(){
-        return getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        for(Fragment frag :getSupportFragmentManager().getFragments()){
+            if(frag.isVisible()){
+                return frag;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -97,23 +101,23 @@ public class MainActivity extends BaseActivity {
             action = intent.getParcelableExtra(APP_ACTION_KEY);
         }
         if(action != null){
-            Log.d(LOG_TAG, "action is " + action.getAppActionTypes().getName());
+            Log.d(TAG, "action is " + action.getAppActionTypes().getName());
             switch(action.getAppActionTypes()){
                 case APP_ACTION_ORDERLIST:
-                    Log.d(LOG_TAG, "switch to order");
+                    Log.d(TAG, "switch to order");
                     switchTo(MainFragment.ORDER);
                     return;
                 case APP_ACTION_COUPONLIST:
-                    Log.d(LOG_TAG, "switch to qrcode");
+                    Log.d(TAG, "switch to qrcode");
                     switchTo(MainFragment.QRCODE);
-                    Log.d(LOG_TAG, "start coupon list");
+                    Log.d(TAG, "start coupon list");
                     startActivity(CouponActivity.newIntent(MainActivity.this));
                     return;
             }
         }else{
-            Log.d(LOG_TAG, "action is null");
+            Log.d(TAG, "action is null");
         }
-        Log.d(LOG_TAG, "switch to qrcode");
+        Log.d(TAG, "switch to qrcode");
         switchTo(MainFragment.QRCODE);
     }
 
@@ -162,7 +166,7 @@ public class MainActivity extends BaseActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tran = fm.beginTransaction();
         for(Fragment f: fm.getFragments()){
-            if(f instanceof MainActivityFragment){
+            if(f instanceof MainActivityFragment && !((MainActivityFragment)f).getTitle().equals(frag.getTitle())){
                 ((MainActivityFragment)f).setFragmentVisible(false);
             }
             tran.hide(f);

@@ -41,10 +41,9 @@ public class Constants {
     public static final String KEY_MOBILE = "mobile";
     public static final String KEY_PIC_URL = "picUrl";
     public static final String KEY_SIGN_REQUEST_INFO = "signRequestInfo";
-    public static final String KEY_ALIPAY_RESULT_STATUS = "resultStatus";
-    public static final String KEY_ALIPAY_RESULT_MEMO = "memo";
     public static final String KEY_PUSH_TYPE = "type";
     public static final String KEY_SUBSCRIBER_ID = "receiverId";
+    public static final String KEY_SUBSCRIBER_ID_REGIST_STATUS = "subscriberIdRegisted";
 
 
 

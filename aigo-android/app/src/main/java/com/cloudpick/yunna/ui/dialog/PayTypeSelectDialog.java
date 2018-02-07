@@ -61,7 +61,7 @@ public class PayTypeSelectDialog extends AlertDialog implements View.OnClickList
     private void initDialog(){
         setCanceledOnTouchOutside(true);
         btn_ok.setOnClickListener(this);
-        tv_order_amount.setText(order.getDiscountPrice(false));
+        tv_order_amount.setText(order.getUnpaidAmt(false));
         ShapeUtil.DefaultButtonShape(true).render(btn_ok);
 
         ArrayList<PayTypeInfo> payTypes = getPayTypes();

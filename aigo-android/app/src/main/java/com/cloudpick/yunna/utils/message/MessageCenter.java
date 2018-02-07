@@ -9,6 +9,7 @@ import com.cloudpick.yunna.BuildConfig;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.MainActivity;
 import com.cloudpick.yunna.ui.WelcomeActivity;
+import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.Constants;
 import com.cloudpick.yunna.utils.NotificationHelper;
 import com.cloudpick.yunna.utils.enums.AppActionTypes;
@@ -52,6 +53,7 @@ public class MessageCenter {
 
     public void init(Context ctx){
         this.context = ctx;
+        registed = getSubscriberIdRegistStatus();
         //初始化推送
         pushPlugins = getPushPlugins();
         if(pushPlugins != null){
@@ -101,6 +103,18 @@ public class MessageCenter {
         }
     }
 
+    /**
+     * 从本地获取向服务器注册SubscriberId的结果
+     * @return
+     */
+    private boolean getSubscriberIdRegistStatus(){
+        return AppData.getAppData().getAsBoolean(Constants.KEY_SUBSCRIBER_ID_REGIST_STATUS);
+    }
+
+    private void setSubscriberIdRegistStatus(boolean value){
+        registed = value;
+        AppData.getAppData().put(Constants.KEY_SUBSCRIBER_ID_REGIST_STATUS, registed);
+    }
 
     /**
      * 向服务器注册subscriberId
@@ -127,7 +141,7 @@ public class MessageCenter {
                             }
                             @Override
                             public void ok(Response<Object> r){
-                                registed = true;
+                                setSubscriberIdRegistStatus(true);
                             }
                         });
             }
@@ -137,7 +151,7 @@ public class MessageCenter {
     }
 
     public void unregistSubscriberId(){
-        registed = false;
+        setSubscriberIdRegistStatus(false);
         if(pushPlugins != null && !TextUtils.isEmpty(pushPlugins.SubscriberId())){
             Log.d(TAG, "unregist subscriber id from server");
             Map<String, String> data = new HashMap<>();

@@ -8,7 +8,6 @@ import android.view.WindowManager;
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.model.User;
 import com.cloudpick.yunna.ui.base.BaseActivity;
-import com.cloudpick.yunna.utils.AppData;
 import com.cloudpick.yunna.utils.message.AppAction;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -24,8 +23,6 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState){
-        //init app data
-        AppData.getAppData().init(getApplicationContext());
         //init imageLoader
         ImageLoaderConfiguration config = new ImageLoaderConfiguration
                 .Builder(getApplicationContext())

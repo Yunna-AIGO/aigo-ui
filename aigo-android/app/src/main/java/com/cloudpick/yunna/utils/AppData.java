@@ -48,6 +48,20 @@ public class AppData {
     }
 
     /**
+     * 读取 boolean数据
+     * @param key
+     * @return boolean 数据
+     */
+    public boolean getAsBoolean(String key){
+        String val = cache.getAsString(key);
+        try{
+            return Boolean.parseBoolean(val);
+        }catch (Exception ex){
+            return false;
+        }
+    }
+
+    /**
      * @param key
      * @param value
      * @param expiredIn
@@ -62,6 +76,14 @@ public class AppData {
      */
     public void put(String key, String value){
         cache.put(key, value);
+    }
+
+    /**
+     * @param key
+     * @param value
+     */
+    public void put(String key, boolean value){
+        cache.put(key, Boolean.toString(value));
     }
 
     /**

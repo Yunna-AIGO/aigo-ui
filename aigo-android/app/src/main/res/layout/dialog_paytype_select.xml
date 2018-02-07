@@ -68,6 +68,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_round_corner"
             android:textColor="@color/colorWhite"
+            android:textSize="18sp"
             android:text="@string/title_ok"/>
     </LinearLayout>
 

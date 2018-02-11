@@ -121,7 +121,7 @@ public class MessageCenter {
      */
     public void registSubscriberId(){
         if(registed){
-            Log.d(TAG, "already registed!");
+            Log.d(TAG, "subscriber id already registed!");
             return;
         }
         try{

@@ -134,6 +134,7 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.btn_login)
     void login(View view){
+        Tools.hideSoftInput(LoginActivity.this, view.getWindowToken());
         runActivityTask(getResources().getString(R.string.message_login), "", null);
         controller.login(et_mobile.getText().toString(), et_captcha.getText().toString(),
             new LoginController.loginAction() {

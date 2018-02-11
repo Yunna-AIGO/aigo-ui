@@ -7,15 +7,21 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.cloudpick.yunna.R;
 import com.cloudpick.yunna.ui.SettingActivity;
+
+import java.util.LinkedList;
 
 
 /**
@@ -41,6 +47,7 @@ public class NotificationHelper {
         return instance;
     }
 
+    private static final String TAG = "CloudPick";
     private final int NOTIFY_ID = 0;
 
     //android 8+使用的时NotificationChannel，通知相关操作都有所不同
@@ -183,5 +190,67 @@ public class NotificationHelper {
         boolean rslt = notificationManager.areNotificationsEnabled();
         Log.d("ssss", "notification " + (rslt? "on":"off"));
         return notificationManager.areNotificationsEnabled();
+    }
+
+
+    /**
+     * 判断是否时深色主题
+     * @return
+     */
+    public boolean isDarkNotificationTheme() {
+        return !isSimilarColor(Color.BLACK, getNotificationColor());
+    }
+
+    /**
+     * 获取通知栏颜色
+     * @return
+     */
+    public int getNotificationColor() {
+        int layoutId = 0;
+        if(useNotificationChannel){
+            layoutId = getNewNotification("", "").build().contentView.getLayoutId();
+        }else{
+            layoutId = getNotification("", "").build().contentView.getLayoutId();
+        }
+        ViewGroup viewGroup = (ViewGroup) LayoutInflater.from(context).inflate(layoutId, null, false);
+
+
+        if (viewGroup.findViewById(android.R.id.title)!=null) {
+            return ((TextView)viewGroup.findViewById(android.R.id.title)).getCurrentTextColor();
+        }
+        return findColor(viewGroup);
+    }
+
+    private int findColor(ViewGroup viewGroupSource) {
+        int color = Color.TRANSPARENT;
+        LinkedList<ViewGroup> viewGroups=new LinkedList<>();
+        viewGroups.add(viewGroupSource);
+        while (viewGroups.size()>0) {
+            ViewGroup viewGroup1=viewGroups.getFirst();
+            for (int i = 0; i < viewGroup1.getChildCount(); i++) {
+                if (viewGroup1.getChildAt(i) instanceof ViewGroup) {
+                    viewGroups.add((ViewGroup) viewGroup1.getChildAt(i));
+                }else if (viewGroup1.getChildAt(i) instanceof TextView) {
+                    if (((TextView) viewGroup1.getChildAt(i)).getCurrentTextColor()!=-1) {
+                        color=((TextView) viewGroup1.getChildAt(i)).getCurrentTextColor();
+                    }
+                }
+            }
+            viewGroups.remove(viewGroup1);
+        }
+        return color;
+    }
+
+    private boolean isSimilarColor(int baseColor, int color) {
+        int simpleBaseColor=baseColor|0xff000000;
+        int simpleColor=color|0xff000000;
+        int baseRed=Color.red(simpleBaseColor)-Color.red(simpleColor);
+        int baseGreen=Color.green(simpleBaseColor)-Color.green(simpleColor);
+        int baseBlue=Color.blue(simpleBaseColor)-Color.blue(simpleColor);
+        double value=Math.sqrt(baseRed*baseRed+baseGreen*baseGreen+baseBlue*baseBlue);
+        if (value<180.0) {
+            return true;
+        }
+        return false;
     }
 }

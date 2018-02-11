@@ -173,10 +173,14 @@ public class PaymentCard extends BaseFragment {
     }
 
     private String[] getContents(){
-        return new String[]{
+        String[] ret = new String[]{
                 getString(R.string.payment_third_type_sign, thirdType.getName()),
-                getString(R.string.payment_third_type_unsign, thirdType.getName())
+                getString(R.string.payment_third_type_signed, thirdType.getName())
         };
+        if(allowUnsign){
+            ret[1] = getString(R.string.payment_third_type_unsign, thirdType.getName());
+        }
+        return ret;
     }
 
     private void showUnsignDialog(){

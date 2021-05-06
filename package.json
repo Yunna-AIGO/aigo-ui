@@ -28,7 +28,7 @@
 		"react-native-wechat": "^1.9.9",
 		"react-navigation": "^1.0.0-beta.11",
 		"string-format": "^0.5.0",
-		"underscore": "^1.8.3"
+		"underscore": "^1.12.1"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",
